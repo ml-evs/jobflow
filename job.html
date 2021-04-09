@@ -1,0 +1,352 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API" href="activity.html" /><link rel="prev" title="Introduction" href="introduction.html" />
+
+    <meta name="generator" content="sphinx-3.2.1, furo 2021.03.20.beta30"/>
+        <title>API - Activities v</title>
+      <link rel="stylesheet" href="_static/styles/furo.css?digest=978e1795dfe158b585dda6a8417f6411828bf3ed">
+    <link rel="stylesheet" href="_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --admonition-font-size: 92%;
+  --admonition-title-font-size: 92%;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 92%;
+  --admonition-title-font-size: 92%;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --admonition-font-size: 92%;
+  --admonition-title-font-size: 92%;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 92%;
+  --admonition-title-font-size: 92%;
+  
+  }
+</style><link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" href="_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Activities v</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Activities v</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
+<p><span class="caption-text">User Interface</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="activity.html">Activity</a></li>
+</ul>
+<p><span class="caption-text">Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to activities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/hackingmaterials/activities">activities on GitHub</a></li>
+</ul>
+<p><span class="caption-text">Function Reference</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="activities.core.html">activities.core package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <section id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>The main interface for constructing jobs is the, <code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> function.</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> wraps functions for use in activities. It can be used as a decorator, or
+around function calls directly (i.e. <code class="docutils literal notranslate"><span class="pre">job(foo)(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>). Outputs from functions
+wrapped in <code class="docutils literal notranslate"><span class="pre">job</span></code> are proxy objects of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> that contain the inputs
+and function to be executed.</p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="activities.core.html#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>([method])</p></td>
+<td><p>Wraps a function to produce a <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table></div>
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">activities.core.job.</code><code class="sig-name descname">job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">job_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#job"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Wraps a function to produce a <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
+<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects are delayed function calls that can be used in an
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name, the arguments for the
+function, and the outputs of the function. This decorator makes it simple to create
+job objects directly from a function definition. See the examples for more details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – A function to wrap. This should not be specified directly and is implied
+by the decorator.</p></li>
+<li><p><strong>outputs</strong> – If the function returns an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> object, the outputs option should be
+specified to enable static parameter checking. If the function returns a
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Detour</span></code> object, then the outputs should be set os the class of the
+detour activity outputs.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">print_message</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">"I am a Job"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span> <span class="o">=</span> <span class="n">print_message</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">print_job</span><span class="p">)</span>
+<span class="go">&lt;class 'activities.core.job.Job'&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function</span>
+<span class="go">('__main__', 'print_message')</span>
+</pre></div>
+</div>
+<p>Jobs can have required and optional parameters.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">print_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span> <span class="o">=</span> <span class="n">print_sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span><span class="o">.</span><span class="n">function_args</span>
+<span class="go">(1, )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span><span class="o">.</span><span class="n">function_kwargs</span>
+<span class="go">{"b": 2}</span>
+</pre></div>
+</div>
+<p>If the function returns a value it can be referenced using the <code class="docutils literal notranslate"><span class="pre">output</span></code>
+attribute of the job.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">output</span>
+<span class="go">Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9')</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the task has not yet been run, the output value is <code class="xref py py-obj docutils literal notranslate"><span class="pre">Reference</span></code>
+object. References are automatically converted to their computed values
+(resolved) when the task runs.</p>
+</div>
+<p>If a dictionary of values is returned, the values can be referenced in the usual
+manner</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span><span class="s2">"sum"</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"product"</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">}</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compute_task</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compute_task</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"sum"</span><span class="p">]</span>
+<span class="go">Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'sum')</span>
+</pre></div>
+</div>
+<p>A better approach is to use <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> classes. These have several benefits
+including the ability to make use of static parameter checking to ensure that
+the task outputs are valid. To use an outputs class, it should be specified
+in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">task</span></code> decorator options.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">number</span>
+<span class="go">Number(number=Reference(abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'number'))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">bad_output</span>
+<span class="go">AttributeError: 'Number' object has no attribute 'bad_output'</span>
+</pre></div>
+</div>
+<p>To indicate that a task has no outputs, the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> parameter should be set to
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">print_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tasks can return <code class="xref py py-obj docutils literal notranslate"><span class="pre">Detour</span></code> objects that cause new activities to be added to the
+Activity graph. In this case, the outputs class of the Detour activity should be
+specified in the task <code class="docutils literal notranslate"><span class="pre">outputs</span></code> option.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">detour_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="s2">"My detour"</span><span class="p">,</span> <span class="p">[</span><span class="n">add_task</span><span class="p">],</span> <span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">Detour</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-func docutils literal notranslate"><span class="pre">Job()</span></code></a>, <code class="xref py py-func docutils literal notranslate"><span class="pre">Activity()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">Outputs()</span></code></p>
+</div>
+</dd></dl>
+</section>
+
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="activity.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="introduction.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Introduction</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, hackingmaterials
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="_sources/job.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>
