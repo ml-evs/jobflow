@@ -136,11 +136,9 @@
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.managers.html">activities.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.utils.html">activities.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -171,7 +169,7 @@
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span><span class="p">,</span> <span class="n">jsanitize</span>
 
 <span class="kn">from</span> <span class="nn">activities.core.reference</span> <span class="kn">import</span> <span class="n">Reference</span><span class="p">,</span> <span class="n">ReferenceFallback</span>
-<span class="kn">from</span> <span class="nn">activities.core.util</span> <span class="kn">import</span> <span class="n">suuid</span>
+<span class="kn">from</span> <span class="nn">activities.utils.uuid</span> <span class="kn">import</span> <span class="n">suuid</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
@@ -434,7 +432,7 @@
     <span class="n">output</span><span class="p">:</span> <span class="n">Reference</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">activities.core.util</span> <span class="kn">import</span> <span class="n">contains_activity_or_job</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.find</span> <span class="kn">import</span> <span class="n">contains_activity_or_job</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">Reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">output_schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -653,7 +651,7 @@
     <span class="p">):</span>
         <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">BuiltinFunctionType</span><span class="p">,</span> <span class="n">FunctionType</span><span class="p">,</span> <span class="n">MethodType</span>
 
-        <span class="kn">from</span> <span class="nn">activities.core.dict_mods</span> <span class="kn">import</span> <span class="n">apply_mod</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.dict_mods</span> <span class="kn">import</span> <span class="n">apply_mod</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">function_filter</span><span class="p">,</span> <span class="p">(</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">BuiltinFunctionType</span><span class="p">,</span> <span class="n">MethodType</span><span class="p">)):</span>
             <span class="n">function_filter</span> <span class="o">=</span> <span class="p">(</span><span class="n">function_filter</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">function_filter</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>

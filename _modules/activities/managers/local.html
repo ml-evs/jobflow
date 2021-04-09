@@ -136,11 +136,9 @@
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.managers.html">activities.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.utils.html">activities.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -180,7 +178,8 @@
 <span class="p">):</span>
     <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
 
-    <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span><span class="p">,</span> <span class="n">ActivityStore</span><span class="p">,</span> <span class="n">Job</span><span class="p">,</span> <span class="n">initialize_logger</span>
+    <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span><span class="p">,</span> <span class="n">ActivityStore</span><span class="p">,</span> <span class="n">Job</span>
+    <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">initialize_logger</span>
     <span class="kn">from</span> <span class="nn">activities.core.reference</span> <span class="kn">import</span> <span class="n">ReferenceFallback</span>
 
     <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

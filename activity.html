@@ -137,11 +137,9 @@
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="activities.core.html">activities.core package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="activities.core.html">activities.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activities.managers.html">activities.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activities.utils.html">activities.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -165,28 +163,20 @@
 <p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code> objects contain <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and other <code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code> objects to execute.
 Activities also contain useful functions for modifying and visualising the connectivity
 of jobs within them.</p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-</tbody>
-</table></div>
 <dl class="py class">
-<dt id="activities.core.activity.Activity">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.activity.</span></code><code class="sig-name descname"><span class="pre">Activity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Activity'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.activity.</span></code><code class="sig-name descname"><span class="pre">Activity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Activity'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
 <p>An Activity contains a collection of Jobs or other Activities to execute.</p>
-<p>The <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> object is the main tool for constructing workflows. Activities
-can either contain jobs or other activities. Like <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> objects, activities
+<p>The <a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> object is the main tool for constructing workflows. Activities
+can either contain jobs or other activities. Like <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, activities
 can also have outputs, however, these are not explicitly stored in the database.
 Instead, the outputs of an Activity act to structure the outputs of the jobs
 contained within the activity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>jobs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>, </em><em>activities.Job</em><em>]</em><em>]</em><em>, </em><em>activities.Job</em><em>, </em><a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>]</em>) – The jobs to be run as a list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> or <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> objects.</p></li>
+<li><p><strong>jobs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>, </em><em>activities.Job</em><em>]</em><em>]</em><em>, </em><em>activities.Job</em><em>, </em><a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>]</em>) – The jobs to be run as a list of <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> objects.</p></li>
 <li><p><strong>output</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – The output of the activity. These should come from the output of one or more
 of the jobs.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The activity name.</p></li>
@@ -206,7 +196,7 @@ is included in the jobs array of another activity.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Warns</dt>
-<dd class="field-odd"><p><strong>UserWarning</strong> – If a <code class="docutils literal notranslate"><span class="pre">Job</span></code> or <code class="docutils literal notranslate"><span class="pre">Activity</span></code> object is used as the Activity <code class="docutils literal notranslate"><span class="pre">output</span></code> rather
+<dd class="field-odd"><p><strong>UserWarning</strong> – If a <code class="docutils literal notranslate"><span class="pre">.Job</span></code> or <code class="docutils literal notranslate"><span class="pre">Activity</span></code> object is used as the Activity <code class="docutils literal notranslate"><span class="pre">output</span></code> rather
 than an <code class="docutils literal notranslate"><span class="pre">OutputReference</span></code>.</p>
 </dd>
 </dl>
@@ -245,8 +235,8 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </pre></div>
 </div>
 <dl class="py method">
-<dt id="activities.core.activity.Activity.job_uuids">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">job_uuids</span></code><a class="headerlink" href="#activities.core.activity.Activity.job_uuids" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">job_uuids</span></code></dt>
 <dd><p>The uuids of every job contained in the activity (including nested activities).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -258,8 +248,8 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="activities.core.activity.Activity.graph">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">graph</span></code><a class="headerlink" href="#activities.core.activity.Activity.graph" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">graph</span></code></dt>
 <dd><p>Get a graph indicating the connectivity of jobs in the activity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -271,8 +261,8 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="activities.core.activity.Activity.draw_graph">
-<code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity.draw_graph" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Draw the activity graph using matplotlib.</p>
 <p>Requires matplotlib to be installed.</p>
 <dl class="field-list simple">
@@ -285,8 +275,8 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="activities.core.activity.Activity.iteractivity">
-<code class="sig-name descname"><span class="pre">iteractivity</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.iteractivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity.iteractivity" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname"><span class="pre">iteractivity</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.iteractivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Iterate through the jobs of the activity.</p>
 <p>The jobs are yielded such that the job output references can always be
 resolved. I.e., root nodes of the activity graph are always returned first.</p>
@@ -295,14 +285,11 @@ resolved. I.e., root nodes of the activity graph are always returned first.</p>
 <dd class="field-odd"><p><em>Job, list[str]</em> – The Job and the uuids of any parent jobs (not to be confused with the host
 activity).</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Generator[Tuple[‘activities.Job’, List[<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>]], <a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a>, <a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a>]</p>
-</dd>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="activities.core.activity.Activity.update_kwargs">
-<code class="sig-name descname"><span class="pre">update_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.update_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity.update_kwargs" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname"><span class="pre">update_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.update_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Update the kwargs of all jobs in the activity .</p>
 <p>Note that updates will be applied to jobs in nested activities.</p>
 <dl class="field-list simple">
@@ -311,7 +298,7 @@ activity).</p>
 <li><p><strong>update</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
 <li><p><strong>name_filter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A filter for the job name.</p></li>
 <li><p><strong>function_filter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – Only filter matching functions.</p></li>
-<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.core.html#activities.core.dict_mods.DictMods" title="activities.core.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.utils.html#activities.utils.dict_mods.DictMods" title="activities.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
 </dd>
@@ -339,8 +326,8 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 </div>
 </dd></dl>
 <dl class="py method">
-<dt id="activities.core.activity.Activity.update_maker_kwargs">
-<code class="sig-name descname"><span class="pre">update_maker_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.update_maker_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity.update_maker_kwargs" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="sig-name descname"><span class="pre">update_maker_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity.update_maker_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Update the keyword arguments of any <a class="reference internal" href="activities.core.html#activities.core.maker.Maker" title="activities.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> objects in the jobs.</p>
 <p>Note that updates will be applied to jobs in any inner activities.</p>
 <dl class="field-list simple">
@@ -352,7 +339,7 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
 of a Maker object. See examples for more details.</p></li>
-<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.core.html#activities.core.dict_mods.DictMods" title="activities.core.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.utils.html#activities.utils.dict_mods.DictMods" title="activities.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
 </dd>

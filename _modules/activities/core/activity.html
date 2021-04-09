@@ -136,11 +136,9 @@
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.managers.html">activities.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.utils.html">activities.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -169,20 +167,10 @@
 
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
-<span class="kn">from</span> <span class="nn">activities.core.util</span> <span class="kn">import</span> <span class="n">ValueEnum</span><span class="p">,</span> <span class="n">contains_activity_or_job</span><span class="p">,</span> <span class="n">suuid</span>
+<span class="kn">from</span> <span class="nn">activities.utils</span> <span class="kn">import</span> <span class="n">suuid</span><span class="p">,</span> <span class="n">ValueEnum</span><span class="p">,</span> <span class="n">contains_activity_or_job</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-        <span class="n">Any</span><span class="p">,</span>
-        <span class="n">Callable</span><span class="p">,</span>
-        <span class="n">Dict</span><span class="p">,</span>
-        <span class="n">Generator</span><span class="p">,</span>
-        <span class="n">List</span><span class="p">,</span>
-        <span class="n">Optional</span><span class="p">,</span>
-        <span class="n">Tuple</span><span class="p">,</span>
-        <span class="n">Type</span><span class="p">,</span>
-        <span class="n">Union</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">DiGraph</span>
 
@@ -201,6 +189,7 @@
 <span class="sd">      references.</span>
 <span class="sd">    - ``LINEAR``: Run the jobs in the order they appear in the jobs array.</span>
 <span class="sd">    """</span>
+
     <span class="n">AUTO</span> <span class="o">=</span> <span class="s2">"auto"</span>
     <span class="n">LINEAR</span> <span class="o">=</span> <span class="s2">"linear"</span></div>
 
@@ -210,7 +199,7 @@
 <span class="sd">    An Activity contains a collection of Jobs or other Activities to execute.</span>
 
 <span class="sd">    The :obj:`Activity` object is the main tool for constructing workflows. Activities</span>
-<span class="sd">    can either contain jobs or other activities. Like :obj:`Job` objects, activities</span>
+<span class="sd">    can either contain jobs or other activities. Like :obj:`.Job` objects, activities</span>
 <span class="sd">    can also have outputs, however, these are not explicitly stored in the database.</span>
 <span class="sd">    Instead, the outputs of an Activity act to structure the outputs of the jobs</span>
 <span class="sd">    contained within the activity.</span>
@@ -218,7 +207,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    jobs</span>
-<span class="sd">        The jobs to be run as a list of :obj:`Job` or :obj:`Activity` objects.</span>
+<span class="sd">        The jobs to be run as a list of :obj:`.Job` or :obj:`Activity` objects.</span>
 <span class="sd">    output</span>
 <span class="sd">        The output of the activity. These should come from the output of one or more</span>
 <span class="sd">        of the jobs.</span>
@@ -246,7 +235,7 @@
 <span class="sd">    Warns</span>
 <span class="sd">    -----</span>
 <span class="sd">    UserWarning</span>
-<span class="sd">        If a ``Job`` or ``Activity`` object is used as the Activity ``output`` rather</span>
+<span class="sd">        If a ``.Job`` or ``Activity`` object is used as the Activity ``output`` rather</span>
 <span class="sd">        than an ``OutputReference``.</span>
 
 <span class="sd">    See Also</span>
@@ -414,9 +403,7 @@
 
         <span class="k">return</span> <span class="n">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Activity.iteractivity"><a class="viewcode-back" href="../../../activity.html#activities.core.activity.Activity.iteractivity">[docs]</a>    <span class="k">def</span> <span class="nf">iteractivity</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="s2">"activities.Job"</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<div class="viewcode-block" id="Activity.iteractivity"><a class="viewcode-back" href="../../../activity.html#activities.core.activity.Activity.iteractivity">[docs]</a>    <span class="k">def</span> <span class="nf">iteractivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Iterate through the jobs of the activity.</span>
 
@@ -587,7 +574,6 @@
                 <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
                 <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
             <span class="p">)</span></div></div>
-
 </pre></div>
       </article>
       <footer>

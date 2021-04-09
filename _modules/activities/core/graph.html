@@ -136,11 +136,9 @@
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.core.html">activities.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.managers.html">activities.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../activities.utils.html">activities.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -160,6 +158,9 @@
         </label>
         <h1>Source code for activities.core.graph</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Tools for constructing Job and Activity graphs."""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -170,8 +171,36 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">matplotlib</span> <span class="o">=</span> <span class="kc">None</span>
 
+<span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pydot</span> <span class="kn">import</span> <span class="n">Dot</span>
+
+    <span class="kn">import</span> <span class="nn">activities</span>
+
 
 <div class="viewcode-block" id="itergraph"><a class="viewcode-back" href="../../../activities.core.html#activities.core.graph.itergraph">[docs]</a><span class="k">def</span> <span class="nf">itergraph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Iterate through a graph using a topological sort order.</span>
+
+<span class="sd">    This means the nodes are yielded such that for every directed edge (u v)</span>
+<span class="sd">    node u comes before v in the ordering.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph</span>
+<span class="sd">        A networkx graph.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the graph contains cycles.</span>
+
+<span class="sd">    Yields</span>
+<span class="sd">    ------</span>
+<span class="sd">    str</span>
+<span class="sd">        The node uuid.</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Graph is not acyclic, cannot determine dependency order."</span><span class="p">)</span>
 
@@ -186,14 +215,27 @@
 
 
 <div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../../activities.core.html#activities.core.graph.draw_graph">[docs]</a><span class="nd">@requires</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">,</span> <span class="s2">"matplotlib must be installed to plot activity graphs."</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">layout_function</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">layout_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Draw a networkx graph.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph</span>
+<span class="sd">        A graph object.</span>
+<span class="sd">    layout_function</span>
+<span class="sd">        A networkx layout function to use as the graph layout. For example,</span>
+<span class="sd">        :obj:`.planar_layout`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.pyplot</span>
+<span class="sd">        The matplotlib pyplot object.</span>
+<span class="sd">    """</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
     <span class="k">if</span> <span class="n">layout_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">nx_pydot</span><span class="o">.</span><span class="n">graphviz_layout</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">planar_layout</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">nx_pydot</span><span class="o">.</span><span class="n">graphviz_layout</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="n">layout_function</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
 
@@ -214,17 +256,44 @@
     <span class="k">return</span> <span class="n">plt</span></div>
 
 
-<div class="viewcode-block" id="to_pydot"><a class="viewcode-back" href="../../../activities.core.html#activities.core.graph.to_pydot">[docs]</a><span class="k">def</span> <span class="nf">to_pydot</span><span class="p">(</span><span class="n">activity</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">pydot</span>
+<div class="viewcode-block" id="to_pydot"><a class="viewcode-back" href="../../../activities.core.html#activities.core.graph.to_pydot">[docs]</a><span class="k">def</span> <span class="nf">to_pydot</span><span class="p">(</span><span class="n">activity</span><span class="p">:</span> <span class="n">activities</span><span class="o">.</span><span class="n">Activity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dot</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Convert an activity to a pydot graph.</span>
 
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">"pydot must be installed to use to_pydot."</span><span class="p">)</span>
+<span class="sd">    Pydot graphs can be visualised using graphviz and support more advanced features</span>
+<span class="sd">    than networkx graphs. For example, the pydot graph also includes the activity</span>
+<span class="sd">    containers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    activity</span>
+<span class="sd">        An activity.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pydot.Dot</span>
+<span class="sd">        The pydot graph.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The pydot graph can be generated from an activity using:</span>
+
+<span class="sd">    &gt;&gt;&gt; from activities import job, Activity</span>
+<span class="sd">    &gt;&gt;&gt; @job</span>
+<span class="sd">    ... def add(a, b):</span>
+<span class="sd">    ...     return a + b</span>
+<span class="sd">    &gt;&gt;&gt; add_first = add(1, 2)</span>
+<span class="sd">    &gt;&gt;&gt; add_second = add(add_first.output, 2)</span>
+<span class="sd">    &gt;&gt;&gt; my_activity = Activity(jobs=[add_first, add_second])</span>
+<span class="sd">    &gt;&gt;&gt; graph = to_pydot(my_activity)</span>
+
+<span class="sd">    If graphviz is installed, the pydot graph can be rendered to a file using:</span>
+
+<span class="sd">    &gt;&gt;&gt; graph.write("output.png", format="png")</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span> <span class="nn">pydot</span>
 
     <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span>
-
-    <span class="c1"># pyplot import is quite heavy so do this inside the function to avoid making</span>
-    <span class="c1"># the graph module slow to load.</span>
 
     <span class="n">nx_graph</span> <span class="o">=</span> <span class="n">activity</span><span class="o">.</span><span class="n">graph</span>
     <span class="n">pydot_graph</span> <span class="o">=</span> <span class="n">pydot</span><span class="o">.</span><span class="n">Dot</span><span class="p">(</span><span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">activity</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">graph_type</span><span class="o">=</span><span class="s2">"digraph"</span><span class="p">)</span>

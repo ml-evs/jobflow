@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="activities.managers package" href="activities.managers.html" /><link rel="prev" title="activities package" href="activities.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="activities.managers" href="activities.managers.html" /><link rel="prev" title="activities" href="activities.html" />
 
     <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
-        <title>activities.core package - Activities</title>
+        <title>activities.core - Activities</title>
       <link rel="stylesheet" href="_static/styles/furo.css?digest=978e1795dfe158b585dda6a8417f6411828bf3ed">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
@@ -137,11 +137,9 @@
 <p><span class="caption-text">Function Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="activities.html">API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">activities.core package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="activities.managers.html">activities.managers package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="activities.managers.fireworks.html">activities.managers.fireworks package</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">activities.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activities.managers.html">activities.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activities.utils.html">activities.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -159,15 +157,15 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <section id="activities-core-package">
-<h1>activities.core package<a class="headerlink" href="#activities-core-package" title="Permalink to this headline">¶</a></h1>
+        <section id="activities-core">
+<h1>activities.core<a class="headerlink" href="#activities-core" title="Permalink to this headline">¶</a></h1>
 <section id="module-activities.core.activity">
-<span id="activities-core-activity-module"></span><h2>activities.core.activity module<a class="headerlink" href="#module-activities.core.activity" title="Permalink to this headline">¶</a></h2>
+<span id="activities-core-activity"></span><h2>activities.core.activity<a class="headerlink" href="#module-activities.core.activity" title="Permalink to this headline">¶</a></h2>
 <p>Define base Activity object.</p>
 <dl class="py class">
 <dt id="activities.core.activity.JobOrder">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.activity.</span></code><code class="sig-name descname"><span class="pre">JobOrder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#JobOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.JobOrder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#activities.core.util.ValueEnum" title="activities.core.util.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">activities.core.util.ValueEnum</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="activities.utils.html#activities.utils.enum.ValueEnum" title="activities.utils.enum.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">activities.utils.enum.ValueEnum</span></code></a></p>
 <p>Options to control the order of job execution.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">AUTO</span></code>: Automatically determine the job order based on input and output
@@ -188,15 +186,15 @@ references.</p></li>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.activity.</span></code><code class="sig-name descname"><span class="pre">Activity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Activity'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
 <p>An Activity contains a collection of Jobs or other Activities to execute.</p>
-<p>The <a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> object is the main tool for constructing workflows. Activities
-can either contain jobs or other activities. Like <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> objects, activities
+<p>The <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> object is the main tool for constructing workflows. Activities
+can either contain jobs or other activities. Like <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, activities
 can also have outputs, however, these are not explicitly stored in the database.
 Instead, the outputs of an Activity act to structure the outputs of the jobs
 contained within the activity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>jobs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>, </em><em>activities.Job</em><em>]</em><em>]</em><em>, </em><em>activities.Job</em><em>, </em><a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>]</em>) – The jobs to be run as a list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> or <a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> objects.</p></li>
+<li><p><strong>jobs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>, </em><em>activities.Job</em><em>]</em><em>]</em><em>, </em><em>activities.Job</em><em>, </em><a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><em>Activity</em></a><em>]</em>) – The jobs to be run as a list of <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> objects.</p></li>
 <li><p><strong>output</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – The output of the activity. These should come from the output of one or more
 of the jobs.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The activity name.</p></li>
@@ -216,7 +214,7 @@ is included in the jobs array of another activity.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Warns</dt>
-<dd class="field-odd"><p><strong>UserWarning</strong> – If a <code class="docutils literal notranslate"><span class="pre">Job</span></code> or <code class="docutils literal notranslate"><span class="pre">Activity</span></code> object is used as the Activity <code class="docutils literal notranslate"><span class="pre">output</span></code> rather
+<dd class="field-odd"><p><strong>UserWarning</strong> – If a <code class="docutils literal notranslate"><span class="pre">.Job</span></code> or <code class="docutils literal notranslate"><span class="pre">Activity</span></code> object is used as the Activity <code class="docutils literal notranslate"><span class="pre">output</span></code> rather
 than an <code class="docutils literal notranslate"><span class="pre">OutputReference</span></code>.</p>
 </dd>
 </dl>
@@ -305,9 +303,6 @@ resolved. I.e., root nodes of the activity graph are always returned first.</p>
 <dd class="field-odd"><p><em>Job, list[str]</em> – The Job and the uuids of any parent jobs (not to be confused with the host
 activity).</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Generator[Tuple[‘activities.Job’, List[<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>]], <a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a>, <a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a>]</p>
-</dd>
 </dl>
 </dd></dl>
 <dl class="py method">
@@ -321,7 +316,7 @@ activity).</p>
 <li><p><strong>update</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
 <li><p><strong>name_filter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A filter for the job name.</p></li>
 <li><p><strong>function_filter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – Only filter matching functions.</p></li>
-<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="#activities.core.dict_mods.DictMods" title="activities.core.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.utils.html#activities.utils.dict_mods.DictMods" title="activities.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
 </dd>
@@ -362,7 +357,7 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
 of a Maker object. See examples for more details.</p></li>
-<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="#activities.core.dict_mods.DictMods" title="activities.core.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.utils.html#activities.utils.dict_mods.DictMods" title="activities.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
 </dd>
@@ -428,83 +423,85 @@ Maker:</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-activities.core.dict_mods">
-<span id="activities-core-dict-mods-module"></span><h2>activities.core.dict_mods module<a class="headerlink" href="#module-activities.core.dict_mods" title="Permalink to this headline">¶</a></h2>
-<p>This module allows you to modify a dict (a spec) using another dict (an instruction).
-The main method of interest is <a class="reference internal" href="#activities.core.dict_mods.apply_mod" title="activities.core.dict_mods.apply_mod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_mod</span></code></a>.</p>
-<p>This code is based heavily on the Ansible class of <a class="reference external" href="https://pypi.python.org/pypi/custodian">custodian</a>, but simplifies it considerably for the
-limited use cases required by activities.</p>
-<dl class="py class">
-<dt id="activities.core.dict_mods.DictMods">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.dict_mods.</span></code><code class="sig-name descname"><span class="pre">DictMods</span></code><a class="reference internal" href="_modules/activities/core/dict_mods.html#DictMods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.dict_mods.DictMods" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Class to define mongo-like modifications on a dict.</p>
-<p>Supported keywords include the following Mongo-based keywords, with the usual
-meanings (refer to Mongo documentation for information):</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">_inc</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_set</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_unset</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_push</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_push_all</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_add_to_set</span></code> (but <code class="docutils literal notranslate"><span class="pre">_each</span></code> is not supported)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_pop</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_pull</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_pull_all</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_rename</span></code></p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">_set</span></code> does not support modification of nested dicts using the mongo
-<code class="docutils literal notranslate"><span class="pre">{"a.b":1}</span></code> notation. This is because mongo does not allow keys with “.” to be
-inserted. Instead, nested dict modification is supported using a special “-&gt;”
-keyword, e.g. <code class="docutils literal notranslate"><span class="pre">{"a-&gt;b":</span> <span class="pre">1}</span></code></p>
-</div>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.dict_mods.apply_mod">
-<code class="sig-prename descclassname"><span class="pre">activities.core.dict_mods.</span></code><code class="sig-name descname"><span class="pre">apply_mod</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/dict_mods.html#apply_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.dict_mods.apply_mod" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply a dict mod to an object.</p>
-<p>Note that modify makes actual in-place modifications. It does not return a copy.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>modification</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Modification must be <code class="docutils literal notranslate"><span class="pre">{action_keyword</span> <span class="pre">:</span> <span class="pre">settings}</span></code>, where action_keyword is a
-supported DictMod.</p></li>
-<li><p><strong>obj</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict to be modified.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-</section>
 <section id="module-activities.core.graph">
-<span id="activities-core-graph-module"></span><h2>activities.core.graph module<a class="headerlink" href="#module-activities.core.graph" title="Permalink to this headline">¶</a></h2>
+<span id="activities-core-graph"></span><h2>activities.core.graph<a class="headerlink" href="#module-activities.core.graph" title="Permalink to this headline">¶</a></h2>
 <p>Tools for constructing Job and Activity graphs.</p>
 <dl class="py function">
 <dt id="activities.core.graph.itergraph">
 <code class="sig-prename descclassname"><span class="pre">activities.core.graph.</span></code><code class="sig-name descname"><span class="pre">itergraph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/graph.html#itergraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.graph.itergraph" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Iterate through a graph using a topological sort order.</p>
+<p>This means the nodes are yielded such that for every directed edge (u v)
+node u comes before v in the ordering.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – </p>
+<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A networkx graph.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
+</dd>
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><p><em>str</em> – The node uuid.</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py function">
 <dt id="activities.core.graph.draw_graph">
 <code class="sig-prename descclassname"><span class="pre">activities.core.graph.</span></code><code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/graph.html#draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.graph.draw_graph" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Draw a networkx graph.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A graph object.</p></li>
+<li><p><strong>layout_function</strong> (<em>Callable</em>) – A networkx layout function to use as the graph layout. For example,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The matplotlib pyplot object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py function">
 <dt id="activities.core.graph.to_pydot">
 <code class="sig-prename descclassname"><span class="pre">activities.core.graph.</span></code><code class="sig-name descname"><span class="pre">to_pydot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/graph.html#to_pydot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.graph.to_pydot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Convert an activity to a pydot graph.</p>
+<p>Pydot graphs can be visualised using graphviz and support more advanced features
+than networkx graphs. For example, the pydot graph also includes the activity
+containers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>activity</strong> (<em>activities.Activity</em>) – An activity.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pydot graph.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pydot.Dot</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The pydot graph can be generated from an activity using:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Activity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_first</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_second</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">add_first</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">add_first</span><span class="p">,</span> <span class="n">add_second</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">to_pydot</span><span class="p">(</span><span class="n">my_activity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If graphviz is installed, the pydot graph can be rendered to a file using:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"output.png"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"png"</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 </section>
 <section id="module-activities.core.job">
-<span id="activities-core-job-module"></span><h2>activities.core.job module<a class="headerlink" href="#module-activities.core.job" title="Permalink to this headline">¶</a></h2>
+<span id="activities-core-job"></span><h2>activities.core.job<a class="headerlink" href="#module-activities.core.job" title="Permalink to this headline">¶</a></h2>
 <p>This module defines functions and classes for representing Job objects.</p>
 <dl class="py function">
 <dt id="activities.core.job.job">
@@ -618,14 +615,14 @@ specified in the task <code class="docutils literal notranslate"><span class="pr
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code></p>
+<p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code></p>
 </div>
 </dd></dl>
 <dl class="py class">
 <dt id="activities.core.job.Job">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">Job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">function_source</span></em>, <em class="sig-param"><span class="pre">function_name</span></em>, <em class="sig-param"><span class="pre">function_args=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">function_kwargs=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">output_schema=None</span></em>, <em class="sig-param"><span class="pre">uuid=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">index=1</span></em>, <em class="sig-param"><span class="pre">name=None</span></em>, <em class="sig-param"><span class="pre">data=False</span></em>, <em class="sig-param"><span class="pre">metadata=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
-<p>A <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>.</p>
+<p>A <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
 the <a class="reference internal" href="#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a> decorator on a function. Any calls to a decorated function will
 return an <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> object.</p>
@@ -863,7 +860,7 @@ options.</p>
 </dd></dl>
 </section>
 <section id="module-activities.core.maker">
-<span id="activities-core-maker-module"></span><h2>activities.core.maker module<a class="headerlink" href="#module-activities.core.maker" title="Permalink to this headline">¶</a></h2>
+<span id="activities-core-maker"></span><h2>activities.core.maker<a class="headerlink" href="#module-activities.core.maker" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="activities.core.maker.Maker">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.maker.</span></code><code class="sig-name descname"><span class="pre">Maker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'Maker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
@@ -907,11 +904,11 @@ options.</p>
 </dd></dl>
 </section>
 <section id="module-activities.core.reference">
-<span id="activities-core-reference-module"></span><h2>activities.core.reference module<a class="headerlink" href="#module-activities.core.reference" title="Permalink to this headline">¶</a></h2>
+<span id="activities-core-reference"></span><h2>activities.core.reference<a class="headerlink" href="#module-activities.core.reference" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="activities.core.reference.ReferenceFallback">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.reference.</span></code><code class="sig-name descname"><span class="pre">ReferenceFallback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/reference.html#ReferenceFallback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.reference.ReferenceFallback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#activities.core.util.ValueEnum" title="activities.core.util.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">activities.core.util.ValueEnum</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="activities.utils.html#activities.utils.enum.ValueEnum" title="activities.utils.enum.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">activities.utils.enum.ValueEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
 <dt id="activities.core.reference.ReferenceFallback.ERROR">
@@ -1041,160 +1038,6 @@ options.</p>
 </dl>
 </dd></dl>
 </section>
-<section id="module-activities.core.util">
-<span id="activities-core-util-module"></span><h2>activities.core.util module<a class="headerlink" href="#module-activities.core.util" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="activities.core.util.ValueEnum">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">ValueEnum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#ValueEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.ValueEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
-<p>Enum that serializes to string as the value and can be compared against a string.</p>
-<dl class="py method">
-<dt id="activities.core.util.ValueEnum.as_dict">
-<code class="sig-name descname"><span class="pre">as_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#ValueEnum.as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.ValueEnum.as_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.util.find_key">
-<code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">find_key</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#find_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.find_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the route to key: value pairs in a dictionary.</p>
-<p>This function works on nested dictionaries, lists, and tuples.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<em>Union</em><em>[</em><em>Dict</em><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Any</em><em>]</em><em>]</em>) – A dict or list of dicts.</p></li>
-<li><p><strong>key</strong> (<em>Union</em><em>[</em><em>Hashable</em><em>, </em><em>Type</em><em>[</em><em>monty.json.MSONable</em><em>]</em><em>]</em>) – A dictionary key or MSONable class to locate.</p></li>
-<li><p><strong>include_end</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to include the key in the route. This has no effect if the key is an
-MSONable class.</p></li>
-<li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to return nested keys or stop at the first match.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>A list of routes to where the matches were found.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>   <span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
-<span class="gp">... </span>   <span class="s2">"c"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"d"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
-<span class="gp">... </span><span class="p">}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">)</span>
-<span class="go">[['a', 1], ['c', 'd']]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">include_end</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">[['a', 1, 'x'], ['c', 'd', 'x']]</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">nested</span></code> argument can be used to control the behaviour of nested keys.
-&gt;&gt;&gt; data = {“a”: {“x”: {“x”: 1}}, “b”: {“x”: 0}}
-&gt;&gt;&gt; find_key(data, “x”, nested=False)
-[[‘a’], [‘b’]]
-&gt;&gt;&gt; find_key(data, “x”, nested=True)
-[[‘a’], [‘a’, ‘x’], [‘b’]]</p>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.util.find_key_value">
-<code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">find_key_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#find_key_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.find_key_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the route to key: value pairs in a dictionary.</p>
-<p>This function works on nested dictionaries, lists, and tuples.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<em>Union</em><em>[</em><em>Dict</em><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Any</em><em>]</em><em>]</em>) – A dict or list of dicts.</p></li>
-<li><p><strong>key</strong> (<em>Hashable</em>) – A dictionary key.</p></li>
-<li><p><strong>value</strong> (<em>Hashable</em>) – A value.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>A tuple of routes to where the matches were found.</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>   <span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
-<span class="gp">... </span>   <span class="s2">"c"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"d"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
-<span class="gp">... </span><span class="p">}</span>
-<span class="gp">... </span><span class="n">find_key_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="go">(('a', 1), ('c', 'd'))</span>
-</pre></div>
-</div>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.util.update_in_dictionary">
-<code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">update_in_dictionary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#update_in_dictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.update_in_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update a dictionary (in place) at specific locations with a new values.</p>
-<p>This function works on nested dictionaries and those containing lists or tuples.</p>
-<p>For example:</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-d = {</p>
-<blockquote>
-<div><p>“a”: [0, {“b”: 1, “x”: 2}],
-“c”: {</p>
-<blockquote>
-<div><p>“d”: {“x”: 3}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}
-update_in_dictionary(d, {(‘a’, 1, ‘x’): 100, (‘c’, ‘d’, ‘x’): 100})</p>
-<p># d = {
-#     “a”: [0, {“b”: 1, “x”: 100}],
-#     “c”: {
-#         “d”: {“x”: 100}
-#     }
-# }
-<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<em>Dict</em><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – A dictionary to update.</p></li>
-<li><p><strong>updates</strong> (<em>Dict</em><em>[</em><em>Tuple</em><em>, </em><em>Any</em><em>]</em>) – The updates to perform, as a dictionary of {location: update}.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.util.initialize_logger">
-<code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">initialize_logger</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#initialize_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.initialize_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize the default logger.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The log level.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>A logging instance with customized formatter and handlers.</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.util.contains_activity_or_job">
-<code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">contains_activity_or_job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#contains_activity_or_job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.contains_activity_or_job" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>arg</strong> (<em>Any</em>) – </p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.util.suuid">
-<code class="sig-prename descclassname"><span class="pre">activities.core.util.</span></code><code class="sig-name descname"><span class="pre">suuid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/util.html#suuid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.util.suuid" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-</section>
 </section>
 
       </article>
@@ -1206,7 +1049,7 @@ update_in_dictionary(d, {(‘a’, 1, ‘x’): 100, (‘c’, ‘d’, ‘x’)
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">activities.managers package</div>
+                <div class="title">activities.managers</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -1217,7 +1060,7 @@ update_in_dictionary(d, {(‘a’, 1, ‘x’): 100, (‘c’, ‘d’, ‘x’)
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">activities package</div>
+                <div class="title">activities</div>
                 
               </div>
             </a>
@@ -1246,14 +1089,12 @@ update_in_dictionary(d, {(‘a’, 1, ‘x’): 100, (‘c’, ‘d’, ‘x’)
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">activities.core package</a><ul>
-<li><a class="reference internal" href="#module-activities.core.activity">activities.core.activity module</a></li>
-<li><a class="reference internal" href="#module-activities.core.dict_mods">activities.core.dict_mods module</a></li>
-<li><a class="reference internal" href="#module-activities.core.graph">activities.core.graph module</a></li>
-<li><a class="reference internal" href="#module-activities.core.job">activities.core.job module</a></li>
-<li><a class="reference internal" href="#module-activities.core.maker">activities.core.maker module</a></li>
-<li><a class="reference internal" href="#module-activities.core.reference">activities.core.reference module</a></li>
-<li><a class="reference internal" href="#module-activities.core.util">activities.core.util module</a></li>
+<li><a class="reference internal" href="#">activities.core</a><ul>
+<li><a class="reference internal" href="#module-activities.core.activity">activities.core.activity</a></li>
+<li><a class="reference internal" href="#module-activities.core.graph">activities.core.graph</a></li>
+<li><a class="reference internal" href="#module-activities.core.job">activities.core.job</a></li>
+<li><a class="reference internal" href="#module-activities.core.maker">activities.core.maker</a></li>
+<li><a class="reference internal" href="#module-activities.core.reference">activities.core.reference</a></li>
 </ul>
 </li>
 </ul>
