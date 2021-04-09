@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API" href="activity.html" /><link rel="prev" title="Introduction" href="introduction.html" />
 
-    <meta name="generator" content="sphinx-3.2.1, furo 2021.03.20.beta30"/>
-        <title>API - Activities v</title>
+    <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
+        <title>API - Activities</title>
       <link rel="stylesheet" href="_static/styles/furo.css?digest=978e1795dfe158b585dda6a8417f6411828bf3ed">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
@@ -96,7 +96,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Activities v</div></a>
+      <a href="index.html"><div class="brand">Activities</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -110,7 +110,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Activities v</span>
+  <span class="sidebar-brand-text">Activities</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -166,20 +166,9 @@
 around function calls directly (i.e. <code class="docutils literal notranslate"><span class="pre">job(foo)(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>). Outputs from functions
 wrapped in <code class="docutils literal notranslate"><span class="pre">job</span></code> are proxy objects of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> that contain the inputs
 and function to be executed.</p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="activities.core.html#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>([method])</p></td>
-<td><p>Wraps a function to produce a <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p></td>
-</tr>
-</tbody>
-</table></div>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">activities.core.job.</code><code class="sig-name descname">job</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">job_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#job"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#job"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Wraps a function to produce a <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
 <p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects are delayed function calls that can be used in an
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name, the arguments for the
@@ -289,7 +278,7 @@ specified in the task <code class="docutils literal notranslate"><span class="pr
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-func docutils literal notranslate"><span class="pre">Job()</span></code></a>, <code class="xref py py-func docutils literal notranslate"><span class="pre">Activity()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">Outputs()</span></code></p>
+<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="activity.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code></p>
 </div>
 </dd></dl>
 </section>
@@ -323,11 +312,6 @@ specified in the task <code class="docutils literal notranslate"><span class="pr
         <div class="related-information">
               Copyright &#169; 2021, hackingmaterials
             |
-            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
-              and
-              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            |
             <a class="muted-link" href="_sources/job.rst.txt"
                rel="nofollow">
               Show Source
@@ -347,6 +331,5 @@ specified in the task <code class="docutils literal notranslate"><span class="pr
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
 </html>
