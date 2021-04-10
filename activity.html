@@ -32,6 +32,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
     }
   }
@@ -54,6 +59,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
 </style><link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -397,7 +407,8 @@ for a Maker that produces a job that restarts.</p>
 <span class="gp">... </span>        <span class="n">restart_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">restart</span><span class="o">=</span><span class="n">restart_job</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span> <span class="o">=</span> <span class="n">RestartMaker</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">activity</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_job</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">([</span><span class="n">my_job</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The following update will apply to the nested <code class="docutils literal notranslate"><span class="pre">AddMaker</span></code> in the kwargs of the

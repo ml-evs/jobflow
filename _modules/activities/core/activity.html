@@ -31,6 +31,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
     }
   }
@@ -53,6 +58,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
 </style><link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -562,7 +572,8 @@
 <span class="sd">        ...         restart_job = self.add_maker.make(a)</span>
 <span class="sd">        ...         return Response(restart=restart_job)</span>
 <span class="sd">        &gt;&gt;&gt; maker = RestartMaker()</span>
-<span class="sd">        &gt;&gt;&gt; activity = maker.make(1)</span>
+<span class="sd">        &gt;&gt;&gt; my_job = maker.make(1)</span>
+<span class="sd">        &gt;&gt;&gt; activity = Activity([my_job]</span>
 
 <span class="sd">        The following update will apply to the nested ``AddMaker`` in the kwargs of the</span>
 <span class="sd">        ``RestartMaker``:</span>

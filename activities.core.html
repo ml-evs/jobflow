@@ -32,6 +32,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
     }
   }
@@ -54,6 +59,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
 </style><link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -415,7 +425,8 @@ for a Maker that produces a job that restarts.</p>
 <span class="gp">... </span>        <span class="n">restart_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">restart</span><span class="o">=</span><span class="n">restart_job</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span> <span class="o">=</span> <span class="n">RestartMaker</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">activity</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_job</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">([</span><span class="n">my_job</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The following update will apply to the nested <code class="docutils literal notranslate"><span class="pre">AddMaker</span></code> in the kwargs of the
@@ -620,6 +631,10 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt id="activities.core.job.Job.input_uuids">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">input_uuids</span></code><a class="headerlink" href="#activities.core.job.Job.input_uuids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
 <dt id="activities.core.job.Job.graph">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">graph</span></code><a class="headerlink" href="#activities.core.job.Job.graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a graph of the job indicating the inputs to the job.</p>
@@ -629,6 +644,16 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>DiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.job.Job.set_uuid">
+<code class="sig-name descname"><span class="pre">set_uuid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job.set_uuid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job.set_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the UUID of the job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A UUID.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -660,16 +685,6 @@ that determine the activity execution.</p>
 </div>
 </dd></dl>
 <dl class="py method">
-<dt id="activities.core.job.Job.set_uuid">
-<code class="sig-name descname"><span class="pre">set_uuid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job.set_uuid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job.set_uuid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the UUID of the job.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A UUID.</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
 <dt id="activities.core.job.Job.resolve_args">
 <code class="sig-name descname"><span class="pre">resolve_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;ReferenceFallback.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">inplace=True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job.resolve_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job.resolve_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve any <a class="reference internal" href="#activities.core.reference.Reference" title="activities.core.reference.Reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Reference</span></code></a> objects in the input arguments.</p>
@@ -697,7 +712,7 @@ for <a class="reference internal" href="#activities.core.reference.Reference.res
 <dd><p>Find whether the job corresponds to a function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Whether the job is to call the function.</p>
+<dd class="field-odd"><p>Whether the job is a call to the function provided.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
@@ -735,6 +750,91 @@ details.</p></li>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">({</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
 </pre></div>
 </div>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.job.Job.update_maker_kwargs">
+<code class="sig-name descname"><span class="pre">update_maker_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job.update_maker_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job.update_maker_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the keyword arguments of any <a class="reference internal" href="#activities.core.maker.Maker" title="activities.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> objects in the job source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>update</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
+<li><p><strong>name_filter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A filter for the Maker name.</p></li>
+<li><p><strong>class_filter</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>activities.Maker</em><em>]</em><em>]</em>) – A filter for the maker class. Note the class filter will match any
+subclasses.</p></li>
+<li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
+of a Maker object. See examples for more details.</p></li>
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="activities.utils.html#activities.utils.dict_mods.DictMods" title="activities.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+details.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Consider the following job from a Maker:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">Activity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">AddMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"add"</span>
+<span class="gp">... </span>    <span class="n">number</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="nd">@job</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span> <span class="o">=</span> <span class="n">AddMaker</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">number</span></code> argument could be updated in the following ways.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span><span class="o">.</span><span class="n">update_maker_kwargs</span><span class="p">({</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>By default, the updates are applied to nested Makers. These are Makers
+which are present in the kwargs of another Maker. Consider the following case
+for a Maker that produces a job that restarts.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">RestartMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"restart"</span>
+<span class="gp">... </span>    <span class="n">add_maker</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">AddMaker</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="nd">@job</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">restart_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">restart</span><span class="o">=</span><span class="n">restart_job</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span> <span class="o">=</span> <span class="n">RestartMaker</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_job</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following update will apply to the nested <code class="docutils literal notranslate"><span class="pre">AddMaker</span></code> in the kwargs of the
+<code class="docutils literal notranslate"><span class="pre">RestartMaker</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_job</span><span class="o">.</span><span class="n">update_maker_kwargs</span><span class="p">({</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">function_filter</span><span class="o">=</span><span class="n">AddMaker</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, if <code class="docutils literal notranslate"><span class="pre">nested=False</span></code>, then the update will not be applied to the nested
+Maker:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_job</span><span class="o">.</span><span class="n">update_maker_kwargs</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">function_filter</span><span class="o">=</span><span class="n">AddMaker</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.job.Job.as_dict">
+<code class="sig-name descname"><span class="pre">as_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job.as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job.as_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>A JSON serializable dict representation of an object.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.job.Job.from_dict">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – Dict representation.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>MSONable class.</p>
+</dd>
+</dl>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
@@ -894,7 +994,7 @@ error.</p></li>
 <dl class="py class">
 <dt id="activities.core.reference.Reference">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.reference.</span></code><code class="sig-name descname"><span class="pre">Reference</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/reference.html#Reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.reference.Reference" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -902,9 +1002,6 @@ error.</p></li>
 <li><p><strong>attributes</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>Any</em><em>, </em><em>..</em><em>]</em><em>]</em>) – </p></li>
 <li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – </p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -1020,7 +1117,7 @@ error.</p></li>
 <dl class="py class">
 <dt id="activities.core.schema.Schema">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.schema.</span></code><code class="sig-name descname"><span class="pre">Schema</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/schema.html#Schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.schema.Schema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">activities.core.schema._BaseSchema</span></code></p>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p>
 <dl class="field-list simple">
@@ -1031,19 +1128,6 @@ error.</p></li>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
 </dd>
 </dl>
-<dl class="py class">
-<dt id="activities.core.schema.Schema.Config">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Config</span></code><a class="reference internal" href="_modules/activities/core/schema.html#Schema.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.schema.Schema.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py attribute">
-<dt id="activities.core.schema.Schema.Config.arbitrary_types_allowed">
-<code class="sig-name descname"><span class="pre">arbitrary_types_allowed</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#activities.core.schema.Schema.Config.arbitrary_types_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py attribute">
-<dt id="activities.core.schema.Schema.Config.extra">
-<code class="sig-name descname"><span class="pre">extra</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'allow'</span></em><a class="headerlink" href="#activities.core.schema.Schema.Config.extra" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
 </dd></dl>
 </section>
 <section id="module-activities.core.state">

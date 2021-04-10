@@ -30,6 +30,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
     }
   }
@@ -52,6 +57,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
 </style><link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -284,10 +294,12 @@
 </li>
         <li><a href="activities.utils.html#activities.utils.dict_mods.apply_mod">apply_mod() (in module activities.utils.dict_mods)</a>
 </li>
-        <li><a href="activities.core.html#activities.core.schema.Schema.Config.arbitrary_types_allowed">arbitrary_types_allowed (activities.core.schema.Schema.Config attribute)</a>
+        <li><a href="activities.core.html#activities.core.job.Job.as_dict">as_dict() (activities.core.job.Job method)</a>
+
+        <ul>
+          <li><a href="activities.core.html#activities.core.reference.Reference.as_dict">(activities.core.reference.Reference method)</a>
 </li>
-        <li><a href="activities.core.html#activities.core.reference.Reference.as_dict">as_dict() (activities.core.reference.Reference method)</a>
-</li>
+        </ul></li>
         <li><a href="activities.core.html#activities.core.reference.Reference.attributes">attributes (activities.core.reference.Reference attribute)</a>
 </li>
         <li><a href="activities.core.html#activities.core.activity.JobOrder.AUTO">AUTO (activities.core.activity.JobOrder attribute)</a>
@@ -344,8 +356,6 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.core.html#activities.core.reference.ReferenceFallback.ERROR">ERROR (activities.core.reference.ReferenceFallback attribute)</a>
 </li>
-        <li><a href="activities.core.html#activities.core.schema.Schema.Config.extra">extra (activities.core.schema.Schema.Config attribute)</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
@@ -365,6 +375,8 @@
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.core.html#activities.core.store.ActivityStore.from_db_file">from_db_file() (activities.core.store.ActivityStore class method)</a>
+</li>
+        <li><a href="activities.core.html#activities.core.job.Job.from_dict">from_dict() (activities.core.job.Job class method)</a>
 </li>
         <li><a href="activities.core.html#activities.core.job.Response.from_job_returns">from_job_returns() (activities.core.job.Response class method)</a>
 </li>
@@ -406,6 +418,8 @@
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="activities.core.html#activities.core.job.Job.input_uuids">input_uuids() (activities.core.job.Job property)</a>
+</li>
         <li><a href="activities.core.html#activities.core.activity.Activity.iteractivity">iteractivity() (activities.core.activity.Activity method)</a>
 </li>
         <li><a href="activities.utils.html#activities.utils.graph.itergraph">itergraph() (in module activities.utils.graph)</a>
@@ -575,16 +589,14 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.core.html#activities.core.schema.Schema">Schema (class in activities.core.schema)</a>
 </li>
-        <li><a href="activities.core.html#activities.core.schema.Schema.Config">Schema.Config (class in activities.core.schema)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.core.html#activities.core.job.Job.set_uuid">set_uuid() (activities.core.job.Job method)</a>
 
         <ul>
           <li><a href="activities.core.html#activities.core.reference.Reference.set_uuid">(activities.core.reference.Reference method)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.utils.html#activities.utils.uuid.suuid">suuid() (in module activities.utils.uuid)</a>
 </li>
     </ul></td>
@@ -620,7 +632,11 @@
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.core.html#activities.core.activity.Activity.update_maker_kwargs">update_maker_kwargs() (activities.core.activity.Activity method)</a>
+
+        <ul>
+          <li><a href="activities.core.html#activities.core.job.Job.update_maker_kwargs">(activities.core.job.Job method)</a>
 </li>
+        </ul></li>
         <li><a href="activities.core.html#activities.core.reference.Reference.uuid">uuid (activities.core.reference.Reference attribute)</a>
 </li>
     </ul></td>

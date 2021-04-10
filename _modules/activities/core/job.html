@@ -31,6 +31,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
     }
   }
@@ -53,6 +58,11 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
 </style><link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -467,6 +477,7 @@
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">activities.utils.find</span> <span class="kn">import</span> <span class="n">contains_activity_or_job</span>
+        <span class="kn">import</span> <span class="nn">inspect</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">Reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">output_schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -534,6 +545,26 @@
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_references</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_references_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Reference</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+        <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_references</span><span class="p">:</span>
+            <span class="n">groups</span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiGraph</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get a graph of the job indicating the inputs to the job.</span>
@@ -557,6 +588,18 @@
         <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">job</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">graph</span>
+
+<div class="viewcode-block" id="Job.set_uuid"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Set the UUID of the job.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        uuid</span>
+<span class="sd">            A UUID.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">set_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Job.run"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">activities</span><span class="o">.</span><span class="n">ActivityStore</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">"""</span>
@@ -623,17 +666,6 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Finished job - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}{</span><span class="n">index_str</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
-<div class="viewcode-block" id="Job.set_uuid"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Set the UUID of the job.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        uuid</span>
-<span class="sd">            A UUID.</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">set_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Job.resolve_args"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.resolve_args">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_args</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -694,7 +726,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        bool</span>
-<span class="sd">            Whether the job is to call the function.</span>
+<span class="sd">            Whether the job is a call to the function provided.</span>
 <span class="sd">        """</span>
         <span class="kn">import</span> <span class="nn">inspect</span>
 
@@ -773,7 +805,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">update</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">update_maker_kwargs</span><span class="p">(</span>
+<div class="viewcode-block" id="Job.update_maker_kwargs"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.update_maker_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_maker_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">update</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
         <span class="n">name_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -781,6 +813,75 @@
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the keyword arguments of any :obj:`.Maker` objects in the job source.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        update</span>
+<span class="sd">            The updates to apply.</span>
+<span class="sd">        name_filter</span>
+<span class="sd">            A filter for the Maker name.</span>
+<span class="sd">        class_filter</span>
+<span class="sd">            A filter for the maker class. Note the class filter will match any</span>
+<span class="sd">            subclasses.</span>
+<span class="sd">        nested</span>
+<span class="sd">            Whether to apply the updates to Maker objects that are themselves kwargs</span>
+<span class="sd">            of a Maker object. See examples for more details.</span>
+<span class="sd">        dict_mod</span>
+<span class="sd">            Use the dict mod language to apply updates. See :obj:`.DictMods` for more</span>
+<span class="sd">            details.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Consider the following job from a Maker:</span>
+
+<span class="sd">        &gt;&gt;&gt; from dataclasses import dataclass</span>
+<span class="sd">        &gt;&gt;&gt; from activities import job, Maker, Activity</span>
+<span class="sd">        &gt;&gt;&gt; @dataclass</span>
+<span class="sd">        ... class AddMaker(Maker):</span>
+<span class="sd">        ...     name: str = "add"</span>
+<span class="sd">        ...     number: float = 10</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     @job</span>
+<span class="sd">        ...     def make(self, a):</span>
+<span class="sd">        ...         return a + self.number</span>
+<span class="sd">        &gt;&gt;&gt; maker = AddMaker()</span>
+<span class="sd">        &gt;&gt;&gt; add_job = maker.make(1)</span>
+
+<span class="sd">        The ``number`` argument could be updated in the following ways.</span>
+
+<span class="sd">        &gt;&gt;&gt; add_job.update_maker_kwargs({"number": 10})</span>
+
+<span class="sd">        By default, the updates are applied to nested Makers. These are Makers</span>
+<span class="sd">        which are present in the kwargs of another Maker. Consider the following case</span>
+<span class="sd">        for a Maker that produces a job that restarts.</span>
+
+<span class="sd">        &gt;&gt;&gt; from activities import Response</span>
+<span class="sd">        &gt;&gt;&gt; @dataclass</span>
+<span class="sd">        ... class RestartMaker(Maker):</span>
+<span class="sd">        ...     name: str = "restart"</span>
+<span class="sd">        ...     add_maker: Maker = AddMaker()</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     @job</span>
+<span class="sd">        ...     def make(self, a):</span>
+<span class="sd">        ...         restart_job = self.add_maker.make(a)</span>
+<span class="sd">        ...         return Response(restart=restart_job)</span>
+<span class="sd">        &gt;&gt;&gt; maker = RestartMaker()</span>
+<span class="sd">        &gt;&gt;&gt; my_job = maker.make(1)</span>
+
+<span class="sd">        The following update will apply to the nested ``AddMaker`` in the kwargs of the</span>
+<span class="sd">        ``RestartMaker``:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_job.update_maker_kwargs({"number": 10}, function_filter=AddMaker)</span>
+
+<span class="sd">        However, if ``nested=False``, then the update will not be applied to the nested</span>
+<span class="sd">        Maker:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_job.update_maker_kwargs(</span>
+<span class="sd">        ...     {"number": 10}, function_filter=AddMaker, nested=False</span>
+<span class="sd">        ... )</span>
+<span class="sd">        """</span>
         <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Maker</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_type</span> <span class="o">==</span> <span class="s2">"method"</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
@@ -790,21 +891,24 @@
                 <span class="n">class_filter</span><span class="o">=</span><span class="n">class_filter</span><span class="p">,</span>
                 <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
                 <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="p">)</span></div>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_references</span><span class="p">])</span>
+<div class="viewcode-block" id="Job.as_dict"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.serialization</span> <span class="kn">import</span> <span class="n">serialize_class</span><span class="p">,</span> <span class="n">deserialize_class</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_references_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Reference</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
-        <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">serialize_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">deserialize_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span></div>
 
-        <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_references</span><span class="p">:</span>
-            <span class="n">groups</span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+<div class="viewcode-block" id="Job.from_dict"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.serialization</span> <span class="kn">import</span> <span class="n">deserialize_class</span>
+        <span class="kn">import</span> <span class="nn">inspect</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">]):</span>
+            <span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deserialize_class</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Response">[docs]</a><span class="nd">@dataclass</span>
@@ -899,13 +1003,16 @@
 
 
 <span class="k">def</span> <span class="nf">apply_schema</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]):</span>
-    <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+    <span class="c1"># comparing schema instance is surprisingly fickle.</span>
+    <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span> <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__module__</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Expected output of type </span><span class="si">{</span><span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> but got no output"</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">"Expected output to be </span><span class="si">{</span><span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> or dict but got output type "</span>
             <span class="sa">f</span><span class="s2">"of </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">."</span>
