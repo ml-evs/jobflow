@@ -476,8 +476,9 @@
     <span class="n">output</span><span class="p">:</span> <span class="n">Reference</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">activities.utils.find</span> <span class="kn">import</span> <span class="n">contains_activity_or_job</span>
         <span class="kn">import</span> <span class="nn">inspect</span>
+
+        <span class="kn">from</span> <span class="nn">activities.utils.find</span> <span class="kn">import</span> <span class="n">contains_activity_or_job</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">Reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">output_schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -665,7 +666,6 @@
         <span class="n">CURRENT_JOB</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Finished job - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}{</span><span class="n">index_str</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span></div>
-
 
 <div class="viewcode-block" id="Job.resolve_args"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.resolve_args">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_args</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -894,18 +894,26 @@
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Job.as_dict"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">activities.utils.serialization</span> <span class="kn">import</span> <span class="n">serialize_class</span><span class="p">,</span> <span class="n">deserialize_class</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.serialization</span> <span class="kn">import</span> <span class="n">deserialize_class</span><span class="p">,</span> <span class="n">serialize_class</span>
 
+        <span class="c1"># the output schema is a class which isn't serializable using monty.</span>
+        <span class="c1"># this is a little hack to get around it.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">serialize_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
+
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">deserialize_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
+
+        <span class="c1"># need to deserialize schema and put it back</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">deserialize_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
 <div class="viewcode-block" id="Job.from_dict"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.Job.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">activities.utils.serialization</span> <span class="kn">import</span> <span class="n">deserialize_class</span>
         <span class="kn">import</span> <span class="nn">inspect</span>
+
+        <span class="kn">from</span> <span class="nn">activities.utils.serialization</span> <span class="kn">import</span> <span class="n">deserialize_class</span>
+
         <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">]):</span>
             <span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deserialize_class</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"output_schema"</span><span class="p">])</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div></div>
@@ -1006,7 +1014,11 @@
     <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 
     <span class="c1"># comparing schema instance is surprisingly fickle.</span>
-    <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span> <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__module__</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__module__</span>
+    <span class="p">):</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
