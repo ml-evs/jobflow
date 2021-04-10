@@ -19,6 +19,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   @media (prefers-color-scheme: dark) {
@@ -37,6 +42,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   .override-dark {
@@ -159,7 +169,7 @@
         </label>
         <section id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
-<p>The main interface for constructing jobs is the, <code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> function.</p>
+<p>The main interface for constructing jobs is the <code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> function.</p>
 <p><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> wraps functions for use in activities. It can be used as a decorator, or
 around function calls directly (i.e. <code class="docutils literal notranslate"><span class="pre">job(foo)(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>). Outputs from functions
 wrapped in <code class="docutils literal notranslate"><span class="pre">job</span></code> are proxy objects of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> that contain the inputs
@@ -280,11 +290,6 @@ For example, to replace the current jub with another job, <code class="docutils 
 
         <div class="related-information">
               Copyright &#169; 2021, hackingmaterials
-            |
-            <a class="muted-link" href="_sources/job.rst.txt"
-               rel="nofollow">
-              Show Source
-            </a>
         </div>
         
       </footer>

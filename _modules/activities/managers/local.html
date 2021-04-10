@@ -18,6 +18,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   @media (prefers-color-scheme: dark) {
@@ -36,6 +41,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   .override-dark {
@@ -178,8 +188,7 @@
 <span class="p">):</span>
     <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
 
-    <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span><span class="p">,</span> <span class="n">ActivityStore</span><span class="p">,</span> <span class="n">Job</span>
-    <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">initialize_logger</span>
+    <span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span><span class="p">,</span> <span class="n">ActivityStore</span><span class="p">,</span> <span class="n">Job</span><span class="p">,</span> <span class="n">initialize_logger</span>
     <span class="kn">from</span> <span class="nn">activities.core.reference</span> <span class="kn">import</span> <span class="n">ReferenceFallback</span>
 
     <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

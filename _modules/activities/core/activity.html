@@ -18,6 +18,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   @media (prefers-color-scheme: dark) {
@@ -36,6 +41,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   .override-dark {
@@ -167,7 +177,7 @@
 
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
-<span class="kn">from</span> <span class="nn">activities.utils</span> <span class="kn">import</span> <span class="n">suuid</span><span class="p">,</span> <span class="n">ValueEnum</span><span class="p">,</span> <span class="n">contains_activity_or_job</span>
+<span class="kn">from</span> <span class="nn">activities.utils</span> <span class="kn">import</span> <span class="n">ValueEnum</span><span class="p">,</span> <span class="n">contains_activity_or_job</span><span class="p">,</span> <span class="n">suuid</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>

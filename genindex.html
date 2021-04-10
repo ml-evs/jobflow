@@ -17,6 +17,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   @media (prefers-color-scheme: dark) {
@@ -35,6 +40,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   .override-dark {
@@ -372,10 +382,14 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="activities.core.html#activities.core.store.ActivityStore.get_output">get_output() (activities.core.store.ActivityStore method)</a>
 </li>
+        <li><a href="activities.core.html#activities.core.activity.Activity.graph">graph() (activities.core.activity.Activity property)</a>
+
+        <ul>
+          <li><a href="activities.core.html#activities.core.job.Job.graph">(activities.core.job.Job property)</a>
+</li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="activities.core.html#activities.core.activity.Activity.graph">graph() (activities.core.activity.Activity property)</a>
-</li>
         <li><a href="activities.core.html#activities.core.store.ActivityStore.groupby">groupby() (activities.core.store.ActivityStore method)</a>
 </li>
     </ul></td>
@@ -437,6 +451,8 @@
         <li><a href="activities.core.html#activities.core.maker.Maker.make">make() (activities.core.maker.Maker method)</a>
 </li>
         <li><a href="activities.core.html#activities.core.maker.Maker">Maker (class in activities.core.maker)</a>
+</li>
+        <li><a href="activities.core.html#activities.core.job.Job.matches_function">matches_function() (activities.core.job.Job method)</a>
 </li>
         <li>
     module
@@ -563,8 +579,12 @@
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="activities.core.html#activities.core.reference.Reference.set_uuid">set_uuid() (activities.core.reference.Reference method)</a>
+        <li><a href="activities.core.html#activities.core.job.Job.set_uuid">set_uuid() (activities.core.job.Job method)</a>
+
+        <ul>
+          <li><a href="activities.core.html#activities.core.reference.Reference.set_uuid">(activities.core.reference.Reference method)</a>
 </li>
+        </ul></li>
         <li><a href="activities.utils.html#activities.utils.uuid.suuid">suuid() (in module activities.utils.uuid)</a>
 </li>
     </ul></td>
@@ -592,6 +612,8 @@
         <li><a href="activities.core.html#activities.core.activity.Activity.update_kwargs">update_kwargs() (activities.core.activity.Activity method)</a>
 
         <ul>
+          <li><a href="activities.core.html#activities.core.job.Job.update_kwargs">(activities.core.job.Job method)</a>
+</li>
           <li><a href="activities.core.html#activities.core.maker.Maker.update_kwargs">(activities.core.maker.Maker method)</a>
 </li>
         </ul></li>

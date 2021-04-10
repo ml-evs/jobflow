@@ -18,6 +18,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   @media (prefers-color-scheme: dark) {
@@ -36,6 +41,11 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
+  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-size--small: 92%;
+  --font-size--small--2: 87.5%;
+  --font-size--small--3: 87.5%;
+  --font-size--small--4: 87.5%;
   
   }
   .override-dark {
@@ -164,12 +174,15 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"find_key"</span><span class="p">,</span> <span class="s2">"find_key_value"</span><span class="p">,</span> <span class="s2">"update_in_dictionary"</span><span class="p">,</span> <span class="s2">"contains_activity_or_job"</span>
+    <span class="s2">"find_key"</span><span class="p">,</span>
+    <span class="s2">"find_key_value"</span><span class="p">,</span>
+    <span class="s2">"update_in_dictionary"</span><span class="p">,</span>
+    <span class="s2">"contains_activity_or_job"</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -354,9 +367,10 @@
 <span class="sd">    bool</span>
 <span class="sd">        Whether the object contains any activities or jobs.</span>
 <span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">jsanitize</span>
+
     <span class="kn">from</span> <span class="nn">activities.core.activity</span> <span class="kn">import</span> <span class="n">Activity</span>
     <span class="kn">from</span> <span class="nn">activities.core.job</span> <span class="kn">import</span> <span class="n">Job</span>
-    <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">jsanitize</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">Activity</span><span class="p">,</span> <span class="n">Job</span><span class="p">)):</span>
         <span class="c1"># if the argument is an activity or job then stop there</span>
