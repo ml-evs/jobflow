@@ -169,18 +169,15 @@ and function to be executed.</p>
 <code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#job"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Wraps a function to produce a <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
 <p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects are delayed function calls that can be used in an
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name, the arguments for the
-function, and the outputs of the function. This decorator makes it simple to create
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name and source and any
+arguments for the function. This decorator makes it simple to create
 job objects directly from a function definition. See the examples for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>method</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – A function to wrap. This should not be specified directly and is implied
 by the decorator.</p></li>
-<li><p><strong>outputs</strong> – If the function returns an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> object, the outputs option should be
-specified to enable static parameter checking. If the function returns a
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">Detour</span></code> object, then the outputs should be set os the class of the
-detour activity outputs.</p></li>
+<li><p><strong>**job_kwargs</strong> – Other keyword arguments that will get passed to the <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> init method.</p></li>
 </ul>
 </dd>
 </dl>
@@ -191,15 +188,16 @@ detour activity outputs.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span> <span class="o">=</span> <span class="n">print_message</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">print_job</span><span class="p">)</span>
 <span class="go">&lt;class 'activities.core.job.Job'&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function</span>
-<span class="go">('__main__', 'print_message')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_source</span>
+<span class="go">'__main__'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_name</span>
+<span class="go">'print_message'</span>
 </pre></div>
 </div>
 <p>Jobs can have required and optional parameters.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">print_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span> <span class="o">=</span> <span class="n">print_sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span><span class="o">.</span><span class="n">function_args</span>
 <span class="go">(1, )</span>
@@ -212,7 +210,6 @@ attribute of the job.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">output</span>
 <span class="go">Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9')</span>
@@ -224,59 +221,33 @@ attribute of the job.</p>
 object. References are automatically converted to their computed values
 (resolved) when the task runs.</p>
 </div>
-<p>If a dictionary of values is returned, the values can be referenced in the usual
-manner</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<p>If a dictionary of values is returned, the values can be indexed in the usual
+way.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span><span class="s2">"sum"</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"product"</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">}</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">compute_task</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">compute_task</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"sum"</span><span class="p">]</span>
 <span class="go">Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'sum')</span>
 </pre></div>
 </div>
-<p>A better approach is to use <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> classes. These have several benefits
-including the ability to make use of static parameter checking to ensure that
-the task outputs are valid. To use an outputs class, it should be specified
-in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">task</span></code> decorator options.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">number</span>
-<span class="go">Number(number=Reference(abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'number'))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">bad_output</span>
-<span class="go">AttributeError: 'Number' object has no attribute 'bad_output'</span>
-</pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If an output is indexed incorrectly, for example by trying to access a key that
+doesn’t exist, this error will only be raised when the Job is executed.</p>
 </div>
-<p>To indicate that a task has no outputs, the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> parameter should be set to
-<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">print_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Tasks can return <code class="xref py py-obj docutils literal notranslate"><span class="pre">Detour</span></code> objects that cause new activities to be added to the
-Activity graph. In this case, the outputs class of the Detour activity should be
-specified in the task <code class="docutils literal notranslate"><span class="pre">outputs</span></code> option.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">detour_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="s2">"My detour"</span><span class="p">,</span> <span class="p">[</span><span class="n">add_task</span><span class="p">],</span> <span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">Detour</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+<p>Jobs can return <a class="reference internal" href="activities.core.html#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> objects that control the activity execution flow.
+For example, to replace the current jub with another job, <code class="docutils literal notranslate"><span class="pre">replace</span></code> can be used.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">new_job</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">restart</span><span class="o">=</span><span class="n">new_job</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code></p>
+<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <a class="reference internal" href="activities.core.html#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 </div>
 </dd></dl>
 </section>

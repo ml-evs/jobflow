@@ -399,7 +399,7 @@
 <span class="sd">        pyplot</span>
 <span class="sd">            The matplotlib pyplot state.</span>
 <span class="sd">        """</span>
-        <span class="kn">from</span> <span class="nn">activities.core.graph</span> <span class="kn">import</span> <span class="n">draw_graph</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.graph</span> <span class="kn">import</span> <span class="n">draw_graph</span>
 
         <span class="k">return</span> <span class="n">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span></div>
 
@@ -416,7 +416,7 @@
 <span class="sd">            The Job and the uuids of any parent jobs (not to be confused with the host</span>
 <span class="sd">            activity).</span>
 <span class="sd">        """</span>
-        <span class="kn">from</span> <span class="nn">activities.core.graph</span> <span class="kn">import</span> <span class="n">itergraph</span>
+        <span class="kn">from</span> <span class="nn">activities.utils.graph</span> <span class="kn">import</span> <span class="n">itergraph</span>
 
         <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">itergraph</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>

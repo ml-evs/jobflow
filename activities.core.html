@@ -184,7 +184,7 @@ references.</p></li>
 <dl class="py class">
 <dt id="activities.core.activity.Activity">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.activity.</span></code><code class="sig-name descname"><span class="pre">Activity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Activity'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/activity.html#Activity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.activity.Activity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>An Activity contains a collection of Jobs or other Activities to execute.</p>
 <p>The <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a> object is the main tool for constructing workflows. Activities
 can either contain jobs or other activities. Like <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, activities
@@ -423,83 +423,6 @@ Maker:</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-activities.core.graph">
-<span id="activities-core-graph"></span><h2>activities.core.graph<a class="headerlink" href="#module-activities.core.graph" title="Permalink to this headline">¶</a></h2>
-<p>Tools for constructing Job and Activity graphs.</p>
-<dl class="py function">
-<dt id="activities.core.graph.itergraph">
-<code class="sig-prename descclassname"><span class="pre">activities.core.graph.</span></code><code class="sig-name descname"><span class="pre">itergraph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/graph.html#itergraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.graph.itergraph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterate through a graph using a topological sort order.</p>
-<p>This means the nodes are yielded such that for every directed edge (u v)
-node u comes before v in the ordering.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A networkx graph.</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
-</dd>
-<dt class="field-odd">Yields</dt>
-<dd class="field-odd"><p><em>str</em> – The node uuid.</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.graph.draw_graph">
-<code class="sig-prename descclassname"><span class="pre">activities.core.graph.</span></code><code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/graph.html#draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.graph.draw_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw a networkx graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A graph object.</p></li>
-<li><p><strong>layout_function</strong> (<em>Callable</em>) – A networkx layout function to use as the graph layout. For example,
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The matplotlib pyplot object.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>matplotlib.pyplot</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt id="activities.core.graph.to_pydot">
-<code class="sig-prename descclassname"><span class="pre">activities.core.graph.</span></code><code class="sig-name descname"><span class="pre">to_pydot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/graph.html#to_pydot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.graph.to_pydot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert an activity to a pydot graph.</p>
-<p>Pydot graphs can be visualised using graphviz and support more advanced features
-than networkx graphs. For example, the pydot graph also includes the activity
-containers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>activity</strong> (<em>activities.Activity</em>) – An activity.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The pydot graph.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pydot.Dot</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>The pydot graph can be generated from an activity using:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Activity</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_first</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_second</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">add_first</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">add_first</span><span class="p">,</span> <span class="n">add_second</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">to_pydot</span><span class="p">(</span><span class="n">my_activity</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>If graphviz is installed, the pydot graph can be rendered to a file using:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"output.png"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"png"</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-</section>
 <section id="module-activities.core.job">
 <span id="activities-core-job"></span><h2>activities.core.job<a class="headerlink" href="#module-activities.core.job" title="Permalink to this headline">¶</a></h2>
 <p>This module defines functions and classes for representing Job objects.</p>
@@ -508,18 +431,15 @@ containers.</p>
 <code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps a function to produce a <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
 <p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects are delayed function calls that can be used in an
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name, the arguments for the
-function, and the outputs of the function. This decorator makes it simple to create
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name and source and any
+arguments for the function. This decorator makes it simple to create
 job objects directly from a function definition. See the examples for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>method</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – A function to wrap. This should not be specified directly and is implied
 by the decorator.</p></li>
-<li><p><strong>outputs</strong> – If the function returns an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> object, the outputs option should be
-specified to enable static parameter checking. If the function returns a
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">Detour</span></code> object, then the outputs should be set os the class of the
-detour activity outputs.</p></li>
+<li><p><strong>**job_kwargs</strong> – Other keyword arguments that will get passed to the <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> init method.</p></li>
 </ul>
 </dd>
 </dl>
@@ -530,15 +450,16 @@ detour activity outputs.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span> <span class="o">=</span> <span class="n">print_message</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">print_job</span><span class="p">)</span>
 <span class="go">&lt;class 'activities.core.job.Job'&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function</span>
-<span class="go">('__main__', 'print_message')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_source</span>
+<span class="go">'__main__'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_name</span>
+<span class="go">'print_message'</span>
 </pre></div>
 </div>
 <p>Jobs can have required and optional parameters.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">print_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span> <span class="o">=</span> <span class="n">print_sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_sum_job</span><span class="o">.</span><span class="n">function_args</span>
 <span class="go">(1, )</span>
@@ -551,7 +472,6 @@ attribute of the job.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">output</span>
 <span class="go">Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9')</span>
@@ -563,65 +483,39 @@ attribute of the job.</p>
 object. References are automatically converted to their computed values
 (resolved) when the task runs.</p>
 </div>
-<p>If a dictionary of values is returned, the values can be referenced in the usual
-manner</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<p>If a dictionary of values is returned, the values can be indexed in the usual
+way.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span><span class="s2">"sum"</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"product"</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">}</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">compute_task</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">compute_task</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"sum"</span><span class="p">]</span>
 <span class="go">Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'sum')</span>
 </pre></div>
 </div>
-<p>A better approach is to use <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> classes. These have several benefits
-including the ability to make use of static parameter checking to ensure that
-the task outputs are valid. To use an outputs class, it should be specified
-in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">task</span></code> decorator options.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">number</span>
-<span class="go">Number(number=Reference(abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'number'))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">bad_output</span>
-<span class="go">AttributeError: 'Number' object has no attribute 'bad_output'</span>
-</pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If an output is indexed incorrectly, for example by trying to access a key that
+doesn’t exist, this error will only be raised when the Job is executed.</p>
 </div>
-<p>To indicate that a task has no outputs, the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> parameter should be set to
-<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">print_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Tasks can return <code class="xref py py-obj docutils literal notranslate"><span class="pre">Detour</span></code> objects that cause new activities to be added to the
-Activity graph. In this case, the outputs class of the Detour activity should be
-specified in the task <code class="docutils literal notranslate"><span class="pre">outputs</span></code> option.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Activity</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
-<span class="gp">... </span><span class="k">def</span> <span class="nf">detour_add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">add_task</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="s2">"My detour"</span><span class="p">,</span> <span class="p">[</span><span class="n">add_task</span><span class="p">],</span> <span class="n">add_task</span><span class="o">.</span><span class="n">outputs</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">Detour</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+<p>Jobs can return <a class="reference internal" href="#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> objects that control the activity execution flow.
+For example, to replace the current jub with another job, <code class="docutils literal notranslate"><span class="pre">replace</span></code> can be used.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">new_job</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">restart</span><span class="o">=</span><span class="n">new_job</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code></p>
+<p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <a class="reference internal" href="#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 </div>
 </dd></dl>
 <dl class="py class">
 <dt id="activities.core.job.Job">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">Job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">function_source</span></em>, <em class="sig-param"><span class="pre">function_name</span></em>, <em class="sig-param"><span class="pre">function_args=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">function_kwargs=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">output_schema=None</span></em>, <em class="sig-param"><span class="pre">uuid=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">index=1</span></em>, <em class="sig-param"><span class="pre">name=None</span></em>, <em class="sig-param"><span class="pre">data=False</span></em>, <em class="sig-param"><span class="pre">metadata=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.Job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
 the <a class="reference internal" href="#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a> decorator on a function. Any calls to a decorated function will
@@ -629,27 +523,31 @@ return an <a class="reference internal" href="#activities.core.job.Job" title="a
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>function</strong> – The delayed function to run specified as a tuple of (module, function_name).</p></li>
-<li><p><strong>args</strong> – The positional arguments to the function call.</p></li>
-<li><p><strong>kwargs</strong> – The keyword arguments to the function call.</p></li>
-<li><p><strong>output</strong> (<a class="reference internal" href="#activities.core.reference.Reference" title="activities.core.reference.Reference"><em>Reference</em></a>) – The output of the activity. Note that until the activity is run this will be
-a reference.</p></li>
-<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>BaseModel</em><em>]</em><em>]</em>) – A pydantic model that defines the schema of the output.</p></li>
-<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A unique identifier for the job.</p></li>
-<li><p><strong>metadata</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the</p></li>
-<li><p><strong>function_source</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>activities.Maker</em><em>]</em>) – </p></li>
-<li><p><strong>function_name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – </p></li>
-<li><p><strong>function_args</strong> (<em>Tuple</em><em>[</em><em>Any</em><em>, </em><em>..</em><em>]</em>) – </p></li>
-<li><p><strong>function_kwargs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – </p></li>
-<li><p><strong>name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – </p></li>
+<li><p><strong>function_source</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>MSONable</em><em>]</em>) – The source of the function. Can be <code class="docutils literal notranslate"><span class="pre">"builtins"</span></code> for builtin functions,
+a module name, or an <code class="xref py py-obj docutils literal notranslate"><span class="pre">MSONable</span></code> class instance.</p></li>
+<li><p><strong>function_name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The function name.</p></li>
+<li><p><strong>function_args</strong> (<em>Tuple</em><em>[</em><em>Any</em><em>, </em><em>..</em><em>]</em>) – The positional arguments to the function call.</p></li>
+<li><p><strong>function_kwargs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The keyword arguments to the function call.</p></li>
+<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>BaseModel</em><em>]</em><em>]</em>) – A <code class="xref py py-obj docutils literal notranslate"><span class="pre">Schema</span></code> object that defines the schema of the output.</p></li>
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A unique identifier for the job. Generated automatically.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The index of the job (number of times the job has been replaced).</p></li>
+<li><p><strong>name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The name of the job. If not set it will be determined from <code class="docutils literal notranslate"><span class="pre">function_source</span></code>
+and <code class="docutils literal notranslate"><span class="pre">function_name</span></code>.</p></li>
+<li><p><strong>metadata</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the job output.</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#activities.core.job.JobConfig" title="activities.core.job.JobConfig"><em>JobConfig</em></a>) – The config setting for the job.</p></li>
+<li><p><strong>host</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The UUID of the host activity.</p></li>
 <li><p><strong>data</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em><em>]</em>) – </p></li>
-<li><p><strong>config</strong> (<a class="reference internal" href="#activities.core.job.JobConfig" title="activities.core.job.JobConfig"><em>JobConfig</em></a>) – </p></li>
-<li><p><strong>host</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><p><strong>output</strong> (<a class="reference internal" href="#activities.core.reference.Reference" title="activities.core.reference.Reference"><em>Reference</em></a>) – The output of the job. This is a reference to the future job output and
+can be used as the input to other jobs or activities.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A job.</p>
+</dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job">Job</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -667,38 +565,27 @@ defined in another function). For example, if the following function is defined
 in the <code class="docutils literal notranslate"><span class="pre">my_package</span></code> module.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="p">(</span><span class="s2">"my_package"</span><span class="p">,</span> <span class="s2">"add"</span><span class="p">),</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-</pre></div>
-</div>
-<p><a class="reference internal" href="#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects can be executed using the <a class="reference internal" href="#activities.core.job.Job.run" title="activities.core.job.Job.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run()</span></code></a> method. The output is
-always a <a class="reference internal" href="#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> object that contains the outputs and other options that
-control the activity execution.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">add_task</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">outputs</span>
-<span class="go">Value(value=3)</span>
-</pre></div>
-</div>
-<p>The default output type of a job is a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Value</span></code> object that has a single
-field <cite>value</cite>. If the function returns more than one outputs then
-the output must be specified as dictionary or a custom <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> class.</p>
-<p>Using an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code> object also enables static parameter checking.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities.core.outputs</span> <span class="kn">import</span> <span class="n">Number</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">add_task</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="p">(</span><span class="s2">"my_package"</span><span class="p">,</span> <span class="s2">"add"</span><span class="p">),</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">outputs</span><span class="o">=</span><span class="n">Number</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">add_task</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">outputs</span>
-<span class="go">Number(number=3)</span>
 </pre></div>
 </div>
 <p>More details are given in the <a class="reference internal" href="#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a> decorator docstring.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>, <a class="reference internal" href="#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Outputs</span></code></p>
+<p><a class="reference internal" href="#activities.core.job.job" title="activities.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>, <a class="reference internal" href="#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a>, <a class="reference internal" href="#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a></p>
 </div>
+<dl class="py method">
+<dt id="activities.core.job.Job.function_type">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">function_type</span></code><a class="headerlink" href="#activities.core.job.Job.function_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the function (standalone function, method, or class/staticmethod).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The function type.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 <dl class="py method">
 <dt id="activities.core.job.Job.input_references">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">input_references</span></code><a class="headerlink" href="#activities.core.job.Job.input_references" title="Permalink to this definition">¶</a></dt>
@@ -706,19 +593,6 @@ the output must be specified as dictionary or a custom <code class="xref py py-o
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The references in the inputs to the job.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a>(<a class="reference internal" href="#activities.core.reference.Reference" title="activities.core.reference.Reference">Reference</a>, ..)</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt id="activities.core.job.Job.output_references">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">output_references</span></code><a class="headerlink" href="#activities.core.job.Job.output_references" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find <a class="reference internal" href="#activities.core.reference.Reference" title="activities.core.reference.Reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Reference</span></code></a> objects in the job outputs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The references belonging to the job outputs.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a>(<a class="reference internal" href="#activities.core.reference.Reference" title="activities.core.reference.Reference">Reference</a>, ..)</p>
@@ -842,19 +716,26 @@ options.</p>
 </dd></dl>
 <dl class="py class">
 <dt id="activities.core.job.JobConfig">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">JobConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">resolve_references:</span> <span class="pre">'bool'</span> <span class="pre">=</span> <span class="pre">True</span></em>, <em class="sig-param"><span class="pre">on_missing_references:</span> <span class="pre">'ReferenceFallback'</span> <span class="pre">=</span> <span class="pre">&lt;ReferenceFallback.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">manager_config:</span> <span class="pre">'dict'</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">expose_store:</span> <span class="pre">'bool'</span> <span class="pre">=</span> <span class="pre">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">JobConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">resolve_references=True</span></em>, <em class="sig-param"><span class="pre">on_missing_references=&lt;ReferenceFallback.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">manager_config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">expose_store=False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
+<p>The configuration parameters for a job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resolve_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – </p></li>
-<li><p><strong>on_missing_references</strong> (<a class="reference internal" href="#activities.core.reference.ReferenceFallback" title="activities.core.reference.ReferenceFallback"><em>activities.core.reference.ReferenceFallback</em></a>) – </p></li>
-<li><p><strong>manager_config</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – </p></li>
-<li><p><strong>expose_store</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – </p></li>
+<li><p><strong>resolve_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to resolve any references before the job function is executed.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> the unresolved reference objects will be passed into the function
+call.</p></li>
+<li><p><strong>on_missing_references</strong> (<a class="reference internal" href="#activities.core.reference.ReferenceFallback" title="activities.core.reference.ReferenceFallback"><em>activities.core.reference.ReferenceFallback</em></a>) – What to do if the references cannot be resolved. The default is to throw an
+error.</p></li>
+<li><p><strong>manager_config</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The configuration settings to control the manager execution.</p></li>
+<li><p><strong>expose_store</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to expose the store in <code class="xref py py-obj docutils literal notranslate"><span class="pre">CURRENT_JOB`</span></code> when the job is running.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#activities.core.job.JobConfig" title="activities.core.job.JobConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobConfig</span></code></a> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#activities.core.job.JobConfig" title="activities.core.job.JobConfig">JobConfig</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -864,7 +745,7 @@ options.</p>
 <dl class="py class">
 <dt id="activities.core.maker.Maker">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.maker.</span></code><code class="sig-name descname"><span class="pre">Maker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'Maker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – </p>
@@ -926,7 +807,7 @@ options.</p>
 <dl class="py class">
 <dt id="activities.core.reference.Reference">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.reference.</span></code><code class="sig-name descname"><span class="pre">Reference</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/reference.html#Reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.reference.Reference" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1038,6 +919,332 @@ options.</p>
 </dl>
 </dd></dl>
 </section>
+<section id="module-activities.core.schema">
+<span id="activities-core-schema"></span><h2>activities.core.schema<a class="headerlink" href="#module-activities.core.schema" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="activities.core.schema.with_reference">
+<code class="sig-prename descclassname"><span class="pre">activities.core.schema.</span></code><code class="sig-name descname"><span class="pre">with_reference</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/schema.html#with_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.schema.with_reference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py function">
+<dt id="activities.core.schema.allow_references">
+<code class="sig-prename descclassname"><span class="pre">activities.core.schema.</span></code><code class="sig-name descname"><span class="pre">allow_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/schema.html#allow_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.schema.allow_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new BaseModel with the exact same fields as <cite>model</cite> but making them all optional</p>
+</dd></dl>
+<dl class="py class">
+<dt id="activities.core.schema.Schema">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.schema.</span></code><code class="sig-name descname"><span class="pre">Schema</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/schema.html#Schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.schema.Schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>extra_data</strong> (<em>Any</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="activities.core.schema.Schema.Config">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Config</span></code><a class="reference internal" href="_modules/activities/core/schema.html#Schema.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.schema.Schema.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py attribute">
+<dt id="activities.core.schema.Schema.Config.arbitrary_types_allowed">
+<code class="sig-name descname"><span class="pre">arbitrary_types_allowed</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#activities.core.schema.Schema.Config.arbitrary_types_allowed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt id="activities.core.schema.Schema.Config.extra">
+<code class="sig-name descname"><span class="pre">extra</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'allow'</span></em><a class="headerlink" href="#activities.core.schema.Schema.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</dd></dl>
+</section>
+<section id="module-activities.core.state">
+<span id="activities-core-state"></span><h2>activities.core.state<a class="headerlink" href="#module-activities.core.state" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-activities.core.store">
+<span id="activities-core-store"></span><h2>activities.core.store<a class="headerlink" href="#module-activities.core.store" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="activities.core.store.ActivityStore">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">activities.core.store.</span></code><code class="sig-name descname"><span class="pre">ActivityStore</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">maggma.core.store.Store</span></code></p>
+<p>Store intended to allow pushing and pulling documents into multiple stores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>docs_store</strong> (<em>Store</em>) – Store for basic documents.</p></li>
+<li><p><strong>data_store</strong> (<em>Store</em>) – Maggma store for large data objects.</p></li>
+<li><p><strong>save</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em>) – List of keys to save in the data store when uploading documents.</p></li>
+<li><p><strong>load</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em>) – List of keys to load from the data store when querying.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.name">
+<code class="sig-name descname"><span class="pre">name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the data source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string representing this data source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.connect">
+<code class="sig-name descname"><span class="pre">connect</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to the source data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>force_reset</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to reset the connection or not.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.close">
+<code class="sig-name descname"><span class="pre">close</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes any connections.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.count">
+<code class="sig-name descname"><span class="pre">count</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of documents matching the query criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>criteria</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – PyMongo filter for documents to count in.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of documents matching the query.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.query">
+<code class="sig-name descname"><span class="pre">query</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the ActivityStore for documents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>criteria</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – PyMongo filter for documents to search in.</p></li>
+<li><p><strong>properties</strong> (<em>Union</em><em>[</em><em>Dict</em><em>, </em><em>List</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>]</em>) – Properties to return in grouped documents.</p></li>
+<li><p><strong>sort</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Sort</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em><em>]</em><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
+for ascending or -1 for descending.</p></li>
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of documents to skip.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit on the total number of documents returned.</p></li>
+<li><p><strong>load</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em>) – List of keys to load from the data store.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>Dict</em> – The documents.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[Iterator[Dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.query_one">
+<code class="sig-name descname"><span class="pre">query_one</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.query_one"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.query_one" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the Store for a single document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>criteria</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – PyMongo filter for documents to search.</p></li>
+<li><p><strong>properties</strong> (<em>Union</em><em>[</em><em>Dict</em><em>, </em><em>List</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>]</em>) – Properties to return in the document.</p></li>
+<li><p><strong>sort</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Sort</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em><em>]</em><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
+for ascending or -1 for descending.</p></li>
+<li><p><strong>load</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em>) – List of keys to load from the data store.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The document.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a> or <a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update or insert documents into the Store</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>docs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Dict</em><em>]</em><em>, </em><em>Dict</em><em>]</em>) – The document or list of documents to update.</p></li>
+<li><p><strong>key</strong> (<em>Union</em><em>[</em><em>List</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>]</em>) – Field name(s) to determine uniqueness for a document, can be a list of
+multiple fields, a single field, or None if the Store’s key field is to
+be used.</p></li>
+<li><p><strong>save</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em>) – List of keys to save in the data store when uploading documents.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.ensure_index">
+<code class="sig-name descname"><span class="pre">ensure_index</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.ensure_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.ensure_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to create an index on document store and return true if it succeeded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Single key to index.</p></li>
+<li><p><strong>unique</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether or not this index contains only unique keys.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether the index exists/was created correctly.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.groupby">
+<code class="sig-name descname"><span class="pre">groupby</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criteria</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.groupby"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.groupby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple grouping function that will group documents by keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keys</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Fields to group documents.</p></li>
+<li><p><strong>criteria</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – PyMongo filter for documents to search in.</p></li>
+<li><p><strong>properties</strong> (<em>Union</em><em>[</em><em>Dict</em><em>, </em><em>List</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>]</em>) – Properties to return in grouped documents</p></li>
+<li><p><strong>sort</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Sort</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em><em>]</em><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
+for ascending or -1 for descending.</p></li>
+<li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of documents to skip.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit on the total number of documents returned.</p></li>
+<li><p><strong>load</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Hashable</em><em>, </em><em>List</em><em>[</em><em>Hashable</em><em>]</em><em>]</em><em>]</em>) – List of keys to load from the data store.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>dict, list[dict]</em> – The documents as (key, documents) grouped by their keys.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Iterator[Tuple[Dict, List[Dict]]]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.remove_docs">
+<code class="sig-name descname"><span class="pre">remove_docs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.remove_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.remove_docs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove docs matching the criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>criteria</strong> (<em>Dict</em>) – Criteria for documents to remove.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.collection">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">collection</span></code><a class="headerlink" href="#activities.core.store.ActivityStore.collection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.from_store">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_store</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.from_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.from_store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new activity store that uses the same store for documents and data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>store</strong> (<em>maggma.core.store.Store</em>) – A maggma store.</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments that will be passed to the ActivityStore init method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An <a class="reference internal" href="#activities.core.store.ActivityStore" title="activities.core.store.ActivityStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ActivityStore</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#activities.core.store.ActivityStore" title="activities.core.store.ActivityStore">ActivityStore</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.get_output">
+<code class="sig-name descname"><span class="pre">get_output</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'last'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.get_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.get_output" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – </p></li>
+<li><p><strong>which</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – </p></li>
+<li><p><strong>load</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="activities.core.store.ActivityStore.from_db_file">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/store.html#ActivityStore.from_db_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.core.store.ActivityStore.from_db_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an ActivityStore from a database file.</p>
+<p>Multiple options are supported for the database file. The file should be in
+json or yaml format.</p>
+<p>The simplest format is a monty dumped version of the store, generated using:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monty.serialization</span> <span class="kn">import</span> <span class="n">dumpfn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dumpfn</span><span class="p">(</span><span class="s2">"activity_store.json"</span><span class="p">,</span> <span class="n">activity_store</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, the format can be a dictionary containing the docs_store and
+data_store keys, with the values as the dictionary representation of those
+stores.</p>
+<p>Alternatively, a file format specific to mongodb is supported. Here the file
+should contain the keys:</p>
+<ul>
+<li><p>host (str): The hostname of the database.</p></li>
+<li><p>port (int): The port used to access the database.</p></li>
+<li><p>collection (str): The collection in which to store documents.</p></li>
+<li><p>authsource (str, optional): Authorization source for connecting to the
+database.</p></li>
+<li><p>host_uri (str, optional): URI string specifying the database and login
+details. If this is specified, any other authentication information will be
+ignored.</p></li>
+<li><p>admin_user (str, optional): The username for an account with admin privileges.</p></li>
+<li><p>admin_password (str, optional): The password for an account with admin
+privileges.</p></li>
+<li><p>readonly_user (str, optional): The username for an account with read
+privileges only.</p></li>
+<li><p>readonly_password (str, optional): The password for an account with read
+privileges only.</p></li>
+<li><p>data_store_kwargs (dict, optional): Keyword arguments that determine where
+to store large calculation data (band structures, density of states, charge
+density etc). Leaving this argument blank indicates that GridFS will be used.
+Alternatively, the following stores and keyword arguments are supported:</p></li>
+<li><p>docs_store_kwargs: Additional keyword arguments that are passed to the
+MongoStore (and, optionally, GridFSStore if no data_store_kwargs are given).</p>
+<p><strong>S3 Store kwargs</strong></p>
+<ul class="simple">
+<li><p>bucket (str): The S3 bucket where the data is stored.</p></li>
+<li><p>s3_profile (str): The S3 profile that contains the login information
+typically found at ~/.aws/credentials.</p></li>
+<li><p>compress (bool): Whether compression is used.</p></li>
+<li><p>endpoint_url (str): The URL used to access the S3 store.</p></li>
+</ul>
+</li>
+<li><p>data_store_prefix (str, optional): The prefix for the collection used
+for the datastore.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_file</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Path</em><em>]</em>) – Path to the file containing the credentials.</p></li>
+<li><p><strong>admin</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>]</em>) – Whether to use the admin user (only applicable to the mongodb style file
+format).</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments that get passed to the ActivityStore
+constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An ActivityStore.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#activities.core.store.ActivityStore" title="activities.core.store.ActivityStore">ActivityStore</a></p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</section>
 </section>
 
       </article>
@@ -1091,10 +1298,12 @@ options.</p>
             <ul>
 <li><a class="reference internal" href="#">activities.core</a><ul>
 <li><a class="reference internal" href="#module-activities.core.activity">activities.core.activity</a></li>
-<li><a class="reference internal" href="#module-activities.core.graph">activities.core.graph</a></li>
 <li><a class="reference internal" href="#module-activities.core.job">activities.core.job</a></li>
 <li><a class="reference internal" href="#module-activities.core.maker">activities.core.maker</a></li>
 <li><a class="reference internal" href="#module-activities.core.reference">activities.core.reference</a></li>
+<li><a class="reference internal" href="#module-activities.core.schema">activities.core.schema</a></li>
+<li><a class="reference internal" href="#module-activities.core.state">activities.core.state</a></li>
+<li><a class="reference internal" href="#module-activities.core.store">activities.core.store</a></li>
 </ul>
 </li>
 </ul>

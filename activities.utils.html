@@ -334,6 +334,83 @@ MSONable class.</p></li>
 </dl>
 </dd></dl>
 </section>
+<section id="module-activities.utils.graph">
+<span id="activities-utils-graph"></span><h2>activities.utils.graph<a class="headerlink" href="#module-activities.utils.graph" title="Permalink to this headline">¶</a></h2>
+<p>Tools for constructing Job and Activity graphs.</p>
+<dl class="py function">
+<dt id="activities.utils.graph.itergraph">
+<code class="sig-prename descclassname"><span class="pre">activities.utils.graph.</span></code><code class="sig-name descname"><span class="pre">itergraph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/utils/graph.html#itergraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.utils.graph.itergraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through a graph using a topological sort order.</p>
+<p>This means the nodes are yielded such that for every directed edge (u v)
+node u comes before v in the ordering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A networkx graph.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
+</dd>
+<dt class="field-odd">Yields</dt>
+<dd class="field-odd"><p><em>str</em> – The node uuid.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt id="activities.utils.graph.draw_graph">
+<code class="sig-prename descclassname"><span class="pre">activities.utils.graph.</span></code><code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/utils/graph.html#draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.utils.graph.draw_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a networkx graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A graph object.</p></li>
+<li><p><strong>layout_function</strong> (<em>Callable</em>) – A networkx layout function to use as the graph layout. For example,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The matplotlib pyplot object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.pyplot</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt id="activities.utils.graph.to_pydot">
+<code class="sig-prename descclassname"><span class="pre">activities.utils.graph.</span></code><code class="sig-name descname"><span class="pre">to_pydot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">activity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/utils/graph.html#to_pydot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.utils.graph.to_pydot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an activity to a pydot graph.</p>
+<p>Pydot graphs can be visualised using graphviz and support more advanced features
+than networkx graphs. For example, the pydot graph also includes the activity
+containers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>activity</strong> (<em>activities.Activity</em>) – An activity.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pydot graph.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pydot.Dot</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The pydot graph can be generated from an activity using:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Activity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_first</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_second</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">add_first</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">add_first</span><span class="p">,</span> <span class="n">add_second</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">to_pydot</span><span class="p">(</span><span class="n">my_activity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If graphviz is installed, the pydot graph can be rendered to a file using:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"output.png"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"png"</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+</section>
 <section id="module-activities.utils.log">
 <span id="activities-utils-log"></span><h2>activities.utils.log<a class="headerlink" href="#module-activities.utils.log" title="Permalink to this headline">¶</a></h2>
 <p>Tool for logging.</p>
@@ -354,9 +431,9 @@ MSONable class.</p></li>
 </dl>
 </dd></dl>
 </section>
-<section id="id1">
-<h2>activities.utils.log<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-activities.utils.uuid"></span><p>Tools for generating UUIDs.</p>
+<section id="module-activities.utils.uuid">
+<span id="activities-utils-uuid"></span><h2>activities.utils.uuid<a class="headerlink" href="#module-activities.utils.uuid" title="Permalink to this headline">¶</a></h2>
+<p>Tools for generating UUIDs.</p>
 <dl class="py function">
 <dt id="activities.utils.uuid.suuid">
 <code class="sig-prename descclassname"><span class="pre">activities.utils.uuid.</span></code><code class="sig-name descname"><span class="pre">suuid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/utils/uuid.html#suuid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#activities.utils.uuid.suuid" title="Permalink to this definition">¶</a></dt>
@@ -427,8 +504,9 @@ MSONable class.</p></li>
 <li><a class="reference internal" href="#module-activities.utils.dict_mods">activities.utils.dict_mods</a></li>
 <li><a class="reference internal" href="#module-activities.utils.enum">activities.utils.enum</a></li>
 <li><a class="reference internal" href="#module-activities.utils.find">activities.utils.find</a></li>
+<li><a class="reference internal" href="#module-activities.utils.graph">activities.utils.graph</a></li>
 <li><a class="reference internal" href="#module-activities.utils.log">activities.utils.log</a></li>
-<li><a class="reference internal" href="#id1">activities.utils.log</a></li>
+<li><a class="reference internal" href="#module-activities.utils.uuid">activities.utils.uuid</a></li>
 </ul>
 </li>
 </ul>

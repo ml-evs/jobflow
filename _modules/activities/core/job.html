@@ -180,11 +180,33 @@
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"job"</span><span class="p">,</span> <span class="s2">"Job"</span><span class="p">,</span> <span class="s2">"Response"</span><span class="p">,</span> <span class="s2">"store_output"</span><span class="p">,</span> <span class="s2">"JobConfig"</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"job"</span><span class="p">,</span> <span class="s2">"Job"</span><span class="p">,</span> <span class="s2">"Response"</span><span class="p">,</span> <span class="s2">"JobConfig"</span><span class="p">,</span> <span class="s2">"store_output"</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="JobConfig"><a class="viewcode-back" href="../../../activities.core.html#activities.core.job.JobConfig">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JobConfig</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The configuration parameters for a job.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    resolve_references</span>
+<span class="sd">        Whether to resolve any references before the job function is executed.</span>
+<span class="sd">        If ``False`` the unresolved reference objects will be passed into the function</span>
+<span class="sd">        call.</span>
+<span class="sd">    on_missing_references</span>
+<span class="sd">        What to do if the references cannot be resolved. The default is to throw an</span>
+<span class="sd">        error.</span>
+<span class="sd">    manager_config</span>
+<span class="sd">        The configuration settings to control the manager execution.</span>
+<span class="sd">    expose_store</span>
+<span class="sd">        Whether to expose the store in :obj:`.CURRENT_JOB`` when the job is running.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    JobConfig</span>
+<span class="sd">        A :obj:`JobConfig` object.</span>
+<span class="sd">    """</span>
 
     <span class="n">resolve_references</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">on_missing_references</span><span class="p">:</span> <span class="n">ReferenceFallback</span> <span class="o">=</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span>
@@ -197,8 +219,8 @@
 <span class="sd">    Wraps a function to produce a :obj:`Job`.</span>
 
 <span class="sd">    :obj:`Job` objects are delayed function calls that can be used in an</span>
-<span class="sd">    :obj:`Activity`. A job is a composed of the function name, the arguments for the</span>
-<span class="sd">    function, and the outputs of the function. This decorator makes it simple to create</span>
+<span class="sd">    :obj:`Activity`. A job is a composed of the function name and source and any</span>
+<span class="sd">    arguments for the function. This decorator makes it simple to create</span>
 <span class="sd">    job objects directly from a function definition. See the examples for more details.</span>
 
 <span class="sd">    Parameters</span>
@@ -206,11 +228,8 @@
 <span class="sd">    method</span>
 <span class="sd">        A function to wrap. This should not be specified directly and is implied</span>
 <span class="sd">        by the decorator.</span>
-<span class="sd">    outputs</span>
-<span class="sd">        If the function returns an :obj:`Outputs` object, the outputs option should be</span>
-<span class="sd">        specified to enable static parameter checking. If the function returns a</span>
-<span class="sd">        :obj:`Detour` object, then the outputs should be set os the class of the</span>
-<span class="sd">        detour activity outputs.</span>
+<span class="sd">    **job_kwargs</span>
+<span class="sd">        Other keyword arguments that will get passed to the :obj:`Job` init method.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -220,15 +239,16 @@
 <span class="sd">    &gt;&gt;&gt; print_job = print_message()</span>
 <span class="sd">    &gt;&gt;&gt; type(print_job)</span>
 <span class="sd">    &lt;class 'activities.core.job.Job'&gt;</span>
-<span class="sd">    &gt;&gt;&gt; print_job.function</span>
-<span class="sd">    ('__main__', 'print_message')</span>
+<span class="sd">    &gt;&gt;&gt; print_job.function_source</span>
+<span class="sd">    '__main__'</span>
+<span class="sd">    &gt;&gt;&gt; print_job.function_name</span>
+<span class="sd">    'print_message'</span>
 
 <span class="sd">    Jobs can have required and optional parameters.</span>
 
 <span class="sd">    &gt;&gt;&gt; @job</span>
 <span class="sd">    ... def print_sum(a, b=0):</span>
 <span class="sd">    ...     return print(a + b)</span>
-<span class="sd">    ...</span>
 <span class="sd">    &gt;&gt;&gt; print_sum_job = print_sum(1, 2)</span>
 <span class="sd">    &gt;&gt;&gt; print_sum_job.function_args</span>
 <span class="sd">    (1, )</span>
@@ -241,7 +261,6 @@
 <span class="sd">    &gt;&gt;&gt; @job</span>
 <span class="sd">    ... def add(a, b):</span>
 <span class="sd">    ...     return a + b</span>
-<span class="sd">    ...</span>
 <span class="sd">    &gt;&gt;&gt; add_task = add(1, 2)</span>
 <span class="sd">    &gt;&gt;&gt; add_task.output</span>
 <span class="sd">    Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9')</span>
@@ -251,74 +270,73 @@
 <span class="sd">        object. References are automatically converted to their computed values</span>
 <span class="sd">        (resolved) when the task runs.</span>
 
-<span class="sd">    If a dictionary of values is returned, the values can be referenced in the usual</span>
-<span class="sd">    manner</span>
+<span class="sd">    If a dictionary of values is returned, the values can be indexed in the usual</span>
+<span class="sd">    way.</span>
 
-<span class="sd">    &gt;&gt;&gt; from activities.core.outputs import Number</span>
-<span class="sd">    ...</span>
 <span class="sd">    &gt;&gt;&gt; @job</span>
 <span class="sd">    ... def compute(a, b):</span>
 <span class="sd">    ...     return {"sum": a + b, "product": a * b}</span>
-<span class="sd">    ...</span>
 <span class="sd">    &gt;&gt;&gt; compute_task = compute(1, 2)</span>
 <span class="sd">    &gt;&gt;&gt; compute_task.output["sum"]</span>
 <span class="sd">    Reference('abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'sum')</span>
 
-<span class="sd">    A better approach is to use :obj:`Outputs` classes. These have several benefits</span>
-<span class="sd">    including the ability to make use of static parameter checking to ensure that</span>
-<span class="sd">    the task outputs are valid. To use an outputs class, it should be specified</span>
-<span class="sd">    in the :obj:`task` decorator options.</span>
+<span class="sd">    .. Warning::</span>
+<span class="sd">        If an output is indexed incorrectly, for example by trying to access a key that</span>
+<span class="sd">        doesn't exist, this error will only be raised when the Job is executed.</span>
 
-<span class="sd">    &gt;&gt;&gt; from activities.core.outputs import Number</span>
-<span class="sd">    ...</span>
-<span class="sd">    &gt;&gt;&gt; @job(outputs=Number)</span>
-<span class="sd">    ... def add(a, b):</span>
-<span class="sd">    ...     return Number(a + b)</span>
-<span class="sd">    ...</span>
-<span class="sd">    &gt;&gt;&gt; add_task = add(1, 2)</span>
-<span class="sd">    &gt;&gt;&gt; add_task.outputs.number</span>
-<span class="sd">    Number(number=Reference(abeb6f48-9b34-4698-ab69-e4dc2127ebe9', 'number'))</span>
-<span class="sd">    &gt;&gt;&gt; add_task.outputs.bad_output</span>
-<span class="sd">    AttributeError: 'Number' object has no attribute 'bad_output'</span>
+<span class="sd">    Jobs can return :obj:`.Response` objects that control the activity execution flow.</span>
+<span class="sd">    For example, to replace the current jub with another job, ``replace`` can be used.</span>
 
-<span class="sd">    To indicate that a task has no outputs, the ``outputs`` parameter should be set to</span>
-<span class="sd">    ``None``.</span>
-
-<span class="sd">    &gt;&gt;&gt; @job(outputs=None)</span>
-<span class="sd">    ... def print_message(message):</span>
-<span class="sd">    ...     print(message)</span>
-
-<span class="sd">    Tasks can return :obj:`Detour` objects that cause new activities to be added to the</span>
-<span class="sd">    Activity graph. In this case, the outputs class of the Detour activity should be</span>
-<span class="sd">    specified in the task ``outputs`` option.</span>
-
-<span class="sd">    &gt;&gt;&gt; from activities import Activity</span>
-<span class="sd">    &gt;&gt;&gt; from activities.core.outputs import Number</span>
-<span class="sd">    ...</span>
-<span class="sd">    &gt;&gt;&gt; @job(outputs=Number)</span>
-<span class="sd">    ... def detour_add(a, b):</span>
-<span class="sd">    ...     add_task = add(a, b)</span>
-<span class="sd">    ...     activity = Activity("My detour", [add_task], add_task.outputs)</span>
-<span class="sd">    ...     return Detour(activity)</span>
+<span class="sd">    &gt;&gt;&gt; from activities import Response</span>
+<span class="sd">    &gt;&gt;&gt; @job</span>
+<span class="sd">    ... def replace(a, b):</span>
+<span class="sd">    ...     new_job = compute(a, b)</span>
+<span class="sd">    ...     return Response(restart=new_job)</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    Job, .Activity, .Outputs</span>
+<span class="sd">    Job, .Activity, .Response</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">inspect</span>
         <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
-        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">get_task</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Job</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">activities.core.maker</span> <span class="kn">import</span> <span class="n">Maker</span>
+        <span class="c1"># unwrap staticmethod or classmethod decorators</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">desc</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">staticmethod</span><span class="p">,</span> <span class="nb">classmethod</span><span class="p">)</span>
+                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">desc</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Maker</span><span class="p">):</span>
-                <span class="c1"># this is a maker function</span>
-                <span class="n">func_source</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-            <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">desc</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__func__</span>
+
+        <span class="c1"># there are 4 possible scenarios.</span>
+        <span class="c1"># 1. job is decorating a standalone function.</span>
+        <span class="c1"># 2. job is decorating a method of a class instance.</span>
+        <span class="c1"># 3. job is decorating a classmethod.</span>
+        <span class="c1"># 4. job is decorating a staticmethod.</span>
+        <span class="c1"># each of these will be handled differently</span>
+        <span class="n">involves_class</span> <span class="o">=</span> <span class="s2">"."</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span>
+
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">get_job</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Job</span><span class="p">:</span>
+            <span class="n">cls_instance</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">_declassify</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">involves_class</span><span class="p">:</span>
+                <span class="c1"># standalone function, (scenario 1)</span>
                 <span class="n">func_source</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__module__</span>
+            <span class="k">elif</span> <span class="n">involves_class</span> <span class="ow">and</span> <span class="n">cls_instance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># method, likely a Maker instance (scenario 2)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cls_instance</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">"job cannot be used on class method for classes that are not "</span>
+                        <span class="s2">"MSONable"</span>
+                    <span class="p">)</span>
+                <span class="n">func_source</span> <span class="o">=</span> <span class="n">cls_instance</span>
+            <span class="k">elif</span> <span class="n">involves_class</span> <span class="ow">and</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># classmethod (scenario 3)</span>
+                <span class="n">func_source</span> <span class="o">=</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># staticmethod (scenario 4)</span>
+                <span class="n">func_source</span> <span class="o">=</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">Job</span><span class="p">(</span>
                 <span class="n">function_source</span><span class="o">=</span><span class="n">func_source</span><span class="p">,</span>
@@ -328,7 +346,13 @@
                 <span class="o">**</span><span class="n">job_kwargs</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">get_task</span>
+        <span class="n">get_job</span><span class="o">.</span><span class="n">original</span> <span class="o">=</span> <span class="n">func</span>
+
+        <span class="k">if</span> <span class="n">desc</span><span class="p">:</span>
+            <span class="c1"># rewrap staticmethod or classmethod decorators</span>
+            <span class="n">get_job</span> <span class="o">=</span> <span class="n">desc</span><span class="p">(</span><span class="n">get_job</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">get_job</span>
 
     <span class="c1"># See if we're being called as @job or @job().</span>
     <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -350,21 +374,41 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    function</span>
-<span class="sd">        The delayed function to run specified as a tuple of (module, function_name).</span>
-<span class="sd">    args</span>
+<span class="sd">    function_source</span>
+<span class="sd">        The source of the function. Can be ``"builtins"`` for builtin functions,</span>
+<span class="sd">        a module name, or an :obj:`.MSONable` class instance.</span>
+<span class="sd">    function_name</span>
+<span class="sd">        The function name.</span>
+<span class="sd">    function_args</span>
 <span class="sd">        The positional arguments to the function call.</span>
-<span class="sd">    kwargs</span>
+<span class="sd">    function_kwargs</span>
 <span class="sd">        The keyword arguments to the function call.</span>
-<span class="sd">    output</span>
-<span class="sd">        The output of the activity. Note that until the activity is run this will be</span>
-<span class="sd">        a reference.</span>
 <span class="sd">    output_schema</span>
-<span class="sd">        A pydantic model that defines the schema of the output.</span>
+<span class="sd">        A :obj:`Schema` object that defines the schema of the output.</span>
 <span class="sd">    uuid</span>
-<span class="sd">        A unique identifier for the job.</span>
+<span class="sd">        A unique identifier for the job. Generated automatically.</span>
+<span class="sd">    index</span>
+<span class="sd">        The index of the job (number of times the job has been replaced).</span>
+<span class="sd">    name</span>
+<span class="sd">        The name of the job. If not set it will be determined from ``function_source``</span>
+<span class="sd">        and ``function_name``.</span>
 <span class="sd">    metadata</span>
-<span class="sd">        A dictionary of information that will get stored alongside the</span>
+<span class="sd">        A dictionary of information that will get stored alongside the job output.</span>
+<span class="sd">    config</span>
+<span class="sd">        The config setting for the job.</span>
+<span class="sd">    host</span>
+<span class="sd">        The UUID of the host activity.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    output</span>
+<span class="sd">        The output of the job. This is a reference to the future job output and</span>
+<span class="sd">        can be used as the input to other jobs or activities.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Job</span>
+<span class="sd">        A job.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -383,41 +427,16 @@
 
 <span class="sd">    &gt;&gt;&gt; def add(a, b):</span>
 <span class="sd">    ...     return a + b</span>
-<span class="sd">    ...</span>
 <span class="sd">    &gt;&gt;&gt; add_job = Job(function=("my_package", "add"), args=(1, 2))</span>
-
-<span class="sd">    :obj:`Job` objects can be executed using the :obj:`run()` method. The output is</span>
-<span class="sd">    always a :obj:`Response` object that contains the outputs and other options that</span>
-<span class="sd">    control the activity execution.</span>
-
-<span class="sd">    &gt;&gt;&gt; response = add_task.run()</span>
-<span class="sd">    &gt;&gt;&gt; response.outputs</span>
-<span class="sd">    Value(value=3)</span>
-
-<span class="sd">    The default output type of a job is a :obj:`Value` object that has a single</span>
-<span class="sd">    field `value`. If the function returns more than one outputs then</span>
-<span class="sd">    the output must be specified as dictionary or a custom :obj:`Outputs` class.</span>
-
-<span class="sd">    Using an :obj:`.Outputs` object also enables static parameter checking.</span>
-
-<span class="sd">    &gt;&gt;&gt; from activities.core.outputs import Number</span>
-<span class="sd">    ...</span>
-<span class="sd">    &gt;&gt;&gt; def add(a, b):</span>
-<span class="sd">    ...     return Number(a + b)</span>
-<span class="sd">    ...</span>
-<span class="sd">    &gt;&gt;&gt; add_task = Job(function=("my_package", "add"), args=(1, 2), outputs=Number)</span>
-<span class="sd">    &gt;&gt;&gt; response = add_task.run()</span>
-<span class="sd">    &gt;&gt;&gt; response.outputs</span>
-<span class="sd">    Number(number=3)</span>
 
 <span class="sd">    More details are given in the :obj:`job` decorator docstring.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    job, Response, .Outputs</span>
+<span class="sd">    job, Response, .Activity</span>
 <span class="sd">    """</span>
 
-    <span class="n">function_source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">activities</span><span class="o">.</span><span class="n">Maker</span><span class="p">]</span>
+    <span class="n">function_source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">]</span>
     <span class="n">function_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">function_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
     <span class="n">function_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
@@ -436,7 +455,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">Reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">output_schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_maker_job</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_type</span> <span class="o">==</span> <span class="s2">"method"</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">):</span>
+                <span class="c1"># Probably a Maker instance</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="o">.</span><span class="n">name</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_name</span>
@@ -453,10 +473,25 @@
             <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_maker_job</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">activities.core.maker</span> <span class="kn">import</span> <span class="n">Maker</span>
+    <span class="k">def</span> <span class="nf">function_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        The type of the function (standalone function, method, or class/staticmethod).</span>
 
-        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="n">Maker</span><span class="p">)</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The function type.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">"function"</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s2">"classmethod"</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">"staticmethod"</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">"method"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unrecognised function type."</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">input_references</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">activities</span><span class="o">.</span><span class="n">Reference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -475,18 +510,6 @@
             <span class="n">references</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">find_and_get_references</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">output_references</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">activities</span><span class="o">.</span><span class="n">Reference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">"""</span>
-<span class="sd">        Find :obj:`.Reference` objects in the job outputs.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        tuple(Reference, ...)</span>
-<span class="sd">            The references belonging to the job outputs.</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">])</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -549,21 +572,38 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">resolve_references</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolve_args</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_maker_job</span><span class="p">:</span>
-            <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_name</span><span class="p">)</span>
-            <span class="n">function</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-            <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span>
-            <span class="p">)</span>
-
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_type</span> <span class="o">==</span> <span class="s2">"method"</span><span class="p">:</span>
+            <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_name</span><span class="p">)</span><span class="o">.</span><span class="n">original</span>
+            <span class="c1"># the first argument must be the class instance</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span> <span class="n">args</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_type</span> <span class="o">==</span> <span class="s2">"staticmethod"</span><span class="p">:</span>
+            <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Could not import </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_name</span><span class="p">)</span><span class="o">.</span><span class="n">original</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_type</span> <span class="o">==</span> <span class="s2">"classmethod"</span><span class="p">:</span>
+            <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Could not import </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_name</span><span class="p">)</span><span class="o">.</span><span class="n">original</span>
+            <span class="c1"># the first argument must be the class</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span> <span class="n">args</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="p">)</span>
             <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not import </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">function_name</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-            <span class="n">function</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-            <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="p">)</span>
+            <span class="n">function</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">original</span>
+
+        <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">Response</span><span class="p">):</span>
             <span class="n">response</span> <span class="o">=</span> <span class="n">Response</span><span class="o">.</span><span class="n">from_job_returns</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
@@ -682,7 +722,7 @@
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_maker_job</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_msonable_job</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_source</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
                 <span class="n">update</span><span class="p">,</span>
                 <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
@@ -701,20 +741,6 @@
 
         <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_references</span><span class="p">:</span>
-            <span class="n">groups</span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">output_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_references</span><span class="p">])</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">output_references_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Reference</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
-        <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-
-        <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_references</span><span class="p">:</span>
             <span class="n">groups</span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
@@ -870,6 +896,27 @@
             <span class="n">restart</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">current_job</span><span class="o">.</span><span class="n">output_schema</span>
 
     <span class="k">return</span> <span class="n">restart</span>
+
+
+<span class="k">def</span> <span class="nf">_declassify</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="sd">"""Extract class information.</span>
+
+<span class="sd">    Adapted from https://stackoverflow.com/questions/19314405/how-to-detect-is-decorator-has-been-applied-to-method-or-function</span>
+<span class="sd">    """</span>
+    <span class="kn">import</span> <span class="nn">inspect</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">met</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">met</span><span class="p">:</span>
+            <span class="n">wrap</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">met</span><span class="p">,</span> <span class="s1">'__func__'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">wrap</span><span class="p">,</span> <span class="s1">'original'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="n">fun</span><span class="p">:</span>
+                <span class="n">class_instance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">class_instance</span><span class="p">):</span>
+                    <span class="bp">cls</span> <span class="o">=</span> <span class="n">class_instance</span>
+                    <span class="n">class_instance</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">cls</span> <span class="o">=</span> <span class="n">class_instance</span><span class="o">.</span><span class="vm">__class__</span>
+                <span class="k">return</span> <span class="n">class_instance</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span>
 </pre></div>
       </article>
       <footer>
