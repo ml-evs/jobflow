@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API" href="activity.html" /><link rel="prev" title="Introduction" href="introduction.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API" href="flow.html" /><link rel="prev" title="Introduction" href="introduction.html" />
 
     <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
-        <title>API - Activities</title>
+        <title>API - Flows</title>
       <link rel="stylesheet" href="_static/styles/furo.css?digest=978e1795dfe158b585dda6a8417f6411828bf3ed">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
@@ -116,7 +116,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Activities</div></a>
+      <a href="index.html"><div class="brand">Flows</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -130,7 +130,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Activities</span>
+  <span class="sidebar-brand-text">Flows</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -144,22 +144,22 @@
 <p><span class="caption-text">User Interface</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="activity.html">Activity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow.html">Flow</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to activities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to flows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/hackingmaterials/activities">activities on GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/hackingmaterials/flows">flows on GitHub</a></li>
 </ul>
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="activities.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="activities.core.html">activities.core</a></li>
-<li class="toctree-l2"><a class="reference internal" href="activities.managers.html">activities.managers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="activities.utils.html">activities.utils</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="flows.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="flows.core.html">flows.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.managers.html">flows.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.utils.html">flows.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -180,16 +180,16 @@
         <section id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <p>The main interface for constructing jobs is the <code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> function.</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> wraps functions for use in activities. It can be used as a decorator, or
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> wraps functions for use in flows. It can be used as a decorator, or
 around function calls directly (i.e. <code class="docutils literal notranslate"><span class="pre">job(foo)(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>). Outputs from functions
 wrapped in <code class="docutils literal notranslate"><span class="pre">job</span></code> are proxy objects of type <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> that contain the inputs
 and function to be executed.</p>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname"><span class="pre">activities.core.job.</span></code><code class="sig-name descname"><span class="pre">job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activities/core/job.html#job"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Wraps a function to produce a <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
-<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects are delayed function calls that can be used in an
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code>. A job is a composed of the function name and source and any
+<code class="sig-prename descclassname"><span class="pre">flows.core.job.</span></code><code class="sig-name descname"><span class="pre">job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flows/core/job.html#job"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Wraps a function to produce a <a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
+<p><a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects are delayed function calls that can be used in an
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code>. A job is a composed of the function name and source and any
 arguments for the function. This decorator makes it simple to create
 job objects directly from a function definition. See the examples for more details.</p>
 <dl class="field-list simple">
@@ -197,7 +197,7 @@ job objects directly from a function definition. See the examples for more detai
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>method</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – A function to wrap. This should not be specified directly and is implied
 by the decorator.</p></li>
-<li><p><strong>**job_kwargs</strong> – Other keyword arguments that will get passed to the <a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> init method.</p></li>
+<li><p><strong>**job_kwargs</strong> – Other keyword arguments that will get passed to the <a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> init method.</p></li>
 </ul>
 </dd>
 </dl>
@@ -207,7 +207,7 @@ by the decorator.</p></li>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">"I am a Job"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span> <span class="o">=</span> <span class="n">print_message</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">print_job</span><span class="p">)</span>
-<span class="go">&lt;class 'activities.core.job.Job'&gt;</span>
+<span class="go">&lt;class 'flows.core.job.Job'&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_source</span>
 <span class="go">'__main__'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_name</span>
@@ -256,9 +256,9 @@ way.</p>
 <p>If an output is indexed incorrectly, for example by trying to access a key that
 doesn’t exist, this error will only be raised when the Job is executed.</p>
 </div>
-<p>Jobs can return <a class="reference internal" href="activities.core.html#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> objects that control the activity execution flow.
+<p>Jobs can return <a class="reference internal" href="flows.core.html#flows.core.job.Response" title="flows.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> objects that control the flow execution flow.
 For example, to replace the current jub with another job, <code class="docutils literal notranslate"><span class="pre">replace</span></code> can be used.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">activities</span> <span class="kn">import</span> <span class="n">Response</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">flows</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">new_job</span> <span class="o">=</span> <span class="n">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
@@ -267,7 +267,7 @@ For example, to replace the current jub with another job, <code class="docutils 
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="activities.core.html#activities.core.job.Job" title="activities.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="activities.core.html#activities.core.activity.Activity" title="activities.core.activity.Activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Activity</span></code></a>, <a class="reference internal" href="activities.core.html#activities.core.job.Response" title="activities.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+<p><a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="flows.core.html#flows.core.flow.Flow" title="flows.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>, <a class="reference internal" href="flows.core.html#flows.core.job.Response" title="flows.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p>
 </div>
 </dd></dl>
 </section>
@@ -276,7 +276,7 @@ For example, to replace the current jub with another job, <code class="docutils 
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="activity.html">
+          <a class="next-page" href="flow.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
