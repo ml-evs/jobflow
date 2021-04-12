@@ -218,7 +218,7 @@
 <span class="sd">    A Flow contains a collection of Jobs or other Flows to execute.</span>
 
 <span class="sd">    The :obj:`Flow` object is the main tool for constructing workflows. Flows</span>
-<span class="sd">    can either contain jobs or other flows. Like :obj:`.Job` objects, Flow objects</span>
+<span class="sd">    can either contain jobs or other jobflow. Like :obj:`.Job` objects, Flow objects</span>
 <span class="sd">    can also have outputs, however, these are not explicitly stored in the database.</span>
 <span class="sd">    Instead, the outputs of a Flow act to structure the outputs of the jobs</span>
 <span class="sd">    contained within the Flow.</span>
@@ -280,13 +280,13 @@
 
 <span class="sd">    &gt;&gt;&gt; flow = Flow(jobs=[add_first, add_second], output=add_second.output)</span>
 
-<span class="sd">    This will allow the flow to be used in another flow. In this way, flows</span>
+<span class="sd">    This will allow the flow to be used in another flow. In this way, jobflow</span>
 <span class="sd">    can be infinitely nested. For example:</span>
 
 <span class="sd">    &gt;&gt;&gt; add_third = add(flow.output, 5)</span>
 <span class="sd">    &gt;&gt;&gt; outer_flow = Flow(jobs=[flow, add_third])</span>
 
-<span class="sd">    Flows can be run using an flow manager. These enable running flows</span>
+<span class="sd">    Flows can be run using an flow manager. These enable running jobflow</span>
 <span class="sd">    locally or on compute clusters (using the FireWorks manager).</span>
 
 <span class="sd">    &gt;&gt;&gt; from jobflow.managers.local import run_locally</span>
@@ -453,7 +453,7 @@
         <span class="sd">"""</span>
 <span class="sd">        Update the kwargs of all jobs in the flow.</span>
 
-<span class="sd">        Note that updates will be applied to jobs in nested flows.</span>
+<span class="sd">        Note that updates will be applied to jobs in nested jobflow.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -508,7 +508,7 @@
         <span class="sd">"""</span>
 <span class="sd">        Update the keyword arguments of any :obj:`.Maker` objects in the jobs.</span>
 
-<span class="sd">        Note that updates will be applied to jobs in any inner flows.</span>
+<span class="sd">        Note that updates will be applied to jobs in any inner jobflow.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
