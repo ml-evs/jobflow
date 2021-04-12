@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Change log" href="changelog.html" /><link rel="prev" title="API" href="job.html" />
 
     <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
-        <title>API - Flows</title>
+        <title>API - jobflow</title>
       <link rel="stylesheet" href="_static/styles/furo.css?digest=978e1795dfe158b585dda6a8417f6411828bf3ed">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
@@ -116,7 +116,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Flows</div></a>
+      <a href="index.html"><div class="brand">jobflow</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -130,7 +130,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Flows</span>
+  <span class="sidebar-brand-text">jobflow</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -150,16 +150,15 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to jobflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/hackingmaterials/flows">flows on GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/hackingmaterials/jobflow">jobflow on GitHub</a></li>
 </ul>
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="flows.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="flows.core.html">flows.core</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flows.managers.html">flows.managers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flows.utils.html">flows.utils</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html">jobflow.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html">jobflow.managers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -185,22 +184,22 @@ Flows also contain useful functions for modifying and visualising the connectivi
 of jobs within them.</p>
 <dl class="py class">
 <dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">flows.core.flow.</span></code><code class="sig-name descname"><span class="pre">Flow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Flow'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flows/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></code><code class="sig-name descname"><span class="pre">Flow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Flow'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A Flow contains a collection of Jobs or other Flows to execute.</p>
-<p>The <a class="reference internal" href="flows.core.html#flows.core.flow.Flow" title="flows.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object is the main tool for constructing workflows. Flows
-can either contain jobs or other flows. Like <a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, Flow objects
+<p>The <a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object is the main tool for constructing workflows. Flows
+can either contain jobs or other flows. Like <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, Flow objects
 can also have outputs, however, these are not explicitly stored in the database.
 Instead, the outputs of a Flow act to structure the outputs of the jobs
 contained within the Flow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>jobs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="flows.core.html#flows.core.flow.Flow" title="flows.core.flow.Flow"><em>Flow</em></a><em>, </em><em>flows.Job</em><em>]</em><em>]</em><em>, </em><em>flows.Job</em><em>, </em><a class="reference internal" href="flows.core.html#flows.core.flow.Flow" title="flows.core.flow.Flow"><em>Flow</em></a><em>]</em>) – The jobs to be run as a list of <a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="flows.core.html#flows.core.flow.Flow" title="flows.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> objects.</p></li>
+<li><p><strong>jobs</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em>, </em><em>jobflow.Job</em><em>]</em><em>]</em><em>, </em><em>jobflow.Job</em><em>, </em><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em>]</em>) – The jobs to be run as a list of <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> objects.</p></li>
 <li><p><strong>output</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – The output of the flow. These should come from the output of one or more
 of the jobs.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The flow name.</p></li>
-<li><p><strong>order</strong> (<a class="reference internal" href="flows.core.html#flows.core.flow.JobOrder" title="flows.core.flow.JobOrder"><em>JobOrder</em></a>) – The order in which the jobs should be exectuted. The default is to determine
+<li><p><strong>order</strong> (<a class="reference internal" href="jobflow.core.html#jobflow.core.flow.JobOrder" title="jobflow.core.flow.JobOrder"><em>JobOrder</em></a>) – The order in which the jobs should be exectuted. The default is to determine
 the order automatically based on the connections between jobs.</p></li>
 <li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The identifier of the flow. This is genenrated automatically.</p></li>
 <li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The identifier of the host flow. This is set automatically when an flow
@@ -222,12 +221,12 @@ than an <code class="docutils literal notranslate"><span class="pre">OutputRefer
 </dl>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference internal" href="flows.core.html#module-flows.core.job" title="flows.core.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>, <a class="reference internal" href="flows.core.html#flows.core.job.Job" title="flows.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="flows.core.html#flows.core.flow.JobOrder" title="flows.core.flow.JobOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobOrder</span></code></a></p>
+<p><a class="reference internal" href="jobflow.core.html#module-jobflow.core.job" title="jobflow.core.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>, <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="jobflow.core.html#jobflow.core.flow.JobOrder" title="jobflow.core.flow.JobOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobOrder</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
 <p>Below we define a simple job to add two numbers, and create an flow containing
 two connected add jobs.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">flows</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
@@ -250,17 +249,17 @@ can be infinitely nested. For example:</p>
 </div>
 <p>Flows can be run using an flow manager. These enable running flows
 locally or on compute clusters (using the FireWorks manager).</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">flows.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">run_locally</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="py method">
 <dt>
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">job_uuids</span></code></dt>
-<dd><p>The uuids of every job contained in the flow (including nested flows).</p>
+<dd><p>The uuids of every job contained in the flow (including nested jobflow).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The uuids of all jobs in the flow (including nested flows).</p>
+<dd class="field-odd"><p>The uuids of all jobs in the flow (including nested jobflow).</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>]</p>
@@ -282,7 +281,7 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </dd></dl>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flows/core/flow.html#Flow.draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow.draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Draw the flow graph using matplotlib.</p>
 <p>Requires matplotlib to be installed.</p>
 <dl class="field-list simple">
@@ -296,7 +295,7 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </dd></dl>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">iterflow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flows/core/flow.html#Flow.iterflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">iterflow</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow.iterflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Iterate through the jobs of the flow.</p>
 <p>The jobs are yielded such that the job output references can always be
 resolved. I.e., root nodes of the flow graph are always returned first.</p>
@@ -309,7 +308,7 @@ flow).</p>
 </dd></dl>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">update_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flows/core/flow.html#Flow.update_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<code class="sig-name descname"><span class="pre">update_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow.update_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Update the kwargs of all jobs in the flow.</p>
 <p>Note that updates will be applied to jobs in nested flows.</p>
 <dl class="field-list simple">
@@ -318,14 +317,14 @@ flow).</p>
 <li><p><strong>update</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
 <li><p><strong>name_filter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A filter for the job name.</p></li>
 <li><p><strong>function_filter</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>]</em>) – Only filter matching functions.</p></li>
-<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="flows.utils.html#flows.utils.dict_mods.DictMods" title="flows.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflows.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Consider a flow containing a simple job with a <code class="docutils literal notranslate"><span class="pre">number</span></code> keyword argument.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">flows</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">number</span>
@@ -347,19 +346,19 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 </dd></dl>
 <dl class="py method">
 <dt>
-<code class="sig-name descname"><span class="pre">update_maker_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flows/core/flow.html#Flow.update_maker_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Update the keyword arguments of any <a class="reference internal" href="flows.core.html#flows.core.maker.Maker" title="flows.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> objects in the jobs.</p>
+<code class="sig-name descname"><span class="pre">update_maker_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow.update_maker_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update the keyword arguments of any <a class="reference internal" href="jobflow.core.html#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> objects in the jobs.</p>
 <p>Note that updates will be applied to jobs in any inner flows.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
 <li><p><strong>name_filter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A filter for the Maker name.</p></li>
-<li><p><strong>class_filter</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>flows.Maker</em><em>]</em><em>]</em>) – A filter for the maker class. Note the class filter will match any
+<li><p><strong>class_filter</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>jobflow.Maker</em><em>]</em><em>]</em>) – A filter for the maker class. Note the class filter will match any
 subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
 of a Maker object. See examples for more details.</p></li>
-<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="flows.utils.html#flows.utils.dict_mods.DictMods" title="flows.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
+<li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflows.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
 </dd>
@@ -367,7 +366,7 @@ details.</p></li>
 <p class="rubric">Examples</p>
 <p>Consider the following flow containing jobs from a Maker:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">flows</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">Flow</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">Flow</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">AddMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"add"</span>
@@ -396,7 +395,7 @@ used.</p>
 <p>By default, the updates are applied to nested Makers. These are Makers
 which are present in the kwargs of another Maker. Consider the following case
 for a Maker that produces a job that restarts.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">flows</span> <span class="kn">import</span> <span class="n">Response</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">RestartMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"restart"</span>
