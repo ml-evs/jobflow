@@ -626,6 +626,7 @@
 <span class="sd">        --------</span>
 <span class="sd">        Response, .OutputReference</span>
 <span class="sd">        """</span>
+        <span class="kn">import</span> <span class="nn">builtins</span>
         <span class="kn">import</span> <span class="nn">types</span>
         <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
@@ -647,7 +648,7 @@
         <span class="c1"># if function is bound method we need to do some magic to bind the unwrapped</span>
         <span class="c1"># function to the class/instance</span>
         <span class="n">bound</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">,</span> <span class="s2">"__self__"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">bound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">builtins</span><span class="p">:</span>
             <span class="n">function</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">bound</span><span class="p">)</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="p">)</span>
