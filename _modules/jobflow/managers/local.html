@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -177,13 +179,14 @@
         </label>
         <h1>Source code for jobflow.managers.local</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Tools for running jobflow locally."""</span>
+
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
@@ -194,15 +197,35 @@
     <span class="n">flow</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]],</span>
     <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Run a :obj:`Job` or :obj:`Flow` locally.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    flow</span>
+<span class="sd">        A job or flow.</span>
+<span class="sd">    log</span>
+<span class="sd">        Whether to print log messages.</span>
+<span class="sd">    store</span>
+<span class="sd">        A job store. If a job store is not specified then a maggma ``MemoryStore`` will</span>
+<span class="sd">        be used while the job is executed and deleted once the job is finished.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[str, Any]</span>
+<span class="sd">        The responses of the jobs, as a dict of ``{uuid: response}``.</span>
+<span class="sd">    """</span>
     <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
 
-    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span><span class="p">,</span> <span class="n">JobStore</span><span class="p">,</span> <span class="n">Job</span><span class="p">,</span> <span class="n">initialize_logger</span>
-    <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">ReferenceFallback</span>
+    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span><span class="p">,</span> <span class="n">Job</span><span class="p">,</span> <span class="n">JobStore</span><span class="p">,</span> <span class="n">initialize_logger</span>
+    <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">OnMissing</span>
 
     <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">store</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_store</span><span class="p">(</span><span class="n">MemoryStore</span><span class="p">())</span>
-        <span class="n">store</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="n">jobstore</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_store</span><span class="p">(</span><span class="n">MemoryStore</span><span class="p">())</span>
+        <span class="n">jobstore</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">jobstore</span> <span class="o">=</span> <span class="n">store</span>
 
     <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
         <span class="n">initialize_logger</span><span class="p">()</span>
@@ -210,8 +233,8 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
         <span class="n">flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">(</span><span class="n">jobs</span><span class="o">=</span><span class="n">flow</span><span class="p">)</span>
 
-    <span class="n">stopped_parents</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">fizzled</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">stopped_parents</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">fizzled</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">responses</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">stop_activities</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -231,13 +254,13 @@
 
         <span class="k">if</span> <span class="p">(</span>
             <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">fizzled</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span>
-            <span class="ow">and</span> <span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span> <span class="o">==</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span>
+            <span class="ow">and</span> <span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span>
         <span class="p">):</span>
             <span class="n">fizzled</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">jobstore</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">traceback</span>
 
@@ -257,9 +280,9 @@
             <span class="n">stop_activities</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">restart</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># first run any restarts</span>
-            <span class="n">_run</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">restart</span><span class="p">)</span>
+            <span class="n">_run</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">detour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># next any detours</span>
@@ -284,9 +307,9 @@
                 <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
                     <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Started executing jobs locally"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Started executing jobs locally"</span><span class="p">)</span>
     <span class="n">_run</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Finished executing jobs locally"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Finished executing jobs locally"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">responses</span></div>
 </pre></div>
       </article>

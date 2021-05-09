@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -176,27 +178,58 @@
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
         <h1>Source code for jobflow.core.schema</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">typing</span>
+<span></span><span class="sd">"""Define job output schema class."""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">create_model</span>
-<span class="kn">from</span> <span class="nn">pydantic.typing</span> <span class="kn">import</span> <span class="n">get_args</span>
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Schema"</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="with_reference"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.schema.with_reference">[docs]</a><span class="k">def</span> <span class="nf">with_reference</span><span class="p">(</span><span class="n">atype</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Reference</span>
+<span class="k">def</span> <span class="nf">with_reference</span><span class="p">(</span><span class="n">atype</span><span class="p">:</span> <span class="n">Type</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Recursively redefine a type with the union of the type and :obj:`OutputReference`.</span>
+
+<span class="sd">    For example, if the original type is ``Union[str, Tuple[str]]`` the modified</span>
+<span class="sd">    type would be ``Union[str, OutputReference, Tuple[Union[str, OutputReference]]]``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    atype</span>
+<span class="sd">        A type.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        A new type which is the recursive union with :obj:`OutputReference`.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">pydantic.typing</span> <span class="kn">import</span> <span class="n">get_args</span>
+
+    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">OutputReference</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">with_reference</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="n">atype</span><span class="p">)])</span>
 
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atype</span><span class="p">,</span> <span class="s2">"copy_with"</span><span class="p">):</span>
         <span class="n">atype</span> <span class="o">=</span> <span class="n">atype</span><span class="o">.</span><span class="n">copy_with</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Reference</span><span class="p">,</span> <span class="n">atype</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="n">atype</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="allow_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.schema.allow_references">[docs]</a><span class="k">def</span> <span class="nf">allow_references</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">allow_references</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]):</span>
     <span class="sd">"""</span>
-<span class="sd">    Create a new BaseModel with the exact same fields as `model` but making them all optional</span>
+<span class="sd">    Create new BaseModel with the same fields as ``model`` but that accepts References.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model</span>
+<span class="sd">        A pydantic model.</span>
 <span class="sd">    """</span>
     <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 
@@ -220,7 +253,7 @@
         <span class="o">**</span><span class="n">field_definitions</span><span class="p">,</span>
         <span class="n">__base__</span><span class="o">=</span><span class="n">_BaseSchema</span><span class="p">,</span>
         <span class="vm">__module__</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="vm">__module__</span>
-    <span class="p">)</span></div>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_BaseSchema</span><span class="p">(</span><span class="n">MSONable</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">):</span>
@@ -233,7 +266,15 @@
 
 
 <div class="viewcode-block" id="Schema"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.schema.Schema">[docs]</a><span class="k">class</span> <span class="nc">Schema</span><span class="p">(</span><span class="n">_BaseSchema</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Base Schema class for representing job output schemas.</span>
+
+<span class="sd">    This is a special pydantic model that automatically converts all types to support</span>
+<span class="sd">    the :obj:`OutputReference` objects.</span>
+<span class="sd">    """</span>
+
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""Allow new instances to support :obj:`OutputReference` objects."""</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">allow_references</span><span class="p">(</span><span class="bp">cls</span><span class="p">)(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">t</span></div>
 </pre></div>

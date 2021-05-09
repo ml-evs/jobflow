@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -177,12 +179,15 @@
         </label>
         <h1>Source code for jobflow.utils.dict_mods</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""</span>
-<span class="sd">This module allows you to modify a dict (a spec) using another dict (an instruction).</span>
-<span class="sd">The main method of interest is :obj:`apply_mod`.</span>
+<span class="sd">Implementation of the DictMod language for manipulating dictionaries.</span>
 
-<span class="sd">This code is based heavily on the Ansible class of `custodian</span>
-<span class="sd">&lt;https://pypi.python.org/pypi/custodian&gt;`_, but simplifies it considerably for the</span>
-<span class="sd">limited use cases required by jobflow.</span>
+<span class="sd">This module enables the modification of a dict using another dict. The main method of</span>
+<span class="sd">interest is :obj:`apply_mod`.</span>
+
+<span class="sd">.. Note::</span>
+<span class="sd">    This code is based heavily on the Ansible class of `custodian</span>
+<span class="sd">    &lt;https://pypi.python.org/pypi/custodian&gt;`_, but simplifies it considerably for the</span>
+<span class="sd">    limited use cases required by jobflow.</span>
 <span class="sd">"""</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -191,7 +196,7 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">"Shyue Ping Ong"</span>
@@ -205,7 +210,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"DictMods"</span><span class="p">,</span> <span class="s2">"apply_mod"</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="DictMods"><a class="viewcode-back" href="../../../jobflows.utils.html#jobflow.utils.dict_mods.DictMods">[docs]</a><span class="k">class</span> <span class="nc">DictMods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DictMods"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods">[docs]</a><span class="k">class</span> <span class="nc">DictMods</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Class to define mongo-like modifications on a dict.</span>
 
@@ -237,96 +242,106 @@
             <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"__\w+__"</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">)):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">supported_actions</span><span class="p">[</span><span class="s2">"_"</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.set"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.set">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Set a value."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.unset"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.unset">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">unset</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Unset a value."""</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-            <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.push"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.push">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Append a value to a list or create a list it if it doesn't exist."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.push_all"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.push_all">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">push_all</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Extend a list or create a list it if it doesn't exist."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.inc"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.inc">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Increment a number."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.rename"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.rename">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Rename a key."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">input_dict</span><span class="p">:</span>
                 <span class="n">input_dict</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-                <span class="k">del</span> <span class="n">input_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="k">del</span> <span class="n">input_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.add_to_set"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.add_to_set">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">add_to_set</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Add an item to a set or create the set if it doesn't exist."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Keyword </span><span class="si">{}</span><span class="s2"> does not refer to an array."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Keyword </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> does not refer to an array."</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.pull"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.pull">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">pull</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Extract a field from a nested dictionary."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Keyword </span><span class="si">{}</span><span class="s2"> does not refer to an array."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Keyword </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> does not refer to an array."</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">v</span><span class="p">]</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">v</span><span class="p">]</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.pull_all"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.pull_all">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">pull_all</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Extract many fields from a nested dictionary."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">input_dict</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Keyword </span><span class="si">{}</span><span class="s2"> does not refer to an array."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Keyword </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> does not refer to an array."</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-                <span class="n">DictMods</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">i</span><span class="p">})</span>
+                <span class="n">DictMods</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">i</span><span class="p">})</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DictMods.pop"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.DictMods.pop">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
+        <span class="sd">"""Pop a value from a list."""</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">_get_nested_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Keyword </span><span class="si">{}</span><span class="s2"> does not refer to an array."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Keyword </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> does not refer to an array."</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div></div>
 
 
 <span class="n">_DM</span> <span class="o">=</span> <span class="n">DictMods</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="apply_mod"><a class="viewcode-back" href="../../../jobflows.utils.html#jobflow.utils.dict_mods.apply_mod">[docs]</a><span class="k">def</span> <span class="nf">apply_mod</span><span class="p">(</span><span class="n">modification</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<div class="viewcode-block" id="apply_mod"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.dict_mods.apply_mod">[docs]</a><span class="k">def</span> <span class="nf">apply_mod</span><span class="p">(</span><span class="n">modification</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
     <span class="sd">"""</span>
 <span class="sd">    Apply a dict mod to an object.</span>
 
@@ -344,12 +359,12 @@
         <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">_DM</span><span class="o">.</span><span class="n">supported_actions</span><span class="p">:</span>
             <span class="n">_DM</span><span class="o">.</span><span class="n">supported_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2"> is not a supported action!"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">))</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2"> is not a supported action!"</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_get_nested_dict</span><span class="p">(</span>
     <span class="n">input_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]:</span>
     <span class="sd">"""Get nested dicts using a key."""</span>
     <span class="n">current</span> <span class="o">=</span> <span class="n">input_dict</span>
     <span class="n">toks</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-&gt;"</span><span class="p">)</span>
@@ -360,11 +375,12 @@
         <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">current</span><span class="p">,</span> <span class="n">toks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="n">tok</span><span class="p">]</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">def</span> <span class="nf">_arrow_to_dot</span><span class="p">(</span><span class="n">input_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
-<span class="sd">    Converts arrows ('-&gt;') in dict keys to dots '.' recursively.</span>
+<span class="sd">    Convert arrows ('-&gt;') in dict keys to dots '.' recursively.</span>
 
 <span class="sd">    Allows for storing MongoDB nested document queries in MongoDB.</span>
 

@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -176,70 +178,78 @@
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
         <h1>Source code for jobflow.core.store</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">"""Define the primary jobflow database interface."""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="kn">from</span> <span class="nn">maggma.core</span> <span class="kn">import</span> <span class="n">Store</span>
-<span class="kn">from</span> <span class="nn">monty.dev</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
     <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">maggma.core</span> <span class="kn">import</span> <span class="n">Sort</span>
     <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">GridFSStore</span><span class="p">,</span> <span class="n">MongoStore</span><span class="p">,</span> <span class="n">MongoURIStore</span><span class="p">,</span> <span class="n">S3Store</span>
+
+    <span class="n">save_type</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]]</span>
+    <span class="p">]</span>
+    <span class="n">load_type</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">save_type</span><span class="p">]</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">"JobStore"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="JobStore"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore">[docs]</a><span class="k">class</span> <span class="nc">JobStore</span><span class="p">(</span><span class="n">Store</span><span class="p">):</span>
+    <span class="sd">"""Store intended to allow pushing and pulling documents into multiple stores.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    docs_store</span>
+<span class="sd">        Store for basic documents.</span>
+<span class="sd">    data_store</span>
+<span class="sd">        Maggma store for large data objects.</span>
+<span class="sd">    save</span>
+<span class="sd">        List of keys to save in the data store when uploading documents.</span>
+<span class="sd">    load</span>
+<span class="sd">        List of keys to load from the data store when querying.</span>
+<span class="sd">    """</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">docs_store</span><span class="p">:</span> <span class="n">Store</span><span class="p">,</span>
         <span class="n">data_store</span><span class="p">:</span> <span class="n">Store</span><span class="p">,</span>
-        <span class="n">save</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">load</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">save</span><span class="p">:</span> <span class="n">save_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">load</span><span class="p">:</span> <span class="n">load_type</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Store intended to allow pushing and pulling documents into multiple stores.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        docs_store</span>
-<span class="sd">            Store for basic documents.</span>
-<span class="sd">        data_store</span>
-<span class="sd">            Maggma store for large data objects.</span>
-<span class="sd">        save</span>
-<span class="sd">            List of keys to save in the data store when uploading documents.</span>
-<span class="sd">        load</span>
-<span class="sd">            List of keys to load from the data store when querying.</span>
-<span class="sd">        """</span>
+        <span class="sd">""" """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span> <span class="o">=</span> <span class="n">docs_store</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_store</span> <span class="o">=</span> <span class="n">data_store</span>
 
         <span class="c1"># enforce uuid key</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_store</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">"blob_id"</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s2">"uuid"</span>
 
         <span class="k">if</span> <span class="n">save</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">save</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="n">save</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">save</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-            <span class="n">save</span> <span class="o">=</span> <span class="p">(</span><span class="n">save</span><span class="p">,)</span>
+            <span class="n">save</span> <span class="o">=</span> <span class="p">[</span><span class="n">save</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span> <span class="o">=</span> <span class="n">save</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">load</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">load</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">load</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
-            <span class="n">load</span> <span class="o">=</span> <span class="p">(</span><span class="n">load</span><span class="p">,)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+            <span class="n">load</span> <span class="o">=</span> <span class="p">[</span><span class="n">load</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load</span> <span class="o">=</span> <span class="n">load</span>
 
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">docs_store</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"key"</span><span class="p">,</span> <span class="s2">"last_updated_field"</span><span class="p">,</span> <span class="s2">"last_updated_type"</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">JobStore</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="JobStore.name"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">"""Get the name of the data source.</span>
@@ -264,13 +274,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data_store</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">force_reset</span><span class="o">=</span><span class="n">force_reset</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="JobStore.close"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Closes any connections."""</span>
+        <span class="sd">"""Close any connections."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="JobStore.count"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.count">[docs]</a>    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Counts the number of documents matching the query criteria.</span>
+<span class="sd">        Count the number of documents matching the query criteria.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -291,10 +301,10 @@
         <span class="n">sort</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sort</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">load</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterator</span><span class="p">[</span><span class="n">Dict</span><span class="p">]]:</span>
+        <span class="n">load</span><span class="p">:</span> <span class="n">load_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
         <span class="sd">"""</span>
-<span class="sd">        Queries the JobStore for documents.</span>
+<span class="sd">        Query the JobStore for documents.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -323,7 +333,8 @@
 
         <span class="k">if</span> <span class="n">load</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">load</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span>
-        <span class="n">load</span> <span class="o">=</span> <span class="n">_prepare_load</span><span class="p">(</span><span class="n">load</span><span class="p">)</span>
+
+        <span class="n">load_keys</span> <span class="o">=</span> <span class="n">_prepare_load</span><span class="p">(</span><span class="n">load</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
             <span class="n">properties</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">]</span>
@@ -335,7 +346,7 @@
         <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">load</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">load_keys</span><span class="p">:</span>
                 <span class="c1"># Process is</span>
                 <span class="c1"># 1. Find the locations of all blob identifiers.</span>
                 <span class="c1"># 2. Filter the locations based on the load criteria.</span>
@@ -343,7 +354,7 @@
                 <span class="c1"># 4. Insert the data blobs into the document</span>
                 <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s2">"blob_uuid"</span><span class="p">)</span>
                 <span class="n">blobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">get</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">loc</span><span class="p">))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">]</span>
-                <span class="n">blobs</span><span class="p">,</span> <span class="n">locations</span> <span class="o">=</span> <span class="n">_filter_blobs</span><span class="p">(</span><span class="n">blobs</span><span class="p">,</span> <span class="n">locations</span><span class="p">,</span> <span class="n">load</span><span class="p">)</span>
+                <span class="n">blobs</span><span class="p">,</span> <span class="n">locations</span> <span class="o">=</span> <span class="n">_filter_blobs</span><span class="p">(</span><span class="n">blobs</span><span class="p">,</span> <span class="n">locations</span><span class="p">,</span> <span class="n">load_keys</span><span class="p">)</span>
 
                 <span class="n">object_info</span> <span class="o">=</span> <span class="p">{</span><span class="n">b</span><span class="p">[</span><span class="s2">"blob_uuid"</span><span class="p">]:</span> <span class="n">loc</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">loc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">blobs</span><span class="p">,</span> <span class="n">locations</span><span class="p">)}</span>
                 <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_store</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
@@ -364,10 +375,10 @@
         <span class="n">criteria</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">properties</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">sort</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sort</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">load</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">load</span><span class="p">:</span> <span class="n">load_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
         <span class="sd">"""</span>
-<span class="sd">        Queries the Store for a single document.</span>
+<span class="sd">        Query the Store for a single document.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -396,10 +407,10 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">],</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">save</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">save</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">save_type</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Update or insert documents into the Store</span>
+<span class="sd">        Update or insert documents into the Store.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -419,14 +430,20 @@
 
         <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">find_key</span><span class="p">,</span> <span class="n">update_in_dictionary</span>
 
-        <span class="k">if</span> <span class="n">save</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">save</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="n">save</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">save</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-            <span class="n">save</span> <span class="o">=</span> <span class="p">[</span><span class="n">save</span><span class="p">]</span>
-        <span class="n">save</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Enum</span><span class="p">)</span> <span class="k">else</span> <span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">save</span><span class="p">]</span>
+        <span class="n">save_keys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">save</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">save</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">save_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">save</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+            <span class="n">save_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">save</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">save</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">save_keys</span> <span class="o">=</span> <span class="n">save</span>
+        <span class="n">save_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Enum</span><span class="p">)</span> <span class="k">else</span> <span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">save_keys</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">docs</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">]</span>
 
         <span class="n">blob_data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">dict_docs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -434,10 +451,10 @@
             <span class="n">doc</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">dict_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">save_keys</span><span class="p">:</span>
                 <span class="n">locations</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">save</span><span class="p">:</span>
-                    <span class="n">locations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">find_key</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">include_end</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">save_key</span> <span class="ow">in</span> <span class="n">save_keys</span><span class="p">:</span>
+                    <span class="n">locations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">find_key</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">save_key</span><span class="p">,</span> <span class="n">include_end</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
                 <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">get</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">loc</span><span class="p">))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">]</span>
                 <span class="n">object_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">locations</span><span class="p">),</span> <span class="n">objects</span><span class="p">))</span>
                 <span class="n">object_info</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">_get_blob_info</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">object_map</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
@@ -457,12 +474,12 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dict_docs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">save_keys</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data_store</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blob_data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">"blob_uuid"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="JobStore.ensure_index"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.ensure_index">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unique</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Tries to create an index on document store and return true if it succeeded.</span>
+<span class="sd">        Try to create an index on document store and return True success.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -486,10 +503,10 @@
         <span class="n">sort</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sort</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">load</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Hashable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">load</span><span class="p">:</span> <span class="n">load_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]]]:</span>
         <span class="sd">"""</span>
-<span class="sd">        Simple grouping function that will group documents by keys.</span>
+<span class="sd">        Group documents by keys.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -538,7 +555,7 @@
             <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">vals</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">grouping_keys</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">grouping_keys</span><span class="p">):</span>
-            <span class="n">doc</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">doc</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
                 <span class="n">set_</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
             <span class="k">yield</span> <span class="n">doc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">)</span></div>
@@ -560,13 +577,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">remove_docs</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
-    <span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">"This will be removed in the future"</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">collection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""Get the collection name."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">collection</span>
 
 <div class="viewcode-block" id="JobStore.from_store"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_store">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_store</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">Store</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_store</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">Store</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JobStore</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a new job store that uses the same store for documents and data.</span>
 
@@ -590,8 +606,28 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">which</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
-        <span class="n">load</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">load</span><span class="p">:</span> <span class="n">load_type</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get the output from of a job UUID.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        uuid</span>
+<span class="sd">            A job UUID.</span>
+<span class="sd">        which</span>
+<span class="sd">            If there are multiple job runs, which index to use. Options are:</span>
+<span class="sd">            - `"last"` (default): Use the last job that ran.</span>
+<span class="sd">            - `"first"`: Use the first job that ran.</span>
+<span class="sd">            - `"all"`: Return all outputs.</span>
+<span class="sd">        load</span>
+<span class="sd">            The keys to load from the datastore.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            The output(s) for the job UUID.</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"last"</span><span class="p">,</span> <span class="s2">"first"</span><span class="p">):</span>
             <span class="n">sort</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">"last"</span> <span class="k">else</span> <span class="mi">1</span>
 
@@ -604,17 +640,18 @@
 
             <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">({</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span> <span class="p">[</span><span class="s2">"output"</span><span class="p">],</span> <span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">({</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span> <span class="p">[</span><span class="s2">"output"</span><span class="p">],</span> <span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">)</span>
+            <span class="p">)</span>
 
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> has not outputs."</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span></div>
+            <span class="k">return</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="JobStore.from_db_file"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_db_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_db_file</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">db_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">admin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">db_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">admin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Create an JobStore from a database file.</span>
@@ -704,15 +741,13 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">docs_store</span><span class="p">,</span> <span class="n">data_store</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">_get_docs_store</span><span class="p">(</span><span class="n">credentials</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">admin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MongoStore</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_get_docs_store</span><span class="p">(</span><span class="n">credentials</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">admin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MongoStore</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Get the docs store from mongodb credentials.</span>
 
 <span class="sd">    See JobStore.from_db_file for supported mongo connection arguments.</span>
 <span class="sd">    """</span>
-
-    <span class="n">collection_name</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"collection"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_get_mongo_like_store</span><span class="p">(</span><span class="n">collection_name</span><span class="p">,</span> <span class="n">credentials</span><span class="p">,</span> <span class="n">admin</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_get_mongo_like_store</span><span class="p">(</span><span class="n">credentials</span><span class="p">[</span><span class="s2">"collection"</span><span class="p">],</span> <span class="n">credentials</span><span class="p">,</span> <span class="n">admin</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_data_store</span><span class="p">(</span><span class="n">credentials</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">admin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Store</span><span class="p">:</span>
@@ -735,7 +770,7 @@
                 <span class="n">credentials</span><span class="p">[</span><span class="s2">"database"</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">auth</span>
             <span class="p">)</span>
 
-    <span class="n">data_store_kwargs</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_store_kwargs"</span><span class="p">)</span>
+    <span class="n">data_store_kwargs</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_store_kwargs"</span><span class="p">,</span> <span class="p">{})</span>
     <span class="k">if</span> <span class="s2">"bucket"</span> <span class="ow">in</span> <span class="n">data_store_kwargs</span><span class="p">:</span>
         <span class="c1"># Store is a S3 bucket</span>
         <span class="n">index_collection_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">collection_name</span><span class="si">}</span><span class="s2">_index"</span>
@@ -792,11 +827,12 @@
     <span class="k">return</span> <span class="n">auth</span>
 
 
-<span class="k">def</span> <span class="nf">_prepare_load</span><span class="p">(</span>
-    <span class="n">load</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]:</span>
+<span class="k">def</span> <span class="nf">_prepare_load</span><span class="p">(</span><span class="n">load</span><span class="p">:</span> <span class="n">load_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]:</span>
     <span class="sd">"""Standardize load types."""</span>
     <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+    <span class="k">if</span> <span class="n">load</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">load</span>
@@ -805,13 +841,13 @@
         <span class="n">load</span> <span class="o">=</span> <span class="p">[</span><span class="n">load</span><span class="p">]</span>
 
     <span class="n">new_load</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">load_type</span> <span class="ow">in</span> <span class="n">load</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load_type</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-            <span class="n">load_type</span> <span class="o">=</span> <span class="n">load_type</span><span class="o">.</span><span class="n">value</span>
-        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">load_type</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">):</span>
-            <span class="n">load_type</span> <span class="o">=</span> <span class="p">(</span><span class="n">load_type</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">load_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-
-        <span class="n">new_load</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">load_type</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ltype</span> <span class="ow">in</span> <span class="n">load</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ltype</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+            <span class="n">new_load</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ltype</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ltype</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">ltype</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">):</span>
+            <span class="n">new_load</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ltype</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="n">ltype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_load</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ltype</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">new_load</span>
 
 
@@ -824,17 +860,21 @@
         <span class="c1"># return all blobs</span>
         <span class="k">return</span> <span class="n">blob_infos</span><span class="p">,</span> <span class="n">locations</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">load</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="c1"># Don't return any blobs</span>
+        <span class="k">return</span> <span class="p">[],</span> <span class="p">[]</span>
+
     <span class="n">new_blobs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">new_locations</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">blob</span><span class="p">,</span> <span class="n">location</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">blob_infos</span><span class="p">,</span> <span class="n">locations</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">load_type</span> <span class="ow">in</span> <span class="n">load</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ltype</span> <span class="ow">in</span> <span class="n">load</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">load_type</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="n">blob</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@class"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">load_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="ow">and</span> <span class="n">blob</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@module"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">load_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">ltype</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">blob</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@class"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">ltype</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">blob</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@module"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">ltype</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="p">):</span>
                 <span class="k">pass</span>
-            <span class="k">elif</span> <span class="n">location</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">load_type</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">location</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ltype</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">continue</span>

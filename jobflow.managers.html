@@ -2,8 +2,8 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Index" href="genindex.html" /><link rel="prev" title="jobflow.core" href="jobflow.core.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.utils" href="jobflow.utils.html" /><link rel="prev" title="jobflow.core" href="jobflow.core.html" />
 
     <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
         <title>jobflow.managers - jobflow</title>
@@ -19,7 +19,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -32,7 +32,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -47,7 +47,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -59,7 +59,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -145,6 +145,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -159,6 +160,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="jobflow.html">API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
@@ -184,13 +186,21 @@
 <dl class="py function">
 <dt id="jobflow.managers.local.run_locally">
 <code class="sig-prename descclassname"><span class="pre">jobflow.managers.local.</span></code><code class="sig-name descname"><span class="pre">run_locally</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/local.html#run_locally"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.local.run_locally" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Run a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> locally.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flow</strong> (<em>Union</em><em>[</em><em>jobflow.Flow</em><em>, </em><em>jobflow.Job</em><em>, </em><em>List</em><em>[</em><em>jobflow.Job</em><em>]</em><em>]</em>) – </p></li>
-<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – </p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – </p></li>
+<li><p><strong>flow</strong> (<em>Union</em><em>[</em><em>jobflow.Flow</em><em>, </em><em>jobflow.Job</em><em>, </em><em>List</em><em>[</em><em>jobflow.Job</em><em>]</em><em>]</em>) – A job or flow.</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to print log messages.</p></li>
+<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. If a job store is not specified then a maggma <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> will
+be used while the job is executed and deleted once the job is finished.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The responses of the jobs, as a dict of <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">response}</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>[<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>, Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -204,12 +214,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="genindex.html">
+          <a class="next-page" href="jobflow.utils.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Index</div>
+                <div class="title">jobflow.utils</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

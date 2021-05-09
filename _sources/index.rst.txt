@@ -10,6 +10,7 @@
 
    Job <job>
    Flow <flow>
+   Maker <maker>
 
 .. toctree::
    :caption: Information

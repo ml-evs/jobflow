@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -176,57 +178,143 @@
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
         <h1>Source code for jobflow.core.reference</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">"""Define classes for handling job outputs."""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span>
 
-<span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MontyDecoder</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">,</span> <span class="n">jsanitize</span>
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MontyDecoder</span><span class="p">,</span> <span class="n">MontyEncoder</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">,</span> <span class="n">jsanitize</span>
 
 <span class="kn">from</span> <span class="nn">jobflow.utils.enum</span> <span class="kn">import</span> <span class="n">ValueEnum</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"OnMissing"</span><span class="p">,</span>
+    <span class="s2">"OutputReference"</span><span class="p">,</span>
+    <span class="s2">"resolve_references"</span><span class="p">,</span>
+    <span class="s2">"find_and_resolve_references"</span><span class="p">,</span>
+    <span class="s2">"find_and_get_references"</span><span class="p">,</span>
+<span class="p">]</span>
 
-<div class="viewcode-block" id="ReferenceFallback"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.ReferenceFallback">[docs]</a><span class="k">class</span> <span class="nc">ReferenceFallback</span><span class="p">(</span><span class="n">ValueEnum</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OnMissing"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OnMissing">[docs]</a><span class="k">class</span> <span class="nc">OnMissing</span><span class="p">(</span><span class="n">ValueEnum</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    What to do when a reference cannot be resolved.</span>
+
+<span class="sd">    - ``ERROR``: Throw an error.</span>
+<span class="sd">    - ``NONE``: Replace the missing reference with ``None``.</span>
+<span class="sd">    - ``PASS``: Pass the unresolved :obj:`OutputReference` object on.</span>
+<span class="sd">    """</span>
+
     <span class="n">ERROR</span> <span class="o">=</span> <span class="s2">"error"</span>
     <span class="n">NONE</span> <span class="o">=</span> <span class="s2">"none"</span>
     <span class="n">PASS</span> <span class="o">=</span> <span class="s2">"pass"</span></div>
 
 
-<div class="viewcode-block" id="Reference"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.Reference">[docs]</a><span class="k">class</span> <span class="nc">Reference</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
+<div class="viewcode-block" id="OutputReference"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference">[docs]</a><span class="k">class</span> <span class="nc">OutputReference</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A reference to the output of a :obj:`Job`.</span>
+
+<span class="sd">    The output may or may not exist yet. Accordingly, :obj:`OutputReference` objects</span>
+<span class="sd">    are essentially pointers to future job outputs. Output references can be used as</span>
+<span class="sd">    input to a :obj:`Job` or :obj:`Flow` and will be "resolved". This means, the value</span>
+<span class="sd">    of the reference will be looked up in the job store and the value passed on to the</span>
+<span class="sd">    job.</span>
+
+<span class="sd">    Output references are also how jobflow is able to determine the dependencies between</span>
+<span class="sd">    jobs, allowing for construction of the job graph and to determine the job execution</span>
+<span class="sd">    order.</span>
+
+<span class="sd">    Upon attribute access or indexing, an output reference will return another</span>
+<span class="sd">    output reference with the attribute accesses stored. When resolving the reference,</span>
+<span class="sd">    the attributes/indexing will be also be performed before the value is passed on to</span>
+<span class="sd">    the job. See the examples for more details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    uuid</span>
+<span class="sd">        The job uuid to which the output belongs.</span>
+<span class="sd">    attributes :</span>
+<span class="sd">        A tuple of attributes or indexes that have been performed on the</span>
+<span class="sd">        output.</span>
+<span class="sd">    output_schema</span>
+<span class="sd">        An output schema for the output that will be used to validate any attribute</span>
+<span class="sd">        accesses or indexes. Note, schemas can only be used to validate the first</span>
+<span class="sd">        attribute/index access.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    A reference can be constructed using just the job uuid.</span>
+
+<span class="sd">    &gt;&gt;&gt; from jobflow import OutputReference</span>
+<span class="sd">    &gt;&gt;&gt; ref = OutputReference("1234")</span>
+
+<span class="sd">    Attribute accesses return new references.</span>
+
+<span class="sd">    &gt;&gt;&gt; ref.my_attribute</span>
+<span class="sd">    OutputReference(1234, 'my_attribute')</span>
+
+<span class="sd">    Attribute accesses and indexing can be chained.</span>
+
+<span class="sd">    &gt;&gt;&gt; ref["key"][0].value</span>
+<span class="sd">    OutputReference(1234, 'key', 0, 'value')</span>
+<span class="sd">    """</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"attributes"</span><span class="p">,</span> <span class="s2">"output_schema"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">attributes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(),</span>
+        <span class="n">attributes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(),</span>
         <span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">inspect</span>
-
-        <span class="kn">from</span> <span class="nn">jobflow.utils.serialization</span> <span class="kn">import</span> <span class="n">deserialize_class</span>
-
-        <span class="nb">super</span><span class="p">(</span><span class="n">Reference</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="n">attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">output_schema</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="o">=</span> <span class="n">deserialize_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">)</span>
-
-<div class="viewcode-block" id="Reference.resolve"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.Reference.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span>
+<div class="viewcode-block" id="OutputReference.resolve"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">on_missing</span><span class="p">:</span> <span class="n">ReferenceFallback</span> <span class="o">=</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+        <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Resolve the reference.</span>
+
+<span class="sd">        This function will query the job store for the reference value and perform any</span>
+<span class="sd">        attribute accesses/indexing.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        store</span>
+<span class="sd">            A job store.</span>
+<span class="sd">        cache</span>
+<span class="sd">            A dictionary cache to use for local caching of reference values.</span>
+<span class="sd">        on_missing</span>
+<span class="sd">            What to do if the output reference is missing in the database and cache.</span>
+<span class="sd">            See :obj:`OnMissing` for the available options.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the reference cannot be found and ``on_missing`` is set to</span>
+<span class="sd">            ``OnMissing.ERROR`` (default).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            The resolved reference if it can be found. If the reference cannot be found,</span>
+<span class="sd">            the returned value will depend on the value of ``on_missing``.</span>
+<span class="sd">        """</span>
         <span class="c1"># when resolving multiple references simultaneously it is more efficient</span>
         <span class="c1"># to use resolve_references as it will minimize the number of database requests</span>
-        <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"At least one of store and cache must be set."</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -240,7 +328,7 @@
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                 <span class="k">pass</span>
 
-        <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"Could not resolve reference - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> not in store or cache"</span>
             <span class="p">)</span>
@@ -249,10 +337,10 @@
             <span class="n">data</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="c1"># if we get to here, that means the reference cannot be resolved</span>
-            <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># only other option is ReferenceFallback.PASS</span>
+                <span class="c1"># only other option is OnMissing.PASS</span>
                 <span class="k">return</span> <span class="bp">self</span>
 
         <span class="c1"># resolve nested references</span>
@@ -274,7 +362,23 @@
 
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="Reference.set_uuid"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.Reference.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="OutputReference.set_uuid"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutputReference</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Set the UUID of the reference.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        uuid</span>
+<span class="sd">            A new UUID.</span>
+<span class="sd">        inplace</span>
+<span class="sd">            Whether to update the current reference object or return a completely new</span>
+<span class="sd">            object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        OutputReference</span>
+<span class="sd">            An output reference with the specified uuid.</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
             <span class="k">return</span> <span class="bp">self</span>
@@ -285,45 +389,55 @@
             <span class="n">new_reference</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
             <span class="k">return</span> <span class="n">new_reference</span></div>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Reference"</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutputReference</span><span class="p">:</span>
+        <span class="sd">"""Index the reference."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">validate_schema_access</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">Reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">+</span> <span class="p">(</span><span class="n">item</span><span class="p">,))</span>
+        <span class="k">return</span> <span class="n">OutputReference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">+</span> <span class="p">(</span><span class="n">item</span><span class="p">,))</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Reference"</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutputReference</span><span class="p">:</span>
+        <span class="sd">"""Attribute access of the reference."""</span>
         <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"kwargs"</span><span class="p">,</span> <span class="s2">"args"</span><span class="p">,</span> <span class="s2">"schema"</span><span class="p">}</span> <span class="ow">or</span> <span class="p">(</span>
             <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">item</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)</span>
         <span class="p">):</span>
+            <span class="c1"># This is necessary to trick monty/pydantic.</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">validate_schema_access</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">Reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">+</span> <span class="p">(</span><span class="n">item</span><span class="p">,))</span>
+        <span class="k">return</span> <span class="n">OutputReference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">+</span> <span class="p">(</span><span class="n">item</span><span class="p">,))</span>
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">"""Set attribute."""</span>
+        <span class="c1"># Setting unknown attributes is not allowed</span>
         <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span><span class="p">:</span>
             <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Reference objects are immutable"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"OutputReference objects are immutable"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Reference objects are immutable"</span><span class="p">)</span>
+        <span class="sd">"""Set item."""</span>
+        <span class="c1"># Setting items via indexing is not allowed.</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"OutputReference objects are immutable"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Get a string representation of the reference and attributes."""</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">attribute_str</span> <span class="o">=</span> <span class="s2">", "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">repr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">attribute_str</span> <span class="o">=</span> <span class="s2">""</span>
 
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Reference(</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span><span class="si">}{</span><span class="n">attribute_str</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"OutputReference(</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span><span class="si">}{</span><span class="n">attribute_str</span><span class="si">}</span><span class="s2">)"</span>
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Return a hash of the reference."""</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Reference</span><span class="p">):</span>
+        <span class="sd">"""Test for equality against another reference."""</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">OutputReference</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">uuid</span>
                 <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span>
@@ -331,27 +445,49 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="Reference.as_dict"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.Reference.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">jobflow.utils.serialization</span> <span class="kn">import</span> <span class="n">serialize_class</span>
-
+<div class="viewcode-block" id="OutputReference.as_dict"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Serialize the reference as a dict."""</span>
         <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_schema</span>
+        <span class="n">schema_dict</span> <span class="o">=</span> <span class="n">MontyEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span> <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"@module"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
             <span class="s2">"@class"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="s2">"@version"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
             <span class="s2">"uuid"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
             <span class="s2">"attributes"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">,</span>
-            <span class="s2">"output_schema"</span><span class="p">:</span> <span class="n">serialize_class</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span> <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"output_schema"</span><span class="p">:</span> <span class="n">schema_dict</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 
 
 <div class="viewcode-block" id="resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.resolve_references">[docs]</a><span class="k">def</span> <span class="nf">resolve_references</span><span class="p">(</span>
-    <span class="n">references</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Reference</span><span class="p">],</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">],</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">],</span>
     <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">on_missing</span><span class="p">:</span> <span class="n">ReferenceFallback</span> <span class="o">=</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Reference</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Resolve multiple output references.</span>
+
+<span class="sd">    Uses caching to minimize number of database queries.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    references :</span>
+<span class="sd">        A list or tuple of output references.</span>
+<span class="sd">    store</span>
+<span class="sd">        A job store.</span>
+<span class="sd">    cache</span>
+<span class="sd">        A dictionary cache to use for local caching of reference values.</span>
+<span class="sd">    on_missing</span>
+<span class="sd">        What to do if the output reference is missing in the database and cache.</span>
+<span class="sd">        See :obj:`OnMissing` for the available options.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict[OutputReference, Any]</span>
+<span class="sd">        The output values as a dictionary mapping of ``{reference: output}``.</span>
+<span class="sd">    """</span>
     <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
 
     <span class="n">resolved_references</span> <span class="o">=</span> <span class="p">{}</span>
@@ -359,7 +495,7 @@
         <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">ref_group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">uuid</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span> <span class="ow">and</span> <span class="n">store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">cache</span><span class="p">[</span><span class="n">uuid</span><span class="p">]</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="n">uuid</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -373,12 +509,28 @@
     <span class="k">return</span> <span class="n">resolved_references</span></div>
 
 
-<div class="viewcode-block" id="find_and_get_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_get_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_get_references</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Reference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<div class="viewcode-block" id="find_and_get_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_get_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_get_references</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Find and extract output references.</span>
+
+<span class="sd">    This function works on nested inputs. For example, lists or dictionaries</span>
+<span class="sd">    (or combinations of list and dictionaries) that contain output references.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arg</span>
+<span class="sd">        The argument to search for references.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[OutputReference]</span>
+<span class="sd">        The output references as a tuple.</span>
+<span class="sd">    """</span>
     <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span>
 
     <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">find_key_value</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Reference</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">OutputReference</span><span class="p">):</span>
         <span class="c1"># if the argument is a reference then stop there</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">arg</span><span class="p">])</span>
 
@@ -389,23 +541,48 @@
     <span class="n">arg</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># recursively find any reference classes</span>
-    <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"Reference"</span><span class="p">)</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"OutputReference"</span><span class="p">)</span>
 
     <span class="c1"># deserialize references and return</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">Reference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">loc</span><span class="p">))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">])</span></div>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">OutputReference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">loc</span><span class="p">))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="find_and_resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_resolve_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_resolve_references</span><span class="p">(</span>
     <span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">],</span>
     <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">on_missing</span><span class="p">:</span> <span class="n">ReferenceFallback</span> <span class="o">=</span> <span class="n">ReferenceFallback</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+    <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Return the input but with all output references replaced with their resolved values.</span>
+
+<span class="sd">    This function works on nested inputs. For example, lists or dictionaries</span>
+<span class="sd">    (or combinations of list and dictionaries) that contain output references.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arg</span>
+<span class="sd">        The input argument containing output references.</span>
+<span class="sd">    store</span>
+<span class="sd">        A job store.</span>
+<span class="sd">    cache</span>
+<span class="sd">        A dictionary cache to use for local caching of reference values.</span>
+<span class="sd">    on_missing</span>
+<span class="sd">        What to do if the output reference is missing in the database and cache.</span>
+<span class="sd">        See :obj:`OnMissing` for the available options.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        The input argument but with all output references replaced with their resolved</span>
+<span class="sd">        values. If a reference cannot be found, its replacement value will depend on the</span>
+<span class="sd">        value of ``on_missing``.</span>
+<span class="sd">    """</span>
     <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">set_</span>
 
     <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">find_key_value</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Reference</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">OutputReference</span><span class="p">):</span>
         <span class="c1"># if the argument is a reference then stop there</span>
         <span class="k">return</span> <span class="n">arg</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">)</span>
 
@@ -417,13 +594,15 @@
     <span class="n">encoded_arg</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># recursively find any reference classes</span>
-    <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"Reference"</span><span class="p">)</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"OutputReference"</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">arg</span>
 
     <span class="c1"># resolve the references</span>
-    <span class="n">references</span> <span class="o">=</span> <span class="p">[</span><span class="n">Reference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">loc</span><span class="p">)))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">]</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">OutputReference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">loc</span><span class="p">)))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span>
+    <span class="p">]</span>
     <span class="n">resolved_references</span> <span class="o">=</span> <span class="n">resolve_references</span><span class="p">(</span>
         <span class="n">references</span><span class="p">,</span>
         <span class="n">store</span><span class="p">,</span>
@@ -440,11 +619,31 @@
     <span class="k">return</span> <span class="n">MontyDecoder</span><span class="p">()</span><span class="o">.</span><span class="n">process_decoded</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="validate_schema_access"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.validate_schema_access">[docs]</a><span class="k">def</span> <span class="nf">validate_schema_access</span><span class="p">(</span><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">],</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">validate_schema_access</span><span class="p">(</span><span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Schema</span><span class="p">],</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Validate that an attribute or index access is supported by a Schema.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    schema</span>
+<span class="sd">        A schema class.</span>
+<span class="sd">    item</span>
+<span class="sd">        An attribute or key to access.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    AttributeError</span>
+<span class="sd">        If the item is not a valid attribute of the schema.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        Returns ``True`` if the schema access was valid.</span>
+<span class="sd">    """</span>
     <span class="n">schema_dict</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">schema</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">schema_dict</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> does not have attribute '</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">'."</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span></div>
+    <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
       </article>
       <footer>

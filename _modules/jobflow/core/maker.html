@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -176,10 +178,11 @@
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
         <h1>Source code for jobflow.core.maker</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="sd">"""Define base Maker class for creating jobs and flows."""</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MontyDecoder</span><span class="p">,</span> <span class="n">MSONable</span>
@@ -190,15 +193,113 @@
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
 
-<div class="viewcode-block" id="Maker"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Maker</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">):</span>
+<div class="viewcode-block" id="Maker"><a class="viewcode-back" href="../../../maker.html#jobflow.core.maker.Maker">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Maker</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Base maker (factory) class for constructing :obj:`Job` and :obj:`Flow` objects.</span>
+
+<span class="sd">    Note, this class is only an abstract implementant. To create a functioning Maker</span>
+<span class="sd">    subclass :obj:`Maker` and define the ``make`` method. See examples below.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        The name of jobs or flows created from this maker.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    .job, .Job, .Flow</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Below we define a simple maker that generates a job to add two numbers. Next, we</span>
+<span class="sd">    make a job using the maker.</span>
+
+<span class="sd">    &gt;&gt;&gt; from dataclasses import dataclass</span>
+<span class="sd">    &gt;&gt;&gt; from jobflow import Maker, job</span>
+<span class="sd">    &gt;&gt;&gt; @dataclass</span>
+<span class="sd">    ... class AddMaker(Maker):</span>
+<span class="sd">    ...     name: str = "add"</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...     @job</span>
+<span class="sd">    ...     def make(self, a, b):</span>
+<span class="sd">    ...         return a + b</span>
+<span class="sd">    &gt;&gt;&gt; maker = AddMaker()</span>
+<span class="sd">    &gt;&gt;&gt; add_job = maker.make(1, 2)</span>
+<span class="sd">    &gt;&gt;&gt; add_job.name</span>
+<span class="sd">    "add"</span>
+
+<span class="sd">    There are two key features of :obj:`Maker` objects that make them extremely</span>
+<span class="sd">    powerful. The first is the ability to have class instance variables that</span>
+<span class="sd">    are used inside the make function. For example, running the job below will produce</span>
+<span class="sd">    the output ``6.5``.</span>
+
+<span class="sd">    &gt;&gt;&gt; @dataclass</span>
+<span class="sd">    ... class AddMaker(Maker):</span>
+<span class="sd">    ...     name: str = "add"</span>
+<span class="sd">    ...     c: float = 1.5</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...     @job</span>
+<span class="sd">    ...     def make(self, a, b):</span>
+<span class="sd">    ...         return a + b + self.c</span>
+<span class="sd">    &gt;&gt;&gt; maker = AddMaker(c=3.5)</span>
+<span class="sd">    &gt;&gt;&gt; add_job = maker.make(1, 2)</span>
+
+<span class="sd">    The second useful feature is the ability for delayed creation of jobs. For example,</span>
+<span class="sd">    consider a job that creates another job during its execution. If the new job</span>
+<span class="sd">    has lots of optional arguments, this will require passing lots of arguments to the</span>
+<span class="sd">    first job. However, using a Maker, the kwargs of the job can be specified as maker</span>
+<span class="sd">    kwargs and specified when the first job is created, making it much cleaner to</span>
+<span class="sd">    customise the newly created job. For example, consider this job that first squares</span>
+<span class="sd">    two numbers, then creates a new job to add them.</span>
+
+<span class="sd">    &gt;&gt;&gt; from jobflow import Response</span>
+<span class="sd">    &gt;&gt;&gt; @dataclass</span>
+<span class="sd">    ... class SquareThenAddMaker(Maker):</span>
+<span class="sd">    ...     add_maker: Maker = AddMaker()</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...     @job</span>
+<span class="sd">    ...     def make(self, a, b):</span>
+<span class="sd">    ...         a_squared = a ** 2</span>
+<span class="sd">    ...         b_squared = b ** 2</span>
+<span class="sd">    ...         add_job = self.add_maker.make(a_squared, b_squared)</span>
+<span class="sd">    ...         return Response(detour=add_job)</span>
+<span class="sd">    &gt;&gt;&gt; maker = SquareThenAddMaker()</span>
+<span class="sd">    &gt;&gt;&gt; square_add_job = maker.make(3, 4)</span>
+
+<span class="sd">    The add job can be customised by specifying a custom ``AddMaker`` instance when</span>
+<span class="sd">    the ``SquareThenAddMaker`` is initialized.</span>
+
+<span class="sd">    &gt;&gt;&gt; custom_add_maker = AddMaker(c=1000)</span>
+<span class="sd">    &gt;&gt;&gt; maker = SquareThenAddMaker(add_maker=custom_add_maker)</span>
+
+<span class="sd">    This provides a very natural way to contain and control the kwargs for dynamically</span>
+<span class="sd">    created jobs.</span>
+
+<span class="sd">    Note that makers can also be used to create :obj:`Flow` objects. In this case,</span>
+<span class="sd">    the only difference is that the ``make()`` method is not decorated using the ``job``</span>
+<span class="sd">    decorator and the function should return a flow. For example:</span>
+
+<span class="sd">    &gt;&gt;&gt; from jobflow import Flow</span>
+<span class="sd">    &gt;&gt;&gt; @dataclass</span>
+<span class="sd">    ... class DoubleAddMaker(Maker):</span>
+<span class="sd">    ...     add_maker: Maker = AddMaker()</span>
+<span class="sd">    ...</span>
+<span class="sd">    ...     def make(self, a, b):</span>
+<span class="sd">    ...         add_first = self.add_maker.make(a, b)</span>
+<span class="sd">    ...         add_second = self.add_maker.make(add_first.output, b)</span>
+<span class="sd">    ...         return Flow([add_first, add_second], name=self.name)</span>
+<span class="sd">    &gt;&gt;&gt; maker = DoubleAddMaker()</span>
+<span class="sd">    &gt;&gt;&gt; double_add_job = maker.make(1, 2)</span>
+<span class="sd">    """</span>
+
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Maker"</span>
 
-<div class="viewcode-block" id="Maker.make"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker.make">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]:</span>
-        <span class="k">pass</span></div>
+<div class="viewcode-block" id="Maker.make"><a class="viewcode-back" href="../../../maker.html#jobflow.core.maker.Maker.make">[docs]</a>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]:</span>
+        <span class="sd">"""Make a job or a flow - must be overridden with a concrete implementation."""</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="Maker.update_kwargs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker.update_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_kwargs</span><span class="p">(</span>
+<div class="viewcode-block" id="Maker.update_kwargs"><a class="viewcode-back" href="../../../maker.html#jobflow.core.maker.Maker.update_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">update</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
         <span class="n">name_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -206,6 +307,70 @@
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the keyword arguments of the :obj:`.Maker`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        update</span>
+<span class="sd">            The updates to apply.</span>
+<span class="sd">        name_filter</span>
+<span class="sd">            A filter for the Maker name.</span>
+<span class="sd">        class_filter</span>
+<span class="sd">            A filter for the maker class. Note the class filter will match any</span>
+<span class="sd">            subclasses.</span>
+<span class="sd">        nested</span>
+<span class="sd">            Whether to apply the updates to Maker objects that are themselves kwargs</span>
+<span class="sd">            of a Maker object. See examples for more details.</span>
+<span class="sd">        dict_mod</span>
+<span class="sd">            Use the dict mod language to apply updates. See :obj:`.DictMods` for more</span>
+<span class="sd">            details.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Consider the following Maker:</span>
+
+<span class="sd">        &gt;&gt;&gt; from dataclasses import dataclass</span>
+<span class="sd">        &gt;&gt;&gt; from jobflow import job, Maker</span>
+<span class="sd">        &gt;&gt;&gt; @dataclass</span>
+<span class="sd">        ... class AddMaker(Maker):</span>
+<span class="sd">        ...     number: float = 10</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     @job</span>
+<span class="sd">        ...     def make(self, a):</span>
+<span class="sd">        ...         return a + self.number</span>
+<span class="sd">        &gt;&gt;&gt; maker = AddMaker()</span>
+
+<span class="sd">        The ``number`` argument could be updated using:</span>
+
+<span class="sd">        &gt;&gt;&gt; maker.update_kwargs({"number": 10})</span>
+
+<span class="sd">        By default, the updates are applied to nested Makers. These are Makers</span>
+<span class="sd">        which are present in the kwargs of another Maker. For example, consider this</span>
+<span class="sd">        maker that first squares a number, then creates a new job to add it.</span>
+
+<span class="sd">        &gt;&gt;&gt; from jobflow import Response</span>
+<span class="sd">        &gt;&gt;&gt; @dataclass</span>
+<span class="sd">        ... class SquareThenAddMaker(Maker):</span>
+<span class="sd">        ...     add_maker: Maker = AddMaker()</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     @job</span>
+<span class="sd">        ...     def make(self, a, b):</span>
+<span class="sd">        ...         a_squared = a ** 2</span>
+<span class="sd">        ...         add_job = self.add_maker.make(a_squared)</span>
+<span class="sd">        ...         return Response(detour=add_job)</span>
+<span class="sd">        &gt;&gt;&gt; maker = SquareThenAddMaker()</span>
+
+<span class="sd">        The following update will apply to the nested ``AddMaker`` in the kwargs of the</span>
+<span class="sd">        ``SquareThenAddMaker``:</span>
+
+<span class="sd">        &gt;&gt;&gt; maker.update_kwargs({"number": 10}, function_filter=AddMaker)</span>
+
+<span class="sd">        However, if ``nested=False``, then the update will not be applied to the nested</span>
+<span class="sd">        Maker:</span>
+
+<span class="sd">        &gt;&gt;&gt; maker.update_kwargs({"number": 10}, function_filter=AddMaker, nested=False)</span>
+<span class="sd">        """</span>
         <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">set_</span>
 
         <span class="kn">from</span> <span class="nn">jobflow.utils.dict_mods</span> <span class="kn">import</span> <span class="n">apply_mod</span>

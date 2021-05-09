@@ -18,7 +18,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -31,7 +31,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -46,7 +46,7 @@
   --color-code-foreground: black;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -58,7 +58,7 @@
   --color-code-foreground: #d0d0d0;
   --admonition-font-size: 92%;
   --admonition-title-font-size: 92%;
-  --font-stack: Lato, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  --font-stack: Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   --font-size--small: 92%;
   --font-size--small--2: 87.5%;
   --font-size--small--3: 87.5%;
@@ -144,6 +144,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../job.html">Job</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../flow.html">Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -158,6 +159,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
@@ -197,8 +199,10 @@
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"itergraph"</span><span class="p">,</span> <span class="s2">"draw_graph"</span><span class="p">,</span> <span class="s2">"to_pydot"</span><span class="p">]</span>
 
-<div class="viewcode-block" id="itergraph"><a class="viewcode-back" href="../../../jobflows.utils.html#jobflow.utils.graph.itergraph">[docs]</a><span class="k">def</span> <span class="nf">itergraph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
+
+<div class="viewcode-block" id="itergraph"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.graph.itergraph">[docs]</a><span class="k">def</span> <span class="nf">itergraph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Iterate through a graph using a topological sort order.</span>
 
@@ -229,11 +233,10 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Some jobflow are not connected, their ordering may be random"</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">subgraph</span> <span class="ow">in</span> <span class="n">subgraphs</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">(</span><span class="n">subgraph</span><span class="p">):</span>
-            <span class="k">yield</span> <span class="n">node</span></div>
+        <span class="k">yield from</span> <span class="n">nx</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../../jobflows.utils.html#jobflow.utils.graph.draw_graph">[docs]</a><span class="nd">@requires</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">,</span> <span class="s2">"matplotlib must be installed to plot flow graphs."</span><span class="p">)</span>
+<div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.graph.draw_graph">[docs]</a><span class="nd">@requires</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">,</span> <span class="s2">"matplotlib must be installed to plot flow graphs."</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">layout_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Draw a networkx graph.</span>
@@ -275,7 +278,7 @@
     <span class="k">return</span> <span class="n">plt</span></div>
 
 
-<div class="viewcode-block" id="to_pydot"><a class="viewcode-back" href="../../../jobflows.utils.html#jobflow.utils.graph.to_pydot">[docs]</a><span class="k">def</span> <span class="nf">to_pydot</span><span class="p">(</span><span class="n">flow</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dot</span><span class="p">:</span>
+<div class="viewcode-block" id="to_pydot"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.graph.to_pydot">[docs]</a><span class="k">def</span> <span class="nf">to_pydot</span><span class="p">(</span><span class="n">flow</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dot</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Convert a flow to a pydot graph.</span>
 
