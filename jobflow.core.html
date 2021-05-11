@@ -700,15 +700,13 @@ determine the flow execution.</p>
 </dd></dl>
 <dl class="py method">
 <dt id="jobflow.core.job.Job.resolve_args">
-<code class="sig-name descname"><span class="pre">resolve_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">inplace=True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job.resolve_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job.resolve_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">resolve_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job.resolve_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job.resolve_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the input arguments.</p>
 <p>See the docstring for <a class="reference internal" href="#jobflow.core.reference.OutputReference.resolve" title="jobflow.core.reference.OutputReference.resolve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference.resolve()</span></code></a> for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A maggma store to use for resolving references.</p></li>
-<li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the reference cannot be resolved. See the docstring
-for <a class="reference internal" href="#jobflow.core.reference.OutputReference.resolve" title="jobflow.core.reference.OutputReference.resolve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference.resolve</span></code></a> for the available options.</p></li>
 <li><p><strong>inplace</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Update the arguments of the current job or return a new job object.</p></li>
 </ul>
 </dd>
@@ -868,7 +866,7 @@ outputs.</p></li>
 </dd></dl>
 <dl class="py class">
 <dt id="jobflow.core.job.JobConfig">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></code><code class="sig-name descname"><span class="pre">JobConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">resolve_references=True</span></em>, <em class="sig-param"><span class="pre">on_missing_references=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">manager_config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">expose_store=False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></code><code class="sig-name descname"><span class="pre">JobConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">resolve_references=True</span></em>, <em class="sig-param"><span class="pre">on_missing_references=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">manager_config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">expose_store=False</span></em>, <em class="sig-param"><span class="pre">pass_manager_config=True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>The configuration parameters for a job.</p>
 <dl class="field-list simple">
@@ -881,6 +879,8 @@ call.</p></li>
 error.</p></li>
 <li><p><strong>manager_config</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The configuration settings to control the manager execution.</p></li>
 <li><p><strong>expose_store</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to expose the store in <code class="xref py py-obj docutils literal notranslate"><span class="pre">CURRENT_JOB`</span></code> when the job is running.</p></li>
+<li><p><strong>pass_manager_config</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to pass the manager configuration on to detour, addition, and
+replacement jobs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
