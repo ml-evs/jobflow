@@ -1027,6 +1027,11 @@ decorator and the function should return a flow. For example:</p>
 <dt id="jobflow.core.maker.Maker.update_kwargs">
 <code class="sig-name descname"><span class="pre">update_kwargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker.update_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker.update_kwargs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the keyword arguments of the <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note, the maker is not updated in place. Instead a new maker object is
+returned.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1077,12 +1082,14 @@ maker that first squares a number, then creates a new job to add it.</p>
 </div>
 <p>The following update will apply to the nested <code class="docutils literal notranslate"><span class="pre">AddMaker</span></code> in the kwargs of the
 <code class="docutils literal notranslate"><span class="pre">SquareThenAddMaker</span></code>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">({</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">function_filter</span><span class="o">=</span><span class="n">AddMaker</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">({</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">function_filter</span><span class="o">=</span><span class="n">AddMaker</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>However, if <code class="docutils literal notranslate"><span class="pre">nested=False</span></code>, then the update will not be applied to the nested
 Maker:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">({</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">function_filter</span><span class="o">=</span><span class="n">AddMaker</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maker</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">"number"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">function_filter</span><span class="o">=</span><span class="n">AddMaker</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
