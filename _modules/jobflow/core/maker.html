@@ -231,11 +231,6 @@
 <span class="sd">    &gt;&gt;&gt; add_job.name</span>
 <span class="sd">    "add"</span>
 
-<span class="sd">    .. Note:</span>
-<span class="sd">        Jobs created by the same Maker will not share the same Maker object. This means</span>
-<span class="sd">        if a job is created, the maker variables are changed a new job is created, only</span>
-<span class="sd">        the second job will reflect the updated maker variables.</span>
-
 <span class="sd">    There are two key features of :obj:`Maker` objects that make them extremely</span>
 <span class="sd">    powerful. The first is the ability to have class instance variables that</span>
 <span class="sd">    are used inside the make function. For example, running the job below will produce</span>
@@ -251,6 +246,11 @@
 <span class="sd">    ...         return a + b + self.c</span>
 <span class="sd">    &gt;&gt;&gt; maker = AddMaker(c=3.5)</span>
 <span class="sd">    &gt;&gt;&gt; add_job = maker.make(1, 2)</span>
+
+<span class="sd">    .. Note::</span>
+<span class="sd">        Jobs created by a Maker will inherit a copy of the Maker object. This means that</span>
+<span class="sd">        if 1) a job is created, 2) the maker variables are changed, and 3) a new job is</span>
+<span class="sd">        created, only the second job will reflect the updated maker variables.</span>
 
 <span class="sd">    The second useful feature is the ability for delayed creation of jobs. For example,</span>
 <span class="sd">    consider a job that creates another job during its execution. If the new job</span>

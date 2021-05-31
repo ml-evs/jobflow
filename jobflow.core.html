@@ -960,6 +960,12 @@ the output <code class="docutils literal notranslate"><span class="pre">6.5</spa
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jobs created by a Maker will inherit a copy of the Maker object. This means that
+if 1) a job is created, 2) the maker variables are changed, and 3) a new job is
+created, only the second job will reflect the updated maker variables.</p>
+</div>
 <p>The second useful feature is the ability for delayed creation of jobs. For example,
 consider a job that creates another job during its execution. If the new job
 has lots of optional arguments, this will require passing lots of arguments to the
