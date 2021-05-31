@@ -472,10 +472,8 @@ by the decorator.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span> <span class="o">=</span> <span class="n">print_message</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">print_job</span><span class="p">)</span>
 <span class="go">&lt;class 'jobflow.core.job.Job'&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_source</span>
-<span class="go">'__main__'</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function_name</span>
-<span class="go">'print_message'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_job</span><span class="o">.</span><span class="n">function</span>
+<span class="go">&lt;function print_message at 0x7ff72bdf6af0&gt;</span>
 </pre></div>
 </div>
 <p>Jobs can have required and optional parameters.</p>
@@ -554,8 +552,7 @@ class) can be used, provided the class is <code class="xref py py-obj docutils l
 <li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>jobflow.Schema</em><em>]</em><em>]</em>) – A <code class="xref py py-obj docutils literal notranslate"><span class="pre">Schema</span></code> object that defines the schema of the output.</p></li>
 <li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A unique identifier for the job. Generated automatically.</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The index of the job (number of times the job has been replaced).</p></li>
-<li><p><strong>name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The name of the job. If not set it will be determined from <code class="docutils literal notranslate"><span class="pre">function_source</span></code>
-and <code class="docutils literal notranslate"><span class="pre">function_name</span></code>.</p></li>
+<li><p><strong>name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The name of the job. If not set it will be determined from <code class="docutils literal notranslate"><span class="pre">function</span></code>.</p></li>
 <li><p><strong>metadata</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the job output.</p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><em>JobConfig</em></a>) – The config setting for the job.</p></li>
 <li><p><strong>host</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The UUID of the host flow.</p></li>
@@ -615,7 +612,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 <dd><p>Uuids of any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The uuids of the references in the job inputs.</p>
+<dd class="field-odd"><p>The UUIDs of the references in the job inputs.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a>(<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>, ..)</p>
@@ -625,10 +622,10 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 <dl class="py method">
 <dt id="jobflow.core.job.Job.input_references_grouped">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">input_references_grouped</span></code><a class="headerlink" href="#jobflow.core.job.Job.input_references_grouped" title="Permalink to this definition">¶</a></dt>
-<dd><p>Group any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs by their uuids.</p>
+<dd><p>Group any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs by their UUIDs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The references grouped by their uuids.</p>
+<dd class="field-odd"><p>The references grouped by their UUIDs.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>[<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>, <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a>(<a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference">OutputReference</a>, ..)]</p>
@@ -1315,8 +1312,8 @@ the <code class="xref py py-obj docutils literal notranslate"><span class="pre">
 <p>Stateful interface for accessing the current job (and store).</p>
 <p>This module defines the <code class="docutils literal notranslate"><span class="pre">CURRENT_JOB</span></code> object which has two attributes:</p>
 <ul class="simple">
-<li><p><cite>job</cite>: Containing the current job.</p></li>
-<li><p><cite>store</cite>: Containing the current store. Only available if <code class="docutils literal notranslate"><span class="pre">expose_store</span></code> is set in
+<li><p><code class="docutils literal notranslate"><span class="pre">job</span></code>: Containing the current job.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">store</span></code>: Containing the current store. Only available if <code class="docutils literal notranslate"><span class="pre">expose_store</span></code> is set in
 the job config.</p></li>
 </ul>
 </section>

@@ -231,6 +231,11 @@
 <span class="sd">    &gt;&gt;&gt; add_job.name</span>
 <span class="sd">    "add"</span>
 
+<span class="sd">    .. Note:</span>
+<span class="sd">        Jobs created by the same Maker will not share the same Maker object. This means</span>
+<span class="sd">        if a job is created, the maker variables are changed a new job is created, only</span>
+<span class="sd">        the second job will reflect the updated maker variables.</span>
+
 <span class="sd">    There are two key features of :obj:`Maker` objects that make them extremely</span>
 <span class="sd">    powerful. The first is the ability to have class instance variables that</span>
 <span class="sd">    are used inside the make function. For example, running the job below will produce</span>
