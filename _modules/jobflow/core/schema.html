@@ -239,7 +239,8 @@
         <span class="n">optional_field_info</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">field_info</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">outer_type_</span><span class="p">,</span> <span class="s2">"copy_with"</span><span class="p">):</span>
-            <span class="n">field_type</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">outer_type_</span><span class="o">.</span><span class="n">copy_with</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">type_</span><span class="p">)</span>
+            <span class="c1"># field_type = field.outer_type_.copy_with(field.type_)</span>
+            <span class="n">field_type</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">outer_type_</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">field_type</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">type_</span>
 
