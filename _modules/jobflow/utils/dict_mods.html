@@ -370,28 +370,6 @@
             <span class="k">return</span> <span class="n">current</span><span class="p">,</span> <span class="n">toks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="n">tok</span><span class="p">]</span>
     <span class="k">return</span> <span class="kc">None</span>
-
-
-<span class="k">def</span> <span class="nf">_arrow_to_dot</span><span class="p">(</span><span class="n">input_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Convert arrows ('-&gt;') in dict keys to dots '.' recursively.</span>
-
-<span class="sd">    Allows for storing MongoDB nested document queries in MongoDB.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    input_dict</span>
-<span class="sd">        A dictionary.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    dict</span>
-<span class="sd">        The modified dictionary.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">input_dict</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"."</span><span class="p">):</span> <span class="n">_arrow_to_dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">input_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 </pre></div>
       </article>
       <footer>
