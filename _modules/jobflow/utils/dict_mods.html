@@ -188,6 +188,8 @@
 <span class="sd">    This code is based heavily on the Ansible class of `custodian</span>
 <span class="sd">    &lt;https://pypi.python.org/pypi/custodian&gt;`_, but simplifies it considerably for the</span>
 <span class="sd">    limited use cases required by jobflow.</span>
+
+<span class="sd">    The original version of this file was written by Shyue Ping Ong and Anubhav Jain.</span>
 <span class="sd">"""</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -198,14 +200,6 @@
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
-
-<span class="n">__author__</span> <span class="o">=</span> <span class="s2">"Shyue Ping Ong"</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="s2">"Anubhav Jain"</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">"Copyright 2012, The Materials Project"</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">"0.1"</span>
-<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s2">"Shyue Ping Ong"</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="s2">"shyue@mit.edu"</span>
-<span class="n">__date__</span> <span class="o">=</span> <span class="s2">"Jun 1, 2012"</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"DictMods"</span><span class="p">,</span> <span class="s2">"apply_mod"</span><span class="p">]</span>
 
