@@ -247,14 +247,14 @@
     <span class="n">stopped_parents</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">fizzled</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">responses</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Response</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
-    <span class="n">stop_activities</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">stop_jobflow</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_run_job</span><span class="p">(</span><span class="n">job</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="n">parents</span><span class="p">):</span>
-        <span class="k">nonlocal</span> <span class="n">stop_activities</span>
+        <span class="k">nonlocal</span> <span class="n">stop_jobflow</span>
 
-        <span class="k">if</span> <span class="n">stop_activities</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stop_jobflow</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">stopped_parents</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -289,8 +289,8 @@
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_children</span><span class="p">:</span>
             <span class="n">stopped_parents</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_flows</span><span class="p">:</span>
-            <span class="n">stop_activities</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_jobflow</span><span class="p">:</span>
+            <span class="n">stop_jobflow</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

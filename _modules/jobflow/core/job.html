@@ -899,7 +899,7 @@
 <span class="sd">        Data to be stored by the flow manager.</span>
 <span class="sd">    stop_children</span>
 <span class="sd">        Stop any children of the current flow.</span>
-<span class="sd">    stop_flows</span>
+<span class="sd">    stop_jobflow</span>
 <span class="sd">        Stop executing all remaining jobs.</span>
 <span class="sd">    """</span>
 
@@ -909,7 +909,7 @@
     <span class="n">replace</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">Job</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Job</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">stored_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">stop_children</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">stop_flows</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">stop_jobflow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="Response.from_job_returns"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Response.from_job_returns">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_job_returns</span><span class="p">(</span>
