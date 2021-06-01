@@ -713,14 +713,17 @@
 
         <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">find_and_resolve_references</span>
 
+        <span class="n">cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">resolved_args</span> <span class="o">=</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">,</span>
             <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+            <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">on_missing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">resolved_kwargs</span> <span class="o">=</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="p">,</span>
             <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+            <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">on_missing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">resolved_args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resolved_args</span><span class="p">)</span>

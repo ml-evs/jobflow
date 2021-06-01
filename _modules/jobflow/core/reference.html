@@ -281,9 +281,9 @@
 <div class="viewcode-block" id="OutputReference.resolve"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Resolve the reference.</span>
 
@@ -343,7 +343,7 @@
 
         <span class="c1"># resolve nested references</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
         <span class="p">)</span>
 
         <span class="c1"># decode objects before attribute access</span>
@@ -420,7 +420,7 @@
         <span class="c1"># Setting items via indexing is not allowed.</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"OutputReference objects are immutable"</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">"""Get a string representation of the reference and attributes."""</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">attribute_str</span> <span class="o">=</span> <span class="s2">", "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">repr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">))</span>
@@ -429,7 +429,7 @@
 
         <span class="k">return</span> <span class="sa">f</span><span class="s2">"OutputReference(</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span><span class="si">}{</span><span class="n">attribute_str</span><span class="si">}</span><span class="s2">)"</span>
 
-    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">"""Return a hash of the reference."""</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
@@ -460,8 +460,8 @@
 
 <div class="viewcode-block" id="resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.resolve_references">[docs]</a><span class="k">def</span> <span class="nf">resolve_references</span><span class="p">(</span>
     <span class="n">references</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">],</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">],</span>
-    <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
@@ -547,8 +547,8 @@
 
 <div class="viewcode-block" id="find_and_resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_resolve_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_resolve_references</span><span class="p">(</span>
     <span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">],</span>
-    <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sd">"""</span>
@@ -603,7 +603,7 @@
     <span class="p">]</span>
     <span class="n">resolved_references</span> <span class="o">=</span> <span class="n">resolve_references</span><span class="p">(</span>
         <span class="n">references</span><span class="p">,</span>
-        <span class="n">store</span><span class="p">,</span>
+        <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
         <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
         <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">,</span>
     <span class="p">)</span>

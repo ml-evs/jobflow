@@ -912,7 +912,7 @@ references will be replaced with <code class="docutils literal notranslate"><spa
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></code><code class="sig-name descname"><span class="pre">Maker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Maker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>Base maker (factory) class for constructing <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> objects.</p>
-<p>Note, this class is only an abstract implementant. To create a functioning Maker
+<p>Note, this class is only an abstract implementation. To create a functioning Maker
 subclass <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> and define the <code class="docutils literal notranslate"><span class="pre">make</span></code> method. See examples below.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1179,7 +1179,7 @@ attribute accesses/indexing.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store.</p></li>
-<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
+<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
 </ul>
@@ -1225,7 +1225,7 @@ object.</p></li>
 </dd></dl>
 <dl class="py function">
 <dt id="jobflow.core.reference.resolve_references">
-<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">references</span></em>, <em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.resolve_references" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">references</span></em>, <em class="sig-param"><span class="pre">store=None</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.resolve_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve multiple output references.</p>
 <p>Uses caching to minimize number of database queries.</p>
 <dl class="field-list simple">
@@ -1233,7 +1233,7 @@ object.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>references</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><em>OutputReference</em></a><em>]</em>) – A list or tuple of output references.</p></li>
 <li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store.</p></li>
-<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
+<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
 </ul>
@@ -1248,7 +1248,7 @@ See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title
 </dd></dl>
 <dl class="py function">
 <dt id="jobflow.core.reference.find_and_resolve_references">
-<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">find_and_resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">arg</span></em>, <em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#find_and_resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.find_and_resolve_references" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">find_and_resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">arg</span></em>, <em class="sig-param"><span class="pre">store=None</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#find_and_resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.find_and_resolve_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the input but with all output references replaced with their resolved values.</p>
 <p>This function works on nested inputs. For example, lists or dictionaries
 (or combinations of list and dictionaries) that contain output references.</p>
@@ -1257,7 +1257,7 @@ See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>arg</strong> (<em>Any</em>) – The input argument containing output references.</p></li>
 <li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store.</p></li>
-<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
+<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
 </ul>
