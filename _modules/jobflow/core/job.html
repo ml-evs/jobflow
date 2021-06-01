@@ -877,7 +877,15 @@
                 <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
                 <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">maker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div></div>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">maker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Job.as_dict"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">"""Serialize the job as a dictionary."""</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+
+        <span class="c1"># fireworks can't serialize functions, so explicitly serialize to avoid issues</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">"function"</span><span class="p">]</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"function"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">d</span></div></div>
 
 
 <div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Response">[docs]</a><span class="nd">@dataclass</span>
