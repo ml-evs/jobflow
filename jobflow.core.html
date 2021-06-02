@@ -534,7 +534,7 @@ For example, to replace the current jub with another job, <code class="docutils 
 </dd></dl>
 <dl class="py class">
 <dt id="jobflow.core.job.Job">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></code><code class="sig-name descname"><span class="pre">Job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">function</span></em>, <em class="sig-param"><span class="pre">function_args=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">function_kwargs=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">output_schema=None</span></em>, <em class="sig-param"><span class="pre">uuid=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">index=1</span></em>, <em class="sig-param"><span class="pre">name=None</span></em>, <em class="sig-param"><span class="pre">data=False</span></em>, <em class="sig-param"><span class="pre">metadata=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></code><code class="sig-name descname"><span class="pre">Job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
@@ -556,11 +556,10 @@ class) can be used, provided the class is <code class="xref py py-obj docutils l
 <li><p><strong>metadata</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the job output.</p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><em>JobConfig</em></a>) – The config setting for the job.</p></li>
 <li><p><strong>host</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The UUID of the host flow.</p></li>
-<li><p><strong>data</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Enum</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Union</em><em>[</em><em>Enum</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em><em>]</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>
-<dd class="field-even"><p><strong>output</strong> (<a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><em>OutputReference</em></a>) – The output of the job. This is a reference to the future job output and
+<dd class="field-even"><p><strong>output</strong> – The output of the job. This is a reference to the future job output and
 can be used as the input to other Jobs or Flows.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1338,22 +1337,29 @@ the job config.</p></li>
 <p>Define the primary jobflow database interface.</p>
 <dl class="py class">
 <dt id="jobflow.core.store.JobStore">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.store.</span></code><code class="sig-name descname"><span class="pre">JobStore</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.store.</span></code><code class="sig-name descname"><span class="pre">JobStore</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_stores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">maggma.core.store.Store</span></code></p>
 <p>Store intended to allow pushing and pulling documents into multiple stores.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>docs_store</strong> (<em>Store</em>) – Store for basic documents.</p></li>
-<li><p><strong>data_store</strong> (<em>Store</em>) – Maggma store for large data objects.</p></li>
-<li><p><strong>save</strong> (<em>save_type</em>) – List of keys to save in the data store when uploading documents.</p></li>
-<li><p><strong>load</strong> (<em>load_type</em>) – List of keys to load from the data store when querying.</p></li>
+<li><p><strong>additional_stores</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Store</em><em>]</em><em>]</em>) – Additional stores to use for storing large data/specific objects. Given as a
+mapping of <code class="docutils literal notranslate"><span class="pre">{store</span> <span class="pre">name:</span> <span class="pre">store}</span></code> where store is a maggma <code class="xref py py-obj docutils literal notranslate"><span class="pre">Store</span></code> object.</p></li>
+<li><p><strong>save</strong> (<em>save_type</em>) – Which items to save in additional stores when uploading documents. Given as a
+mapping of <code class="docutils literal notranslate"><span class="pre">{store</span> <span class="pre">name:</span> <span class="pre">store_type}</span></code> where <code class="docutils literal notranslate"><span class="pre">store_type</span></code> can be a dictionary
+key (string or enum), an <code class="xref py py-obj docutils literal notranslate"><span class="pre">MSONable</span></code> class, or a list of keys/classes.</p></li>
+<li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores when querying documents. Given as a
+mapping of <code class="docutils literal notranslate"><span class="pre">{store</span> <span class="pre">name:</span> <span class="pre">store_type}</span></code> where <code class="docutils literal notranslate"><span class="pre">store_type</span></code> can be <cite>True`</cite>, in
+which case all saved items are loaded, a dictionary key (string or enum),
+an <code class="xref py py-obj docutils literal notranslate"><span class="pre">MSONable</span></code> class, or a list of keys/classes. Alternatively,
+<code class="docutils literal notranslate"><span class="pre">load=True</span></code> will automatically load all items from every additional store.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="jobflow.core.store.JobStore.name">
-<code class="sig-name descname"><span class="pre">name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#jobflow.core.store.JobStore.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of the data source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1408,7 +1414,8 @@ the job config.</p></li>
 for ascending or -1 for descending.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of documents to skip.</p></li>
 <li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit on the total number of documents returned.</p></li>
-<li><p><strong>load</strong> (<em>load_type</em>) – List of keys to load from the data store.</p></li>
+<li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores. See <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
+more details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields</dt>
@@ -1430,7 +1437,8 @@ for ascending or -1 for descending.</p></li>
 <li><p><strong>properties</strong> (<em>Union</em><em>[</em><em>Dict</em><em>, </em><em>List</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>]</em>) – Properties to return in the document.</p></li>
 <li><p><strong>sort</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Sort</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em><em>]</em><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
 for ascending or -1 for descending.</p></li>
-<li><p><strong>load</strong> (<em>load_type</em>) – List of keys to load from the data store.</p></li>
+<li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores. See <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
+more details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1452,7 +1460,8 @@ for ascending or -1 for descending.</p></li>
 <li><p><strong>key</strong> (<em>Union</em><em>[</em><em>List</em><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>]</em>) – Field name(s) to determine uniqueness for a document, can be a list of
 multiple fields, a single field, or None if the Store’s key field is to
 be used.</p></li>
-<li><p><strong>save</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>save_type</em><em>]</em>) – List of keys to save in the data store when uploading documents.</p></li>
+<li><p><strong>save</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>save_type</em><em>]</em>) – Which items to save in additional stores. See <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
+more details.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1490,7 +1499,8 @@ be used.</p></li>
 for ascending or -1 for descending.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of documents to skip.</p></li>
 <li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit on the total number of documents returned.</p></li>
-<li><p><strong>load</strong> (<em>load_type</em>) – List of keys to load from the data store.</p></li>
+<li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores. See <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
+more details.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields</dt>
@@ -1517,25 +1527,6 @@ for ascending or -1 for descending.</p></li>
 <dd><p>Get the collection name.</p>
 </dd></dl>
 <dl class="py method">
-<dt id="jobflow.core.store.JobStore.from_store">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_store</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_store" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new job store that uses the same store for documents and data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>store</strong> (<em>maggma.core.store.Store</em>) – A maggma store.</p></li>
-<li><p><strong>**kwargs</strong> – Keyword arguments that will be passed to the JobStore init method.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore">JobStore</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
 <dt id="jobflow.core.store.JobStore.get_output">
 <code class="sig-name descname"><span class="pre">get_output</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'last'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.get_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.get_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the output from of a job UUID.</p>
@@ -1559,65 +1550,47 @@ for ascending or -1 for descending.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="jobflow.core.store.JobStore.from_db_file">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_db_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_db_file" title="Permalink to this definition">¶</a></dt>
+<dt id="jobflow.core.store.JobStore.from_file">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an JobStore from a database file.</p>
-<p>Multiple options are supported for the database file. The file should be in
-json or yaml format.</p>
+<p>Two options are supported for the database file. The file should be in json or
+yaml format.</p>
 <p>The simplest format is a monty dumped version of the store, generated using:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monty.serialization</span> <span class="kn">import</span> <span class="n">dumpfn</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dumpfn</span><span class="p">(</span><span class="s2">"job_store.json"</span><span class="p">,</span> <span class="n">job_store</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Alternatively, the format can be a dictionary containing the docs_store and
-data_store keys, with the values as the dictionary representation of those
-stores.</p>
-<p>Alternatively, a file format specific to mongodb is supported. Here the file
-should contain the keys:</p>
-<ul>
-<li><p>host (str): The hostname of the database.</p></li>
-<li><p>port (int): The port used to access the database.</p></li>
-<li><p>collection (str): The collection in which to store documents.</p></li>
-<li><p>host_uri (str, optional): URI string specifying the database and login
-details. If this is specified, any other authentication information will be
-ignored.</p></li>
-<li><p>admin_user (str, optional): The username for an account with admin privileges.</p></li>
-<li><p>admin_password (str, optional): The password for an account with admin
-privileges.</p></li>
-<li><p>readonly_user (str, optional): The username for an account with read
-privileges only.</p></li>
-<li><p>readonly_password (str, optional): The password for an account with read
-privileges only.</p></li>
-<li><p>data_store_kwargs (dict, optional): Keyword arguments that determine where
-to store large calculation data (band structures, density of states, charge
-density etc). Leaving this argument blank indicates that GridFS will be used.
-Alternatively, the following stores and keyword arguments are supported:</p></li>
-<li><p>docs_store_kwargs: Additional keyword arguments that are passed to the
-MongoStore (and, optionally, GridFSStore if no data_store_kwargs are given).</p>
-<p><strong>S3 Store kwargs</strong></p>
-<ul class="simple">
-<li><p>bucket (str): The S3 bucket where the data is stored.</p></li>
-<li><p>s3_profile (str): The S3 profile that contains the login information
-typically found at ~/.aws/credentials.</p></li>
-<li><p>compress (bool): Whether compression is used.</p></li>
-<li><p>endpoint_url (str): The URL used to access the S3 store.</p></li>
-</ul>
-</li>
-<li><p>data_store_prefix (str, optional): The prefix for the collection used
-for the datastore.</p></li>
-</ul>
+<p>Alternatively, the file can contain the keys docs_store, additional_stores and
+any other keyword arguments supported by the <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> constructor. The
+docs_store and additional stores are specified by the <code class="docutils literal notranslate"><span class="pre">type</span></code> key which must
+match a Maggma <code class="docutils literal notranslate"><span class="pre">Store</span></code> subclass, and the remaining keys are passed to
+the store constructor. For example, the following file would  create a
+<a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> with a <code class="docutils literal notranslate"><span class="pre">MongoStore</span></code> for docs and a <code class="docutils literal notranslate"><span class="pre">GridFSStore</span></code> as an
+additional store for data.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MongoStore</span>
+  <span class="nt">database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+  <span class="nt">collection_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">outputs</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">27017</span>
+<span class="nt">additional_stores</span><span class="p">:</span>
+  <span class="nt">data</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GridFSStore</span>
+    <span class="nt">database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+    <span class="nt">collection_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">outputs_blobs</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">27017</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>db_file</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Path</em><em>]</em>) – Path to the file containing the credentials.</p></li>
-<li><p><strong>admin</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to use the admin user (only applicable to the mongodb style file
-format).</p></li>
-<li><p><strong>**kwargs</strong> – Additional keyword arguments that get passed to the JobStore
-constructor.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments that get passed to the JobStore constructor.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An JobStore.</p>
+<dd class="field-even"><p>A JobStore.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore">JobStore</a></p>

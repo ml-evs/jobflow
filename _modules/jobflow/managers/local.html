@@ -233,7 +233,7 @@
     <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">OnMissing</span>
 
     <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">jobstore</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_store</span><span class="p">(</span><span class="n">MemoryStore</span><span class="p">())</span>
+        <span class="n">jobstore</span> <span class="o">=</span> <span class="n">JobStore</span><span class="p">(</span><span class="n">MemoryStore</span><span class="p">())</span>
         <span class="n">jobstore</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">jobstore</span> <span class="o">=</span> <span class="n">store</span>
