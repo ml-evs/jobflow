@@ -527,6 +527,24 @@ For example, to replace the current jub with another job, <code class="docutils 
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">replace</span><span class="o">=</span><span class="n">new_job</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>By default, job outputs are stored in the :obj`.JobStore` <code class="docutils literal notranslate"><span class="pre">docs_store</span></code>. However,
+the <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> <cite>additional_stores`</cite> can also be used for job outputs. The
+stores are specified as keyword arguments, where the argument name gives the store
+name and the argument value is the type of data/key to store in that store. More
+details on the accepted key types are given in the <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> docstring. In the
+example below, the “graph” key is stored in an additional store named “graphs” and
+the “data” key is stored in an additional store called “large_data”.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">large_data</span><span class="o">=</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">graphs</span><span class="o">=</span><span class="s2">"graph"</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span><span class="s2">"large_data"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"graph"</span><span class="p">:</span> <span class="n">a</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using additional stores requires the <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> to be configured with
+the required store names present. See the <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> docstring for more
+details.</p>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>, <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p>
@@ -556,8 +574,12 @@ class) can be used, provided the class is <code class="xref py py-obj docutils l
 <li><p><strong>metadata</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the job output.</p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><em>JobConfig</em></a>) – The config setting for the job.</p></li>
 <li><p><strong>host</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The UUID of the host flow.</p></li>
-<li><p><strong>**stores</strong> – Additional keyword arguments that can be used to specify  which outputs to save
-in additional stores.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments that can be used to specify which outputs to save
+in additional stores. The argument name gives the additional store name and the
+argument value gives the type of data to store in that additional store.
+The value can be <code class="docutils literal notranslate"><span class="pre">True</span></code> in which case all outputs are stored in the additional
+store, a dictionary key (string or enum), an <code class="xref py py-obj docutils literal notranslate"><span class="pre">MSONable</span></code> class, or a list
+of keys/classes.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>

@@ -264,6 +264,24 @@ For example, to replace the current jub with another job, <code class="docutils 
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">replace</span><span class="o">=</span><span class="n">new_job</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>By default, job outputs are stored in the :obj`.JobStore` <code class="docutils literal notranslate"><span class="pre">docs_store</span></code>. However,
+the <a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> <cite>additional_stores`</cite> can also be used for job outputs. The
+stores are specified as keyword arguments, where the argument name gives the store
+name and the argument value is the type of data/key to store in that store. More
+details on the accepted key types are given in the <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> docstring. In the
+example below, the “graph” key is stored in an additional store named “graphs” and
+the “data” key is stored in an additional store called “large_data”.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span><span class="p">(</span><span class="n">large_data</span><span class="o">=</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">graphs</span><span class="o">=</span><span class="s2">"graph"</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span><span class="s2">"large_data"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"graph"</span><span class="p">:</span> <span class="n">a</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using additional stores requires the <a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> to be configured with
+the required store names present. See the <a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> docstring for more
+details.</p>
+</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>, <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p>

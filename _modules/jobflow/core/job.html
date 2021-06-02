@@ -327,6 +327,23 @@
 <span class="sd">    ...     new_job = compute(a, b)</span>
 <span class="sd">    ...     return Response(replace=new_job)</span>
 
+<span class="sd">    By default, job outputs are stored in the :obj`.JobStore` ``docs_store``. However,</span>
+<span class="sd">    the :obj:`.JobStore` `additional_stores`` can also be used for job outputs. The</span>
+<span class="sd">    stores are specified as keyword arguments, where the argument name gives the store</span>
+<span class="sd">    name and the argument value is the type of data/key to store in that store. More</span>
+<span class="sd">    details on the accepted key types are given in the :obj:`Job` docstring. In the</span>
+<span class="sd">    example below, the "graph" key is stored in an additional store named "graphs" and</span>
+<span class="sd">    the "data" key is stored in an additional store called "large_data".</span>
+
+<span class="sd">    &gt;&gt;&gt; @job(large_data="data", graphs="graph")</span>
+<span class="sd">    ... def compute(a, b):</span>
+<span class="sd">    ...     return {"large_data": b, "graph": a }</span>
+
+<span class="sd">    .. Note::</span>
+<span class="sd">        Using additional stores requires the :obj:`.JobStore` to be configured with</span>
+<span class="sd">        the required store names present. See the :obj:`.JobStore` docstring for more</span>
+<span class="sd">        details.</span>
+
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
 <span class="sd">    Job, .Flow, .Response</span>
@@ -418,9 +435,13 @@
 <span class="sd">        The config setting for the job.</span>
 <span class="sd">    host</span>
 <span class="sd">        The UUID of the host flow.</span>
-<span class="sd">    **stores</span>
-<span class="sd">        Additional keyword arguments that can be used to specify  which outputs to save</span>
-<span class="sd">        in additional stores.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional keyword arguments that can be used to specify which outputs to save</span>
+<span class="sd">        in additional stores. The argument name gives the additional store name and the</span>
+<span class="sd">        argument value gives the type of data to store in that additional store.</span>
+<span class="sd">        The value can be ``True`` in which case all outputs are stored in the additional</span>
+<span class="sd">        store, a dictionary key (string or enum), an :obj:`.MSONable` class, or a list</span>
+<span class="sd">        of keys/classes.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -495,6 +516,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">([</span><span class="n">v</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot select True for multiple additional stores."</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -686,6 +710,7 @@
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span><span class="p">)</span>
 
+        <span class="n">save</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="s2">"output"</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"uuid"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
             <span class="s2">"index"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
@@ -693,7 +718,7 @@
             <span class="s2">"completed_at"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
             <span class="s2">"metadata"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">store</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
+        <span class="n">store</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">save</span><span class="p">)</span>
 
         <span class="n">CURRENT_JOB</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Finished job - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}{</span><span class="n">index_str</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
