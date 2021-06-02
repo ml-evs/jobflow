@@ -193,7 +193,7 @@
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">maggma.core</span> <span class="kn">import</span> <span class="n">Sort</span>
-    <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">GridFSStore</span><span class="p">,</span> <span class="n">MongoStore</span><span class="p">,</span> <span class="n">MongoURIStore</span><span class="p">,</span> <span class="n">S3Store</span>
+    <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MongoStore</span><span class="p">,</span> <span class="n">MongoURIStore</span>
 
     <span class="n">save_type</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span>
         <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]]</span>
@@ -425,6 +425,7 @@
 <span class="sd">        save</span>
 <span class="sd">            List of keys to save in the data store when uploading documents.</span>
 <span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
         <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
         <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">jsanitize</span>
@@ -450,7 +451,7 @@
         <span class="n">blob_data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">dict_docs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
-            <span class="n">doc</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_bson</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">dict_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">save_keys</span><span class="p">:</span>
@@ -464,7 +465,7 @@
 
                 <span class="c1"># Now format blob data for saving in the data_store</span>
                 <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">object_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">blob</span> <span class="o">=</span> <span class="n">object_info</span><span class="p">[</span><span class="n">loc</span><span class="p">]</span>
+                    <span class="n">blob</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">object_info</span><span class="p">[</span><span class="n">loc</span><span class="p">])</span>
                     <span class="n">blob</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                         <span class="p">{</span>
                             <span class="s2">"data"</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span>
@@ -559,7 +560,7 @@
         <span class="k">for</span> <span class="n">vals</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">grouping_keys</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">grouping_keys</span><span class="p">):</span>
             <span class="n">doc</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
-                <span class="n">set_</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+                <span class="n">set_</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">yield</span> <span class="n">doc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="JobStore.remove_docs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.remove_docs">[docs]</a>    <span class="k">def</span> <span class="nf">remove_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
@@ -676,8 +677,6 @@
 <span class="sd">        - host (str): The hostname of the database.</span>
 <span class="sd">        - port (int): The port used to access the database.</span>
 <span class="sd">        - collection (str): The collection in which to store documents.</span>
-<span class="sd">        - authsource (str, optional): Authorization source for connecting to the</span>
-<span class="sd">          database.</span>
 <span class="sd">        - host_uri (str, optional): URI string specifying the database and login</span>
 <span class="sd">          details. If this is specified, any other authentication information will be</span>
 <span class="sd">          ignored.</span>
@@ -758,6 +757,8 @@
 
 <span class="sd">    See JobStore.from_db_file for supported store types and connection arguments.</span>
 <span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">maggma.stores.gridfs</span> <span class="kn">import</span> <span class="n">GridFSStore</span>
+
     <span class="n">data_store_prefix</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_store_prefix"</span><span class="p">,</span> <span class="s2">"job"</span><span class="p">)</span>
     <span class="n">collection_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">data_store_prefix</span><span class="si">}</span><span class="s2">_datastore"</span>
 
@@ -774,6 +775,8 @@
 
     <span class="n">data_store_kwargs</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data_store_kwargs"</span><span class="p">,</span> <span class="p">{})</span>
     <span class="k">if</span> <span class="s2">"bucket"</span> <span class="ow">in</span> <span class="n">data_store_kwargs</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">maggma.stores.aws</span> <span class="kn">import</span> <span class="n">S3Store</span>
+
         <span class="c1"># Store is a S3 bucket</span>
         <span class="n">index_collection_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">collection_name</span><span class="si">}</span><span class="s2">_index"</span>
         <span class="n">index_store</span> <span class="o">=</span> <span class="n">_get_mongo_like_store</span><span class="p">(</span><span class="n">index_collection_name</span><span class="p">,</span> <span class="n">credentials</span><span class="p">,</span> <span class="n">admin</span><span class="p">)</span>
@@ -789,6 +792,8 @@
     <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">credentials</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">admin</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">MongoStore</span><span class="p">,</span> <span class="n">MongoURIStore</span><span class="p">]:</span>
     <span class="sd">"""Get either a MongoStore or MongoURIStore from a collection and credentials."""</span>
+    <span class="kn">from</span> <span class="nn">maggma.stores.mongolike</span> <span class="kn">import</span> <span class="n">MongoStore</span>
+
     <span class="n">mongo_store_kwargs</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"mongo_store_kwargs"</span><span class="p">,</span> <span class="p">{})</span>
 
     <span class="k">if</span> <span class="s2">"host_uri"</span> <span class="ow">in</span> <span class="n">credentials</span><span class="p">:</span>
@@ -814,18 +819,17 @@
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">admin</span><span class="p">:</span>
-        <span class="n">auth</span><span class="p">[</span><span class="s2">"user"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"admin_user"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">auth</span><span class="p">[</span><span class="s2">"username"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"admin_user"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
         <span class="n">auth</span><span class="p">[</span><span class="s2">"password"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"admin_password"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">auth</span><span class="p">[</span><span class="s2">"user"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"readonly_user"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="n">auth</span><span class="p">[</span><span class="s2">"username"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"readonly_user"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
         <span class="n">auth</span><span class="p">[</span><span class="s2">"password"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"readonly_password"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
     <span class="c1"># this way, we won't override the MongoStore defaults</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"host"</span><span class="p">,</span> <span class="s2">"port"</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">credentials</span><span class="p">:</span>
-            <span class="n">auth</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="s2">"key"</span><span class="p">]</span>
+            <span class="n">auth</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="n">auth</span><span class="p">[</span><span class="s2">"authsource"</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"authsource"</span><span class="p">,</span> <span class="n">credentials</span><span class="p">[</span><span class="s2">"database"</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">auth</span>
 
 
