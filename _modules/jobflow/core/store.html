@@ -460,7 +460,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">docs</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"uuid"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">]</span>
 
         <span class="n">blob_data</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
@@ -564,11 +564,13 @@
 
         <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">has</span><span class="p">,</span> <span class="n">set_</span>
 
-        <span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">keys</span><span class="p">]</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="k">else</span> <span class="p">[</span><span class="n">keys</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="c1"># make sure all keys are in properties...</span>
             <span class="n">properties</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">))))</span>
+        <span class="k">elif</span> <span class="n">properties</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">properties</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
 
         <span class="n">docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
             <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span>
@@ -626,7 +628,7 @@
 <span class="sd">            If there are multiple job runs, which index to use. Options are:</span>
 <span class="sd">            - `"last"` (default): Use the last job that ran.</span>
 <span class="sd">            - `"first"`: Use the first job that ran.</span>
-<span class="sd">            - `"all"`: Return all outputs.</span>
+<span class="sd">            - `"all"`: Return all outputs, sorted with the lowest index first.</span>
 <span class="sd">        load</span>
 <span class="sd">            The keys to load from the datastore.</span>
 
@@ -639,7 +641,10 @@
             <span class="n">sort</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">"last"</span> <span class="k">else</span> <span class="mi">1</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_one</span><span class="p">(</span>
-                <span class="p">{</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span> <span class="p">[</span><span class="s2">"output"</span><span class="p">],</span> <span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="n">sort</span><span class="p">},</span> <span class="n">load</span><span class="o">=</span><span class="n">load</span>
+                <span class="n">criteria</span><span class="o">=</span><span class="p">{</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span>
+                <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">"output"</span><span class="p">],</span>
+                <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="n">sort</span><span class="p">},</span>
+                <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -648,7 +653,12 @@
             <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">({</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span> <span class="p">[</span><span class="s2">"output"</span><span class="p">],</span> <span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+                    <span class="n">criteria</span><span class="o">=</span><span class="p">{</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span>
+                    <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">"output"</span><span class="p">],</span>
+                    <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+                    <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -742,9 +752,6 @@
     <span class="sd">"""Standardize load types."""</span>
     <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
-    <span class="k">if</span> <span class="n">load</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{}</span>
-
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">load</span>
 
@@ -804,13 +811,9 @@
             <span class="n">grouped</span><span class="p">[</span><span class="n">info</span><span class="p">[</span><span class="s2">"store"</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">grouped</span>
 
-    <span class="k">if</span> <span class="n">load</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="c1"># return all blobs</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="c1"># return all blobs (load has to be True to get here)</span>
         <span class="k">return</span> <span class="n">_group_blobs</span><span class="p">(</span><span class="n">blob_infos</span><span class="p">,</span> <span class="n">locations</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">load</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">load</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="c1"># Don't return any blobs</span>
-        <span class="k">return</span> <span class="p">{}</span>
 
     <span class="n">new_blobs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">new_locations</span> <span class="o">=</span> <span class="p">[]</span>
