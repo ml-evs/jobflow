@@ -348,7 +348,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">contains_flow_or_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">):</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"Flow '</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' contains an Flow or Job as an output. "</span>
+                    <span class="sa">f</span><span class="s2">"Flow '</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' contains a Flow or Job as an output. "</span>
                     <span class="sa">f</span><span class="s2">"Usually the Flow output should be the output of a Job or "</span>
                     <span class="sa">f</span><span class="s2">"another Flow (e.g. job.output). If this message is "</span>
                     <span class="sa">f</span><span class="s2">"unexpected then double check the outputs of your Flow."</span>
@@ -444,9 +444,18 @@
 <span class="sd">            The Job and the uuids of any parent jobs (not to be confused with the host</span>
 <span class="sd">            flow).</span>
 <span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">is_directed_acyclic_graph</span>
+
         <span class="kn">from</span> <span class="nn">jobflow.utils.graph</span> <span class="kn">import</span> <span class="n">itergraph</span>
 
         <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Job connectivity contains cycles therefore job execution order "</span>
+                <span class="s2">"cannot be determined."</span>
+            <span class="p">)</span>
+
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">itergraph</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
             <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">in_edges</span><span class="p">(</span><span class="n">node</span><span class="p">)]</span>
             <span class="n">job</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s2">"job"</span><span class="p">]</span>

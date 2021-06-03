@@ -710,11 +710,19 @@
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span><span class="p">)</span>
 
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"Job output contained an object that is not MSONable and therefore "</span>
+                <span class="s2">"could not be serialized."</span>
+            <span class="p">)</span>
+
         <span class="n">save</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="s2">"output"</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"uuid"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
             <span class="s2">"index"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
-            <span class="s2">"output"</span><span class="p">:</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="s2">"output"</span><span class="p">:</span> <span class="n">output</span><span class="p">,</span>
             <span class="s2">"completed_at"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
             <span class="s2">"metadata"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
         <span class="p">}</span>
