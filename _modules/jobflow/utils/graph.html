@@ -138,7 +138,7 @@
 </form><div class="sidebar-scroll"><div class="sidebar-tree">
   <p><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Introduction</a></li>
 </ul>
 <p><span class="caption-text">User Interface</span></p>
 <ul>
@@ -195,6 +195,8 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"itergraph"</span><span class="p">,</span> <span class="s2">"draw_graph"</span><span class="p">,</span> <span class="s2">"to_pydot"</span><span class="p">]</span>
@@ -235,7 +237,11 @@
 
 
 <div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.graph.draw_graph">[docs]</a><span class="nd">@requires</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">,</span> <span class="s2">"matplotlib must be installed to plot flow graphs."</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span> <span class="n">layout_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span>
+    <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span>
+    <span class="n">layout_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+<span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Draw a networkx graph.</span>
 
@@ -246,6 +252,8 @@
 <span class="sd">    layout_function</span>
 <span class="sd">        A networkx layout function to use as the graph layout. For example,</span>
 <span class="sd">        :obj:`.planar_layout`.</span>
+<span class="sd">    figsize</span>
+<span class="sd">        The figure size as a tuple of ``(width, height)``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -263,7 +271,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="n">layout_function</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
 
     <span class="n">nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">"label"</span><span class="p">)</span>
@@ -276,6 +284,8 @@
 
     <span class="n">edge_labels</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">"properties"</span><span class="p">)</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">plt</span></div>
 

@@ -139,7 +139,7 @@
 </form><div class="sidebar-scroll"><div class="sidebar-tree">
   <p><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
 </ul>
 <p><span class="caption-text">User Interface</span></p>
 <ul>
@@ -438,14 +438,15 @@ node u comes before v in the ordering.</p>
 </dd></dl>
 <dl class="py function">
 <dt id="jobflow.utils.graph.draw_graph">
-<code class="sig-prename descclassname"><span class="pre">jobflow.utils.graph.</span></code><code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/graph.html#draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.graph.draw_graph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">jobflow.utils.graph.</span></code><code class="sig-name descname"><span class="pre">draw_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/graph.html#draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.graph.draw_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw a networkx graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>networkx.classes.digraph.DiGraph</em>) – A graph object.</p></li>
-<li><p><strong>layout_function</strong> (<em>Callable</em>) – A networkx layout function to use as the graph layout. For example,
+<li><p><strong>graph</strong> (<em>nx.DiGraph</em>) – A graph object.</p></li>
+<li><p><strong>layout_function</strong> (<em>typing.Callable</em>) – A networkx layout function to use as the graph layout. For example,
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
+<li><p><strong>figsize</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

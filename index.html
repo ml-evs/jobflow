@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Introduction" href="introduction.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API" href="job.html" />
 
     <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
         <title>Home - jobflow</title>
@@ -138,8 +138,8 @@
   <input type="hidden" name="area" value="default">
 </form><div class="sidebar-scroll"><div class="sidebar-tree">
   <p><span class="caption-text">Getting Started</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Introduction</a></li>
 </ul>
 <p><span class="caption-text">User Interface</span></p>
 <ul>
@@ -188,10 +188,108 @@
 </div>
 <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<section id="jobflow">
-<h2>jobflow<a class="headerlink" href="#jobflow" title="Permalink to this headline">¶</a></h2>
-<p><span class="raw-html-m2r"><a href="https://codecov.io/gh/hackingmaterials/jobflow/"><img alt="code coverage" src="https://img.shields.io/codecov/c/gh/hackingmaterials/jobflow"/> </a></span>
-<span class="raw-html-m2r"><a href="https://github.com/hackingmaterials/jobflow/actions?query=workflow%3ARun%20tests"><img alt="code coverage" src="https://img.shields.io/github/workflow/status/hackingmaterials/jobflow/Run%20tests"/> </a></span></p>
+<p>Jobflow is a free, open-source code for writing and executing workflows. Complex
+workflows can be defined using simple python functions and executed locally or on
+arbitrary computing resources using the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> workflow manager.</p>
+<p>Some features that distinguish jobflow are dynamic workflows, easy compositing and
+connecting of workflows, and the ability to store workflow outputs across multiple
+databases.</p>
+<section id="is-jobflow-for-me">
+<h2>Is jobflow for me?<a class="headerlink" href="#is-jobflow-for-me" title="Permalink to this headline">¶</a></h2>
+<p>jobflow is intended to be a friendly workflow software that is easy to get started with,
+but flexible enough to handle complicated use cases.</p>
+<p>Some of its features include:</p>
+<ul class="simple">
+<li><p>A clean and flexible Python API.</p></li>
+<li><p>A powerful approach to compositing and connecting workflows – information passing
+between jobs is a key goal of jobflow. Furthermore, workflows can be nested allowing
+for a natural way to build complex workflows.</p></li>
+<li><p>Integration with multiple databases (MongoDB, S3, GridFS) through the <a class="reference external" href="https://materialsproject.github.io/maggma/">Maggma</a> package.</p></li>
+<li><p>Support for the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> workflow management system, allowing workflow execution on
+multicore machines or through a queue, on a single machine or multiple machines.</p></li>
+<li><p>Support for dynamic workflows - workflows that modify themselves or create new ones
+based on what happens during execution.</p></li>
+</ul>
+</section>
+<section id="workflow-model">
+<h2>Workflow model<a class="headerlink" href="#workflow-model" title="Permalink to this headline">¶</a></h2>
+<p>Workflows in jobflows are made up of two main components:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">Job</span></code> is an atomic computing job. Essentially any python function can be <code class="docutils literal notranslate"><span class="pre">Job</span></code>,
+provided its return values can be serialized to json. Anything returned by the job is
+considered an “output” and is stored in the jobflow database.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">Flow</span></code> is a collection of <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects or other <code class="docutils literal notranslate"><span class="pre">Flow</span></code> objects. The connectivity
+between jobs is determined automatically from the job inputs. The execution order
+of jobs is automatically determined based on their connectivity.</p></li>
+</ul>
+<p>Python functions can be easily converted in to <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects using the <code class="docutils literal notranslate"><span class="pre">@job</span></code> decorator.
+In the example below, we define a job to add two numbers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
+
+
+<span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+
+<span class="n">add_first</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">add_second</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">add_first</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">([</span><span class="n">add_first</span><span class="p">,</span> <span class="n">add_second</span><span class="p">])</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">draw_graph</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference external image-reference" href="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png"><img alt="simple job graph" src="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png"/></a>
+<p>The output of the job can be accessed using the <code class="docutils literal notranslate"><span class="pre">output</span></code> attribute. If the job has not
+yet been run, <code class="docutils literal notranslate"><span class="pre">output</span></code> will be a reference to a future output. Outputs can be used
+as inputs to other jobs. They will be automatically “resolved” before the job is
+executed.</p>
+<p>Finally, we can created a flow using the two <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. The connectivity between
+the jobs is determined automatically (the order doesn’t matter) and can be visualised
+using the flow graph.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The jobflow is a Python 3.7+ library and can be installed using pip.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install jobflow
+</pre></div>
+</div>
+</section>
+<section id="quickstart-and-tutorials">
+<h2>Quickstart and tutorials<a class="headerlink" href="#quickstart-and-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>To get a first glimpse of jobflow, we suggest that you follow our quickstart tutorial.
+Later tutorials delve into the advanced features of jobflow.</p>
+<ul class="simple">
+<li><p>5-minute quickstart tutorial</p></li>
+<li><p>Defining Jobs using jobflow</p></li>
+<li><p>Creating Flows</p></li>
+<li><p>Dynamic and nested Flows</p></li>
+<li><p>Configuring the jobflow database</p></li>
+<li><p>Using jobflow with FireWorks</p></li>
+</ul>
+</section>
+<section id="need-help">
+<h2>Need help?<a class="headerlink" href="#need-help" title="Permalink to this headline">¶</a></h2>
+<p>Ask questions about jobflow on the <a class="reference external" href="https://matsci.org/c/fireworks">jobflow support forum</a>.
+If you’ve found an issue with jobflow, please submit a bug report on <a class="reference external" href="https://github.com/hackingmaterials/jobflow/issues">GitHub Issues</a>.</p>
+</section>
+<section id="whats-new">
+<h2>What’s new?<a class="headerlink" href="#whats-new" title="Permalink to this headline">¶</a></h2>
+<p>Track changes to jobflow through the <a class="reference external" href="https://hackingmaterials.github.io/jobflow/changelog.html">changelog</a>.</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>We greatly appreciate any contributions in the form of a pull request.
+Additional information on contributing to jobflow can be found <a class="reference external" href="https://hackingmaterials.github.io/jobflow/contributing.html">here</a>.
+We maintain a list of all contributors <a class="reference external" href="https://hackingmaterials.github.io/jobflow/contributors.html">here</a>.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>jobflow is released under a modified BSD license; the full text can be found <a class="reference external" href="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/LICENSE">here</a>.</p>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>Jobflow was designed and developed by Alex Ganose while in the group of Anubhav Jain.</p>
 </section>
 </section>
 
@@ -199,12 +297,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="introduction.html">
+          <a class="next-page" href="job.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Introduction</div>
+                <div class="title">API</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -230,7 +328,15 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Introduction</a><ul>
-<li><a class="reference internal" href="#jobflow">jobflow</a></li>
+<li><a class="reference internal" href="#is-jobflow-for-me">Is jobflow for me?</a></li>
+<li><a class="reference internal" href="#workflow-model">Workflow model</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#quickstart-and-tutorials">Quickstart and tutorials</a></li>
+<li><a class="reference internal" href="#need-help">Need help?</a></li>
+<li><a class="reference internal" href="#whats-new">What’s new?</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 </li>
 </ul>

@@ -138,7 +138,7 @@
 </form><div class="sidebar-scroll"><div class="sidebar-tree">
   <p><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Introduction</a></li>
 </ul>
 <p><span class="caption-text">User Interface</span></p>
 <ul>
@@ -416,7 +416,7 @@
             <span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">graph</span>
 
-<div class="viewcode-block" id="Flow.draw_graph"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.draw_graph">[docs]</a>    <span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Flow.draw_graph"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.draw_graph">[docs]</a>    <span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Draw the flow graph using matplotlib.</span>
 
@@ -426,10 +426,12 @@
 <span class="sd">        -------</span>
 <span class="sd">        pyplot</span>
 <span class="sd">            The matplotlib pyplot state.</span>
+<span class="sd">        kwargs</span>
+<span class="sd">            keyword arguments that are passed to :obj:`jobflow.utils.graph.draw_graph`.</span>
 <span class="sd">        """</span>
         <span class="kn">from</span> <span class="nn">jobflow.utils.graph</span> <span class="kn">import</span> <span class="n">draw_graph</span>
 
-        <span class="k">return</span> <span class="n">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Flow.iterflow"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.iterflow">[docs]</a>    <span class="k">def</span> <span class="nf">iterflow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
