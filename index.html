@@ -188,7 +188,7 @@
 </div>
 <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>Jobflow is a free, open-source code for writing and executing workflows. Complex
+<p>Jobflow is a free, open-source library for writing and executing workflows. Complex
 workflows can be defined using simple python functions and executed locally or on
 arbitrary computing resources using the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> workflow manager.</p>
 <p>Some features that distinguish jobflow are dynamic workflows, easy compositing and
@@ -201,13 +201,14 @@ but flexible enough to handle complicated use cases.</p>
 <p>Some of its features include:</p>
 <ul class="simple">
 <li><p>A clean and flexible Python API.</p></li>
-<li><p>A powerful approach to compositing and connecting workflows – information passing
-between jobs is a key goal of jobflow. Furthermore, workflows can be nested allowing
-for a natural way to build complex workflows.</p></li>
-<li><p>Integration with multiple databases (MongoDB, S3, GridFS) through the <a class="reference external" href="https://materialsproject.github.io/maggma/">Maggma</a> package.</p></li>
+<li><p>A powerful approach to compositing and connecting workflows — information passing
+between jobs is a key goal of jobflow. Workflows can be nested allowing for a natural
+way to build complex workflows.</p></li>
+<li><p>Integration with multiple databases (MongoDB, S3, GridFS, and more) through the
+<a class="reference external" href="https://materialsproject.github.io/maggma/">Maggma</a> package.</p></li>
 <li><p>Support for the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> workflow management system, allowing workflow execution on
 multicore machines or through a queue, on a single machine or multiple machines.</p></li>
-<li><p>Support for dynamic workflows - workflows that modify themselves or create new ones
+<li><p>Support for dynamic workflows — workflows that modify themselves or create new ones
 based on what happens during execution.</p></li>
 </ul>
 </section>
@@ -228,7 +229,7 @@ In the example below, we define a job to add two numbers.</p>
 
 
 <span class="nd">@job</span>
-<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
 
@@ -239,16 +240,16 @@ In the example below, we define a job to add two numbers.</p>
 <span class="n">flow</span><span class="o">.</span><span class="n">draw_graph</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p align="center">
-<img alt="simple flow graph" height="50%" src="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png" width="50%"/>
-</p><p>The output of the job can be accessed using the <code class="docutils literal notranslate"><span class="pre">output</span></code> attribute. If the job has not
-yet been run, <code class="docutils literal notranslate"><span class="pre">output</span></code> will be a reference to a future output. Outputs can be used
-as inputs to other jobs. They will be automatically “resolved” before the job is
+<p>The output of the job is accessed using the <code class="docutils literal notranslate"><span class="pre">output</span></code> attribute. As the job has not
+yet been run, <code class="docutils literal notranslate"><span class="pre">output</span></code> contains be a reference to a future output. Outputs can be used
+as inputs to other jobs and will be automatically “resolved” before the job is
 executed.</p>
-<p>Finally, we can created a flow using the two <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. The connectivity between
+<p>Finally, we created a flow using the two <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. The connectivity between
 the jobs is determined automatically (the order doesn’t matter) and can be visualised
 using the flow graph.</p>
-</section>
+<p align="center">
+<img alt="simple flow graph" height="50%" src="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png" width="50%"/>
+</p></section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>The jobflow is a Python 3.7+ library and can be installed using pip.</p>
