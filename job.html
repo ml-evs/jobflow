@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API" href="flow.html" /><link rel="prev" title="Introduction" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Flow API" href="flow.html" /><link rel="prev" title="Running Flows with FireWorks" href="tutorials/6-fireworks.html" />
 
     <meta name="generator" content="sphinx-3.5.3, furo 2021.03.20.beta30"/>
-        <title>API - jobflow</title>
+        <title>Job API - jobflow</title>
       <link rel="stylesheet" href="_static/styles/furo.css?digest=978e1795dfe158b585dda6a8417f6411828bf3ed">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
@@ -140,6 +140,16 @@
   <p><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install jobflow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/1-quickstart.html">5-minute quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/2-defining-jobs.html">Defining Jobs using jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/3-creating-flows.html">Creating Flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-dynamic-flows.html">Dynamic and nested Flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/5-jobflow-database.html">Configuring the jobflow database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/6-fireworks.html">Running Flows with FireWorks</a></li>
+</ul>
+</li>
 </ul>
 <p><span class="caption-text">User Interface</span></p>
 <ul class="current">
@@ -157,7 +167,7 @@
 </ul>
 <p><span class="caption-text">Function Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html">jobflow.utils</a></li>
@@ -178,8 +188,8 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <section id="api">
-<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+        <section id="job-api">
+<h1>Job API<a class="headerlink" href="#job-api" title="Permalink to this headline">¶</a></h1>
 <p>The main interface for constructing jobs is the <code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> function.</p>
 <p><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code> wraps functions for use in Flow objects. It can be used as a decorator, or
 around function calls directly (i.e. <code class="docutils literal notranslate"><span class="pre">job(foo)(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>). Outputs from functions
@@ -298,18 +308,18 @@ details.</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API</div>
+                <div class="title">Flow API</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="tutorials/6-fireworks.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">Running Flows with FireWorks</div>
                 
               </div>
             </a>
