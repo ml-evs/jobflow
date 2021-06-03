@@ -237,11 +237,9 @@ of jobs is automatically determined based on their connectivity.</p></li>
 In the example below, we define a job to add two numbers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
 
-
 <span class="nd">@job</span>
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
 
 <span class="n">add_first</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">add_second</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">add_first</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
