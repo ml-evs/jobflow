@@ -239,8 +239,9 @@ In the example below, we define a job to add two numbers.</p>
 <span class="n">flow</span><span class="o">.</span><span class="n">draw_graph</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference external image-reference" href="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png"><img alt="simple job graph" src="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png"/></a>
-<p>The output of the job can be accessed using the <code class="docutils literal notranslate"><span class="pre">output</span></code> attribute. If the job has not
+<p align="center">
+<img alt="simple flow graph" height="50%" src="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png" width="50%"/>
+</p><p>The output of the job can be accessed using the <code class="docutils literal notranslate"><span class="pre">output</span></code> attribute. If the job has not
 yet been run, <code class="docutils literal notranslate"><span class="pre">output</span></code> will be a reference to a future output. Outputs can be used
 as inputs to other jobs. They will be automatically “resolved” before the job is
 executed.</p>
