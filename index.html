@@ -142,20 +142,11 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install jobflow</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/1-quickstart.html">5-minute quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/2-defining-jobs.html">Defining Jobs using jobflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/3-creating-flows.html">Creating Flows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/4-dynamic-flows.html">Dynamic and nested Flows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/5-jobflow-database.html">Configuring the jobflow database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/6-fireworks.html">Running Flows with FireWorks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/1-quickstart.html">Five-minute quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/2-introduction.html">Introduction to jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/3-defining-jobs.html">Defining jobs in jobflow</a></li>
 </ul>
 </li>
-</ul>
-<p><span class="caption-text">User Interface</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="job.html">Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flow.html">Flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="maker.html">Maker</a></li>
 </ul>
 <p><span class="caption-text">Information</span></p>
 <ul>
@@ -194,8 +185,6 @@
 </div>
 <div class="toctree-wrapper compound">
 </div>
-<div class="toctree-wrapper compound">
-</div>
 <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>Jobflow is a free, open-source library for writing and executing workflows. Complex
@@ -205,7 +194,7 @@ arbitrary computing resources using the <a class="reference external" href="http
 connecting of workflows, and the ability to store workflow outputs across multiple
 databases.</p>
 <section id="is-jobflow-for-me">
-<h2>Is jobflow for me?<a class="headerlink" href="#is-jobflow-for-me" title="Permalink to this headline">¶</a></h2>
+<h2>Is jobflow for me<a class="headerlink" href="#is-jobflow-for-me" title="Permalink to this headline">¶</a></h2>
 <p>jobflow is intended to be a friendly workflow software that is easy to get started with,
 but flexible enough to handle complicated use cases.</p>
 <p>Some of its features include:</p>
@@ -216,8 +205,9 @@ between jobs is a key goal of jobflow. Workflows can be nested allowing for a na
 way to build complex workflows.</p></li>
 <li><p>Integration with multiple databases (MongoDB, S3, GridFS, and more) through the
 <a class="reference external" href="https://materialsproject.github.io/maggma/">Maggma</a> package.</p></li>
-<li><p>Support for the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> workflow management system, allowing workflow execution on
-multicore machines or through a queue, on a single machine or multiple machines.</p></li>
+<li><p>Support for the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> workflow management system, allowing workflow
+execution on multicore machines or through a queue, on a single machine or multiple
+machines.</p></li>
 <li><p>Support for dynamic workflows — workflows that modify themselves or create new ones
 based on what happens during execution.</p></li>
 </ul>
@@ -253,7 +243,7 @@ yet been run, <code class="docutils literal notranslate"><span class="pre">outpu
 as inputs to other jobs and will be automatically “resolved” before the job is
 executed.</p>
 <p>Finally, we created a flow using the two <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. The connectivity between
-the jobs is determined automatically (the order doesn’t matter) and can be visualised
+the jobs is determined automatically and can be visualised
 using the flow graph.</p>
 <p align="center">
 <img alt="simple flow graph" height="30%" src="https://raw.githubusercontent.com/hackingmaterials/jobflow/main/docs/src/_static/img/simple_flow.png" width="30%"/>
@@ -270,12 +260,9 @@ using the flow graph.</p>
 <p>To get a first glimpse of jobflow, we suggest that you follow our quickstart tutorial.
 Later tutorials delve into the advanced features of jobflow.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/1-quickstart.html">5-minute quickstart tutorial</a></p></li>
-<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/2-defining-jobs.html">Defining Jobs using jobflow</a></p></li>
-<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/3-creating-flows.html">Creating Flows</a></p></li>
-<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/4-dynamic-flows.html">Dynamic and nested Flows</a></p></li>
-<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/5-jobflow-database.html">Configuring the jobflow database</a></p></li>
-<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/6-fireworks.html">Running Flows with FireWorks</a></p></li>
+<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/1-quickstart.html">Five-minute quickstart tutorial</a></p></li>
+<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/2-introduction.html">Introduction to jobflow</a></p></li>
+<li><p><a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/3-defining-jobs.html">Defining Jobs using jobflow</a></p></li>
 </ul>
 </section>
 <section id="need-help">
@@ -338,7 +325,7 @@ We maintain a list of all contributors <a class="reference external" href="https
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Introduction</a><ul>
-<li><a class="reference internal" href="#is-jobflow-for-me">Is jobflow for me?</a></li>
+<li><a class="reference internal" href="#is-jobflow-for-me">Is jobflow for me</a></li>
 <li><a class="reference internal" href="#workflow-model">Workflow model</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#quickstart-and-tutorials">Quickstart and tutorials</a></li>
@@ -363,5 +350,6 @@ We maintain a list of all contributors <a class="reference external" href="https
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
 </html>
