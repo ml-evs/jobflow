@@ -156,9 +156,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/hackingmaterials/jobflow">jobflow on GitHub</a></li>
 </ul>
-<p><span class="caption-text">Function Reference</span></p>
+<p><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.utils.html">jobflow.utils</a></li>
@@ -454,19 +454,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from jobflow import job
+<span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span>
 
-@job
-def time_website(website: str):
-    import urllib.request
-    from time import perf_counter
+<span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">time_website</span><span class="p">(</span><span class="n">website</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span>
+    <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter</span>
 
-    with urllib.request.urlopen(website) as f:
-        start_time = perf_counter()
-        f.read()
-        end_time = perf_counter()
+    <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">website</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
 
-    return end_time - start_time
+    <span class="k">return</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
 </pre></div>
 </div>
 </div>
@@ -476,9 +476,9 @@ def time_website(website: str):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>time_github = time_website("https://www.github.com")
-time_google = time_website("https://www.google.com")
-time_nyt = time_website("https://www.nytimes.com")
+<span></span><span class="n">time_github</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">"https://www.github.com"</span><span class="p">)</span>
+<span class="n">time_google</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">"https://www.google.com"</span><span class="p">)</span>
+<span class="n">time_nyt</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">"https://www.nytimes.com"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -488,7 +488,7 @@ time_nyt = time_website("https://www.nytimes.com")
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>time_github.output
+<span></span><span class="n">time_github</span><span class="o">.</span><span class="n">output</span>
 </pre></div>
 </div>
 </div>
@@ -507,11 +507,11 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>@job
-def sum_numbers(numbers):
-    return sum(numbers)
+<span></span><span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">sum_numbers</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
 
-sum_times = sum_numbers([time_github.output, time_google.output, time_nyt.output])
+<span class="n">sum_times</span> <span class="o">=</span> <span class="n">sum_numbers</span><span class="p">([</span><span class="n">time_github</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_google</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_nyt</span><span class="o">.</span><span class="n">output</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -525,9 +525,9 @@ sum_times = sum_numbers([time_github.output, time_google.output, time_nyt.output
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from jobflow import Flow
+<span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span>
 
-flow = Flow([time_github, time_google, time_nyt, sum_times])
+<span class="n">flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">([</span><span class="n">time_github</span><span class="p">,</span> <span class="n">time_google</span><span class="p">,</span> <span class="n">time_nyt</span><span class="p">,</span> <span class="n">sum_times</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -538,7 +538,7 @@ flow = Flow([time_github, time_google, time_nyt, sum_times])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>flow.draw_graph().show()
+<span></span><span class="n">flow</span><span class="o">.</span><span class="n">draw_graph</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -593,9 +593,9 @@ flow = Flow([time_github, time_google, time_nyt, sum_times])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from maggma.stores import MemoryStore
+<span></span><span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
 
-docs_store = MemoryStore()
+<span class="n">docs_store</span> <span class="o">=</span> <span class="n">MemoryStore</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -605,9 +605,9 @@ docs_store = MemoryStore()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from jobflow import JobStore
+<span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">JobStore</span>
 
-store = JobStore(docs_store)
+<span class="n">store</span> <span class="o">=</span> <span class="n">JobStore</span><span class="p">(</span><span class="n">docs_store</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -625,9 +625,9 @@ store = JobStore(docs_store)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>from jobflow.managers.local import run_locally
+<span></span><span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
 
-responses = run_locally(flow, store=store)
+<span class="n">responses</span> <span class="o">=</span> <span class="n">run_locally</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -674,7 +674,7 @@ responses = run_locally(flow, store=store)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>responses
+<span></span><span class="n">responses</span>
 </pre></div>
 </div>
 </div>
@@ -696,7 +696,7 @@ responses = run_locally(flow, store=store)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>responses[time_github.uuid][1].output
+<span></span><span class="n">responses</span><span class="p">[</span><span class="n">time_github</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
 </pre></div>
 </div>
 </div>
@@ -716,7 +716,7 @@ responses = run_locally(flow, store=store)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>store.get_output(time_github.uuid)
+<span></span><span class="n">store</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="n">time_github</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
