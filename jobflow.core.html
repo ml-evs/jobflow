@@ -206,7 +206,7 @@ references.</p></li>
 <dl class="py class">
 <dt id="jobflow.core.flow.Flow">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></code><code class="sig-name descname"><span class="pre">Flow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">jobs</span></em>, <em class="sig-param"><span class="pre">output=None</span></em>, <em class="sig-param"><span class="pre">name='Flow'</span></em>, <em class="sig-param"><span class="pre">order=&lt;JobOrder.AUTO:</span> <span class="pre">'auto'&gt;</span></em>, <em class="sig-param"><span class="pre">uuid=None</span></em>, <em class="sig-param"><span class="pre">host=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.Flow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.6.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A Flow contains a collection of Jobs or other Flows to execute.</p>
 <p>The <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object is the main tool for constructing workflows. Flows
 can either contain Jobs or other Flows. Like <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, Flow objects
@@ -555,7 +555,7 @@ details.</p>
 <dl class="py class">
 <dt id="jobflow.core.job.Job">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></code><code class="sig-name descname"><span class="pre">Job</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.6.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
 the <a class="reference internal" href="#jobflow.core.job.job" title="jobflow.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a> decorator on a function. Any calls to a decorated function will
@@ -569,7 +569,7 @@ the class is importable. Lastly, methods (functions bound to an instance of
 class) can be used, provided the class is <code class="xref py py-obj docutils literal notranslate"><span class="pre">MSONable</span></code>.</p></li>
 <li><p><strong>function_args</strong> (<em>Tuple</em><em>[</em><em>Any</em><em>, </em><em>..</em><em>]</em>) – The positional arguments to the function call.</p></li>
 <li><p><strong>function_kwargs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The keyword arguments to the function call.</p></li>
-<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>jobflow.Schema</em><em>]</em><em>]</em>) – A <code class="xref py py-obj docutils literal notranslate"><span class="pre">Schema</span></code> object that defines the schema of the output.</p></li>
+<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>BaseModel</em><em>]</em><em>]</em>) – A pydantic model that defines the schema of the output.</p></li>
 <li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A unique identifier for the job. Generated automatically.</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The index of the job (number of times the job has been replaced).</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The name of the job. If not set it will be determined from <code class="docutils literal notranslate"><span class="pre">function</span></code>.</p></li>
@@ -880,7 +880,7 @@ Maker:</p>
 will be applied to the response outputs and the response returned.
 Otherwise, the <code class="docutils literal notranslate"><span class="pre">job_returns</span></code> will be put into the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> of a new
 <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> object.</p></li>
-<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>jobflow.Schema</em><em>]</em><em>]</em>) – The outputs class associated with the job. Used to enforce a schema for the
+<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>BaseModel</em><em>]</em><em>]</em>) – A pydantic model associated with the job. Used to enforce a schema for the
 outputs.</p></li>
 </ul>
 </dd>
@@ -899,7 +899,7 @@ outputs.</p></li>
 <dl class="py class">
 <dt id="jobflow.core.job.JobConfig">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></code><code class="sig-name descname"><span class="pre">JobConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">resolve_references=True</span></em>, <em class="sig-param"><span class="pre">on_missing_references=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em>, <em class="sig-param"><span class="pre">manager_config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">expose_store=False</span></em>, <em class="sig-param"><span class="pre">pass_manager_config=True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.6.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>The configuration parameters for a job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -945,7 +945,7 @@ references will be replaced with <code class="docutils literal notranslate"><spa
 <dl class="py class">
 <dt id="jobflow.core.maker.Maker">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></code><code class="sig-name descname"><span class="pre">Maker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Maker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.6.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>Base maker (factory) class for constructing <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> objects.</p>
 <p>Note, this class is only an abstract implementation. To create a functioning Maker
 subclass <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> and define the <code class="docutils literal notranslate"><span class="pre">make</span></code> method. See examples below.</p>
@@ -1162,7 +1162,7 @@ Maker:</p>
 <dl class="py class">
 <dt id="jobflow.core.reference.OutputReference">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">OutputReference</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.5.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.6.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A reference to the output of a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code>.</p>
 <p>The output may or may not exist yet. Accordingly, <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects
 are essentially pointers to future job outputs. Output references can be used as
@@ -1183,9 +1183,9 @@ the job. See the examples for more details.</p>
 <li><p><strong>attributes</strong> (<em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>..</em><em>]</em>) – A tuple of attributes or indexes that have been performed on the
 output. Attributes are specified by a tuple of <code class="docutils literal notranslate"><span class="pre">("a",</span> <span class="pre">attr)</span></code>, whereas
 indexes are specified as a tuple of <code class="docutils literal notranslate"><span class="pre">("i",</span> <span class="pre">index)</span></code>.</p></li>
-<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Any</em><em>]</em>) – An output schema for the output that will be used to validate any attribute
-accesses or indexes. Note, schemas can only be used to validate the first
-attribute/index access.</p></li>
+<li><p><strong>output_schema</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>BaseModel</em><em>]</em><em>]</em>) – A pydantic model that defines the schema of the output and that will be used to
+validate any attribute accesses or indexes. Note, schemas can only be used to
+validate the first attribute/index access.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1328,28 +1328,6 @@ value of <code class="docutils literal notranslate"><span class="pre">on_missing
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a>[<a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference">OutputReference</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-</section>
-<section id="module-jobflow.core.schema">
-<span id="jobflow-core-schema"></span><h2>jobflow.core.schema<a class="headerlink" href="#module-jobflow.core.schema" title="Permalink to this headline">¶</a></h2>
-<p>Define job output schema class.</p>
-<dl class="py class">
-<dt id="jobflow.core.schema.Schema">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.schema.</span></code><code class="sig-name descname"><span class="pre">Schema</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/schema.html#Schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.schema.Schema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">jobflow.core.schema._BaseSchema</span></code></p>
-<p>Base Schema class for representing job output schemas.</p>
-<p>This is a special pydantic model that automatically converts all types to support
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code> objects.</p>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>extra_data</strong> (<em>Any</em>) – </p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1684,7 +1662,6 @@ additional store for data.</p>
 <li><a class="reference internal" href="#module-jobflow.core.job">jobflow.core.job</a></li>
 <li><a class="reference internal" href="#module-jobflow.core.maker">jobflow.core.maker</a></li>
 <li><a class="reference internal" href="#module-jobflow.core.reference">jobflow.core.reference</a></li>
-<li><a class="reference internal" href="#module-jobflow.core.schema">jobflow.core.schema</a></li>
 <li><a class="reference internal" href="#module-jobflow.core.state">jobflow.core.state</a></li>
 <li><a class="reference internal" href="#module-jobflow.core.store">jobflow.core.store</a></li>
 </ul>

@@ -208,6 +208,7 @@
     <span class="p">)</span>
 
     <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">DiGraph</span>
+    <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
@@ -423,7 +424,7 @@
 <span class="sd">    function_kwargs</span>
 <span class="sd">        The keyword arguments to the function call.</span>
 <span class="sd">    output_schema</span>
-<span class="sd">        A :obj:`Schema` object that defines the schema of the output.</span>
+<span class="sd">        A pydantic model that defines the schema of the output.</span>
 <span class="sd">    uuid</span>
 <span class="sd">        A unique identifier for the job. Generated automatically.</span>
 <span class="sd">    index</span>
@@ -486,7 +487,7 @@
         <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
         <span class="n">function_args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">function_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Schema</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -714,7 +715,7 @@
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_bson</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="s2">"Job output contained an object that is not MSONable and therefore "</span>
@@ -971,7 +972,7 @@
     <span class="k">def</span> <span class="nf">from_job_returns</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">job_returns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
-        <span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Schema</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Generate a :obj:`Response` from the outputs of a :obj:`Job`.</span>
@@ -983,9 +984,8 @@
 <span class="sd">            will be applied to the response outputs and the response returned.</span>
 <span class="sd">            Otherwise, the ``job_returns`` will be put into the ``outputs`` of a new</span>
 <span class="sd">            :obj:`Response` object.</span>
-
 <span class="sd">        output_schema</span>
-<span class="sd">            The outputs class associated with the job. Used to enforce a schema for the</span>
+<span class="sd">            A pydantic model associated with the job. Used to enforce a schema for the</span>
 <span class="sd">            outputs.</span>
 
 <span class="sd">        Raises</span>
@@ -1016,7 +1016,7 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="n">apply_schema</span><span class="p">(</span><span class="n">job_returns</span><span class="p">,</span> <span class="n">output_schema</span><span class="p">))</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">apply_schema</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Schema</span><span class="p">]]):</span>
+<span class="k">def</span> <span class="nf">apply_schema</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]):</span>
     <span class="sd">"""</span>
 <span class="sd">    Apply schema to job outputs.</span>
 
@@ -1025,7 +1025,7 @@
 <span class="sd">    output</span>
 <span class="sd">        The job outputs.</span>
 <span class="sd">    schema</span>
-<span class="sd">        The schema to apply.</span>
+<span class="sd">        A pydantic model that defines the schema to apply.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -1036,17 +1036,10 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Schema or Any</span>
+<span class="sd">    BaseModel or Any</span>
 <span class="sd">        Returns an instance of the schema if the schema is set or the original output.</span>
 <span class="sd">    """</span>
-    <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
-
-    <span class="c1"># comparing schema instance is surprisingly fickle.</span>
-    <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="ow">and</span> <span class="n">output</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="n">schema</span><span class="o">.</span><span class="vm">__module__</span>
-    <span class="p">):</span>
+    <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
