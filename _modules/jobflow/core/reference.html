@@ -290,7 +290,7 @@
 
 <div class="viewcode-block" id="OutputReference.resolve"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">],</span>
         <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -299,6 +299,11 @@
 
 <span class="sd">        This function will query the job store for the reference value and perform any</span>
 <span class="sd">        attribute accesses/indexing.</span>
+
+<span class="sd">        .. Note::</span>
+<span class="sd">            When resolving multiple references simultaneously it is more efficient to</span>
+<span class="sd">            use :obj:`.resolve_references` as it will minimize the number of database</span>
+<span class="sd">            requests.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -322,45 +327,41 @@
 <span class="sd">            The resolved reference if it can be found. If the reference cannot be found,</span>
 <span class="sd">            the returned value will depend on the value of ``on_missing``.</span>
 <span class="sd">        """</span>
-        <span class="c1"># when resolving multiple references simultaneously it is more efficient</span>
-        <span class="c1"># to use resolve_references as it will minimize the number of database requests</span>
-        <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"At least one of store and cache must be set."</span><span class="p">)</span>
-
         <span class="k">if</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="n">store</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+            <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># get the latest index for the output</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">query_one</span><span class="p">({</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">},</span> <span class="p">[</span><span class="s2">"index"</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">result</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+                <span class="p">)</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                 <span class="k">pass</span>
 
-        <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span> <span class="ow">and</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]:</span>
+            <span class="n">istr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">" (</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"Could not resolve reference - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> not in store or cache"</span>
+                <span class="sa">f</span><span class="s2">"Could not resolve reference - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}{</span><span class="n">istr</span><span class="si">}</span><span class="s2"> not in store or cache"</span>
             <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">NONE</span> <span class="ow">and</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">PASS</span> <span class="ow">and</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="bp">self</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="c1"># if we get to here, that means the reference cannot be resolved</span>
-            <span class="k">if</span> <span class="n">on_missing</span> <span class="o">==</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">None</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># only other option is OnMissing.PASS</span>
-                <span class="k">return</span> <span class="bp">self</span>
-
-        <span class="c1"># resolve nested references</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
-        <span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="n">index</span><span class="p">]</span>
 
         <span class="c1"># decode objects before attribute access</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">MontyDecoder</span><span class="p">()</span><span class="o">.</span><span class="n">process_decoded</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="c1"># re-cache data in case other references need it</span>
-        <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="n">cache</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
 
         <span class="k">for</span> <span class="n">attr_type</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">attr_type</span> <span class="o">==</span> <span class="s2">"i"</span><span class="p">:</span>
@@ -484,7 +485,7 @@
 
 <div class="viewcode-block" id="resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.resolve_references">[docs]</a><span class="k">def</span> <span class="nf">resolve_references</span><span class="p">(</span>
     <span class="n">references</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">],</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
     <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -517,15 +518,21 @@
         <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">ref_group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">uuid</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span> <span class="ow">and</span> <span class="n">store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">cache</span><span class="p">[</span><span class="n">uuid</span><span class="p">]</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="n">uuid</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="k">pass</span>
+        <span class="c1"># get latest index</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">query_one</span><span class="p">({</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span> <span class="p">[</span><span class="s2">"index"</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">result</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+            <span class="n">cache</span><span class="p">[</span><span class="n">uuid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">[</span><span class="n">uuid</span><span class="p">]:</span>
+            <span class="n">cache</span><span class="p">[</span><span class="n">uuid</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span>
+                <span class="n">uuid</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+            <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">ref_group</span><span class="p">:</span>
             <span class="n">resolved_references</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span>
-                <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+                <span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
             <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">resolved_references</span></div>
@@ -560,7 +567,7 @@
         <span class="c1"># argument is a primitive, we won't find a reference here</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">()</span>
 
-    <span class="n">arg</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">arg</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># recursively find any reference classes</span>
     <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"OutputReference"</span><span class="p">)</span>
@@ -571,7 +578,7 @@
 
 <div class="viewcode-block" id="find_and_resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_resolve_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_resolve_references</span><span class="p">(</span>
     <span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
     <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -604,16 +611,20 @@
 
     <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">find_key_value</span>
 
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@class"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"OutputReference"</span><span class="p">:</span>
+        <span class="c1"># if arg is a deserialized reference, serialize it</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">OutputReference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">OutputReference</span><span class="p">):</span>
         <span class="c1"># if the argument is a reference then stop there</span>
-        <span class="k">return</span> <span class="n">arg</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arg</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
         <span class="c1"># argument is a primitive, we won't find a reference here</span>
         <span class="k">return</span> <span class="n">arg</span>
 
     <span class="c1"># serialize the argument to a dictionary</span>
-    <span class="n">encoded_arg</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">encoded_arg</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># recursively find any reference classes</span>
     <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"OutputReference"</span><span class="p">)</span>
@@ -626,14 +637,15 @@
         <span class="n">OutputReference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">loc</span><span class="p">)))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span>
     <span class="p">]</span>
     <span class="n">resolved_references</span> <span class="o">=</span> <span class="n">resolve_references</span><span class="p">(</span>
-        <span class="n">references</span><span class="p">,</span>
-        <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
-        <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
-        <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span><span class="p">,</span>
+        <span class="n">references</span><span class="p">,</span> <span class="n">store</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
     <span class="p">)</span>
 
     <span class="c1"># replace the references in the arg dict</span>
     <span class="k">for</span> <span class="n">location</span><span class="p">,</span> <span class="n">reference</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">locations</span><span class="p">,</span> <span class="n">references</span><span class="p">):</span>
+        <span class="c1"># skip references that have not been resolved, e.g., on missing is PASS</span>
+        <span class="k">if</span> <span class="n">reference</span> <span class="o">==</span> <span class="n">resolved_references</span><span class="p">[</span><span class="n">reference</span><span class="p">]:</span>
+            <span class="k">continue</span>
+
         <span class="n">resolved_reference</span> <span class="o">=</span> <span class="n">resolved_references</span><span class="p">[</span><span class="n">reference</span><span class="p">]</span>
         <span class="n">set_</span><span class="p">(</span><span class="n">encoded_arg</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">location</span><span class="p">),</span> <span class="n">resolved_reference</span><span class="p">)</span>
 

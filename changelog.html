@@ -181,14 +181,22 @@
         </label>
         <section id="change-log">
 <h1>Change log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
-<section id="unreleased">
-<h2>[Unreleased]<a class="headerlink" href="#unreleased" title="Permalink to this headline">¶</a></h2>
-<p>Schema related fixes:</p>
+<section id="v0-1-0">
+<h2>v0.1.0<a class="headerlink" href="#v0-1-0" title="Permalink to this headline">¶</a></h2>
+<p>Major changes:
+- <code class="docutils literal notranslate"><span class="pre">Schema</span></code> class removed. Any pydantic model can now be an output schema.</p>
+<p>Enhancements:</p>
 <ul class="simple">
-<li><p>Better schema support for <code class="docutils literal notranslate"><span class="pre">typing.Any</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Schema</span></code> no longer subclasses <code class="docutils literal notranslate"><span class="pre">MSONable</span></code>. This improves the schema description
-and fixes a number of bugs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JobStore.get_output</span></code> now resolves references in the output of other jobs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JobStore.get_output</span></code>: <code class="docutils literal notranslate"><span class="pre">which</span></code> now supports specifying a specific job index.</p></li>
+<li><p>Better support for circular and missing references in <code class="docutils literal notranslate"><span class="pre">JobStore.get_output</span></code> and
+<code class="docutils literal notranslate"><span class="pre">OutputReference.resolve</span></code>.</p></li>
+<li><p>Update dependencies to use latest jsanitize features.</p></li>
 </ul>
+<p>Bug fixes:
+- Fixed issue with references in flow of flows (@davidwaroquiers, #18).
+- Makes now allows non-default parameters (fixes: #13).
+- Fix reference cache with multiple indexes.</p>
 </section>
 <section id="v0-0-2">
 <h2>v0.0.2<a class="headerlink" href="#v0-0-2" title="Permalink to this headline">¶</a></h2>
@@ -250,7 +258,7 @@ and fixes a number of bugs.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Change log</a><ul>
-<li><a class="reference internal" href="#unreleased">[Unreleased]</a></li>
+<li><a class="reference internal" href="#v0-1-0">v0.1.0</a></li>
 <li><a class="reference internal" href="#v0-0-2">v0.0.2</a></li>
 <li><a class="reference internal" href="#v0-0-1">v0.0.1</a></li>
 </ul>

@@ -715,7 +715,7 @@
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_bson</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="s2">"Job output contained an object that is not MSONable and therefore "</span>
@@ -765,13 +765,13 @@
         <span class="n">cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">resolved_args</span> <span class="o">=</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">,</span>
-            <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+            <span class="n">store</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">on_missing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">resolved_kwargs</span> <span class="o">=</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="p">,</span>
-            <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+            <span class="n">store</span><span class="p">,</span>
             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span>
             <span class="n">on_missing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span><span class="p">,</span>
         <span class="p">)</span>

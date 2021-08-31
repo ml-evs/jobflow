@@ -201,13 +201,9 @@
     <span class="sd">"""</span>
 <span class="sd">    Base maker (factory) class for constructing :obj:`Job` and :obj:`Flow` objects.</span>
 
-<span class="sd">    Note, this class is only an abstract implementation. To create a functioning Maker</span>
-<span class="sd">    subclass :obj:`Maker` and define the ``make`` method. See examples below.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    name</span>
-<span class="sd">        The name of jobs or flows created from this maker.</span>
+<span class="sd">    Note, this class is only an abstract implementation. To create a functioning Maker,</span>
+<span class="sd">    one should  subclass :obj:`Maker`, define the ``make`` method and add a name field</span>
+<span class="sd">    with a default value. See examples below.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -216,7 +212,9 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    Below we define a simple maker that generates a job to add two numbers. Next, we</span>
-<span class="sd">    make a job using the maker.</span>
+<span class="sd">    make a job using the maker. When creating a new maker it is essential to: 1)</span>
+<span class="sd">    Add a name field with a default value (this controls the name of jobs produced</span>
+<span class="sd">    by the maker) and 2) override the ``make`` method with a concrete implementation.</span>
 
 <span class="sd">    &gt;&gt;&gt; from dataclasses import dataclass</span>
 <span class="sd">    &gt;&gt;&gt; from jobflow import Maker, job</span>
@@ -264,6 +262,7 @@
 <span class="sd">    &gt;&gt;&gt; from jobflow import Response</span>
 <span class="sd">    &gt;&gt;&gt; @dataclass</span>
 <span class="sd">    ... class SquareThenAddMaker(Maker):</span>
+<span class="sd">    ...     name: str = "square then add"</span>
 <span class="sd">    ...     add_maker: Maker = AddMaker()</span>
 <span class="sd">    ...</span>
 <span class="sd">    ...     @job</span>
@@ -291,6 +290,7 @@
 <span class="sd">    &gt;&gt;&gt; from jobflow import Flow</span>
 <span class="sd">    &gt;&gt;&gt; @dataclass</span>
 <span class="sd">    ... class DoubleAddMaker(Maker):</span>
+<span class="sd">    ...     name: str = "double add"</span>
 <span class="sd">    ...     add_maker: Maker = AddMaker()</span>
 <span class="sd">    ...</span>
 <span class="sd">    ...     def make(self, a, b):</span>
@@ -301,11 +301,14 @@
 <span class="sd">    &gt;&gt;&gt; double_add_job = maker.make(1, 2)</span>
 <span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Maker"</span>
-
 <div class="viewcode-block" id="Maker.make"><a class="viewcode-back" href="../../../maker.html#jobflow.core.maker.Maker.make">[docs]</a>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]:</span>
         <span class="sd">"""Make a job or a flow - must be overridden with a concrete implementation."""</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Name of the Maker - must be overridden with a dataclass field."""</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 <div class="viewcode-block" id="Maker.update_kwargs"><a class="viewcode-back" href="../../../maker.html#jobflow.core.maker.Maker.update_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -346,6 +349,7 @@
 <span class="sd">        &gt;&gt;&gt; from jobflow import job, Maker</span>
 <span class="sd">        &gt;&gt;&gt; @dataclass</span>
 <span class="sd">        ... class AddMaker(Maker):</span>
+<span class="sd">        ...     name: str = "add"</span>
 <span class="sd">        ...     number: float = 10</span>
 <span class="sd">        ...</span>
 <span class="sd">        ...     @job</span>
@@ -364,6 +368,7 @@
 <span class="sd">        &gt;&gt;&gt; from jobflow import Response</span>
 <span class="sd">        &gt;&gt;&gt; @dataclass</span>
 <span class="sd">        ... class SquareThenAddMaker(Maker):</span>
+<span class="sd">        ...     name: str = "square then add"</span>
 <span class="sd">        ...     add_maker: Maker = AddMaker()</span>
 <span class="sd">        ...</span>
 <span class="sd">        ...     @job</span>

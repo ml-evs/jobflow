@@ -188,6 +188,8 @@
 <span class="kn">from</span> <span class="nn">maggma.core</span> <span class="kn">import</span> <span class="n">Store</span>
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
+<span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">OnMissing</span>
+
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
     <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -615,11 +617,16 @@
 <div class="viewcode-block" id="JobStore.get_output"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.get_output">[docs]</a>    <span class="k">def</span> <span class="nf">get_output</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">which</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
+        <span class="n">which</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
         <span class="n">load</span><span class="p">:</span> <span class="n">load_type</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Get the output from of a job UUID.</span>
+<span class="sd">        Get the output of a job UUID.</span>
+
+<span class="sd">        Note that, unlike :obj:`JobStore.query`, this function will automatically</span>
+<span class="sd">        try to resolve any output references in the job outputs.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -627,33 +634,63 @@
 <span class="sd">            A job UUID.</span>
 <span class="sd">        which</span>
 <span class="sd">            If there are multiple job runs, which index to use. Options are:</span>
-<span class="sd">            - `"last"` (default): Use the last job that ran.</span>
-<span class="sd">            - `"first"`: Use the first job that ran.</span>
-<span class="sd">            - `"all"`: Return all outputs, sorted with the lowest index first.</span>
+
+<span class="sd">            - ``"last"`` (default): Use the last job that ran.</span>
+<span class="sd">            - ``"first"``: Use the first job that ran.</span>
+<span class="sd">            - ``"all"``: Return all outputs, sorted with the lowest index first.</span>
+<span class="sd">            - Alternatively, if an integer is specified, the output for this specific</span>
+<span class="sd">              index will be queried.</span>
+
 <span class="sd">        load</span>
 <span class="sd">            Which items to load from additional stores. Setting to ``True`` will load</span>
 <span class="sd">            all items stored in additional stores. See the ``JobStore`` constructor for</span>
 <span class="sd">            more details.</span>
+<span class="sd">        cache</span>
+<span class="sd">            A dictionary cache to use for resolving of reference values.</span>
+<span class="sd">        on_missing</span>
+<span class="sd">            What to do if the output contains a reference and the reference cannot</span>
+<span class="sd">            be resolved.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Any</span>
 <span class="sd">            The output(s) for the job UUID.</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"last"</span><span class="p">,</span> <span class="s2">"first"</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">find_and_get_references</span><span class="p">,</span>
+            <span class="n">find_and_resolve_references</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># TODO: Currently, OnMissing is not respected if a reference cycle is detected</span>
+        <span class="c1">#       this could be fixed but wil require more complicated logic just to catch</span>
+        <span class="c1">#       a very unlikely event.</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">which</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"last"</span><span class="p">,</span> <span class="s2">"first"</span><span class="p">):</span>
             <span class="n">sort</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">"last"</span> <span class="k">else</span> <span class="mi">1</span>
 
+            <span class="n">criteria</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">}</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">which</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="c1"># handle specific index specified</span>
+                <span class="n">criteria</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span> <span class="o">=</span> <span class="n">which</span>
+
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_one</span><span class="p">(</span>
-                <span class="n">criteria</span><span class="o">=</span><span class="p">{</span><span class="s2">"uuid"</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span>
+                <span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">,</span>
                 <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">"output"</span><span class="p">],</span>
                 <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">"index"</span><span class="p">:</span> <span class="n">sort</span><span class="p">},</span>
                 <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> has not outputs."</span><span class="p">)</span>
+                <span class="n">istr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">" (index: </span><span class="si">{</span><span class="n">which</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">which</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s2">""</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"UUID: </span><span class="si">{</span><span class="n">uuid</span><span class="si">}{</span><span class="n">istr</span><span class="si">}</span><span class="s2"> has no outputs."</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span>
+            <span class="n">refs</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"output"</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="o">==</span> <span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Reference cycle detected - aborting."</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">"output"</span><span class="p">],</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
@@ -665,9 +702,17 @@
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> has not outputs."</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"UUID: </span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> has no outputs."</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span></div>
+            <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+
+            <span class="n">refs</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="o">==</span> <span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Reference cycle detected - aborting."</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
+                <span class="n">results</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="JobStore.from_file"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">db_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>

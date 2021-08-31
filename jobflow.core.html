@@ -960,26 +960,21 @@ references will be replaced with <code class="docutils literal notranslate"><spa
 <p>Define base Maker class for creating jobs and flows.</p>
 <dl class="py class">
 <dt id="jobflow.core.maker.Maker">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></code><code class="sig-name descname"><span class="pre">Maker</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Maker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></code><code class="sig-name descname"><span class="pre">Maker</span></code><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.8.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>Base maker (factory) class for constructing <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> objects.</p>
-<p>Note, this class is only an abstract implementation. To create a functioning Maker
-subclass <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> and define the <code class="docutils literal notranslate"><span class="pre">make</span></code> method. See examples below.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The name of jobs or flows created from this maker.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
-</dd>
-</dl>
+<p>Note, this class is only an abstract implementation. To create a functioning Maker,
+one should  subclass <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a>, define the <code class="docutils literal notranslate"><span class="pre">make</span></code> method and add a name field
+with a default value. See examples below.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="#module-jobflow.core.job" title="jobflow.core.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a>, <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>, <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
 <p>Below we define a simple maker that generates a job to add two numbers. Next, we
-make a job using the maker.</p>
+make a job using the maker. When creating a new maker it is essential to: 1)
+Add a name field with a default value (this controls the name of jobs produced
+by the maker) and 2) override the <code class="docutils literal notranslate"><span class="pre">make</span></code> method with a concrete implementation.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
@@ -1027,6 +1022,7 @@ two numbers, then creates a new job to add them.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">SquareThenAddMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"square then add"</span>
 <span class="gp">... </span>    <span class="n">add_maker</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">AddMaker</span><span class="p">()</span>
 <span class="gp">...</span>
 <span class="gp">... </span>    <span class="nd">@job</span>
@@ -1053,6 +1049,7 @@ decorator and the function should return a flow. For example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">DoubleAddMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"double add"</span>
 <span class="gp">... </span>    <span class="n">add_maker</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">AddMaker</span><span class="p">()</span>
 <span class="gp">...</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -1063,10 +1060,11 @@ decorator and the function should return a flow. For example:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">double_add_job</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="py attribute">
-<dt id="jobflow.core.maker.Maker.name">
-<code class="sig-name descname"><span class="pre">name</span></code><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">'Maker'</span></em><a class="headerlink" href="#jobflow.core.maker.Maker.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="jobflow.core.maker.Maker.make">
 <code class="sig-name descname"><span class="pre">make</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker.make"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker.make" title="Permalink to this definition">¶</a></dt>
@@ -1076,6 +1074,11 @@ decorator and the function should return a flow. For example:</p>
 <dd class="field-odd"><p>Union[jobflow.Flow, jobflow.Job]</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt id="jobflow.core.maker.Maker.name">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#jobflow.core.maker.Maker.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the Maker - must be overridden with a dataclass field.</p>
 </dd></dl>
 <dl class="py method">
 <dt id="jobflow.core.maker.Maker.update_kwargs">
@@ -1106,6 +1109,7 @@ details.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span><span class="p">,</span> <span class="n">Maker</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">AddMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"add"</span>
 <span class="gp">... </span>    <span class="n">number</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="gp">...</span>
 <span class="gp">... </span>    <span class="nd">@job</span>
@@ -1124,6 +1128,7 @@ maker that first squares a number, then creates a new job to add it.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">SquareThenAddMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"square then add"</span>
 <span class="gp">... </span>    <span class="n">add_maker</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">AddMaker</span><span class="p">()</span>
 <span class="gp">...</span>
 <span class="gp">... </span>    <span class="nd">@job</span>
@@ -1223,10 +1228,16 @@ validate the first attribute/index access.</p></li>
 </div>
 <dl class="py method">
 <dt id="jobflow.core.reference.OutputReference.resolve">
-<code class="sig-name descname"><span class="pre">resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">store=None</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference.resolve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve the reference.</p>
 <p>This function will query the job store for the reference value and perform any
 attribute accesses/indexing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When resolving multiple references simultaneously it is more efficient to
+use <a class="reference internal" href="#jobflow.core.reference.resolve_references" title="jobflow.core.reference.resolve_references"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_references</span></code></a> as it will minimize the number of database
+requests.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1282,14 +1293,14 @@ object.</p></li>
 </dd></dl>
 <dl class="py function">
 <dt id="jobflow.core.reference.resolve_references">
-<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">references</span></em>, <em class="sig-param"><span class="pre">store=None</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.resolve_references" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">references</span></em>, <em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.resolve_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve multiple output references.</p>
 <p>Uses caching to minimize number of database queries.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>references</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><em>OutputReference</em></a><em>]</em>) – A list or tuple of output references.</p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store.</p></li>
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store.</p></li>
 <li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
@@ -1305,7 +1316,7 @@ See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title
 </dd></dl>
 <dl class="py function">
 <dt id="jobflow.core.reference.find_and_resolve_references">
-<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">find_and_resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">arg</span></em>, <em class="sig-param"><span class="pre">store=None</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#find_and_resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.find_and_resolve_references" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></code><code class="sig-name descname"><span class="pre">find_and_resolve_references</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">arg</span></em>, <em class="sig-param"><span class="pre">store</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#find_and_resolve_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.find_and_resolve_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the input but with all output references replaced with their resolved values.</p>
 <p>This function works on nested inputs. For example, lists or dictionaries
 (or combinations of list and dictionaries) that contain output references.</p>
@@ -1313,7 +1324,7 @@ See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>arg</strong> (<em>Any</em>) – The input argument containing output references.</p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store.</p></li>
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store.</p></li>
 <li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
@@ -1554,19 +1565,29 @@ more details.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt id="jobflow.core.store.JobStore.get_output">
-<code class="sig-name descname"><span class="pre">get_output</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'last'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.get_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.get_output" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the output from of a job UUID.</p>
+<code class="sig-name descname"><span class="pre">get_output</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">uuid</span></em>, <em class="sig-param"><span class="pre">which='last'</span></em>, <em class="sig-param"><span class="pre">load=False</span></em>, <em class="sig-param"><span class="pre">cache=None</span></em>, <em class="sig-param"><span class="pre">on_missing=&lt;OnMissing.ERROR:</span> <span class="pre">'error'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.get_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.get_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the output of a job UUID.</p>
+<p>Note that, unlike <a class="reference internal" href="#jobflow.core.store.JobStore.query" title="jobflow.core.store.JobStore.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore.query</span></code></a>, this function will automatically
+try to resolve any output references in the job outputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A job UUID.</p></li>
-<li><p><strong>which</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – If there are multiple job runs, which index to use. Options are:
-- <cite>“last”</cite> (default): Use the last job that ran.
-- <cite>“first”</cite>: Use the first job that ran.
-- <cite>“all”</cite>: Return all outputs, sorted with the lowest index first.</p></li>
+<li><p><strong>which</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em>) – <p>If there are multiple job runs, which index to use. Options are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">"last"</span></code> (default): Use the last job that ran.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">"first"</span></code>: Use the first job that ran.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">"all"</span></code>: Return all outputs, sorted with the lowest index first.</p></li>
+<li><p>Alternatively, if an integer is specified, the output for this specific
+index will be queried.</p></li>
+</ul>
+</p></li>
 <li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores. Setting to <code class="docutils literal notranslate"><span class="pre">True</span></code> will load
 all items stored in additional stores. See the <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
 more details.</p></li>
+<li><p><strong>cache</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A dictionary cache to use for resolving of reference values.</p></li>
+<li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output contains a reference and the reference cannot
+be resolved.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
