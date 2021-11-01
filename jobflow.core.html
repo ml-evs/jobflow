@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.managers" href="jobflow.managers.html" /><link rel="prev" title="jobflow" href="jobflow.html" />
 
-    <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>jobflow.core - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
@@ -214,7 +214,7 @@
   </aside>
   <div class="main">
     <div class="content">
-      <article role="main">
+      <div class="article-container">
         <div class="content-icon-container">
           <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
@@ -229,7 +229,8 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <section id="jobflow-core">
+        <article role="main">
+          <section id="jobflow-core">
 <h1>jobflow.core<a class="headerlink" href="#jobflow-core" title="Permalink to this headline">¶</a></h1>
 <section id="module-jobflow.core.flow">
 <span id="jobflow-core-flow"></span><h2>jobflow.core.flow<a class="headerlink" href="#module-jobflow.core.flow" title="Permalink to this headline">¶</a></h2>
@@ -326,7 +327,7 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow.job_uuids">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">job_uuids</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple[str,</span> <span class="pre">...]</span></em><a class="headerlink" href="#jobflow.core.flow.Flow.job_uuids" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">job_uuids</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.flow.Flow.job_uuids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uuids of every Job contained in the Flow (including nested Flows).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -429,7 +430,7 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 <li><p><strong>class_filter</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>jobflow.Maker</em><em>]</em><em>]</em>) – A filter for the maker class. Note the class filter will match any
 subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
-of a Maker object. See examples for more details.</p></li>
+of Maker, job, or flow objects. See examples for more details.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
@@ -686,7 +687,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.input_references">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_references</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple[jobflow.OutputReference,</span> <span class="pre">...]</span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_references</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">jobflow.OutputReference</span><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -699,7 +700,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.input_uuids">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_uuids</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple[str,</span> <span class="pre">...]</span></em><a class="headerlink" href="#jobflow.core.job.Job.input_uuids" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_uuids</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_uuids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uuids of any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -712,7 +713,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.input_references_grouped">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_references_grouped</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">Tuple[OutputReference,</span> <span class="pre">...]]</span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references_grouped" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_references_grouped</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">OutputReference</span><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references_grouped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Group any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs by their UUIDs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -725,7 +726,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.maker">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">maker</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional[jobflow.Maker]</span></em><a class="headerlink" href="#jobflow.core.job.Job.maker" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">maker</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">jobflow.Maker</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the host <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> object if a job is to run a maker function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -847,7 +848,7 @@ details.</p></li>
 <li><p><strong>class_filter</strong> (<em>Optional</em><em>[</em><em>Type</em><em>[</em><em>jobflow.Maker</em><em>]</em><em>]</em>) – A filter for the maker class. Note the class filter will match any
 subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
-of a Maker object. See examples for more details.</p></li>
+of Maker, job, or flow objects. See examples for more details.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
 </ul>
@@ -1446,7 +1447,7 @@ an <code class="xref py py-obj docutils literal notranslate"><span class="pre">M
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore.name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#jobflow.core.store.JobStore.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><a class="headerlink" href="#jobflow.core.store.JobStore.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of the data source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1700,7 +1701,8 @@ additional store for data.</p>
 </section>
 </section>
 
-      </article>
+        </article>
+      </div>
       <footer>
         
         <div class="related-pages">

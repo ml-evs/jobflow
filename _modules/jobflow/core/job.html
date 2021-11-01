@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>jobflow.core.job - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=c7c65a82b42f6b978e58466c1e9ef2509836d916" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
@@ -213,7 +213,7 @@
   </aside>
   <div class="main">
     <div class="content">
-      <article role="main">
+      <div class="article-container">
         <div class="content-icon-container">
           <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
@@ -228,7 +228,8 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <h1>Source code for jobflow.core.job</h1><div class="highlight"><pre>
+        <article role="main">
+          <h1>Source code for jobflow.core.job</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Functions and classes for representing Job objects."""</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -670,12 +671,16 @@
 
         <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">refs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_references_grouped</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">properties</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s2">"."</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">attributes_formatted</span><span class="p">))</span>
+            <span class="n">properties</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">ref</span><span class="o">.</span><span class="n">attributes_formatted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"["</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"]"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span>
                 <span class="k">if</span> <span class="n">ref</span><span class="o">.</span><span class="n">attributes</span>
             <span class="p">]</span>
-            <span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[</span><span class="s2">"output"</span><span class="p">]</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">properties</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">"output"</span>
             <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">uuid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span> <span class="p">{</span><span class="s2">"properties"</span><span class="p">:</span> <span class="n">properties</span><span class="p">}))</span>
 
         <span class="n">graph</span> <span class="o">=</span> <span class="n">DiGraph</span><span class="p">()</span>
@@ -913,7 +918,7 @@
 <span class="sd">            subclasses.</span>
 <span class="sd">        nested</span>
 <span class="sd">            Whether to apply the updates to Maker objects that are themselves kwargs</span>
-<span class="sd">            of a Maker object. See examples for more details.</span>
+<span class="sd">            of Maker, job, or flow objects. See examples for more details.</span>
 <span class="sd">        dict_mod</span>
 <span class="sd">            Use the dict mod language to apply updates. See :obj:`.DictMods` for more</span>
 <span class="sd">            details.</span>
@@ -968,6 +973,8 @@
 <span class="sd">        ...     {"number": 10}, function_filter=AddMaker, nested=False</span>
 <span class="sd">        ... )</span>
 <span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">maker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maker</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
                 <span class="n">update</span><span class="p">,</span>
@@ -976,7 +983,33 @@
                 <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
                 <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">maker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">maker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">nested</span><span class="p">:</span>
+            <span class="c1"># also look for makers in job args and kwargs</span>
+            <span class="n">new_args</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
+                    <span class="n">new_arg</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
+                        <span class="n">update</span><span class="p">,</span>
+                        <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
+                        <span class="n">class_filter</span><span class="o">=</span><span class="n">class_filter</span><span class="p">,</span>
+                        <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
+                        <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">new_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_arg</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function_args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_args</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">kwarg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwarg</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">function_kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwarg</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
+                        <span class="n">update</span><span class="p">,</span>
+                        <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
+                        <span class="n">class_filter</span><span class="o">=</span><span class="n">class_filter</span><span class="p">,</span>
+                        <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
+                        <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
+                    <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Job.as_dict"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">"""Serialize the job as a dictionary."""</span>
@@ -984,7 +1017,18 @@
 
         <span class="c1"># fireworks can't serialize functions, so explicitly serialize to avoid issues</span>
         <span class="n">d</span><span class="p">[</span><span class="s2">"function"</span><span class="p">]</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"function"</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">d</span></div></div>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">"""Handle setting attributes. Implements a special case for job name."""</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">"name"</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">maker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># have to be careful and also update the name of the bound maker</span>
+            <span class="c1"># the ``value is not None`` in the if statement is needed otherwise the name</span>
+            <span class="c1"># of the maker will get set to None during class init</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">maker</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Response">[docs]</a><span class="nd">@dataclass</span>
@@ -1214,7 +1258,8 @@
     <span class="k">for</span> <span class="n">ajob</span> <span class="ow">in</span> <span class="n">all_jobs</span><span class="p">:</span>
         <span class="n">ajob</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">manager_config</span><span class="p">)</span>
 </pre></div>
-      </article>
+        </article>
+      </div>
       <footer>
         
         <div class="related-pages">
