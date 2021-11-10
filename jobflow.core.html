@@ -9,6 +9,7 @@
         <title>jobflow.core - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
@@ -200,6 +201,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="jobflow.html">API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.settings.html">jobflow.settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
@@ -1657,7 +1659,7 @@ be resolved.</p></li>
 yaml format.</p>
 <p>The simplest format is a monty dumped version of the store, generated using:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monty.serialization</span> <span class="kn">import</span> <span class="n">dumpfn</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dumpfn</span><span class="p">(</span><span class="s2">"job_store.json"</span><span class="p">,</span> <span class="n">job_store</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dumpfn</span><span class="p">(</span><span class="s2">"job_store.yaml"</span><span class="p">,</span> <span class="n">job_store</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Alternatively, the file can contain the keys docs_store, additional_stores and
@@ -1686,6 +1688,54 @@ additional store for data.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>db_file</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Path</em><em>]</em>) – Path to the file containing the credentials.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments that get passed to the JobStore constructor.
+These arguments are ignored if the file contains a monty serialised
+JobStore.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A JobStore.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore">JobStore</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="jobflow.core.store.JobStore.from_dict_spec">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_dict_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_dict_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_dict_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an JobStore from a dict specification.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is different to <code class="docutils literal notranslate"><span class="pre">JobStore.from_dict</span></code> which is used to load
+the monty serialised representation of the claas.</p>
+</div>
+<p>The dictionary should contain the keys “docs_store”, “additional_stores” and
+any other keyword arguments supported by the <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> constructor. The
+docs_store and additional stores are specified by the <code class="docutils literal notranslate"><span class="pre">type</span></code> key which must
+match a Maggma <code class="docutils literal notranslate"><span class="pre">Store</span></code> subclass, and the remaining keys are passed to
+the store constructor. For example, the following file would  create a
+<a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> with a <code class="docutils literal notranslate"><span class="pre">MongoStore</span></code> for docs and a <code class="docutils literal notranslate"><span class="pre">GridFSStore</span></code> as an
+additional store for data.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MongoStore</span>
+  <span class="nt">database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+  <span class="nt">collection_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">outputs</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">27017</span>
+<span class="nt">additional_stores</span><span class="p">:</span>
+  <span class="nt">data</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GridFSStore</span>
+    <span class="nt">database</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+    <span class="nt">collection_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">outputs_blobs</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">27017</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The dictionary specification.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments that get passed to the JobStore constructor.</p></li>
 </ul>
 </dd>

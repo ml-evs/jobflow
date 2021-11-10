@@ -8,6 +8,7 @@
         <title>jobflow.managers.fireworks - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
@@ -199,6 +200,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.settings.html">jobflow.settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
@@ -248,7 +250,7 @@
 
 <div class="viewcode-block" id="flow_to_workflow"><a class="viewcode-back" href="../../../jobflow.managers.html#jobflow.managers.fireworks.flow_to_workflow">[docs]</a><span class="k">def</span> <span class="nf">flow_to_workflow</span><span class="p">(</span>
     <span class="n">flow</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]],</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Workflow</span><span class="p">:</span>
     <span class="sd">"""</span>
@@ -263,7 +265,10 @@
 <span class="sd">    flow</span>
 <span class="sd">        A flow or job.</span>
 <span class="sd">    store</span>
-<span class="sd">        A job store.</span>
+<span class="sd">        A job store. Alternatively, if set to None, :obj:`JobflowSettings.JOB_STORE`</span>
+<span class="sd">        will be used. Note, this could be different on the computer that submits the</span>
+<span class="sd">        workflow and the computer which runs the workflow. The value of ``JOB_STORE`` on</span>
+<span class="sd">        the computer that runs the workflow will be used.</span>
 <span class="sd">    **kwargs</span>
 <span class="sd">        Keyword arguments passed to Workflow init method.</span>
 
@@ -290,7 +295,7 @@
 
 <div class="viewcode-block" id="job_to_firework"><a class="viewcode-back" href="../../../jobflow.managers.html#jobflow.managers.fireworks.job_to_firework">[docs]</a><span class="k">def</span> <span class="nf">job_to_firework</span><span class="p">(</span>
     <span class="n">job</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span>
-    <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
+    <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">parents</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">parent_mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Firework</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -307,7 +312,10 @@
 <span class="sd">    job</span>
 <span class="sd">        A job.</span>
 <span class="sd">    store</span>
-<span class="sd">        A job store.</span>
+<span class="sd">        A job store. Alternatively, if set to None, :obj:`JobflowSettings.JOB_STORE`</span>
+<span class="sd">        will be used. Note, this could be different on the computer that submits the</span>
+<span class="sd">        workflow and the computer which runs the workflow. The value of ``JOB_STORE`` on</span>
+<span class="sd">        the computer that runs the workflow will be used.</span>
 <span class="sd">    parents</span>
 <span class="sd">        The parent uuids of the job.</span>
 <span class="sd">    parent_mapping</span>
@@ -358,18 +366,24 @@
 <span class="sd">    job : Dict</span>
 <span class="sd">        A serialized job.</span>
 <span class="sd">    store : JobStore</span>
-<span class="sd">        A job store.</span>
+<span class="sd">        A job store. Alternatively, if set to None, :obj:`JobflowSettings.JOB_STORE`</span>
+<span class="sd">        will be used. Note, this could be different on the computer that submits the</span>
+<span class="sd">        workflow and the computer which runs the workflow. The value of ``JOB_STORE`` on</span>
+<span class="sd">        the computer that runs the workflow will be used.</span>
 <span class="sd">    """</span>
 
     <span class="n">required_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"job"</span><span class="p">,</span> <span class="s2">"store"</span><span class="p">]</span>
 
 <div class="viewcode-block" id="JobFiretask.run_task"><a class="viewcode-back" href="../../../jobflow.managers.html#jobflow.managers.fireworks.JobFiretask.run_task">[docs]</a>    <span class="k">def</span> <span class="nf">run_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fw_spec</span><span class="p">):</span>
         <span class="sd">"""Run the job and handle any dynamic firework submissions."""</span>
-        <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">initialize_logger</span>
+        <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">SETTINGS</span><span class="p">,</span> <span class="n">initialize_logger</span>
         <span class="kn">from</span> <span class="nn">jobflow.core.job</span> <span class="kn">import</span> <span class="n">Job</span>
 
         <span class="n">job</span><span class="p">:</span> <span class="n">Job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"job"</span><span class="p">)</span>
         <span class="n">store</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">store</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">JOB_STORE</span>
         <span class="n">store</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"fw_id"</span><span class="p">):</span>
@@ -381,14 +395,14 @@
         <span class="n">detours</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">additions</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># create a workflow from the new additions</span>
-            <span class="n">detours</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="n">store</span><span class="p">)]</span>
+            <span class="c1"># create a workflow from the new additions; be sure to use original store</span>
+            <span class="n">detours</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">))]</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">addition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">additions</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">addition</span><span class="p">,</span> <span class="n">store</span><span class="p">)]</span>
+            <span class="n">additions</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">addition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">))]</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">detour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">detour_wf</span> <span class="o">=</span> <span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">detour</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+            <span class="n">detour_wf</span> <span class="o">=</span> <span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">detour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">detours</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">detours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detour_wf</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>

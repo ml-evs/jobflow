@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.utils" href="jobflow.utils.html" /><link rel="prev" title="jobflow.core" href="jobflow.core.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.settings" href="jobflow.settings.html" /><link rel="prev" title="jobflow.core" href="jobflow.core.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>jobflow.managers - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
@@ -200,6 +201,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="jobflow.html">API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.settings.html">jobflow.settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
@@ -244,8 +246,9 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>flow</strong> (<em>Union</em><em>[</em><em>jobflow.Flow</em><em>, </em><em>jobflow.Job</em><em>, </em><em>List</em><em>[</em><em>jobflow.Job</em><em>]</em><em>]</em>) – A job or flow.</p></li>
 <li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to print log messages.</p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. If a job store is not specified then a maggma <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> will
-be used while the job is executed and deleted once the job is finished.</p></li>
+<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. If a job store is not specified then
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code> will be used. By default this is a maggma
+<code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> but can customised by setting the jobflow configuration file.</p></li>
 <li><p><strong>create_folders</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to run each job in a new folder.</p></li>
 <li><p><strong>ensure_success</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Raise an error if the flow was not executed successfully.</p></li>
 </ul>
@@ -264,7 +267,7 @@ be used while the job is executed and deleted once the job is finished.</p></li>
 <p>Tools for running <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> objects using the FireWorks package.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.managers.fireworks.flow_to_workflow">
-<span class="sig-prename descclassname"><span class="pre">jobflow.managers.fireworks.</span></span><span class="sig-name descname"><span class="pre">flow_to_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/fireworks.html#flow_to_workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.fireworks.flow_to_workflow" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">jobflow.managers.fireworks.</span></span><span class="sig-name descname"><span class="pre">flow_to_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/fireworks.html#flow_to_workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.fireworks.flow_to_workflow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> or a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> to a FireWorks <code class="xref py py-obj docutils literal notranslate"><span class="pre">Workflow</span></code> object.</p>
 <p>Each firework spec is updated with the contents of the
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job.config.manager_config</span></code> dictionary. Accordingly, a <a class="reference internal" href="jobflow.core.html#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobConfig</span></code></a> object
@@ -273,7 +276,10 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>flow</strong> (<em>Union</em><em>[</em><em>jobflow.Flow</em><em>, </em><em>jobflow.Job</em><em>, </em><em>List</em><em>[</em><em>jobflow.Job</em><em>]</em><em>]</em>) – A flow or job.</p></li>
-<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store.</p></li>
+<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+will be used. Note, this could be different on the computer that submits the
+workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
+the computer that runs the workflow will be used.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to Workflow init method.</p></li>
 </ul>
 </dd>
@@ -287,7 +293,7 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.managers.fireworks.job_to_firework">
-<span class="sig-prename descclassname"><span class="pre">jobflow.managers.fireworks.</span></span><span class="sig-name descname"><span class="pre">job_to_firework</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/fireworks.html#job_to_firework"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.fireworks.job_to_firework" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">jobflow.managers.fireworks.</span></span><span class="sig-name descname"><span class="pre">job_to_firework</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/fireworks.html#job_to_firework"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.fireworks.job_to_firework" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> to a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Firework</span></code>.</p>
 <p>The firework spec is updated with the contents of the
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job.config.manager_config</span></code> dictionary. Accordingly, a <a class="reference internal" href="jobflow.core.html#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobConfig</span></code></a> object
@@ -296,7 +302,10 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>job</strong> (<em>jobflow.Job</em>) – A job.</p></li>
-<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store.</p></li>
+<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+will be used. Note, this could be different on the computer that submits the
+workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
+the computer that runs the workflow will be used.</p></li>
 <li><p><strong>parents</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>]</em>) – The parent uuids of the job.</p></li>
 <li><p><strong>parent_mapping</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Firework</em><em>]</em><em>]</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to the Firework constructor.</p></li>
@@ -319,7 +328,10 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>job</strong> (<em>Dict</em>) – A serialized job.</p></li>
-<li><p><strong>store</strong> (<a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><em>JobStore</em></a>) – A job store.</p></li>
+<li><p><strong>store</strong> (<a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><em>JobStore</em></a>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+will be used. Note, this could be different on the computer that submits the
+workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
+the computer that runs the workflow will be used.</p></li>
 </ul>
 </dd>
 </dl>
@@ -337,12 +349,12 @@ can be used to configure FireWork options such as metadata and the fireworker.</
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="jobflow.utils.html">
+          <a class="next-page" href="jobflow.settings.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">jobflow.utils</div>
+                <div class="title">jobflow.settings</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

@@ -8,6 +8,7 @@
         <title>jobflow.managers.local - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
@@ -199,6 +200,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../jobflow.settings.html">jobflow.settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.utils.html">jobflow.utils</a></li>
 </ul>
 </li>
@@ -264,8 +266,9 @@
 <span class="sd">    log</span>
 <span class="sd">        Whether to print log messages.</span>
 <span class="sd">    store</span>
-<span class="sd">        A job store. If a job store is not specified then a maggma ``MemoryStore`` will</span>
-<span class="sd">        be used while the job is executed and deleted once the job is finished.</span>
+<span class="sd">        A job store. If a job store is not specified then</span>
+<span class="sd">        :obj:`JobflowSettings.JOB_STORE` will be used. By default this is a maggma</span>
+<span class="sd">        ``MemoryStore`` but can customised by setting the jobflow configuration file.</span>
 <span class="sd">    create_folders</span>
 <span class="sd">        Whether to run each job in a new folder.</span>
 <span class="sd">    ensure_success</span>
@@ -281,19 +284,16 @@
     <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
     <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 
-    <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
     <span class="kn">from</span> <span class="nn">monty.os</span> <span class="kn">import</span> <span class="n">cd</span>
 
-    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Job</span><span class="p">,</span> <span class="n">JobStore</span><span class="p">,</span> <span class="n">initialize_logger</span>
+    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">SETTINGS</span><span class="p">,</span> <span class="n">Job</span><span class="p">,</span> <span class="n">initialize_logger</span>
     <span class="kn">from</span> <span class="nn">jobflow.core.flow</span> <span class="kn">import</span> <span class="n">get_flow</span>
     <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">OnMissing</span>
 
     <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">jobstore</span> <span class="o">=</span> <span class="n">JobStore</span><span class="p">(</span><span class="n">MemoryStore</span><span class="p">())</span>
-        <span class="n">jobstore</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">jobstore</span> <span class="o">=</span> <span class="n">store</span>
-        <span class="n">jobstore</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="n">store</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">JOB_STORE</span>
+
+    <span class="n">store</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
         <span class="n">initialize_logger</span><span class="p">()</span>
@@ -329,7 +329,7 @@
             <span class="k">return</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">jobstore</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">traceback</span>
 
