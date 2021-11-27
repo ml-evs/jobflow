@@ -291,8 +291,6 @@
 <span class="sd">    pass_manager_config</span>
 <span class="sd">        Whether to pass the manager configuration on to detour, addition, and</span>
 <span class="sd">        replacement jobs.</span>
-<span class="sd">    pass_metadata</span>
-<span class="sd">        Whether to pass metadata on to detour, addition, and replacement jobs.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -304,8 +302,7 @@
     <span class="n">on_missing_references</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span>
     <span class="n">manager_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">expose_store</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">pass_manager_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">pass_metadata</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
+    <span class="n">pass_manager_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 
 <div class="viewcode-block" id="job"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.job">[docs]</a><span class="k">def</span> <span class="nf">job</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">job_kwargs</span><span class="p">):</span>
@@ -774,16 +771,6 @@
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">pass_metadata</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">addition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">pass_metadata</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">addition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">detour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">pass_metadata</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">detour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">pass_metadata</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
-
         <span class="k">try</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
@@ -1046,9 +1033,9 @@
         <span class="sd">"""Serialize the job as a dictionary."""</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 
-        <span class="c1"># fireworks can't serialize functions, so explicitly serialize to avoid issues</span>
-        <span class="n">d</span><span class="p">[</span><span class="s2">"function"</span><span class="p">]</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"function"</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">d</span></div>
+        <span class="c1"># fireworks can't serialize functions and classes, so explicitly serialize to</span>
+        <span class="c1"># the job recursively using monty to avoid issues</span>
+        <span class="k">return</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">"""Handle setting attributes. Implements a special case for job name."""</span>
@@ -1290,45 +1277,6 @@
     <span class="c1"># update manager config</span>
     <span class="k">for</span> <span class="n">ajob</span> <span class="ow">in</span> <span class="n">all_jobs</span><span class="p">:</span>
         <span class="n">ajob</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">manager_config</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">pass_metadata</span><span class="p">(</span>
-    <span class="n">jobs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Job</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Job</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]]],</span>
-    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-<span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Pass job metadata on to any jobs in the jobs array.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    jobs</span>
-<span class="sd">        A job, flow, or list of jobs/flows.</span>
-<span class="sd">    metadata</span>
-<span class="sd">        Metadata to pass on.</span>
-<span class="sd">    """</span>
-    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-
-    <span class="n">all_jobs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">get_jobs</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Job</span><span class="p">):</span>
-            <span class="n">all_jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
-                <span class="n">get_jobs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s2">"jobs"</span><span class="p">):</span>
-            <span class="c1"># this is a flow</span>
-            <span class="n">get_jobs</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Unrecognised jobs format"</span><span class="p">)</span>
-
-    <span class="c1"># extract all jobs from the input array</span>
-    <span class="n">get_jobs</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span>
-
-    <span class="c1"># update manager config</span>
-    <span class="k">for</span> <span class="n">ajob</span> <span class="ow">in</span> <span class="n">all_jobs</span><span class="p">:</span>
-        <span class="n">ajob</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
         </article>
       </div>
