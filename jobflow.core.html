@@ -5,12 +5,12 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.managers" href="jobflow.managers.html" /><link rel="prev" title="jobflow" href="jobflow.html" />
 
-    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+    <meta name="generator" content="sphinx-4.3.0, furo 2021.11.16"/>
         <title>jobflow.core - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=916d6ed8f59335acffa15474ff504849343d4c76" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -239,7 +239,7 @@
 <p>Define base Flow object.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.flow.JobOrder">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">JobOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#JobOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.JobOrder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">JobOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#JobOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.JobOrder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="jobflow.utils.html#jobflow.utils.enum.ValueEnum" title="jobflow.utils.enum.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">jobflow.utils.enum.ValueEnum</span></code></a></p>
 <p>Options to control the order of job execution.</p>
 <ul class="simple">
@@ -249,16 +249,16 @@ references.</p></li>
 </ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="jobflow.core.flow.JobOrder.AUTO">
-<span class="sig-name descname"><span class="pre">AUTO</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'auto'</span></em><a class="headerlink" href="#jobflow.core.flow.JobOrder.AUTO" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">AUTO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></em><a class="headerlink" href="#jobflow.core.flow.JobOrder.AUTO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="jobflow.core.flow.JobOrder.LINEAR">
-<span class="sig-name descname"><span class="pre">LINEAR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'linear'</span></em><a class="headerlink" href="#jobflow.core.flow.JobOrder.LINEAR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">LINEAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'linear'</span></em><a class="headerlink" href="#jobflow.core.flow.JobOrder.LINEAR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">Flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Flow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">JobOrder.AUTO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.Flow" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">Flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Flow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">JobOrder.AUTO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.Flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.8.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A Flow contains a collection of Jobs or other Flows to execute.</p>
 <p>The <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object is the main tool for constructing workflows. Flows
@@ -329,7 +329,7 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow.job_uuids">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">job_uuids</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.flow.Flow.job_uuids" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">job_uuids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.flow.Flow.job_uuids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uuids of every Job contained in the Flow (including nested Flows).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -342,7 +342,7 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow.graph">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="pre">:</span> <span class="pre">DiGraph</span></em><a class="headerlink" href="#jobflow.core.flow.Flow.graph" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">DiGraph</span></em><a class="headerlink" href="#jobflow.core.flow.Flow.graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a graph indicating the connectivity of jobs in the flow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -498,6 +498,19 @@ Maker:</p>
 </pre></div>
 </div>
 </dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="jobflow.core.flow.Flow.append_name">
+<span class="sig-name descname"><span class="pre">append_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">append_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow.append_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.Flow.append_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a string to the name of the flow and all jobs contained in it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>append_str</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A string to append.</p></li>
+<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Prepend the name rather than appending it.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.core.flow.get_flow">
@@ -623,7 +636,7 @@ details.</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.Job">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.8.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
@@ -689,7 +702,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.input_references">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_references</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">jobflow.OutputReference</span><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_references</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">jobflow.OutputReference</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -702,7 +715,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.input_uuids">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_uuids</span></span><em class="property"><span class="pre">:</span> <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_uuids" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_uuids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_uuids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uuids of any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -715,7 +728,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.input_references_grouped">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">input_references_grouped</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">OutputReference</span><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references_grouped" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_references_grouped</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">OutputReference</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.input_references_grouped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Group any <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects in the job inputs by their UUIDs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -728,7 +741,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.maker">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">maker</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">jobflow.Maker</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.maker" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">jobflow.Maker</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.job.Job.maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the host <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a> object if a job is to run a maker function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -741,7 +754,7 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.graph">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="pre">:</span> <span class="pre">DiGraph</span></em><a class="headerlink" href="#jobflow.core.job.Job.graph" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">DiGraph</span></em><a class="headerlink" href="#jobflow.core.job.Job.graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a graph of the job indicating the inputs to the job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -907,6 +920,19 @@ Maker:</p>
 </div>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="jobflow.core.job.Job.append_name">
+<span class="sig-name descname"><span class="pre">append_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">append_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job.append_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job.append_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a string to the name of the job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>append_str</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A string to append.</p></li>
+<li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Prepend the name rather than appending it.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="jobflow.core.job.Job.as_dict">
 <span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job.as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job.as_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Serialize the job as a dictionary.</p>
@@ -919,7 +945,7 @@ Maker:</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.Response">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stored_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_children</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_jobflow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Response" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stored_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_children</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_jobflow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> contains the output, detours, and stop commands of a job.</p>
 <dl class="field-list simple">
@@ -940,7 +966,7 @@ Maker:</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.core.job.Response.from_job_returns">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_job_returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_returns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Response.from_job_returns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Response.from_job_returns" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_job_returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_returns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Response.from_job_returns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Response.from_job_returns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> from the outputs of a <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -967,7 +993,7 @@ outputs.</p></li>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.JobConfig">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">JobConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">resolve_references=True</span></em>, <em class="sig-param"><span class="pre">on_missing_references=OnMissing.ERROR</span></em>, <em class="sig-param"><span class="pre">manager_config=&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">expose_store=False</span></em>, <em class="sig-param"><span class="pre">pass_manager_config=True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">JobConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolve_references=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_missing_references=OnMissing.ERROR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager_config=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expose_store=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pass_manager_config=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pass_metadata=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.8.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>The configuration parameters for a job.</p>
 <dl class="field-list simple">
@@ -982,6 +1008,7 @@ error.</p></li>
 <li><p><strong>expose_store</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to expose the store in <code class="xref py py-obj docutils literal notranslate"><span class="pre">CURRENT_JOB`</span></code> when the job is running.</p></li>
 <li><p><strong>pass_manager_config</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to pass the manager configuration on to detour, addition, and
 replacement jobs.</p></li>
+<li><p><strong>pass_metadata</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to pass metadata on to detour, addition, and replacement jobs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1013,7 +1040,7 @@ references will be replaced with <code class="docutils literal notranslate"><spa
 <p>Define base Maker class for creating jobs and flows.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.maker.Maker">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></span><span class="sig-name descname"><span class="pre">Maker</span></span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></span><span class="sig-name descname"><span class="pre">Maker</span></span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.8.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>Base maker (factory) class for constructing <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> objects.</p>
 <p>Note, this class is only an abstract implementation. To create a functioning Maker,
@@ -1130,7 +1157,7 @@ decorator and the function should return a flow. For example:</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.maker.Maker.name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#jobflow.core.maker.Maker.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#jobflow.core.maker.Maker.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of the Maker - must be overridden with a dataclass field.</p>
 </dd></dl>
 <dl class="py method">
@@ -1212,7 +1239,7 @@ Maker:</p>
 <p>Define classes for handling job outputs.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.reference.OnMissing">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OnMissing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OnMissing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OnMissing" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OnMissing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OnMissing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OnMissing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="jobflow.utils.html#jobflow.utils.enum.ValueEnum" title="jobflow.utils.enum.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">jobflow.utils.enum.ValueEnum</span></code></a></p>
 <p>What to do when a reference cannot be resolved.</p>
 <ul class="simple">
@@ -1222,20 +1249,20 @@ Maker:</p>
 </ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="jobflow.core.reference.OnMissing.ERROR">
-<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'error'</span></em><a class="headerlink" href="#jobflow.core.reference.OnMissing.ERROR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'error'</span></em><a class="headerlink" href="#jobflow.core.reference.OnMissing.ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="jobflow.core.reference.OnMissing.NONE">
-<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'none'</span></em><a class="headerlink" href="#jobflow.core.reference.OnMissing.NONE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'none'</span></em><a class="headerlink" href="#jobflow.core.reference.OnMissing.NONE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="jobflow.core.reference.OnMissing.PASS">
-<span class="sig-name descname"><span class="pre">PASS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'pass'</span></em><a class="headerlink" href="#jobflow.core.reference.OnMissing.PASS" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PASS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pass'</span></em><a class="headerlink" href="#jobflow.core.reference.OnMissing.PASS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.reference.OutputReference">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OutputReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OutputReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://guide.materialsvirtuallab.org/monty/monty.json.html#monty.json.MSONable" title="(in monty v2021.8.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">monty.json.MSONable</span></code></a></p>
 <p>A reference to the output of a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code>.</p>
 <p>The output may or may not exist yet. Accordingly, <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects
@@ -1335,7 +1362,7 @@ object.</p></li>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.reference.OutputReference.attributes_formatted">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">attributes_formatted</span></span><a class="headerlink" href="#jobflow.core.reference.OutputReference.attributes_formatted" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attributes_formatted</span></span><a class="headerlink" href="#jobflow.core.reference.OutputReference.attributes_formatted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a formatted description of the attributes.</p>
 </dd></dl>
 <dl class="py method">
@@ -1427,7 +1454,7 @@ the job config.</p></li>
 <p>Define the primary jobflow database interface.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">jobflow.core.store.</span></span><span class="sig-name descname"><span class="pre">JobStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_stores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.store.</span></span><span class="sig-name descname"><span class="pre">JobStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_stores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">maggma.core.store.Store</span></code></p>
 <p>Store intended to allow pushing and pulling documents into multiple stores.</p>
 <dl class="field-list simple">
@@ -1449,7 +1476,7 @@ an <code class="xref py py-obj docutils literal notranslate"><span class="pre">M
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore.name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="pre">:</span> <a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><a class="headerlink" href="#jobflow.core.store.JobStore.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><a class="headerlink" href="#jobflow.core.store.JobStore.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of the data source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1613,7 +1640,7 @@ more details.</p></li>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore.collection">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">collection</span></span><a class="headerlink" href="#jobflow.core.store.JobStore.collection" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">collection</span></span><a class="headerlink" href="#jobflow.core.store.JobStore.collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the collection name.</p>
 </dd></dl>
 <dl class="py method">
@@ -1653,7 +1680,7 @@ be resolved.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore.from_file">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_file" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an JobStore from a database file.</p>
 <p>Two options are supported for the database file. The file should be in json or
 yaml format.</p>
@@ -1703,7 +1730,7 @@ JobStore.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore.from_dict_spec">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_dict_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_dict_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_dict_spec" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict_spec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore.from_dict_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore.from_dict_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an JobStore from a dict specification.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1779,7 +1806,9 @@ additional store for data.</p>
         </div>
 
         <div class="related-information">
-              Copyright &#169; 2021, materialsproject
+              Copyright &#169; 2021, materialsproject |
+          Created using <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
         </div>
         
       </footer>
@@ -1818,7 +1847,7 @@ additional store for data.</p>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/main.js"></script>
+    <script src="_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>
