@@ -241,7 +241,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span>
 
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MontyDecoder</span><span class="p">,</span> <span class="n">MontyEncoder</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">,</span> <span class="n">jsanitize</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
@@ -331,8 +331,8 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">attributes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(),</span>
-        <span class="n">output_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">attributes</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(),</span>
+        <span class="n">output_schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
@@ -347,8 +347,8 @@
 
 <div class="viewcode-block" id="OutputReference.resolve"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.OutputReference.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">],</span>
-        <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
@@ -491,6 +491,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"OutputReference objects are immutable"</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Make sure OutputReference is not iterable."""</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"OutputReference objects are not iterable"</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="sd">"""Set item."""</span>
         <span class="c1"># Setting items via indexing is not allowed.</span>
@@ -549,9 +553,9 @@
 <div class="viewcode-block" id="resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.resolve_references">[docs]</a><span class="k">def</span> <span class="nf">resolve_references</span><span class="p">(</span>
     <span class="n">references</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">],</span>
     <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
-    <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Resolve multiple output references.</span>
 
@@ -601,7 +605,7 @@
     <span class="k">return</span> <span class="n">resolved_references</span></div>
 
 
-<div class="viewcode-block" id="find_and_get_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_get_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_get_references</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<div class="viewcode-block" id="find_and_get_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_get_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_get_references</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Find and extract output references.</span>
 
@@ -636,13 +640,13 @@
     <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"OutputReference"</span><span class="p">)</span>
 
     <span class="c1"># deserialize references and return</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">OutputReference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">loc</span><span class="p">))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">])</span></div>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">OutputReference</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">loc</span><span class="p">))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="find_and_resolve_references"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.reference.find_and_resolve_references">[docs]</a><span class="k">def</span> <span class="nf">find_and_resolve_references</span><span class="p">(</span>
     <span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
-    <span class="n">cache</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">on_missing</span><span class="p">:</span> <span class="n">OnMissing</span> <span class="o">=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sd">"""</span>
@@ -717,8 +721,8 @@
 
 
 <span class="k">def</span> <span class="nf">validate_schema_access</span><span class="p">(</span>
-    <span class="n">schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">],</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]:</span>
+    <span class="n">schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">],</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">BaseModel</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Validate that an attribute or index access is supported by a model.</span>
 
@@ -740,7 +744,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[bool, BaseModel]</span>
 <span class="sd">        the bool is ``True`` if the schema access was valid.</span>
-<span class="sd">        The BaseModel class associted with the item, if any.</span>
+<span class="sd">        The BaseModel class associated with the item, if any.</span>
 <span class="sd">    """</span>
     <span class="n">schema_dict</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">schema</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">schema_dict</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">]:</span>

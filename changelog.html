@@ -238,6 +238,26 @@
         <article role="main">
           <section id="change-log">
 <h1>Change log<a class="headerlink" href="#change-log" title="Permalink to this headline">#</a></h1>
+<section id="v0-1-8">
+<h2>v0.1.8<a class="headerlink" href="#v0-1-8" title="Permalink to this headline">#</a></h2>
+<p>New features:</p>
+<ul class="simple">
+<li><p>New <code class="docutils literal notranslate"><span class="pre">update_metadata</span></code> function for updating the metadata of jobs and flows.</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">update_config</span></code> function for updating the config (included manager_config) of
+jobs and flows.</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">DIRECTORY_FORMAT</span></code> option in JobflowSettings for controlling the date time format
+used to create new directories.</p></li>
+<li><p>New functions for adding and removing jobs from a flow. The <code class="docutils literal notranslate"><span class="pre">Job.jobs</span></code> list is no
+longer mutable (@gpetretto).</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">Job.hosts</span></code> attribute that stores a list of all host Flows. This captures the
+nested nature of flows with the outer flow always first in the list (@gpetretto).</p></li>
+</ul>
+<p>Bug fixes:</p>
+<ul class="simple">
+<li><p>OutputReferences are no longer iterable.</p></li>
+<li><p>Docstring clarifications (@utf, @mjwen).</p></li>
+</ul>
+</section>
 <section id="v0-1-7">
 <h2>v0.1.7<a class="headerlink" href="#v0-1-7" title="Permalink to this headline">#</a></h2>
 <p>New features:</p>
@@ -257,7 +277,7 @@
 <p>Bug fixes:</p>
 <ul class="simple">
 <li><p>Docs fixes (@arosen).</p></li>
-<li><p>Compatability with maggma&gt;=0.38.1 (#68)</p></li>
+<li><p>Compatibility with maggma&gt;=0.38.1 (#68)</p></li>
 <li><p>Fixed missing PyYAML requirement (#67)</p></li>
 </ul>
 </section>
@@ -266,7 +286,7 @@
 <p>Bug fixes:</p>
 <ul class="simple">
 <li><p>Remove <code class="docutils literal notranslate"><span class="pre">JobConfig.pass_metadata</span></code> option and instead pass metadata automatically.</p></li>
-<li><p>Fix serialization compatability with the FireWorks workflow manager.</p></li>
+<li><p>Fix serialization compatibility with the FireWorks workflow manager.</p></li>
 </ul>
 </section>
 <section id="v0-1-4">
@@ -296,7 +316,7 @@ file. See the API documentation for more details.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ensure_success</span></code> option added to <code class="docutils literal notranslate"><span class="pre">run_locally</span></code>.</p></li>
 <li><p>Better graph visualisation.</p></li>
-<li><p>Updating the name of a job from a maker now propogates the name change to the maker.</p></li>
+<li><p>Updating the name of a job from a maker now propagates the name change to the maker.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Job.update_maker_kwargs</span></code> with <code class="docutils literal notranslate"><span class="pre">nested=True</span></code> now applies the updates to makers
 in the kwargs or args of the job.</p></li>
 </ul>
@@ -398,6 +418,7 @@ in the kwargs or args of the job.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Change log</a><ul>
+<li><a class="reference internal" href="#v0-1-8">v0.1.8</a></li>
 <li><a class="reference internal" href="#v0-1-7">v0.1.7</a></li>
 <li><a class="reference internal" href="#v0-1-6">v0.1.6</a></li>
 <li><a class="reference internal" href="#v0-1-5">v0.1.5</a></li>

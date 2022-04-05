@@ -250,7 +250,7 @@
 <span class="kn">from</span> <span class="nn">jobflow.utils</span> <span class="kn">import</span> <span class="n">ValueEnum</span><span class="p">,</span> <span class="n">contains_flow_or_job</span><span class="p">,</span> <span class="n">suuid</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
 
     <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">DiGraph</span>
 
@@ -294,13 +294,15 @@
 <span class="sd">    name</span>
 <span class="sd">        The flow name.</span>
 <span class="sd">    order</span>
-<span class="sd">        The order in which the jobs should be exectuted. The default is to determine</span>
+<span class="sd">        The order in which the jobs should be executed. The default is to determine</span>
 <span class="sd">        the order automatically based on the connections between jobs.</span>
 <span class="sd">    uuid</span>
-<span class="sd">        The identifier of the flow. This is genenrated automatically.</span>
-<span class="sd">    host</span>
-<span class="sd">        The identifier of the host flow. This is set automatically when an flow</span>
-<span class="sd">        is included in the jobs array of another flow.</span>
+<span class="sd">        The identifier of the flow. This is generated automatically.</span>
+<span class="sd">    hosts</span>
+<span class="sd">        The list of UUIDs of the hosts containing the job. This is updated</span>
+<span class="sd">        automatically when a flow is included in the jobs array of another flow.</span>
+<span class="sd">        The object identified by one UUID of the list should be contained in objects</span>
+<span class="sd">        identified by its subsequent elements.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
@@ -356,15 +358,14 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">jobs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]],</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">],</span>
-        <span class="n">output</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">jobs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span> <span class="o">|</span> <span class="n">Flow</span><span class="p">,</span>
+        <span class="n">output</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Flow"</span><span class="p">,</span>
         <span class="n">order</span><span class="p">:</span> <span class="n">JobOrder</span> <span class="o">=</span> <span class="n">JobOrder</span><span class="o">.</span><span class="n">AUTO</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">hosts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="kn">from</span> <span class="nn">jobflow.core.job</span> <span class="kn">import</span> <span class="n">Job</span>
-        <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">find_and_get_references</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">jobs</span><span class="p">,</span> <span class="p">(</span><span class="n">Job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">)):</span>
             <span class="n">jobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">jobs</span><span class="p">]</span>
@@ -372,30 +373,54 @@
         <span class="k">if</span> <span class="n">uuid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">uuid</span> <span class="o">=</span> <span class="n">suuid</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="n">jobs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="n">hosts</span> <span class="ow">or</span> <span class="p">[]</span>
 
-        <span class="n">job_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">host</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">job</span><span class="o">.</span><span class="n">host</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">) already belongs "</span>
-                    <span class="sa">f</span><span class="s2">"to another flow."</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">in</span> <span class="n">job_ids</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">"jobs array contains multiple jobs/flows with the same uuid "</span>
-                    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">)"</span>
-                <span class="p">)</span>
-            <span class="n">job</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span>
-            <span class="n">job_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_jobs</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">contains_flow_or_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jobs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get the Jobs in the Flow.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list[Job]</span>
+<span class="sd">            The list of Jobs/Flows of the Flow.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Get the output of the flow.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            The output of the flow.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span>
+
+    <span class="nd">@output</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Set the output of the Flow.</span>
+
+<span class="sd">        The output should be compatible with the list of Jobs/Flows contained in the Flow.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output</span>
+<span class="sd">            The output of the flow. These should come from the output of one</span>
+<span class="sd">            or more of the jobs.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">contains_flow_or_job</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">"Flow '</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' contains a Flow or Job as an output. "</span>
                     <span class="sa">f</span><span class="s2">"Usually the Flow output should be the output of a Job or "</span>
@@ -404,30 +429,48 @@
                 <span class="p">)</span>
 
             <span class="c1"># check if the jobs array contains all jobs needed for the references</span>
-            <span class="n">references</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="n">references</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
             <span class="n">reference_uuids</span> <span class="o">=</span> <span class="p">{</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">references</span><span class="p">}</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">reference_uuids</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">job_uuids</span><span class="p">)):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">"jobs array does not contain all jobs needed for flow output"</span>
                 <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span> <span class="o">=</span> <span class="n">output</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">job_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">job_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Uuids of every Job contained in the Flow (including nested Flows).</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        list[str]</span>
+<span class="sd">        tuple[str]</span>
 <span class="sd">            The uuids of all Jobs in the Flow (including nested Flows).</span>
 <span class="sd">        """</span>
-        <span class="n">uuids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
                 <span class="n">uuids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">job_uuids</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">uuids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">uuids</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">all_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Uuids of every Job and Flow contained in the Flow (including nested Flows).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[str]</span>
+<span class="sd">            The uuids of all Jobs and Flows in the Flow (including nested Flows).</span>
+<span class="sd">        """</span>
+        <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
+                <span class="n">uuids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">all_uuids</span><span class="p">)</span>
+            <span class="n">uuids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">uuids</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -465,18 +508,33 @@
             <span class="n">graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">graph</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">host</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        UUID of the first Flow that contains this Flow.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            the UUID of the host.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="k">else</span> <span class="kc">None</span>
+
 <div class="viewcode-block" id="Flow.draw_graph"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.draw_graph">[docs]</a>    <span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Draw the flow graph using matplotlib.</span>
 
 <span class="sd">        Requires matplotlib to be installed.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs</span>
+<span class="sd">            keyword arguments that are passed to :obj:`jobflow.utils.graph.draw_graph`.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        pyplot</span>
 <span class="sd">            The matplotlib pyplot state object.</span>
-<span class="sd">        kwargs</span>
-<span class="sd">            keyword arguments that are passed to :obj:`jobflow.utils.graph.draw_graph`.</span>
 <span class="sd">        """</span>
         <span class="kn">from</span> <span class="nn">jobflow.utils.graph</span> <span class="kn">import</span> <span class="n">draw_graph</span>
 
@@ -514,9 +572,9 @@
 
 <div class="viewcode-block" id="Flow.update_kwargs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.update_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">update</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">name_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">"""</span>
@@ -529,9 +587,11 @@
 <span class="sd">        update</span>
 <span class="sd">            The updates to apply.</span>
 <span class="sd">        name_filter</span>
-<span class="sd">            A filter for the job name.</span>
+<span class="sd">            A filter for the job name. Only jobs with a matching name will be updated.</span>
+<span class="sd">            Includes partial matches, e.g. "ad" will match a job with the name "adder".</span>
 <span class="sd">        function_filter</span>
-<span class="sd">            Only filter matching functions.</span>
+<span class="sd">            A filter for the job function. Only jobs with a matching function will be</span>
+<span class="sd">            updated.</span>
 <span class="sd">        dict_mod</span>
 <span class="sd">            Use the dict mod language to apply updates. See :obj:`.DictMods` for more</span>
 <span class="sd">            details.</span>
@@ -568,9 +628,9 @@
 
 <div class="viewcode-block" id="Flow.update_maker_kwargs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.update_maker_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_maker_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">update</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">name_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">class_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Maker</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">class_filter</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Maker</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
@@ -584,10 +644,11 @@
 <span class="sd">        update</span>
 <span class="sd">            The updates to apply.</span>
 <span class="sd">        name_filter</span>
-<span class="sd">            A filter for the Maker name.</span>
+<span class="sd">            A filter for the Maker name. Only Makers with a matching name will be updated.</span>
+<span class="sd">            Includes partial matches, e.g. "ad" will match a Maker with the name "adder".</span>
 <span class="sd">        class_filter</span>
-<span class="sd">            A filter for the maker class. Note the class filter will match any</span>
-<span class="sd">            subclasses.</span>
+<span class="sd">            A filter for the maker class. Only Makers with a matching class will be</span>
+<span class="sd">            updated. Note the class filter will match any subclasses.</span>
 <span class="sd">        nested</span>
 <span class="sd">            Whether to apply the updates to Maker objects that are themselves kwargs</span>
 <span class="sd">            of Maker, job, or flow objects. See examples for more details.</span>
@@ -622,7 +683,7 @@
 <span class="sd">        for some Makers. To only apply the update to the correct Makers, filters can be</span>
 <span class="sd">        used.</span>
 
-<span class="sd">        &gt;&gt;&gt; flow.update_maker_kwargs({"number": 10}, name_filder="add")</span>
+<span class="sd">        &gt;&gt;&gt; flow.update_maker_kwargs({"number": 10}, name_filter="add")</span>
 <span class="sd">        &gt;&gt;&gt; flow.update_maker_kwargs({"number": 10}, class_filter=AddMaker)</span>
 
 <span class="sd">        By default, the updates are applied to nested Makers. These are Makers</span>
@@ -681,11 +742,233 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+=</span> <span class="n">append_str</span>
 
         <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
-            <span class="n">job</span><span class="o">.</span><span class="n">append_name</span><span class="p">(</span><span class="n">append_str</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">)</span></div></div>
+            <span class="n">job</span><span class="o">.</span><span class="n">append_name</span><span class="p">(</span><span class="n">append_str</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Flow.update_metadata"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.update_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">update_metadata</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the metadata of all Jobs in the Flow.</span>
+
+<span class="sd">        Note that updates will be applied to jobs in nested Flow.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        update</span>
+<span class="sd">            The updates to apply.</span>
+<span class="sd">        name_filter</span>
+<span class="sd">            A filter for the job name. Only jobs with a matching name will be updated.</span>
+<span class="sd">            Includes partial matches, e.g. "ad" will match a job with the name "adder".</span>
+<span class="sd">        function_filter</span>
+<span class="sd">            A filter for the job function. Only jobs with a matching function will be</span>
+<span class="sd">            updated.</span>
+<span class="sd">        dict_mod</span>
+<span class="sd">            Use the dict mod language to apply updates. See :obj:`.DictMods` for more</span>
+<span class="sd">            details.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Consider a flow containing two jobs.</span>
+
+<span class="sd">        &gt;&gt;&gt; from jobflow import job, Flow</span>
+<span class="sd">        &gt;&gt;&gt; @job</span>
+<span class="sd">        ... def add(a, b):</span>
+<span class="sd">        ...     return a + b</span>
+<span class="sd">        &gt;&gt;&gt; add_job1 = add(5, 6)</span>
+<span class="sd">        &gt;&gt;&gt; add_job2 = add(6, 7)</span>
+<span class="sd">        &gt;&gt;&gt; flow = Flow([add_job1, add_job2])</span>
+
+<span class="sd">        The ``metadata`` of both jobs could be updated as follows:</span>
+
+<span class="sd">        &gt;&gt;&gt; flow.update_metadata({"tag": "addition_job"})</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">update_metadata</span><span class="p">(</span>
+                <span class="n">update</span><span class="p">,</span>
+                <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
+                <span class="n">function_filter</span><span class="o">=</span><span class="n">function_filter</span><span class="p">,</span>
+                <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Flow.update_config"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.update_config">[docs]</a>    <span class="k">def</span> <span class="nf">update_config</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobConfig</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">attributes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the job config of all Jobs in the Flow.</span>
+
+<span class="sd">        Note that updates will be applied to jobs in nested Flow.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        config</span>
+<span class="sd">            A JobConfig object or a dict with containing the attributes to update.</span>
+<span class="sd">        name_filter</span>
+<span class="sd">            A filter for the job name. Only jobs with a matching name will be updated.</span>
+<span class="sd">            Includes partial matches, e.g. "ad" will match a job with the name "adder".</span>
+<span class="sd">        function_filter</span>
+<span class="sd">            A filter for the job function. Only jobs with a matching function will be</span>
+<span class="sd">            updated.</span>
+<span class="sd">        attributes :</span>
+<span class="sd">            Which attributes of the job config to set. Can be specified as one or more</span>
+<span class="sd">            attributes specified by their name.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Consider a flow containing two jobs.</span>
+
+<span class="sd">        &gt;&gt;&gt; from jobflow import job, Flow</span>
+<span class="sd">        &gt;&gt;&gt; @job</span>
+<span class="sd">        ... def add(a, b):</span>
+<span class="sd">        ...     return a + b</span>
+<span class="sd">        &gt;&gt;&gt; add_job1 = add(5, 6)</span>
+<span class="sd">        &gt;&gt;&gt; add_job2 = add(6, 7)</span>
+<span class="sd">        &gt;&gt;&gt; flow = Flow([add_job1, add_job2])</span>
+
+<span class="sd">        The ``config`` of both jobs could be updated as follows:</span>
+<span class="sd">        &gt;&gt;&gt; new_config = JobConfig(</span>
+<span class="sd">        ...    manager_config={"_fworker": "myfworker"}, resolve_references=False</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; flow.update_config(new_config)</span>
+
+<span class="sd">        To only update specific attributes, the ``attributes`` argument can be set. For</span>
+<span class="sd">        example, the following will only update the "manager_config" attribute of the</span>
+<span class="sd">        jobs' config.</span>
+
+<span class="sd">        &gt;&gt;&gt; flow.update_config(new_config, attributes="manager_config")</span>
+
+<span class="sd">        Alternatively, the config can be specified as a dictionary with keys that are</span>
+<span class="sd">        attributes of the JobConfig object. This allows you to specify updates without</span>
+<span class="sd">        having to create a completely new JobConfig object. For example:</span>
+
+<span class="sd">        &gt;&gt;&gt; flow.update_config({"manager_config": {"_fworker": "myfworker"}})</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">update_config</span><span class="p">(</span>
+                <span class="n">config</span><span class="p">,</span>
+                <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
+                <span class="n">function_filter</span><span class="o">=</span><span class="n">function_filter</span><span class="p">,</span>
+                <span class="n">attributes</span><span class="o">=</span><span class="n">attributes</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Flow.add_hosts_uuids"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.add_hosts_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">add_hosts_uuids</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">hosts_uuids</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">prepend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Add a list of UUIDs to the internal list of hosts.</span>
+
+<span class="sd">        If hosts_uuids is None the uuid of this Flow will be added to the inner jobs and</span>
+<span class="sd">        flow. Otherwise, the passed value will be set both in the list of hosts</span>
+<span class="sd">        of the current flow and of the inner jobs and flows.</span>
+<span class="sd">        The elements of the list are supposed to be ordered in such a way that</span>
+<span class="sd">        the object identified by one UUID of the list is contained in objects</span>
+<span class="sd">        identified by its subsequent elements.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        hosts_uuids</span>
+<span class="sd">            A list of UUIDs to add. If None the current uuid of the flow will be</span>
+<span class="sd">            added to the inner Flows and Jobs.</span>
+<span class="sd">        prepend</span>
+<span class="sd">            Insert the UUIDs at the beginning of the list rather than extending it.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">hosts_uuids</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                <span class="n">hosts_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="n">hosts_uuids</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">prepend</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosts_uuids</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hosts_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="n">j</span><span class="o">.</span><span class="n">add_hosts_uuids</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Flow.add_jobs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.add_jobs">[docs]</a>    <span class="k">def</span> <span class="nf">add_jobs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jobs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span> <span class="o">|</span> <span class="n">Flow</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Add Jobs or Flows to the Flow.</span>
+
+<span class="sd">        Added objects should not belong to other flows. The list of hosts will be added</span>
+<span class="sd">        automatically to the incoming Jobs/Flows based on the hosts of the current Flow.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        jobs</span>
+<span class="sd">            A list of Jobs and Flows.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">jobs</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">jobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">jobs</span><span class="p">]</span>
+
+        <span class="n">job_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_uuids</span><span class="p">)</span>
+        <span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">host</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">job</span><span class="o">.</span><span class="n">host</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">) already belongs "</span>
+                    <span class="sa">f</span><span class="s2">"to another flow."</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">in</span> <span class="n">job_ids</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"jobs array contains multiple jobs/flows with the same uuid "</span>
+                    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">)"</span>
+                <span class="p">)</span>
+            <span class="c1"># check for circular dependency of Flows.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">all_uuids</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"circular dependency: Flow (</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">) contains the "</span>
+                    <span class="sa">f</span><span class="s2">"current Flow (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">)"</span>
+                <span class="p">)</span>
+            <span class="n">job_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">add_hosts_uuids</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span> <span class="o">+=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Flow.remove_jobs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.Flow.remove_jobs">[docs]</a>    <span class="k">def</span> <span class="nf">remove_jobs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Remove jobs from the Flow.</span>
+
+<span class="sd">        It is not possible to remove jobs referenced in the output.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        indices</span>
+<span class="sd">            Indices of the jobs to be removed. Accepted values: from 0 to len(jobs) - 1.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Only indices between 0 and the number of the jobs are accepted"</span>
+            <span class="p">)</span>
+
+        <span class="n">new_jobs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
+        <span class="n">uuids</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">new_jobs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
+                <span class="n">uuids</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">job_uuids</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">uuids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+
+        <span class="c1"># check if the output contains some references to the removed Jobs.</span>
+        <span class="n">references</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">reference_uuids</span> <span class="o">=</span> <span class="p">{</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">references</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">reference_uuids</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">uuids</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Removed Jobs/Flows are referenced in the output of the Flow."</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span> <span class="o">=</span> <span class="n">new_jobs</span></div></div>
 
 
 <div class="viewcode-block" id="get_flow"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.flow.get_flow">[docs]</a><span class="k">def</span> <span class="nf">get_flow</span><span class="p">(</span>
-    <span class="n">flow</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Flow</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">]],</span>
+    <span class="n">flow</span><span class="p">:</span> <span class="n">Flow</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Flow</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Check dependencies and return flow object.</span>

@@ -248,11 +248,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flow</strong> (<em>Union</em><em>[</em><em>jobflow.Flow</em><em>, </em><em>jobflow.Job</em><em>, </em><em>List</em><em>[</em><em>jobflow.Job</em><em>]</em><em>]</em>) – A job or flow.</p></li>
+<li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A job or flow.</p></li>
 <li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to print log messages.</p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. If a job store is not specified then
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store. If a job store is not specified then
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code> will be used. By default this is a maggma
-<code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> but can customised by setting the jobflow configuration file.</p></li>
+<code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> but can be customised by setting the jobflow configuration file.</p></li>
 <li><p><strong>create_folders</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to run each job in a new folder.</p></li>
 <li><p><strong>ensure_success</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Raise an error if the flow was not executed successfully.</p></li>
 </ul>
@@ -279,8 +279,8 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flow</strong> (<em>Union</em><em>[</em><em>jobflow.Flow</em><em>, </em><em>jobflow.Job</em><em>, </em><em>List</em><em>[</em><em>jobflow.Job</em><em>]</em><em>]</em>) – A flow or job.</p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+<li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A flow or job.</p></li>
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
 will be used. Note, this could be different on the computer that submits the
 workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
 the computer that runs the workflow will be used.</p></li>
@@ -306,12 +306,12 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>job</strong> (<em>jobflow.Job</em>) – A job.</p></li>
-<li><p><strong>store</strong> (<em>Optional</em><em>[</em><em>jobflow.JobStore</em><em>]</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
 will be used. Note, this could be different on the computer that submits the
 workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
 the computer that runs the workflow will be used.</p></li>
-<li><p><strong>parents</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em><em>]</em>) – The parent uuids of the job.</p></li>
-<li><p><strong>parent_mapping</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Firework</em><em>]</em><em>]</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
+<li><p><strong>parents</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – The parent uuids of the job.</p></li>
+<li><p><strong>parent_mapping</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Firework</em><em>] </em><em>| </em><em>None</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to the Firework constructor.</p></li>
 </ul>
 </dd>

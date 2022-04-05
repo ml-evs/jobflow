@@ -238,7 +238,6 @@
           <h1>Source code for jobflow.settings</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Settings for jobflow."""</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
@@ -246,7 +245,7 @@
 
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">JobStore</span>
 
-<span class="n">DEFAULT_CONFIG_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">"~/.jobflow.yaml"</span><span class="p">)</span>
+<span class="n">DEFAULT_CONFIG_FILE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"~/.jobflow.yaml"</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"JobflowSettings"</span><span class="p">]</span>
 
@@ -277,7 +276,8 @@
 <span class="sd">    docs_store and additional stores are specified by the ``type`` key which must match</span>
 <span class="sd">    a Maggma ``Store`` subclass, and the remaining keys are passed to the store</span>
 <span class="sd">    constructor. For example, the following file would  create a :obj:`JobStore` with a</span>
-<span class="sd">    ``MongoStore`` for docs and a ``GridFSStore`` or ``S3Store`` as an additional store for data.</span>
+<span class="sd">    ``MongoStore`` for docs and a ``GridFSStore`` or ``S3Store`` as an additional store</span>
+<span class="sd">    for data.</span>
 
 <span class="sd">    GridFSStore example:</span>
 
@@ -335,6 +335,10 @@
         <span class="n">description</span><span class="o">=</span><span class="s2">"Default JobStore to use when running locally or using FireWorks. "</span>
         <span class="s2">"See the :obj:`JobflowSettings` docstring for more details on the "</span>
         <span class="s2">"accepted formats."</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">DIRECTORY_FORMAT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">-%H-%M-%S-</span><span class="si">%f</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">"Date stamp format used to create directories"</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>

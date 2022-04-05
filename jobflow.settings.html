@@ -262,7 +262,8 @@ and any other keyword arguments supported by the <code class="xref py py-obj doc
 docs_store and additional stores are specified by the <code class="docutils literal notranslate"><span class="pre">type</span></code> key which must match
 a Maggma <code class="docutils literal notranslate"><span class="pre">Store</span></code> subclass, and the remaining keys are passed to the store
 constructor. For example, the following file would  create a <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code> with a
-<code class="docutils literal notranslate"><span class="pre">MongoStore</span></code> for docs and a <code class="docutils literal notranslate"><span class="pre">GridFSStore</span></code> or <code class="docutils literal notranslate"><span class="pre">S3Store</span></code> as an additional store for data.</p>
+<code class="docutils literal notranslate"><span class="pre">MongoStore</span></code> for docs and a <code class="docutils literal notranslate"><span class="pre">GridFSStore</span></code> or <code class="docutils literal notranslate"><span class="pre">S3Store</span></code> as an additional store
+for data.</p>
 <p>GridFSStore example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span><span class="w"></span>
@@ -313,6 +314,11 @@ the credentials in any format supported by <a class="reference internal" href="j
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.JOB_STORE">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JOB_STORE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><span class="pre">jobflow.core.store.JobStore</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.JOB_STORE" title="Permalink to this definition">#</a></dt>
 <dd><p>Default JobStore to use when running locally or using FireWorks. See the <a class="reference internal" href="#jobflow.settings.JobflowSettings" title="jobflow.settings.JobflowSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings</span></code></a> docstring for more details on the accepted formats.</p>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.DIRECTORY_FORMAT">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DIRECTORY_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%Y-%m-%d-%H-%M-%S-%f'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.DIRECTORY_FORMAT" title="Permalink to this definition">#</a></dt>
+<dd><p>Date stamp format used to create directories</p>
 </dd></dl>
 </dd></dl>
 </section>

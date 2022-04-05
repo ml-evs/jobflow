@@ -334,9 +334,9 @@ keyword, e.g. <code class="docutils literal notranslate"><span class="pre">{"a-&
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>modification</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Modification must be <code class="docutils literal notranslate"><span class="pre">{action_keyword</span> <span class="pre">:</span> <span class="pre">settings}</span></code>, where action_keyword is a
+<li><p><strong>modification</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Modification must be <code class="docutils literal notranslate"><span class="pre">{action_keyword</span> <span class="pre">:</span> <span class="pre">settings}</span></code>, where action_keyword is a
 supported DictMod.</p></li>
-<li><p><strong>obj</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict to be modified.</p></li>
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict to be modified.</p></li>
 </ul>
 </dd>
 </dl>
@@ -368,8 +368,8 @@ supported DictMod.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<em>Union</em><em>[</em><em>Dict</em><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Any</em><em>]</em><em>]</em>) – A dict or list of dicts.</p></li>
-<li><p><strong>key</strong> (<em>Union</em><em>[</em><em>Hashable</em><em>, </em><em>Type</em><em>[</em><em>MSONable</em><em>]</em><em>]</em>) – A dictionary key or MSONable class to locate.</p></li>
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
+<li><p><strong>key</strong> (<em>Hashable</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>MSONable</em><em>]</em>) – A dictionary key or MSONable class to locate.</p></li>
 <li><p><strong>include_end</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to include the key in the route. This has no effect if the key is an
 MSONable class.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to return nested keys or stop at the first match.</p></li>
@@ -407,7 +407,7 @@ MSONable class.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<em>Union</em><em>[</em><em>Dict</em><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>List</em><em>[</em><em>Any</em><em>]</em><em>]</em>) – A dict or list of dicts.</p></li>
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
 <li><p><strong>key</strong> (<em>Hashable</em>) – A dictionary key.</p></li>
 <li><p><strong>value</strong> (<em>Hashable</em>) – A value.</p></li>
 </ul>
@@ -434,8 +434,8 @@ MSONable class.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>Dict</em><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – A dictionary to update.</p></li>
-<li><p><strong>updates</strong> (<em>Dict</em><em>[</em><em>Tuple</em><em>, </em><em>Any</em><em>]</em>) – The updates to perform, as a dictionary of <code class="docutils literal notranslate"><span class="pre">{location:</span> <span class="pre">update}</span></code>.</p></li>
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – A dictionary to update.</p></li>
+<li><p><strong>updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to perform, as a dictionary of <code class="docutils literal notranslate"><span class="pre">{location:</span> <span class="pre">update}</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -495,10 +495,10 @@ node u comes before v in the ordering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>nx.DiGraph</em>) – A graph object.</p></li>
+<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.7.1)"><em>networkx.classes.digraph.DiGraph</em></a>) – A graph object.</p></li>
 <li><p><strong>layout_function</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/typing.html#typing.Callable" title="(in Python v3.8)"><em>Callable</em></a>) – A networkx layout function to use as the graph layout. For example,
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
-<li><p><strong>figsize</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
+<li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
