@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow.utils.find - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
@@ -58,10 +58,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -221,7 +223,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -236,7 +239,7 @@
         </div>
         <article role="main">
           <h1>Source code for jobflow.utils.find</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Tools for finding and replacing in dictionaries and other objects."""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Tools for finding and replacing in dictionaries and other objects.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
@@ -248,10 +251,10 @@
     <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"find_key"</span><span class="p">,</span>
-    <span class="s2">"find_key_value"</span><span class="p">,</span>
-    <span class="s2">"update_in_dictionary"</span><span class="p">,</span>
-    <span class="s2">"contains_flow_or_job"</span><span class="p">,</span>
+    <span class="s2">&quot;find_key&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;find_key_value&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;update_in_dictionary&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;contains_flow_or_job&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -261,7 +264,7 @@
     <span class="n">include_end</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the route to key: value pairs in a dictionary.</span>
 
 <span class="sd">    This function works on nested dictionaries, lists, and tuples.</span>
@@ -285,22 +288,22 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; data = {</span>
-<span class="sd">    ...    "a": [0, {"b": 1, "x": 3}],</span>
-<span class="sd">    ...    "c": {"d": {"x": 3}}</span>
+<span class="sd">    ...    &quot;a&quot;: [0, {&quot;b&quot;: 1, &quot;x&quot;: 3}],</span>
+<span class="sd">    ...    &quot;c&quot;: {&quot;d&quot;: {&quot;x&quot;: 3}}</span>
 <span class="sd">    ... }</span>
-<span class="sd">    &gt;&gt;&gt; find_key(data, "x")</span>
-<span class="sd">    [['a', 1], ['c', 'd']]</span>
-<span class="sd">    &gt;&gt;&gt; find_key(data, "x", include_end=True)</span>
-<span class="sd">    [['a', 1, 'x'], ['c', 'd', 'x']]</span>
+<span class="sd">    &gt;&gt;&gt; find_key(data, &quot;x&quot;)</span>
+<span class="sd">    [[&#39;a&#39;, 1], [&#39;c&#39;, &#39;d&#39;]]</span>
+<span class="sd">    &gt;&gt;&gt; find_key(data, &quot;x&quot;, include_end=True)</span>
+<span class="sd">    [[&#39;a&#39;, 1, &#39;x&#39;], [&#39;c&#39;, &#39;d&#39;, &#39;x&#39;]]</span>
 
 <span class="sd">    The ``nested`` argument can be used to control the behaviour of nested keys.</span>
 
-<span class="sd">    &gt;&gt;&gt; data = {"a": {"x": {"x": 1}}, "b": {"x": 0}}</span>
-<span class="sd">    &gt;&gt;&gt; find_key(data, "x", nested=False)</span>
-<span class="sd">    [['a'], ['b']]</span>
-<span class="sd">    &gt;&gt;&gt; find_key(data, "x", nested=True)</span>
-<span class="sd">    [['a'], ['a', 'x'], ['b']]</span>
-<span class="sd">    """</span>
+<span class="sd">    &gt;&gt;&gt; data = {&quot;a&quot;: {&quot;x&quot;: {&quot;x&quot;: 1}}, &quot;b&quot;: {&quot;x&quot;: 0}}</span>
+<span class="sd">    &gt;&gt;&gt; find_key(data, &quot;x&quot;, nested=False)</span>
+<span class="sd">    [[&#39;a&#39;], [&#39;b&#39;]]</span>
+<span class="sd">    &gt;&gt;&gt; find_key(data, &quot;x&quot;, nested=True)</span>
+<span class="sd">    [[&#39;a&#39;], [&#39;a&#39;, &#39;x&#39;], [&#39;b&#39;]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">inspect</span>
 
     <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
@@ -316,10 +319,10 @@
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="s2">"@module"</span> <span class="ow">in</span> <span class="n">obj</span>
-                <span class="ow">and</span> <span class="n">obj</span><span class="p">[</span><span class="s2">"@module"</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__module__</span>
-                <span class="ow">and</span> <span class="s2">"@class"</span> <span class="ow">in</span> <span class="n">obj</span>
-                <span class="ow">and</span> <span class="n">obj</span><span class="p">[</span><span class="s2">"@class"</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="ow">and</span> <span class="s2">&quot;@module&quot;</span> <span class="ow">in</span> <span class="n">obj</span>
+                <span class="ow">and</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;@module&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__module__</span>
+                <span class="ow">and</span> <span class="s2">&quot;@class&quot;</span> <span class="ow">in</span> <span class="n">obj</span>
+                <span class="ow">and</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;@class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__name__</span>
             <span class="p">):</span>
                 <span class="n">found_items</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
                 <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
@@ -346,7 +349,7 @@
 <div class="viewcode-block" id="find_key_value"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.find.find_key_value">[docs]</a><span class="k">def</span> <span class="nf">find_key_value</span><span class="p">(</span>
     <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Hashable</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the route to key: value pairs in a dictionary.</span>
 
 <span class="sd">    This function works on nested dictionaries, lists, and tuples.</span>
@@ -367,12 +370,12 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; data = {</span>
-<span class="sd">    ...    "a": [0, {"b": 1, "x": 3}],</span>
-<span class="sd">    ...    "c": {"d": {"x": 3}}</span>
+<span class="sd">    ...    &quot;a&quot;: [0, {&quot;b&quot;: 1, &quot;x&quot;: 3}],</span>
+<span class="sd">    ...    &quot;c&quot;: {&quot;d&quot;: {&quot;x&quot;: 3}}</span>
 <span class="sd">    ... }</span>
-<span class="sd">    ... find_key_value(data, "x", 3)</span>
-<span class="sd">    (['a', 1], ['c', 'd'])</span>
-<span class="sd">    """</span>
+<span class="sd">    ... find_key_value(data, &quot;x&quot;, 3)</span>
+<span class="sd">    ([&#39;a&#39;, 1], [&#39;c&#39;, &#39;d&#39;])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">found_items</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_lookup</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -395,7 +398,7 @@
 
 
 <div class="viewcode-block" id="update_in_dictionary"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.find.update_in_dictionary">[docs]</a><span class="k">def</span> <span class="nf">update_in_dictionary</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">updates</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Update a dictionary in place at specific locations with a new values.</span>
 
 <span class="sd">    This function works on nested dictionaries and those containing lists or tuples.</span>
@@ -410,13 +413,13 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; data = {</span>
-<span class="sd">    ...    "a": [0, {"b": 1, "x": 3}],</span>
-<span class="sd">    ...    "c": {"d": {"x": 3}}</span>
+<span class="sd">    ...    &quot;a&quot;: [0, {&quot;b&quot;: 1, &quot;x&quot;: 3}],</span>
+<span class="sd">    ...    &quot;c&quot;: {&quot;d&quot;: {&quot;x&quot;: 3}}</span>
 <span class="sd">    ... }</span>
-<span class="sd">    &gt;&gt;&gt; update_in_dictionary(data, {('a', 1, 'x'): 100, ('c', 'd', 'x'): 100})</span>
+<span class="sd">    &gt;&gt;&gt; update_in_dictionary(data, {(&#39;a&#39;, 1, &#39;x&#39;): 100, (&#39;c&#39;, &#39;d&#39;, &#39;x&#39;): 100})</span>
 <span class="sd">    &gt;&gt;&gt; data</span>
-<span class="sd">    {'a': [0, {'b': 1, 'x': 100}], 'c': {'d': {'x': 100}}}</span>
-<span class="sd">    """</span>
+<span class="sd">    {&#39;a&#39;: [0, {&#39;b&#39;: 1, &#39;x&#39;: 100}], &#39;c&#39;: {&#39;d&#39;: {&#39;x&#39;: 100}}}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">update</span> <span class="ow">in</span> <span class="n">updates</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="n">obj</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">loc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
@@ -425,7 +428,7 @@
 
 
 <div class="viewcode-block" id="contains_flow_or_job"><a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.find.contains_flow_or_job">[docs]</a><span class="k">def</span> <span class="nf">contains_flow_or_job</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find whether an object contains any :obj:`Flow` or :obj:`Job` objects.</span>
 
 <span class="sd">    Parameters</span>
@@ -437,7 +440,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        Whether the object contains any Flows or jobs.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">jsanitize</span>
 
     <span class="kn">from</span> <span class="nn">jobflow.core.flow</span> <span class="kn">import</span> <span class="n">Flow</span>
@@ -448,14 +451,14 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
-        <span class="c1"># argument is a primitive, we won't find an flow or job here</span>
+        <span class="c1"># argument is a primitive, we won&#39;t find an flow or job here</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">obj</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># recursively find any reference classes</span>
-    <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"Flow"</span><span class="p">)</span>
-    <span class="n">locations</span> <span class="o">+=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="s2">"Job"</span><span class="p">)</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;@class&quot;</span><span class="p">,</span> <span class="s2">&quot;Flow&quot;</span><span class="p">)</span>
+    <span class="n">locations</span> <span class="o">+=</span> <span class="n">find_key_value</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;@class&quot;</span><span class="p">,</span> <span class="s2">&quot;Job&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 </pre></div>
@@ -494,7 +497,9 @@
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow.core.maker - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
@@ -58,10 +58,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -221,7 +223,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -236,7 +239,7 @@
         </div>
         <article role="main">
           <h1>Source code for jobflow.core.maker</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Define base Maker class for creating jobs and flows."""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Define base Maker class for creating jobs and flows.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
@@ -246,16 +249,16 @@
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MontyDecoder</span><span class="p">,</span> <span class="n">MSONable</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Maker"</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Maker&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Maker"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Maker</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base maker (factory) class for constructing :obj:`Job` and :obj:`Flow` objects.</span>
 
 <span class="sd">    Note, this class is only an abstract implementation. To create a functioning Maker,</span>
@@ -277,7 +280,7 @@
 <span class="sd">    &gt;&gt;&gt; from jobflow import Maker, job</span>
 <span class="sd">    &gt;&gt;&gt; @dataclass</span>
 <span class="sd">    ... class AddMaker(Maker):</span>
-<span class="sd">    ...     name: str = "add"</span>
+<span class="sd">    ...     name: str = &quot;add&quot;</span>
 <span class="sd">    ...</span>
 <span class="sd">    ...     @job</span>
 <span class="sd">    ...     def make(self, a, b):</span>
@@ -285,7 +288,7 @@
 <span class="sd">    &gt;&gt;&gt; maker = AddMaker()</span>
 <span class="sd">    &gt;&gt;&gt; add_job = maker.make(1, 2)</span>
 <span class="sd">    &gt;&gt;&gt; add_job.name</span>
-<span class="sd">    "add"</span>
+<span class="sd">    &quot;add&quot;</span>
 
 <span class="sd">    There are two key features of :obj:`Maker` objects that make them extremely</span>
 <span class="sd">    powerful. The first is the ability to have class instance variables that</span>
@@ -294,7 +297,7 @@
 
 <span class="sd">    &gt;&gt;&gt; @dataclass</span>
 <span class="sd">    ... class AddMaker(Maker):</span>
-<span class="sd">    ...     name: str = "add"</span>
+<span class="sd">    ...     name: str = &quot;add&quot;</span>
 <span class="sd">    ...     c: float = 1.5</span>
 <span class="sd">    ...</span>
 <span class="sd">    ...     @job</span>
@@ -319,7 +322,7 @@
 <span class="sd">    &gt;&gt;&gt; from jobflow import Response</span>
 <span class="sd">    &gt;&gt;&gt; @dataclass</span>
 <span class="sd">    ... class SquareThenAddMaker(Maker):</span>
-<span class="sd">    ...     name: str = "square then add"</span>
+<span class="sd">    ...     name: str = &quot;square then add&quot;</span>
 <span class="sd">    ...     add_maker: Maker = AddMaker()</span>
 <span class="sd">    ...</span>
 <span class="sd">    ...     @job</span>
@@ -347,7 +350,7 @@
 <span class="sd">    &gt;&gt;&gt; from jobflow import Flow</span>
 <span class="sd">    &gt;&gt;&gt; @dataclass</span>
 <span class="sd">    ... class DoubleAddMaker(Maker):</span>
-<span class="sd">    ...     name: str = "double add"</span>
+<span class="sd">    ...     name: str = &quot;double add&quot;</span>
 <span class="sd">    ...     add_maker: Maker = AddMaker()</span>
 <span class="sd">    ...</span>
 <span class="sd">    ...     def make(self, a, b):</span>
@@ -356,15 +359,15 @@
 <span class="sd">    ...         return Flow([add_first, add_second], name=self.name)</span>
 <span class="sd">    &gt;&gt;&gt; maker = DoubleAddMaker()</span>
 <span class="sd">    &gt;&gt;&gt; double_add_job = maker.make(1, 2)</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Maker.make"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker.make">[docs]</a>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">:</span>
-        <span class="sd">"""Make a job or a flow - must be overridden with a concrete implementation."""</span>
+        <span class="sd">&quot;&quot;&quot;Make a job or a flow - must be overridden with a concrete implementation.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Name of the Maker - must be overridden with a dataclass field."""</span>
+        <span class="sd">&quot;&quot;&quot;Name of the Maker - must be overridden with a dataclass field.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 <div class="viewcode-block" id="Maker.update_kwargs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker.update_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_kwargs</span><span class="p">(</span>
@@ -375,7 +378,7 @@
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the keyword arguments of the :obj:`.Maker`.</span>
 
 <span class="sd">        .. Note::</span>
@@ -388,7 +391,7 @@
 <span class="sd">            The updates to apply.</span>
 <span class="sd">        name_filter</span>
 <span class="sd">            A filter for the Maker name. Only Makers with a matching name will be updated.</span>
-<span class="sd">            Includes partial matches, e.g. "ad" will match a Maker with the name "adder".</span>
+<span class="sd">            Includes partial matches, e.g. &quot;ad&quot; will match a Maker with the name &quot;adder&quot;.</span>
 <span class="sd">        class_filter</span>
 <span class="sd">            A filter for the maker class. Only Makers with a matching class will be</span>
 <span class="sd">            updated. Note the class filter will match any subclasses.</span>
@@ -407,7 +410,7 @@
 <span class="sd">        &gt;&gt;&gt; from jobflow import job, Maker</span>
 <span class="sd">        &gt;&gt;&gt; @dataclass</span>
 <span class="sd">        ... class AddMaker(Maker):</span>
-<span class="sd">        ...     name: str = "add"</span>
+<span class="sd">        ...     name: str = &quot;add&quot;</span>
 <span class="sd">        ...     number: float = 10</span>
 <span class="sd">        ...</span>
 <span class="sd">        ...     @job</span>
@@ -417,7 +420,7 @@
 
 <span class="sd">        The ``number`` argument could be updated using:</span>
 
-<span class="sd">        &gt;&gt;&gt; maker.update_kwargs({"number": 10})</span>
+<span class="sd">        &gt;&gt;&gt; maker.update_kwargs({&quot;number&quot;: 10})</span>
 
 <span class="sd">        By default, the updates are applied to nested Makers. These are Makers</span>
 <span class="sd">        which are present in the kwargs of another Maker. For example, consider this</span>
@@ -426,7 +429,7 @@
 <span class="sd">        &gt;&gt;&gt; from jobflow import Response</span>
 <span class="sd">        &gt;&gt;&gt; @dataclass</span>
 <span class="sd">        ... class SquareThenAddMaker(Maker):</span>
-<span class="sd">        ...     name: str = "square then add"</span>
+<span class="sd">        ...     name: str = &quot;square then add&quot;</span>
 <span class="sd">        ...     add_maker: Maker = AddMaker()</span>
 <span class="sd">        ...</span>
 <span class="sd">        ...     @job</span>
@@ -439,69 +442,117 @@
 <span class="sd">        The following update will apply to the nested ``AddMaker`` in the kwargs of the</span>
 <span class="sd">        ``SquareThenAddMaker``:</span>
 
-<span class="sd">        &gt;&gt;&gt; maker = maker.update_kwargs({"number": 10}, class_filter=AddMaker)</span>
+<span class="sd">        &gt;&gt;&gt; maker = maker.update_kwargs({&quot;number&quot;: 10}, class_filter=AddMaker)</span>
 
 <span class="sd">        However, if ``nested=False``, then the update will not be applied to the nested</span>
 <span class="sd">        Maker:</span>
 
 <span class="sd">        &gt;&gt;&gt; maker = maker.update_kwargs(</span>
-<span class="sd">        ...     {"number": 10}, class_filter=AddMaker, nested=False</span>
+<span class="sd">        ...     {&quot;number&quot;: 10}, class_filter=AddMaker, nested=False</span>
 <span class="sd">        ... )</span>
-<span class="sd">        """</span>
-        <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">set_</span>
-
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">jobflow.utils.dict_mods</span> <span class="kn">import</span> <span class="n">apply_mod</span>
-        <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">find_key</span>
 
-        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+        <span class="k">def</span> <span class="nf">_update_kwargs_func</span><span class="p">(</span><span class="n">maker</span><span class="p">:</span> <span class="n">Maker</span><span class="p">):</span>
+            <span class="c1"># Update the kwargs of the maker</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">maker</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">dict_mod</span><span class="p">:</span>
+                <span class="n">apply_mod</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">maker</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_filter</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
-            <span class="c1"># Maker instance supplied rather than a Maker class</span>
-            <span class="n">class_filter</span> <span class="o">=</span> <span class="n">class_filter</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="k">return</span> <span class="n">recursive_call</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="n">_update_kwargs_func</span><span class="p">,</span>
+            <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
+            <span class="n">class_filter</span><span class="o">=</span><span class="n">class_filter</span><span class="p">,</span>
+            <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
-        <span class="k">if</span> <span class="n">nested</span><span class="p">:</span>
-            <span class="c1"># find and update makers in Maker kwargs. Process is:</span>
-            <span class="c1"># 1. Look for any monty classes in serialized maker kwargs</span>
-            <span class="c1"># 2. Regenerate the classes and check if they are a Maker</span>
-            <span class="c1"># 3. Apply the updates</span>
-            <span class="c1"># 4. Reconstruct initial maker kwargs</span>
 
-            <span class="c1"># find all classes in the serialized maker kwargs</span>
-            <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">"@class"</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">recursive_call</span><span class="p">(</span>
+    <span class="n">obj</span><span class="p">:</span> <span class="n">Maker</span><span class="p">,</span>
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Maker</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">class_filter</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Maker</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Recursively call a function on all Maker objects in the object.</span>
 
-            <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">location</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="c1"># skip the current maker class</span>
-                    <span class="k">continue</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj</span>
+<span class="sd">        The Maker object to call the function on.</span>
+<span class="sd">    func</span>
+<span class="sd">        The function to call a Maker object, if it matches the filters.</span>
+<span class="sd">        This function must return a new Maker object.</span>
+<span class="sd">    name_filter</span>
+<span class="sd">        A filter for the Maker name. Only Makers with a matching name will be updated.</span>
+<span class="sd">        Includes partial matches, e.g. &quot;ad&quot; will match a Maker with the name &quot;adder&quot;.</span>
+<span class="sd">    class_filter</span>
+<span class="sd">        A filter for the maker class. Only Makers with a matching class will be</span>
+<span class="sd">        updated. Note the class filter will match any subclasses.</span>
+<span class="sd">    nested</span>
+<span class="sd">        Whether to apply the updates to Maker objects that are themselves kwargs</span>
+<span class="sd">        of a Maker object. See examples for more details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">pydash</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">set_</span>
 
-                <span class="n">nested_class</span> <span class="o">=</span> <span class="n">MontyDecoder</span><span class="p">()</span><span class="o">.</span><span class="n">process_decoded</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">location</span><span class="p">)))</span>
+    <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">find_key</span>
 
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nested_class</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
-                    <span class="c1"># class is a Maker; apply the updates</span>
-                    <span class="n">nested_class</span> <span class="o">=</span> <span class="n">nested_class</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
-                        <span class="n">update</span><span class="p">,</span>
-                        <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
-                        <span class="n">class_filter</span><span class="o">=</span><span class="n">class_filter</span><span class="p">,</span>
-                        <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
-                        <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
-                    <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_filter</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
+        <span class="c1"># Maker instance supplied rather than a Maker class</span>
+        <span class="n">class_filter</span> <span class="o">=</span> <span class="n">class_filter</span><span class="o">.</span><span class="vm">__class__</span>
 
-                    <span class="c1"># update the serialized maker with the new kwarg</span>
-                    <span class="n">set_</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">location</span><span class="p">),</span> <span class="n">nested_class</span><span class="o">.</span><span class="n">as_dict</span><span class="p">())</span>
+    <span class="k">def</span> <span class="nf">_filter</span><span class="p">(</span><span class="n">nested_obj</span><span class="p">:</span> <span class="n">Maker</span><span class="p">):</span>
+        <span class="c1"># Filter the Maker object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nested_obj</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">name_filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name_filter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nested_obj</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">class_filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nested_obj</span><span class="p">,</span> <span class="n">class_filter</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
-        <span class="k">if</span> <span class="n">name_filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name_filter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">class_filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_filter</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="c1"># find and update makers in Maker kwargs. Process is:</span>
+    <span class="c1"># 1. Look for any monty classes in serialized maker kwargs</span>
+    <span class="c1"># 2. Regenerate the classes and check if they are a Maker</span>
+    <span class="c1"># 3. Call the functions on the deepest classes first</span>
+    <span class="c1"># 4. Call the function or update on the deepest classes and move up the tree</span>
+    <span class="c1"># 5. Finally replace the call/update the object itself</span>
 
-        <span class="c1"># if we get to here then we pass all the filters</span>
-        <span class="k">if</span> <span class="n">dict_mod</span><span class="p">:</span>
-            <span class="n">apply_mod</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
+    <span class="c1"># find all classes in the serialized maker kwargs</span>
+    <span class="k">if</span> <span class="n">nested</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="n">find_key</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;@class&quot;</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="p">[[]]</span>  <span class="c1"># will only look at the top level if nested=False</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div></div>
+    <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="n">locations</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>  <span class="c1"># should deserialize in order</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">location</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">nested_class</span> <span class="o">=</span> <span class="n">MontyDecoder</span><span class="p">()</span><span class="o">.</span><span class="n">process_decoded</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">location</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">_filter</span><span class="p">(</span><span class="n">nested_class</span><span class="p">):</span>
+            <span class="c1"># either update or call the function on the nested Maker</span>
+            <span class="n">modified_class</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">nested_class</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">modified_class</span><span class="p">,</span> <span class="n">Maker</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Function must return a Maker object. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">modified_class</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead.&quot;</span>
+                <span class="p">)</span>
+            <span class="c1"># update the serialized maker with the new kwarg</span>
+            <span class="n">set_</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">location</span><span class="p">),</span> <span class="n">modified_class</span><span class="o">.</span><span class="n">as_dict</span><span class="p">())</span>
+
+    <span class="c1"># the top level must be processed separately since its constructor</span>
+    <span class="c1"># might not be discoverable by MontyDecoder (kinda hacky)</span>
+    <span class="n">new_obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_filter</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="n">new_obj</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">new_obj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_obj</span>
 </pre></div>
         </article>
       </div>
@@ -538,7 +589,9 @@
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

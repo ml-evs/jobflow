@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="License" href="license.html" /><link rel="prev" title="Contributors" href="contributors.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>Contributing to jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,7 +240,7 @@
         </div>
         <article role="main">
           <section id="contributing-to-jobflow">
-<h1>Contributing to jobflow<a class="headerlink" href="#contributing-to-jobflow" title="Permalink to this headline">#</a></h1>
+<h1>Contributing to jobflow<a class="headerlink" href="#contributing-to-jobflow" title="Permalink to this heading">#</a></h1>
 <p>We love your input! We want to make contributing to as easy and
 transparent as possible, whether it’s:</p>
 <ul class="simple">
@@ -248,7 +251,7 @@ transparent as possible, whether it’s:</p>
 <li><p>Becoming a maintainer</p></li>
 </ul>
 <section id="reporting-bugs-getting-help-and-discussion">
-<h2>Reporting bugs, getting help, and discussion<a class="headerlink" href="#reporting-bugs-getting-help-and-discussion" title="Permalink to this headline">#</a></h2>
+<h2>Reporting bugs, getting help, and discussion<a class="headerlink" href="#reporting-bugs-getting-help-and-discussion" title="Permalink to this heading">#</a></h2>
 <p>jobflow is still in development, so at the moment we
 do not have a dedicated help forum. For the time being, please
 submit questions and bugs to the
@@ -270,7 +273,7 @@ we’ll move it to the GitHub issues where its progress can be
 further tracked.</p>
 </section>
 <section id="contributing-code-modifications-or-additions-through-github">
-<h2>Contributing code modifications or additions through Github<a class="headerlink" href="#contributing-code-modifications-or-additions-through-github" title="Permalink to this headline">#</a></h2>
+<h2>Contributing code modifications or additions through Github<a class="headerlink" href="#contributing-code-modifications-or-additions-through-github" title="Permalink to this heading">#</a></h2>
 <p>We use github to host code, to track issues and feature requests,
 as well as accept pull requests. We maintain a list of all
 contributors <a class="reference external" href="https://materialsproject.github.io/jobflow/contributors.html">here</a>.</p>
@@ -286,15 +289,15 @@ automatically update if you need to make further changes.</p></li>
 </ul>
 </section>
 <section id="how-to-make-a-great-pull-request">
-<h2>How to Make a <strong>Great</strong> Pull Request<a class="headerlink" href="#how-to-make-a-great-pull-request" title="Permalink to this headline">#</a></h2>
+<h2>How to Make a Great Pull Request<a class="headerlink" href="#how-to-make-a-great-pull-request" title="Permalink to this heading">#</a></h2>
 <p>We have a few tips for writing good PRs that are accepted into the main repo:</p>
 <ul class="simple">
-<li><p>Use the Google Code style for all of your code. Find an example <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">here</a>.</p></li>
+<li><p>Use the Numpy Code style for all of your code. Find an example <a class="reference external" href="hhttps://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy">here</a>.</p></li>
 <li><p>Your code should have (4) spaces instead of tabs.</p></li>
 <li><p>If needed, update the documentation.</p></li>
 <li><p><strong>Write tests</strong> for new features! Good tests are 100%, absolutely necessary
-for good code. We use the python <code class="docutils literal notranslate"><span class="pre">unittest</span></code> framework – see some of the
-other tests in this repo for examples, or review the <a class="reference external" href="https://docs.python-guide.org/writing/tests/">Hitchhiker’s guide
+for good code. We use the python <code class="docutils literal notranslate"><span class="pre">pytest</span></code> framework – see some of the
+other tests in this repo for examples, or review the <a class="reference external" href="https://docs.python-guide.org/writing/tests">Hitchhiker’s guide
 to python</a> for some good
 resources on writing good tests.</p></li>
 <li><p>Understand your contributions will fall under the same license as this repo.</p></li>
@@ -317,10 +320,10 @@ on your PR are an excellent area for discussion.</p>
                 </div>
                 <div class="title">License</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="contributors.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -355,7 +358,7 @@ on your PR are an excellent area for discussion.</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -364,7 +367,7 @@ on your PR are an excellent area for discussion.</p>
 <li><a class="reference internal" href="#">Contributing to jobflow</a><ul>
 <li><a class="reference internal" href="#reporting-bugs-getting-help-and-discussion">Reporting bugs, getting help, and discussion</a></li>
 <li><a class="reference internal" href="#contributing-code-modifications-or-additions-through-github">Contributing code modifications or additions through Github</a></li>
-<li><a class="reference internal" href="#how-to-make-a-great-pull-request">How to Make a <strong>Great</strong> Pull Request</a></li>
+<li><a class="reference internal" href="#how-to-make-a-great-pull-request">How to Make a Great Pull Request</a></li>
 </ul>
 </li>
 </ul>
@@ -379,7 +382,9 @@ on your PR are an excellent area for discussion.</p>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

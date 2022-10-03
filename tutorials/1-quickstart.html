@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Introduction to jobflow" href="2-introduction.html" /><link rel="prev" title="Tutorials" href="../tutorials.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>Five-minute quickstart - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -451,6 +454,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -459,10 +463,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -474,12 +482,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -488,7 +499,7 @@ div.rendered_html tbody tr:hover {
 <p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/tutorials/1-quickstart.ipynb">tutorials/1-quickstart.ipynb</a>.</p>
 </div>
 <section id="Five-minute-quickstart">
-<h1>Five-minute quickstart<a class="headerlink" href="#Five-minute-quickstart" title="Permalink to this headline">#</a></h1>
+<h1>Five-minute quickstart<a class="headerlink" href="#Five-minute-quickstart" title="Permalink to this heading">#</a></h1>
 <p>In this quickstart, you will:</p>
 <ul class="simple">
 <li><p>Create some jobs.</p></li>
@@ -499,13 +510,14 @@ div.rendered_html tbody tr:hover {
 </ul>
 <p>This tutorial will emphasize “hands-on” usage of jobflow and not explain things in detail.</p>
 <section id="Define-jobs">
-<h2>Define jobs<a class="headerlink" href="#Define-jobs" title="Permalink to this headline">#</a></h2>
-<p>The atomic building block of jobflows are jobs. Creating a job is as easy as writing a python function. All you need to do is use the <code class="docutils literal notranslate"><span class="pre">@job</span></code> decorator.</p>
+<h2>Define jobs<a class="headerlink" href="#Define-jobs" title="Permalink to this heading">#</a></h2>
+<p>The atomic building block of jobflows are jobs. Creating a job is as easy as writing a python function. All you need to do is use the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span>
+
 
 <span class="nd">@job</span>
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -551,7 +563,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 </section>
 <section id="Create-a-Flow">
-<h2>Create a Flow<a class="headerlink" href="#Create-a-Flow" title="Permalink to this headline">#</a></h2>
+<h2>Create a Flow<a class="headerlink" href="#Create-a-Flow" title="Permalink to this heading">#</a></h2>
 <p>A Flow is a collection of Jobs or other Flow objects. Let’s create a Flow from the <code class="docutils literal notranslate"><span class="pre">add_first</span></code> and <code class="docutils literal notranslate"><span class="pre">add_second</span></code> jobs we just made:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -577,12 +589,12 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_1-quickstart_12_0.png" src="../_images/tutorials_1-quickstart_12_0.png"/>
+<img alt="../_images/tutorials_1-quickstart_12_0.png" src="../_images/tutorials_1-quickstart_12_0.png" />
 </div>
 </div>
 </section>
 <section id="Run-the-Flow">
-<h2>Run the Flow<a class="headerlink" href="#Run-the-Flow" title="Permalink to this headline">#</a></h2>
+<h2>Run the Flow<a class="headerlink" href="#Run-the-Flow" title="Permalink to this heading">#</a></h2>
 <p>Jobflow supports running Flows locally or on remote clusters. Below we run the Flow locally using the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
@@ -614,7 +626,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 <p>The numbers in brackets after the job function name give the job unique identifier (UUID).</p>
 </section>
 <section id="Examine-Flow-outputs">
-<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this headline">#</a></h2>
+<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function returns the output of all jobs. The format of the output is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="n">job_uuid</span><span class="p">:</span> <span class="p">{</span>
@@ -640,8 +652,8 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{'3bc98d5e-b593-4ad1-a409-cef9136bb835': {1: Response(output=6, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- '846add3f-1d37-47a1-a7f5-94a0fdf57b1b': {1: Response(output=9, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;3bc98d5e-b593-4ad1-a409-cef9136bb835&#39;: {1: Response(output=6, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;846add3f-1d37-47a1-a7f5-94a0fdf57b1b&#39;: {1: Response(output=9, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>We can check the output of specific jobs using:</p>
@@ -664,7 +676,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 </section>
 <section id="Next-steps">
-<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this headline">#</a></h2>
+<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this heading">#</a></h2>
 <p>Now that you’ve successfully run your first Flow, we encourage you to learn about all the different options jobflow provides for designing and running workflows. A good next step is the <a class="reference external" href="https://materialsproject.github.io/jobflow/tutorials/2-introduction.html">Introductory tutorial</a>, which covers things more slowly than this quickstart.</p>
 </section>
 </section>
@@ -681,10 +693,10 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
                 </div>
                 <div class="title">Introduction to jobflow</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../tutorials.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -719,7 +731,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -745,7 +757,9 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>

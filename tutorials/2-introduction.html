@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Defining jobs in jobflow" href="3-defining-jobs.html" /><link rel="prev" title="Five-minute quickstart" href="1-quickstart.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>Introduction to jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -451,6 +454,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -459,10 +463,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -474,12 +482,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -488,7 +499,7 @@ div.rendered_html tbody tr:hover {
 <p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/tutorials/2-introduction.ipynb">tutorials/2-introduction.ipynb</a>.</p>
 </div>
 <section id="Introduction-to-jobflow">
-<h1>Introduction to jobflow<a class="headerlink" href="#Introduction-to-jobflow" title="Permalink to this headline">#</a></h1>
+<h1>Introduction to jobflow<a class="headerlink" href="#Introduction-to-jobflow" title="Permalink to this heading">#</a></h1>
 <p>In this tutorial, you will:</p>
 <ul class="simple">
 <li><p>Create several jobs.</p></li>
@@ -499,8 +510,8 @@ div.rendered_html tbody tr:hover {
 </ul>
 <p>The purpose of this tutorial is to introduce the main concepts of jobflow. It isn’t intended to demonstrate all the features of jobflow or explain things in great detail.</p>
 <section id="Creating-job-objects">
-<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Permalink to this headline">#</a></h2>
-<p>The building block of jobflows are <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. Jobs are delayed calls to python functions whose outputs are stored in a database. The easiest way to create a job is using the <code class="docutils literal notranslate"><span class="pre">@job</span></code> decorator which be applied to any function, even those with optional parameters.</p>
+<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Permalink to this heading">#</a></h2>
+<p>The building block of jobflows are <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. Jobs are delayed calls to python functions whose outputs are stored in a database. The easiest way to create a job is using the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator which be applied to any function, even those with optional parameters.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
 <p><p>jobflow encodes job outputs as json using the <code class="docutils literal notranslate"><span class="pre">MontyEncoder</span></code> feature of the <code class="docutils literal notranslate"><span class="pre">monty</span></code> package. This means that additional datatypes such as datetime objects, enums, and MSONable classes can also be serialized.</p>
@@ -511,6 +522,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span>
+
 
 <span class="nd">@job</span>
 <span class="k">def</span> <span class="nf">time_website</span><span class="p">(</span><span class="n">website</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -531,9 +543,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_github</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">"https://www.github.com"</span><span class="p">)</span>
-<span class="n">time_google</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">"https://www.google.com"</span><span class="p">)</span>
-<span class="n">time_nyt</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">"https://www.nytimes.com"</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_github</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">&quot;https://www.github.com&quot;</span><span class="p">)</span>
+<span class="n">time_google</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">&quot;https://www.google.com&quot;</span><span class="p">)</span>
+<span class="n">time_nyt</span> <span class="o">=</span> <span class="n">time_website</span><span class="p">(</span><span class="s2">&quot;https://www.nytimes.com&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -564,6 +576,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <span class="k">def</span> <span class="nf">sum_numbers</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
 
+
 <span class="n">sum_times</span> <span class="o">=</span> <span class="n">sum_numbers</span><span class="p">([</span><span class="n">time_github</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_google</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_nyt</span><span class="o">.</span><span class="n">output</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -571,7 +584,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <p>Note, none of the jobs we have created have been executed. The idea of jobflow is to built up a series of (interconnected) jobs and run them at a later date.</p>
 </section>
 <section id="Creating-Flows">
-<h2>Creating Flows<a class="headerlink" href="#Creating-Flows" title="Permalink to this headline">#</a></h2>
+<h2>Creating Flows<a class="headerlink" href="#Creating-Flows" title="Permalink to this heading">#</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Flow</span></code> is a collection of <code class="docutils literal notranslate"><span class="pre">Job</span></code>s or other <code class="docutils literal notranslate"><span class="pre">Flow</span></code> objects. Flows are the primary tool for defining workflows in jobflow. Let’s create a Flow from the jobs we just made:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -597,7 +610,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_2-introduction_13_0.png" src="../_images/tutorials_2-introduction_13_0.png"/>
+<img alt="../_images/tutorials_2-introduction_13_0.png" src="../_images/tutorials_2-introduction_13_0.png" />
 </div>
 </div>
 <p>Similar to Jobs, Flows can also have outputs, however, these are not explicitly stored in the database. Instead, the outputs of a Flow act to structure the outputs of the jobs contained within it.</p>
@@ -616,19 +629,19 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">(</span>
     <span class="n">jobs</span><span class="o">=</span><span class="p">[</span><span class="n">time_github</span><span class="p">,</span> <span class="n">time_google</span><span class="p">,</span> <span class="n">time_nyt</span><span class="p">,</span> <span class="n">sum_times</span><span class="p">],</span>
     <span class="n">output</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">"times"</span><span class="p">:</span> <span class="p">[</span><span class="n">time_github</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_google</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_nyt</span><span class="o">.</span><span class="n">output</span><span class="p">],</span>
-        <span class="s2">"sum"</span><span class="p">:</span> <span class="n">sum_times</span><span class="o">.</span><span class="n">output</span>
+        <span class="s2">&quot;times&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">time_github</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_google</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">time_nyt</span><span class="o">.</span><span class="n">output</span><span class="p">],</span>
+        <span class="s2">&quot;sum&quot;</span><span class="p">:</span> <span class="n">sum_times</span><span class="o">.</span><span class="n">output</span>
     <span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>When can then be used by subsequent jobs as:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_job</span> <span class="o">=</span> <span class="n">sum_numbers</span><span class="p">([</span><span class="n">flow</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"sum"</span><span class="p">],</span> <span class="mi">10</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_job</span> <span class="o">=</span> <span class="n">sum_numbers</span><span class="p">([</span><span class="n">flow</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;sum&quot;</span><span class="p">],</span> <span class="mi">10</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
 <section id="Setting-up-the-JobStore">
-<h2>Setting up the JobStore<a class="headerlink" href="#Setting-up-the-JobStore" title="Permalink to this headline">#</a></h2>
+<h2>Setting up the JobStore<a class="headerlink" href="#Setting-up-the-JobStore" title="Permalink to this heading">#</a></h2>
 <p>Anything returned by a <code class="docutils literal notranslate"><span class="pre">Job</span></code> will be stored in the <code class="docutils literal notranslate"><span class="pre">JobStore</span></code>, the primary database interface for jobflows.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> is an implementation of the <a class="reference external" href="https://materialsproject.github.io/maggma/reference/stores/">Store</a> interface provided by the <a class="reference external" href="https://materialsproject.github.io/maggma/reference/stores/">Maggma package</a>. Maggma provides implementations for a number of common databases including:</p>
 <ul class="simple">
@@ -663,7 +676,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <p>This type of JobStore (using a MemoryStore for all outputs) is the default store used by jobflow if a custom store is not set.</p>
 </section>
 <section id="Running-the-Flow">
-<h2>Running the Flow<a class="headerlink" href="#Running-the-Flow" title="Permalink to this headline">#</a></h2>
+<h2>Running the Flow<a class="headerlink" href="#Running-the-Flow" title="Permalink to this heading">#</a></h2>
 <p>Jobflow supports running Flows locally or on remote clusters. Below we run the Flow locally using the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function using our custom store.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
@@ -705,7 +718,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <p>The job uuid is a unique identifier that is assigned to the job when it is created. It is also used to track the job outputs.</p>
 </section>
 <section id="Examine-Flow-outputs">
-<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this headline">#</a></h2>
+<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function returns the output of all jobs. The the format of the output is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="n">job_uuid</span><span class="p">:</span> <span class="p">{</span>
@@ -731,10 +744,10 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{'caa50ec0-59b2-441d-87d3-7dfabef8ac93': {1: Response(output=0.9628085599999991, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- '2d35baf4-c72f-4d83-9472-45d134d6566d': {1: Response(output=0.007624547999999898, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- 'a38209dd-441a-4074-917e-4bb86b98fe54': {1: Response(output=0.3369926760000004, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- '2e8f39b2-75f3-4099-a5a7-966787a9ccfd': {1: Response(output=1.3074257839999994, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;caa50ec0-59b2-441d-87d3-7dfabef8ac93&#39;: {1: Response(output=0.9628085599999991, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;2d35baf4-c72f-4d83-9472-45d134d6566d&#39;: {1: Response(output=0.007624547999999898, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;a38209dd-441a-4074-917e-4bb86b98fe54&#39;: {1: Response(output=0.3369926760000004, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;2e8f39b2-75f3-4099-a5a7-966787a9ccfd&#39;: {1: Response(output=1.3074257839999994, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>We can check the output of specific jobs using:</p>
@@ -776,7 +789,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div>
 </section>
 <section id="Next-steps">
-<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this headline">#</a></h2>
+<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this heading">#</a></h2>
 <p>Now that you are more familiar jobflows, we encourage you to learn about all the different options jobflow provides for designing and running workflows. A good next step is the <a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/3-defining-jobs.html">Defining Jobs using jobflow tutorial</a>, which will cover the <code class="docutils literal notranslate"><span class="pre">Job</span></code> object and <code class="docutils literal notranslate"><span class="pre">job</span></code> decorator in more detail.</p>
 </section>
 </section>
@@ -793,10 +806,10 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
                 </div>
                 <div class="title">Defining jobs in jobflow</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="1-quickstart.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -831,7 +844,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -858,7 +871,9 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>

@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow.managers.fireworks - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
@@ -58,10 +58,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -221,7 +223,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -236,7 +239,7 @@
         </div>
         <article role="main">
           <h1>Source code for jobflow.managers.fireworks</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Tools for running :obj:`Flow` and :obj:`Job` objects using the FireWorks package."""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Tools for running :obj:`Flow` and :obj:`Job` objects using the FireWorks package.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
@@ -249,7 +252,7 @@
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"flow_to_workflow"</span><span class="p">,</span> <span class="s2">"job_to_firework"</span><span class="p">,</span> <span class="s2">"JobFiretask"</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;flow_to_workflow&quot;</span><span class="p">,</span> <span class="s2">&quot;job_to_firework&quot;</span><span class="p">,</span> <span class="s2">&quot;JobFiretask&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="flow_to_workflow"><a class="viewcode-back" href="../../../jobflow.managers.html#jobflow.managers.fireworks.flow_to_workflow">[docs]</a><span class="k">def</span> <span class="nf">flow_to_workflow</span><span class="p">(</span>
@@ -257,7 +260,7 @@
     <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Workflow</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a :obj:`Flow` or a :obj:`Job` to a FireWorks :obj:`Workflow` object.</span>
 
 <span class="sd">    Each firework spec is updated with the contents of the</span>
@@ -280,7 +283,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    Workflow</span>
 <span class="sd">        The job or flow as a workflow.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">fireworks.core.firework</span> <span class="kn">import</span> <span class="n">Firework</span><span class="p">,</span> <span class="n">Workflow</span>
 
     <span class="kn">from</span> <span class="nn">jobflow.core.flow</span> <span class="kn">import</span> <span class="n">get_flow</span>
@@ -304,7 +307,7 @@
     <span class="n">parent_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Firework</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Firework</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a :obj:`Job` to a :obj:`.Firework`.</span>
 
 <span class="sd">    The firework spec is updated with the contents of the</span>
@@ -331,13 +334,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    Firework</span>
 <span class="sd">        A firework that will run the job.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">fireworks.core.firework</span> <span class="kn">import</span> <span class="n">Firework</span>
 
     <span class="kn">from</span> <span class="nn">jobflow.core.reference</span> <span class="kn">import</span> <span class="n">OnMissing</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">parents</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="p">(</span><span class="n">parent_mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Both or neither of parents and parent_mapping must be set."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both or neither of parents and parent_mapping must be set.&quot;</span><span class="p">)</span>
 
     <span class="n">task</span> <span class="o">=</span> <span class="n">JobFiretask</span><span class="p">(</span><span class="n">job</span><span class="o">=</span><span class="n">job</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">)</span>
 
@@ -347,9 +350,9 @@
             <span class="p">[</span><span class="n">parent_mapping</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">]</span> <span class="k">if</span> <span class="n">parents</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span>
 
-    <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"_add_launchpad_and_fw_id"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>  <span class="c1"># this allows the job to know the fw_id</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_add_launchpad_and_fw_id&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>  <span class="c1"># this allows the job to know the fw_id</span>
     <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">on_missing_references</span> <span class="o">!=</span> <span class="n">OnMissing</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span>
-        <span class="n">spec</span><span class="p">[</span><span class="s2">"_allow_fizzled_parents"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;_allow_fizzled_parents&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">spec</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">manager_config</span><span class="p">)</span>
     <span class="n">spec</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>  <span class="c1"># add metadata to spec</span>
 
@@ -363,7 +366,7 @@
 
 <div class="viewcode-block" id="JobFiretask"><a class="viewcode-back" href="../../../jobflow.managers.html#jobflow.managers.fireworks.JobFiretask">[docs]</a><span class="nd">@explicit_serialize</span>
 <span class="k">class</span> <span class="nc">JobFiretask</span><span class="p">(</span><span class="n">FiretaskBase</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A firetask that will run any job.</span>
 
 <span class="sd">    Other Parameters</span>
@@ -375,24 +378,24 @@
 <span class="sd">        will be used. Note, this could be different on the computer that submits the</span>
 <span class="sd">        workflow and the computer which runs the workflow. The value of ``JOB_STORE`` on</span>
 <span class="sd">        the computer that runs the workflow will be used.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">required_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"job"</span><span class="p">,</span> <span class="s2">"store"</span><span class="p">]</span>
+    <span class="n">required_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;job&quot;</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="JobFiretask.run_task"><a class="viewcode-back" href="../../../jobflow.managers.html#jobflow.managers.fireworks.JobFiretask.run_task">[docs]</a>    <span class="k">def</span> <span class="nf">run_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fw_spec</span><span class="p">):</span>
-        <span class="sd">"""Run the job and handle any dynamic firework submissions."""</span>
+        <span class="sd">&quot;&quot;&quot;Run the job and handle any dynamic firework submissions.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">SETTINGS</span><span class="p">,</span> <span class="n">initialize_logger</span>
         <span class="kn">from</span> <span class="nn">jobflow.core.job</span> <span class="kn">import</span> <span class="n">Job</span>
 
-        <span class="n">job</span><span class="p">:</span> <span class="n">Job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"job"</span><span class="p">)</span>
-        <span class="n">store</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">)</span>
+        <span class="n">job</span><span class="p">:</span> <span class="n">Job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;job&quot;</span><span class="p">)</span>
+        <span class="n">store</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">store</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">JOB_STORE</span>
         <span class="n">store</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"fw_id"</span><span class="p">):</span>
-            <span class="n">job</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"fw_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fw_id</span><span class="p">})</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;fw_id&quot;</span><span class="p">):</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;fw_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fw_id</span><span class="p">})</span>
 
         <span class="n">initialize_logger</span><span class="p">()</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">store</span><span class="o">=</span><span class="n">store</span><span class="p">)</span>
@@ -401,13 +404,13 @@
         <span class="n">additions</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># create a workflow from the new additions; be sure to use original store</span>
-            <span class="n">detours</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">))]</span>
+            <span class="n">detours</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">))]</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">addition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">additions</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">addition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">))]</span>
+            <span class="n">additions</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">addition</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">))]</span>
 
         <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">detour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">detour_wf</span> <span class="o">=</span> <span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">detour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"store"</span><span class="p">))</span>
+            <span class="n">detour_wf</span> <span class="o">=</span> <span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">detour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">detours</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">detours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detour_wf</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -457,7 +460,9 @@
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

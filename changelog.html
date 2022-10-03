@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributors" href="contributors.html" /><link rel="prev" title="Defining jobs in jobflow" href="tutorials/3-defining-jobs.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>Change log - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,9 +240,30 @@
         </div>
         <article role="main">
           <section id="change-log">
-<h1>Change log<a class="headerlink" href="#change-log" title="Permalink to this headline">#</a></h1>
+<h1>Change log<a class="headerlink" href="#change-log" title="Permalink to this heading">#</a></h1>
+<section id="v0-1-9">
+<h2>v0.1.9<a class="headerlink" href="#v0-1-9" title="Permalink to this heading">#</a></h2>
+<p>New features</p>
+<ul class="simple">
+<li><p>Delayed updates to config and metadata for dynamic flows. See docstring of
+<code class="docutils literal notranslate"><span class="pre">Job.update_metadata</span></code> for more details (&#64;gpetretto, #198)</p></li>
+<li><p>Additional stores are now generated on the fly as memory stores if they are not
+specified  in jobflow settings (&#64;davidwaroquiers, #183)</p></li>
+</ul>
+<p>Bug fixes:</p>
+<ul class="simple">
+<li><p>Optimised calls to update_kwargs (&#64;jmmshn, #177)</p></li>
+<li><p>“job_uuid” and “job_index” are now indexed fields in additional stores (&#64;jmmshn, #165)</p></li>
+<li><p>Fix additional store storing <code class="docutils literal notranslate"><span class="pre">None</span></code> (&#64;mjwen, #160)</p></li>
+</ul>
+<p>Enhancements:</p>
+<ul class="simple">
+<li><p>Docs refactored.</p></li>
+<li><p>Added code of conduct.</p></li>
+</ul>
+</section>
 <section id="v0-1-8">
-<h2>v0.1.8<a class="headerlink" href="#v0-1-8" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.8<a class="headerlink" href="#v0-1-8" title="Permalink to this heading">#</a></h2>
 <p>New features:</p>
 <ul class="simple">
 <li><p>New <code class="docutils literal notranslate"><span class="pre">update_metadata</span></code> function for updating the metadata of jobs and flows.</p></li>
@@ -248,41 +272,41 @@ jobs and flows.</p></li>
 <li><p>New <code class="docutils literal notranslate"><span class="pre">DIRECTORY_FORMAT</span></code> option in JobflowSettings for controlling the date time format
 used to create new directories.</p></li>
 <li><p>New functions for adding and removing jobs from a flow. The <code class="docutils literal notranslate"><span class="pre">Job.jobs</span></code> list is no
-longer mutable (@gpetretto).</p></li>
+longer mutable (&#64;gpetretto).</p></li>
 <li><p>New <code class="docutils literal notranslate"><span class="pre">Job.hosts</span></code> attribute that stores a list of all host Flows. This captures the
-nested nature of flows with the outer flow always first in the list (@gpetretto).</p></li>
+nested nature of flows with the outer flow always first in the list (&#64;gpetretto).</p></li>
 </ul>
 <p>Bug fixes:</p>
 <ul class="simple">
 <li><p>OutputReferences are no longer iterable.</p></li>
-<li><p>Docstring clarifications (@utf, @mjwen).</p></li>
+<li><p>Docstring clarifications (&#64;utf, &#64;mjwen).</p></li>
 </ul>
 </section>
 <section id="v0-1-7">
-<h2>v0.1.7<a class="headerlink" href="#v0-1-7" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.7<a class="headerlink" href="#v0-1-7" title="Permalink to this heading">#</a></h2>
 <p>New features:</p>
 <ul class="simple">
-<li><p>Validate subschemas of nested models (@gpetretto, #118).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">downstream_manager_config</span></code> for controlling config of dynamic jobs (@arosen93, #121).</p></li>
-<li><p>S3Store yaml parsing (@jmmshn, #124).</p></li>
+<li><p>Validate subschemas of nested models (&#64;gpetretto, #118).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">downstream_manager_config</span></code> for controlling config of dynamic jobs (&#64;arosen93, #121).</p></li>
+<li><p>S3Store yaml parsing (&#64;jmmshn, #124).</p></li>
 </ul>
 <p>Bug fixes:</p>
 <ul class="simple">
-<li><p>Fix home path for loading settings (@gpetretto, #119).</p></li>
-<li><p>Docs updates (@arosen93, #111).</p></li>
+<li><p>Fix home path for loading settings (&#64;gpetretto, #119).</p></li>
+<li><p>Docs updates (&#64;arosen93, #111).</p></li>
 </ul>
 </section>
 <section id="v0-1-6">
-<h2>v0.1.6<a class="headerlink" href="#v0-1-6" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.6<a class="headerlink" href="#v0-1-6" title="Permalink to this heading">#</a></h2>
 <p>Bug fixes:</p>
 <ul class="simple">
-<li><p>Docs fixes (@arosen).</p></li>
+<li><p>Docs fixes (&#64;arosen).</p></li>
 <li><p>Compatibility with maggma&gt;=0.38.1 (#68)</p></li>
 <li><p>Fixed missing PyYAML requirement (#67)</p></li>
 </ul>
 </section>
 <section id="v0-1-5">
-<h2>v0.1.5<a class="headerlink" href="#v0-1-5" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.5<a class="headerlink" href="#v0-1-5" title="Permalink to this heading">#</a></h2>
 <p>Bug fixes:</p>
 <ul class="simple">
 <li><p>Remove <code class="docutils literal notranslate"><span class="pre">JobConfig.pass_metadata</span></code> option and instead pass metadata automatically.</p></li>
@@ -290,7 +314,7 @@ nested nature of flows with the outer flow always first in the list (@gpetretto)
 </ul>
 </section>
 <section id="v0-1-4">
-<h2>v0.1.4<a class="headerlink" href="#v0-1-4" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.4<a class="headerlink" href="#v0-1-4" title="Permalink to this heading">#</a></h2>
 <p>New features:</p>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">append_name</span></code> option to <code class="docutils literal notranslate"><span class="pre">Job</span></code> and <code class="docutils literal notranslate"><span class="pre">Flow</span></code> that allow easy modification of all
@@ -304,14 +328,14 @@ on to dynamically added jobs.</p></li>
 </ul>
 </section>
 <section id="v0-1-3">
-<h2>v0.1.3<a class="headerlink" href="#v0-1-3" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.3<a class="headerlink" href="#v0-1-3" title="Permalink to this heading">#</a></h2>
 <p>Jobflow now uses pydantic to handle settings. Currently, there is only a single setting
 <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> which controls the default store used by <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> and the fireworks
 manager. You can update the default store by writing a <code class="docutils literal notranslate"><span class="pre">~/.jobflow.yaml</span></code> settings
 file. See the API documentation for more details.</p>
 </section>
 <section id="v0-1-2">
-<h2>v0.1.2<a class="headerlink" href="#v0-1-2" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.2<a class="headerlink" href="#v0-1-2" title="Permalink to this heading">#</a></h2>
 <p>New features:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ensure_success</span></code> option added to <code class="docutils literal notranslate"><span class="pre">run_locally</span></code>.</p></li>
@@ -322,11 +346,11 @@ in the kwargs or args of the job.</p></li>
 </ul>
 </section>
 <section id="v0-1-1">
-<h2>v0.1.1<a class="headerlink" href="#v0-1-1" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.1<a class="headerlink" href="#v0-1-1" title="Permalink to this heading">#</a></h2>
 <p>Docs updates.</p>
 </section>
 <section id="v0-1-0">
-<h2>v0.1.0<a class="headerlink" href="#v0-1-0" title="Permalink to this headline">#</a></h2>
+<h2>v0.1.0<a class="headerlink" href="#v0-1-0" title="Permalink to this heading">#</a></h2>
 <p>Major changes:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Schema</span></code> class removed. Any pydantic model can now be an output schema.</p></li>
@@ -341,17 +365,17 @@ in the kwargs or args of the job.</p></li>
 </ul>
 <p>Bug fixes:</p>
 <ul class="simple">
-<li><p>Fixed issue with references in flow of flows (@davidwaroquiers, #18).</p></li>
+<li><p>Fixed issue with references in flow of flows (&#64;davidwaroquiers, #18).</p></li>
 <li><p>Makes now allows non-default parameters (fixes: #13).</p></li>
 <li><p>Fix reference cache with multiple indexes.</p></li>
 </ul>
 </section>
 <section id="v0-0-2">
-<h2>v0.0.2<a class="headerlink" href="#v0-0-2" title="Permalink to this headline">#</a></h2>
+<h2>v0.0.2<a class="headerlink" href="#v0-0-2" title="Permalink to this heading">#</a></h2>
 <p>Testing automated releases.</p>
 </section>
 <section id="v0-0-1">
-<h2>v0.0.1<a class="headerlink" href="#v0-0-1" title="Permalink to this headline">#</a></h2>
+<h2>v0.0.1<a class="headerlink" href="#v0-0-1" title="Permalink to this heading">#</a></h2>
 <p>Initial release containing:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Job</span></code>, <code class="docutils literal notranslate"><span class="pre">Flow</span></code>, <code class="docutils literal notranslate"><span class="pre">Maker</span></code>, and <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> API.</p></li>
@@ -373,10 +397,10 @@ in the kwargs or args of the job.</p></li>
                 </div>
                 <div class="title">Contributors</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="tutorials/3-defining-jobs.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -411,13 +435,14 @@ in the kwargs or args of the job.</p></li>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Change log</a><ul>
+<li><a class="reference internal" href="#v0-1-9">v0.1.9</a></li>
 <li><a class="reference internal" href="#v0-1-8">v0.1.8</a></li>
 <li><a class="reference internal" href="#v0-1-7">v0.1.7</a></li>
 <li><a class="reference internal" href="#v0-1-6">v0.1.6</a></li>
@@ -443,7 +468,9 @@ in the kwargs or args of the job.</p></li>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

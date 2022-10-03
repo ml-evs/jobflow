@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.utils" href="jobflow.utils.html" /><link rel="prev" title="jobflow.managers" href="jobflow.managers.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow.settings - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -155,7 +157,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -230,19 +233,19 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="module-jobflow.settings">
-<span id="jobflow-settings"></span><h1>jobflow.settings<a class="headerlink" href="#module-jobflow.settings" title="Permalink to this headline">#</a></h1>
+          <section id="jobflow-settings">
+<h1>jobflow.settings<a class="headerlink" href="#jobflow-settings" title="Permalink to this heading">#</a></h1>
 <p>Settings for jobflow.</p>
-<dl class="py class pydantic_settings">
+<span class="target" id="module-jobflow.settings"></span><dl class="py class pydantic_settings">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">settings</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.settings.</span></span><span class="sig-name descname"><span class="pre">JobflowSettings</span></span><a class="reference internal" href="_modules/jobflow/settings.html#JobflowSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.settings.JobflowSettings" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.env_settings.BaseSettings</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSettings</span></code></p>
 <p>Settings for jobflow.</p>
 <p>The default way to modify these is to modify ~/.jobflow.yaml. Alternatively,
 the environment variable <code class="docutils literal notranslate"><span class="pre">JOBFLOW_CONFIG_FILE</span></code> can be set to point to a yaml file
@@ -310,17 +313,21 @@ the credentials in any format supported by <a class="reference internal" href="j
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CONFIG_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/.jobflow.yaml'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.CONFIG_FILE" title="Permalink to this definition">#</a></dt>
 <dd><p>File to load alternative defaults from.</p>
 </dd></dl>
+
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.JOB_STORE">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JOB_STORE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><span class="pre">jobflow.core.store.JobStore</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.JOB_STORE" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JOB_STORE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><span class="pre">JobStore</span></a></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.JOB_STORE" title="Permalink to this definition">#</a></dt>
 <dd><p>Default JobStore to use when running locally or using FireWorks. See the <a class="reference internal" href="#jobflow.settings.JobflowSettings" title="jobflow.settings.JobflowSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings</span></code></a> docstring for more details on the accepted formats.</p>
 </dd></dl>
+
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.DIRECTORY_FORMAT">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DIRECTORY_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%Y-%m-%d-%H-%M-%S-%f'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.DIRECTORY_FORMAT" title="Permalink to this definition">#</a></dt>
 <dd><p>Date stamp format used to create directories</p>
 </dd></dl>
+
 </dd></dl>
+
 </section>
 
         </article>
@@ -335,10 +342,10 @@ the credentials in any format supported by <a class="reference internal" href="j
                 </div>
                 <div class="title">jobflow.utils</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="jobflow.managers.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -367,8 +374,32 @@ the credentials in any format supported by <a class="reference internal" href="j
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">jobflow.settings</a><ul>
+<li><a class="reference internal" href="#jobflow.settings.JobflowSettings"><code class="docutils literal notranslate"><span class="pre">JobflowSettings</span></code></a><ul>
+<li><a class="reference internal" href="#jobflow.settings.JobflowSettings.CONFIG_FILE"><code class="docutils literal notranslate"><span class="pre">JobflowSettings.CONFIG_FILE</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.settings.JobflowSettings.JOB_STORE"><code class="docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.settings.JobflowSettings.DIRECTORY_FORMAT"><code class="docutils literal notranslate"><span class="pre">JobflowSettings.DIRECTORY_FORMAT</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -376,7 +407,9 @@ the credentials in any format supported by <a class="reference internal" href="j
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

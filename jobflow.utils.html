@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Index" href="genindex.html" /><link rel="prev" title="jobflow.settings" href="jobflow.settings.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow.utils - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,9 +240,9 @@
         </div>
         <article role="main">
           <section id="jobflow-utils">
-<h1>jobflow.utils<a class="headerlink" href="#jobflow-utils" title="Permalink to this headline">#</a></h1>
-<section id="module-jobflow.utils.dict_mods">
-<span id="jobflow-utils-dict-mods"></span><h2>jobflow.utils.dict_mods<a class="headerlink" href="#module-jobflow.utils.dict_mods" title="Permalink to this headline">#</a></h2>
+<h1>jobflow.utils<a class="headerlink" href="#jobflow-utils" title="Permalink to this heading">#</a></h1>
+<section id="jobflow-utils-dict-mods">
+<h2>jobflow.utils.dict_mods<a class="headerlink" href="#jobflow-utils-dict-mods" title="Permalink to this heading">#</a></h2>
 <p>Implementation of the DictMod language for manipulating dictionaries.</p>
 <p>This module enables the modification of a dict using another dict. The main method of
 interest is <a class="reference internal" href="#jobflow.utils.dict_mods.apply_mod" title="jobflow.utils.dict_mods.apply_mod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_mod</span></code></a>.</p>
@@ -249,7 +252,7 @@ interest is <a class="reference internal" href="#jobflow.utils.dict_mods.apply_m
 limited use cases required by jobflow.</p>
 <p>The original version of this file was written by Shyue Ping Ong and Anubhav Jain.</p>
 </div>
-<dl class="py class">
+<span class="target" id="module-jobflow.utils.dict_mods"></span><dl class="py class">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.utils.dict_mods.</span></span><span class="sig-name descname"><span class="pre">DictMods</span></span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -271,68 +274,79 @@ meanings (refer to Mongo documentation for information):</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">_set</span></code> does not support modification of nested dicts using the mongo
-<code class="docutils literal notranslate"><span class="pre">{"a.b":1}</span></code> notation. This is because mongo does not allow keys with “.” to be
+<code class="docutils literal notranslate"><span class="pre">{&quot;a.b&quot;:1}</span></code> notation. This is because mongo does not allow keys with “.” to be
 inserted. Instead, nested dict modification is supported using a special “-&gt;”
-keyword, e.g. <code class="docutils literal notranslate"><span class="pre">{"a-&gt;b":</span> <span class="pre">1}</span></code></p>
+keyword, e.g. <code class="docutils literal notranslate"><span class="pre">{&quot;a-&gt;b&quot;:</span> <span class="pre">1}</span></code></p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.set">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.set" title="Permalink to this definition">#</a></dt>
 <dd><p>Set a value.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.unset">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.unset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.unset" title="Permalink to this definition">#</a></dt>
 <dd><p>Unset a value.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.push">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.push" title="Permalink to this definition">#</a></dt>
 <dd><p>Append a value to a list or create a list it if it doesn’t exist.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.push_all">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">push_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.push_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.push_all" title="Permalink to this definition">#</a></dt>
 <dd><p>Extend a list or create a list it if it doesn’t exist.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.inc">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">inc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.inc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.inc" title="Permalink to this definition">#</a></dt>
 <dd><p>Increment a number.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.rename">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.rename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.rename" title="Permalink to this definition">#</a></dt>
 <dd><p>Rename a key.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.add_to_set">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_to_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.add_to_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.add_to_set" title="Permalink to this definition">#</a></dt>
 <dd><p>Add an item to a set or create the set if it doesn’t exist.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.pull">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.pull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.pull" title="Permalink to this definition">#</a></dt>
 <dd><p>Extract a field from a nested dictionary.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.pull_all">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pull_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.pull_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.pull_all" title="Permalink to this definition">#</a></dt>
 <dd><p>Extract many fields from a nested dictionary.</p>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods.pop">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods.pop" title="Permalink to this definition">#</a></dt>
 <dd><p>Pop a value from a list.</p>
 </dd></dl>
+
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.apply_mod">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.dict_mods.</span></span><span class="sig-name descname"><span class="pre">apply_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#apply_mod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.apply_mod" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply a dict mod to an object.</p>
 <p>Note that modify makes actual in-place modifications. It does not return a copy.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>modification</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Modification must be <code class="docutils literal notranslate"><span class="pre">{action_keyword</span> <span class="pre">:</span> <span class="pre">settings}</span></code>, where action_keyword is a
 supported DictMod.</p></li>
@@ -341,32 +355,35 @@ supported DictMod.</p></li>
 </dd>
 </dl>
 </dd></dl>
+
 </section>
-<section id="module-jobflow.utils.enum">
-<span id="jobflow-utils-enum"></span><h2>jobflow.utils.enum<a class="headerlink" href="#module-jobflow.utils.enum" title="Permalink to this headline">#</a></h2>
+<section id="jobflow-utils-enum">
+<h2>jobflow.utils.enum<a class="headerlink" href="#jobflow-utils-enum" title="Permalink to this heading">#</a></h2>
 <p>Utilities for enumerations.</p>
-<dl class="py class">
+<span class="target" id="module-jobflow.utils.enum"></span><dl class="py class">
 <dt class="sig sig-object py" id="jobflow.utils.enum.ValueEnum">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.utils.enum.</span></span><span class="sig-name descname"><span class="pre">ValueEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/enum.html#ValueEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.enum.ValueEnum" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>Enum that serializes to string as the value and can be compared against a str.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.enum.ValueEnum.as_dict">
 <span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/enum.html#ValueEnum.as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.enum.ValueEnum.as_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a serializable representation of the enum.</p>
 </dd></dl>
+
 </dd></dl>
+
 </section>
-<section id="module-jobflow.utils.find">
-<span id="jobflow-utils-find"></span><h2>jobflow.utils.find<a class="headerlink" href="#module-jobflow.utils.find" title="Permalink to this headline">#</a></h2>
+<section id="jobflow-utils-find">
+<h2>jobflow.utils.find<a class="headerlink" href="#jobflow-utils-find" title="Permalink to this heading">#</a></h2>
 <p>Tools for finding and replacing in dictionaries and other objects.</p>
-<dl class="py function">
+<span class="target" id="module-jobflow.utils.find"></span><dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.find.find_key">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.find.</span></span><span class="sig-name descname"><span class="pre">find_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/find.html#find_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.find.find_key" title="Permalink to this definition">#</a></dt>
 <dd><p>Find the route to key: value pairs in a dictionary.</p>
 <p>This function works on nested dictionaries, lists, and tuples.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
 <li><p><strong>key</strong> (<em>Hashable</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>MSONable</em><em>]</em>) – A dictionary key or MSONable class to locate.</p></li>
@@ -375,64 +392,66 @@ MSONable class.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to return nested keys or stop at the first match.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of routes to where the matches were found.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>   <span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
-<span class="gp">... </span>   <span class="s2">"c"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"d"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
+<span class="gp">... </span>   <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
+<span class="gp">... </span>   <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
 <span class="gp">... </span><span class="p">}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">)</span>
-<span class="go">[['a', 1], ['c', 'd']]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">include_end</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">[['a', 1, 'x'], ['c', 'd', 'x']]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="go">[[&#39;a&#39;, 1], [&#39;c&#39;, &#39;d&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">include_end</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[&#39;a&#39;, 1, &#39;x&#39;], [&#39;c&#39;, &#39;d&#39;, &#39;x&#39;]]</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">nested</span></code> argument can be used to control the behaviour of nested keys.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}},</span> <span class="s2">"b"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">[['a'], ['b']]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">[['a'], ['a', 'x'], ['b']]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}},</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[[&#39;a&#39;], [&#39;b&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_key</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[[&#39;a&#39;], [&#39;a&#39;, &#39;x&#39;], [&#39;b&#39;]]</span>
 </pre></div>
 </div>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.find.find_key_value">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.find.</span></span><span class="sig-name descname"><span class="pre">find_key_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/find.html#find_key_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.find.find_key_value" title="Permalink to this definition">#</a></dt>
 <dd><p>Find the route to key: value pairs in a dictionary.</p>
 <p>This function works on nested dictionaries, lists, and tuples.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
 <li><p><strong>key</strong> (<em>Hashable</em>) – A dictionary key.</p></li>
 <li><p><strong>value</strong> (<em>Hashable</em>) – A value.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tuple of routes to where the matches were found.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>   <span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
-<span class="gp">... </span>   <span class="s2">"c"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"d"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
+<span class="gp">... </span>   <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
+<span class="gp">... </span>   <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
 <span class="gp">... </span><span class="p">}</span>
-<span class="gp">... </span><span class="n">find_key_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="go">(['a', 1], ['c', 'd'])</span>
+<span class="gp">... </span><span class="n">find_key_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">([&#39;a&#39;, 1], [&#39;c&#39;, &#39;d&#39;])</span>
 </pre></div>
 </div>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.find.update_in_dictionary">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.find.</span></span><span class="sig-name descname"><span class="pre">update_in_dictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/find.html#update_in_dictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.find.update_in_dictionary" title="Permalink to this definition">#</a></dt>
 <dd><p>Update a dictionary in place at specific locations with a new values.</p>
 <p>This function works on nested dictionaries and those containing lists or tuples.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – A dictionary to update.</p></li>
 <li><p><strong>updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to perform, as a dictionary of <code class="docutils literal notranslate"><span class="pre">{location:</span> <span class="pre">update}</span></code>.</p></li>
@@ -441,74 +460,78 @@ MSONable class.</p></li>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-<span class="gp">... </span>   <span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
-<span class="gp">... </span>   <span class="s2">"c"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"d"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
+<span class="gp">... </span>   <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}],</span>
+<span class="gp">... </span>   <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}</span>
 <span class="gp">... </span><span class="p">}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">update_in_dictionary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{(</span><span class="s1">'a'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'x'</span><span class="p">):</span> <span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'x'</span><span class="p">):</span> <span class="mi">100</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">update_in_dictionary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">):</span> <span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">):</span> <span class="mi">100</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
-<span class="go">{'a': [0, {'b': 1, 'x': 100}], 'c': {'d': {'x': 100}}}</span>
+<span class="go">{&#39;a&#39;: [0, {&#39;b&#39;: 1, &#39;x&#39;: 100}], &#39;c&#39;: {&#39;d&#39;: {&#39;x&#39;: 100}}}</span>
 </pre></div>
 </div>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.find.contains_flow_or_job">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.find.</span></span><span class="sig-name descname"><span class="pre">contains_flow_or_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/find.html#contains_flow_or_job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.find.contains_flow_or_job" title="Permalink to this definition">#</a></dt>
 <dd><p>Find whether an object contains any <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> objects.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>obj</strong> (<em>Any</em>) – An object.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Whether the object contains any Flows or jobs.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
+
 </section>
-<section id="module-jobflow.utils.graph">
-<span id="jobflow-utils-graph"></span><h2>jobflow.utils.graph<a class="headerlink" href="#module-jobflow.utils.graph" title="Permalink to this headline">#</a></h2>
+<section id="jobflow-utils-graph">
+<h2>jobflow.utils.graph<a class="headerlink" href="#jobflow-utils-graph" title="Permalink to this heading">#</a></h2>
 <p>Tools for constructing Job and Flow graphs.</p>
-<dl class="py function">
+<span class="target" id="module-jobflow.utils.graph"></span><dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.graph.itergraph">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.graph.</span></span><span class="sig-name descname"><span class="pre">itergraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/graph.html#itergraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.graph.itergraph" title="Permalink to this definition">#</a></dt>
 <dd><p>Iterate through a graph using a topological sort order.</p>
 <p>This means the nodes are yielded such that for every directed edge (u v)
 node u comes before v in the ordering.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.7.1)"><em>networkx.classes.digraph.DiGraph</em></a>) – A networkx graph.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.8.7)"><em>DiGraph</em></a>) – A networkx graph.</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
 </dd>
-<dt class="field-odd">Yields</dt>
+<dt class="field-odd">Yields<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>str</em> – The node uuid.</p>
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.graph.draw_graph">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.graph.</span></span><span class="sig-name descname"><span class="pre">draw_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/graph.html#draw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.graph.draw_graph" title="Permalink to this definition">#</a></dt>
 <dd><p>Draw a networkx graph.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.7.1)"><em>networkx.classes.digraph.DiGraph</em></a>) – A graph object.</p></li>
+<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.8.7)"><em>DiGraph</em></a>) – A graph object.</p></li>
 <li><p><strong>layout_function</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/typing.html#typing.Callable" title="(in Python v3.8)"><em>Callable</em></a>) – A networkx layout function to use as the graph layout. For example,
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
 <li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The matplotlib pyplot object.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>matplotlib.pyplot</p>
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.graph.to_pydot">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.graph.</span></span><span class="sig-name descname"><span class="pre">to_pydot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/graph.html#to_pydot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.graph.to_pydot" title="Permalink to this definition">#</a></dt>
@@ -521,13 +544,13 @@ containers.</p>
 <p>Requires pydot and graphviz to be installed.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>flow</strong> (<em>jobflow.Flow</em>) – A flow.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The pydot graph.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pydot.Dot</p>
 </dd>
 </dl>
@@ -544,48 +567,51 @@ containers.</p>
 </pre></div>
 </div>
 <p>If graphviz is installed, the pydot graph can be rendered to a file using:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"output.png"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"png"</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;output.png&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
+
 </section>
-<section id="module-jobflow.utils.log">
-<span id="jobflow-utils-log"></span><h2>jobflow.utils.log<a class="headerlink" href="#module-jobflow.utils.log" title="Permalink to this headline">#</a></h2>
+<section id="jobflow-utils-log">
+<h2>jobflow.utils.log<a class="headerlink" href="#jobflow-utils-log" title="Permalink to this heading">#</a></h2>
 <p>Tools for logging.</p>
-<dl class="py function">
+<span class="target" id="module-jobflow.utils.log"></span><dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.log.initialize_logger">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.log.</span></span><span class="sig-name descname"><span class="pre">initialize_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/log.html#initialize_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.log.initialize_logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize the default logger.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The log level.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A logging instance with customized formatter and handlers.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Logger</p>
 </dd>
 </dl>
 </dd></dl>
+
 </section>
-<section id="module-jobflow.utils.uuid">
-<span id="jobflow-utils-uuid"></span><h2>jobflow.utils.uuid<a class="headerlink" href="#module-jobflow.utils.uuid" title="Permalink to this headline">#</a></h2>
+<section id="jobflow-utils-uuid">
+<h2>jobflow.utils.uuid<a class="headerlink" href="#jobflow-utils-uuid" title="Permalink to this heading">#</a></h2>
 <p>Tools for generating UUIDs.</p>
-<dl class="py function">
+<span class="target" id="module-jobflow.utils.uuid"></span><dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.uuid.suuid">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.uuid.</span></span><span class="sig-name descname"><span class="pre">suuid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/uuid.html#suuid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.uuid.suuid" title="Permalink to this definition">#</a></dt>
 <dd><p>Generate a string UUID (universally unique identifier).</p>
 <p>Uses the UUID4 specification.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A UUID.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
+
 </section>
 </section>
 
@@ -601,10 +627,10 @@ containers.</p>
                 </div>
                 <div class="title">Index</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="jobflow.settings.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -639,19 +665,58 @@ containers.</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">jobflow.utils</a><ul>
-<li><a class="reference internal" href="#module-jobflow.utils.dict_mods">jobflow.utils.dict_mods</a></li>
-<li><a class="reference internal" href="#module-jobflow.utils.enum">jobflow.utils.enum</a></li>
-<li><a class="reference internal" href="#module-jobflow.utils.find">jobflow.utils.find</a></li>
-<li><a class="reference internal" href="#module-jobflow.utils.graph">jobflow.utils.graph</a></li>
-<li><a class="reference internal" href="#module-jobflow.utils.log">jobflow.utils.log</a></li>
-<li><a class="reference internal" href="#module-jobflow.utils.uuid">jobflow.utils.uuid</a></li>
+<li><a class="reference internal" href="#jobflow-utils-dict-mods">jobflow.utils.dict_mods</a><ul>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods"><code class="docutils literal notranslate"><span class="pre">DictMods</span></code></a><ul>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.set"><code class="docutils literal notranslate"><span class="pre">DictMods.set()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.unset"><code class="docutils literal notranslate"><span class="pre">DictMods.unset()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.push"><code class="docutils literal notranslate"><span class="pre">DictMods.push()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.push_all"><code class="docutils literal notranslate"><span class="pre">DictMods.push_all()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.inc"><code class="docutils literal notranslate"><span class="pre">DictMods.inc()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.rename"><code class="docutils literal notranslate"><span class="pre">DictMods.rename()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.add_to_set"><code class="docutils literal notranslate"><span class="pre">DictMods.add_to_set()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.pull"><code class="docutils literal notranslate"><span class="pre">DictMods.pull()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.pull_all"><code class="docutils literal notranslate"><span class="pre">DictMods.pull_all()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.pop"><code class="docutils literal notranslate"><span class="pre">DictMods.pop()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jobflow.utils.dict_mods.apply_mod"><code class="docutils literal notranslate"><span class="pre">apply_mod()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jobflow-utils-enum">jobflow.utils.enum</a><ul>
+<li><a class="reference internal" href="#jobflow.utils.enum.ValueEnum"><code class="docutils literal notranslate"><span class="pre">ValueEnum</span></code></a><ul>
+<li><a class="reference internal" href="#jobflow.utils.enum.ValueEnum.as_dict"><code class="docutils literal notranslate"><span class="pre">ValueEnum.as_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jobflow-utils-find">jobflow.utils.find</a><ul>
+<li><a class="reference internal" href="#jobflow.utils.find.find_key"><code class="docutils literal notranslate"><span class="pre">find_key()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.find.find_key_value"><code class="docutils literal notranslate"><span class="pre">find_key_value()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.find.update_in_dictionary"><code class="docutils literal notranslate"><span class="pre">update_in_dictionary()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.find.contains_flow_or_job"><code class="docutils literal notranslate"><span class="pre">contains_flow_or_job()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jobflow-utils-graph">jobflow.utils.graph</a><ul>
+<li><a class="reference internal" href="#jobflow.utils.graph.itergraph"><code class="docutils literal notranslate"><span class="pre">itergraph()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.graph.draw_graph"><code class="docutils literal notranslate"><span class="pre">draw_graph()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.graph.to_pydot"><code class="docutils literal notranslate"><span class="pre">to_pydot()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jobflow-utils-log">jobflow.utils.log</a><ul>
+<li><a class="reference internal" href="#jobflow.utils.log.initialize_logger"><code class="docutils literal notranslate"><span class="pre">initialize_logger()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jobflow-utils-uuid">jobflow.utils.uuid</a><ul>
+<li><a class="reference internal" href="#jobflow.utils.uuid.suuid"><code class="docutils literal notranslate"><span class="pre">suuid()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -666,7 +731,9 @@ containers.</p>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

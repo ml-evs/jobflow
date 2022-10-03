@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.core" href="jobflow.core.html" /><link rel="prev" title="License" href="license.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -59,10 +59,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -222,7 +224,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -237,31 +240,188 @@
         </div>
         <article role="main">
           <section id="jobflow">
-<h1>jobflow<a class="headerlink" href="#jobflow" title="Permalink to this headline">#</a></h1>
+<h1>jobflow<a class="headerlink" href="#jobflow" title="Permalink to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="jobflow.core.html">jobflow.core</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#module-jobflow.core.flow">jobflow.core.flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#module-jobflow.core.job">jobflow.core.job</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#module-jobflow.core.maker">jobflow.core.maker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#module-jobflow.core.reference">jobflow.core.reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#module-jobflow.core.state">jobflow.core.state</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#module-jobflow.core.store">jobflow.core.store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#jobflow-core-flow">jobflow.core.flow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.JobOrder"><code class="docutils literal notranslate"><span class="pre">JobOrder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.JobOrder.AUTO"><code class="docutils literal notranslate"><span class="pre">JobOrder.AUTO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.JobOrder.LINEAR"><code class="docutils literal notranslate"><span class="pre">JobOrder.LINEAR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow"><code class="docutils literal notranslate"><span class="pre">Flow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.jobs"><code class="docutils literal notranslate"><span class="pre">Flow.jobs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.output"><code class="docutils literal notranslate"><span class="pre">Flow.output</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.job_uuids"><code class="docutils literal notranslate"><span class="pre">Flow.job_uuids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.all_uuids"><code class="docutils literal notranslate"><span class="pre">Flow.all_uuids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.graph"><code class="docutils literal notranslate"><span class="pre">Flow.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.host"><code class="docutils literal notranslate"><span class="pre">Flow.host</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.draw_graph"><code class="docutils literal notranslate"><span class="pre">Flow.draw_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.iterflow"><code class="docutils literal notranslate"><span class="pre">Flow.iterflow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.update_kwargs"><code class="docutils literal notranslate"><span class="pre">Flow.update_kwargs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.update_maker_kwargs"><code class="docutils literal notranslate"><span class="pre">Flow.update_maker_kwargs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.append_name"><code class="docutils literal notranslate"><span class="pre">Flow.append_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.update_metadata"><code class="docutils literal notranslate"><span class="pre">Flow.update_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.update_config"><code class="docutils literal notranslate"><span class="pre">Flow.update_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.add_hosts_uuids"><code class="docutils literal notranslate"><span class="pre">Flow.add_hosts_uuids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.add_jobs"><code class="docutils literal notranslate"><span class="pre">Flow.add_jobs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow.remove_jobs"><code class="docutils literal notranslate"><span class="pre">Flow.remove_jobs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.flow.get_flow"><code class="docutils literal notranslate"><span class="pre">get_flow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#jobflow-core-job">jobflow.core.job</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.job"><code class="docutils literal notranslate"><span class="pre">job()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job"><code class="docutils literal notranslate"><span class="pre">Job</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.input_references"><code class="docutils literal notranslate"><span class="pre">Job.input_references</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.input_uuids"><code class="docutils literal notranslate"><span class="pre">Job.input_uuids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.input_references_grouped"><code class="docutils literal notranslate"><span class="pre">Job.input_references_grouped</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.maker"><code class="docutils literal notranslate"><span class="pre">Job.maker</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.graph"><code class="docutils literal notranslate"><span class="pre">Job.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.host"><code class="docutils literal notranslate"><span class="pre">Job.host</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.set_uuid"><code class="docutils literal notranslate"><span class="pre">Job.set_uuid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.run"><code class="docutils literal notranslate"><span class="pre">Job.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.resolve_args"><code class="docutils literal notranslate"><span class="pre">Job.resolve_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.update_kwargs"><code class="docutils literal notranslate"><span class="pre">Job.update_kwargs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.update_maker_kwargs"><code class="docutils literal notranslate"><span class="pre">Job.update_maker_kwargs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.append_name"><code class="docutils literal notranslate"><span class="pre">Job.append_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.update_metadata"><code class="docutils literal notranslate"><span class="pre">Job.update_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.update_config"><code class="docutils literal notranslate"><span class="pre">Job.update_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.as_dict"><code class="docutils literal notranslate"><span class="pre">Job.as_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job.add_hosts_uuids"><code class="docutils literal notranslate"><span class="pre">Job.add_hosts_uuids()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Response"><code class="docutils literal notranslate"><span class="pre">Response</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Response.from_job_returns"><code class="docutils literal notranslate"><span class="pre">Response.from_job_returns()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.JobConfig"><code class="docutils literal notranslate"><span class="pre">JobConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.job.store_inputs"><code class="docutils literal notranslate"><span class="pre">store_inputs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#jobflow-core-maker">jobflow.core.maker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.maker.Maker"><code class="docutils literal notranslate"><span class="pre">Maker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.maker.Maker.make"><code class="docutils literal notranslate"><span class="pre">Maker.make()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.maker.Maker.name"><code class="docutils literal notranslate"><span class="pre">Maker.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.maker.Maker.update_kwargs"><code class="docutils literal notranslate"><span class="pre">Maker.update_kwargs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#jobflow-core-reference">jobflow.core.reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OnMissing"><code class="docutils literal notranslate"><span class="pre">OnMissing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OnMissing.ERROR"><code class="docutils literal notranslate"><span class="pre">OnMissing.ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OnMissing.NONE"><code class="docutils literal notranslate"><span class="pre">OnMissing.NONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OnMissing.PASS"><code class="docutils literal notranslate"><span class="pre">OnMissing.PASS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OutputReference"><code class="docutils literal notranslate"><span class="pre">OutputReference</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OutputReference.resolve"><code class="docutils literal notranslate"><span class="pre">OutputReference.resolve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OutputReference.set_uuid"><code class="docutils literal notranslate"><span class="pre">OutputReference.set_uuid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OutputReference.attributes_formatted"><code class="docutils literal notranslate"><span class="pre">OutputReference.attributes_formatted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.OutputReference.as_dict"><code class="docutils literal notranslate"><span class="pre">OutputReference.as_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.resolve_references"><code class="docutils literal notranslate"><span class="pre">resolve_references()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.find_and_resolve_references"><code class="docutils literal notranslate"><span class="pre">find_and_resolve_references()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.reference.find_and_get_references"><code class="docutils literal notranslate"><span class="pre">find_and_get_references()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#jobflow-core-state">jobflow.core.state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.core.html#jobflow-core-store">jobflow.core.store</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore"><code class="docutils literal notranslate"><span class="pre">JobStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.name"><code class="docutils literal notranslate"><span class="pre">JobStore.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.connect"><code class="docutils literal notranslate"><span class="pre">JobStore.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.close"><code class="docutils literal notranslate"><span class="pre">JobStore.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.count"><code class="docutils literal notranslate"><span class="pre">JobStore.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.query"><code class="docutils literal notranslate"><span class="pre">JobStore.query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.query_one"><code class="docutils literal notranslate"><span class="pre">JobStore.query_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.update"><code class="docutils literal notranslate"><span class="pre">JobStore.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.ensure_index"><code class="docutils literal notranslate"><span class="pre">JobStore.ensure_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.groupby"><code class="docutils literal notranslate"><span class="pre">JobStore.groupby()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.remove_docs"><code class="docutils literal notranslate"><span class="pre">JobStore.remove_docs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.get_output"><code class="docutils literal notranslate"><span class="pre">JobStore.get_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.from_file"><code class="docutils literal notranslate"><span class="pre">JobStore.from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.from_dict_spec"><code class="docutils literal notranslate"><span class="pre">JobStore.from_dict_spec()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="jobflow.managers.html">jobflow.managers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html#module-jobflow.managers.local">jobflow.managers.local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html#module-jobflow.managers.fireworks">jobflow.managers.fireworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html#jobflow-managers-local">jobflow.managers.local</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.managers.html#jobflow.managers.local.run_locally"><code class="docutils literal notranslate"><span class="pre">run_locally()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="jobflow.settings.html">jobflow.settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html#jobflow-managers-fireworks">jobflow.managers.fireworks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.managers.html#jobflow.managers.fireworks.flow_to_workflow"><code class="docutils literal notranslate"><span class="pre">flow_to_workflow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.managers.html#jobflow.managers.fireworks.job_to_firework"><code class="docutils literal notranslate"><span class="pre">job_to_firework()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.managers.html#jobflow.managers.fireworks.JobFiretask"><code class="docutils literal notranslate"><span class="pre">JobFiretask</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.managers.html#jobflow.managers.fireworks.JobFiretask.run_task"><code class="docutils literal notranslate"><span class="pre">JobFiretask.run_task()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jobflow.settings.html">jobflow.settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.settings.html#jobflow.settings.JobflowSettings"><code class="docutils literal notranslate"><span class="pre">JobflowSettings</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.settings.html#jobflow.settings.JobflowSettings.CONFIG_FILE"><code class="docutils literal notranslate"><span class="pre">JobflowSettings.CONFIG_FILE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.settings.html#jobflow.settings.JobflowSettings.JOB_STORE"><code class="docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.settings.html#jobflow.settings.JobflowSettings.DIRECTORY_FORMAT"><code class="docutils literal notranslate"><span class="pre">JobflowSettings.DIRECTORY_FORMAT</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="jobflow.utils.html">jobflow.utils</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#module-jobflow.utils.dict_mods">jobflow.utils.dict_mods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#module-jobflow.utils.enum">jobflow.utils.enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#module-jobflow.utils.find">jobflow.utils.find</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#module-jobflow.utils.graph">jobflow.utils.graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#module-jobflow.utils.log">jobflow.utils.log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#module-jobflow.utils.uuid">jobflow.utils.uuid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#jobflow-utils-dict-mods">jobflow.utils.dict_mods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods"><code class="docutils literal notranslate"><span class="pre">DictMods</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.set"><code class="docutils literal notranslate"><span class="pre">DictMods.set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.unset"><code class="docutils literal notranslate"><span class="pre">DictMods.unset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.push"><code class="docutils literal notranslate"><span class="pre">DictMods.push()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.push_all"><code class="docutils literal notranslate"><span class="pre">DictMods.push_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.inc"><code class="docutils literal notranslate"><span class="pre">DictMods.inc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.rename"><code class="docutils literal notranslate"><span class="pre">DictMods.rename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.add_to_set"><code class="docutils literal notranslate"><span class="pre">DictMods.add_to_set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.pull"><code class="docutils literal notranslate"><span class="pre">DictMods.pull()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.pull_all"><code class="docutils literal notranslate"><span class="pre">DictMods.pull_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods.pop"><code class="docutils literal notranslate"><span class="pre">DictMods.pop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.apply_mod"><code class="docutils literal notranslate"><span class="pre">apply_mod()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#jobflow-utils-enum">jobflow.utils.enum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.enum.ValueEnum"><code class="docutils literal notranslate"><span class="pre">ValueEnum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.enum.ValueEnum.as_dict"><code class="docutils literal notranslate"><span class="pre">ValueEnum.as_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#jobflow-utils-find">jobflow.utils.find</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.find.find_key"><code class="docutils literal notranslate"><span class="pre">find_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.find.find_key_value"><code class="docutils literal notranslate"><span class="pre">find_key_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.find.update_in_dictionary"><code class="docutils literal notranslate"><span class="pre">update_in_dictionary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.find.contains_flow_or_job"><code class="docutils literal notranslate"><span class="pre">contains_flow_or_job()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#jobflow-utils-graph">jobflow.utils.graph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.graph.itergraph"><code class="docutils literal notranslate"><span class="pre">itergraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.graph.draw_graph"><code class="docutils literal notranslate"><span class="pre">draw_graph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.graph.to_pydot"><code class="docutils literal notranslate"><span class="pre">to_pydot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#jobflow-utils-log">jobflow.utils.log</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.log.initialize_logger"><code class="docutils literal notranslate"><span class="pre">initialize_logger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="jobflow.utils.html#jobflow-utils-uuid">jobflow.utils.uuid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="jobflow.utils.html#jobflow.utils.uuid.suuid"><code class="docutils literal notranslate"><span class="pre">suuid()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -280,10 +440,10 @@
                 </div>
                 <div class="title">jobflow.core</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="license.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -321,7 +481,9 @@
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

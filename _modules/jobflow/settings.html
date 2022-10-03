@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
         <title>jobflow.settings - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -58,10 +58,12 @@
   }
 </style></head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -221,7 +223,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -236,8 +239,9 @@
         </div>
         <article role="main">
           <h1>Source code for jobflow.settings</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Settings for jobflow."""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Settings for jobflow.&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span> <span class="nn">maggma.stores</span> <span class="kn">import</span> <span class="n">MemoryStore</span>
@@ -245,13 +249,24 @@
 
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">JobStore</span>
 
-<span class="n">DEFAULT_CONFIG_FILE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"~/.jobflow.yaml"</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
+<span class="n">DEFAULT_CONFIG_FILE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/.jobflow.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">()</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"JobflowSettings"</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;JobflowSettings&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_default_additional_store</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Create a default MemoryStore and connect it.</span>
+
+<span class="sd">    This is a private function used for the additional_stores in</span>
+<span class="sd">    the default JOB_STORE.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mem_store</span> <span class="o">=</span> <span class="n">MemoryStore</span><span class="p">()</span>
+    <span class="n">mem_store</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">mem_store</span>
 
 
 <div class="viewcode-block" id="JobflowSettings"><a class="viewcode-back" href="../../jobflow.settings.html#jobflow.settings.JobflowSettings">[docs]</a><span class="k">class</span> <span class="nc">JobflowSettings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Settings for jobflow.</span>
 
 <span class="sd">    The default way to modify these is to modify ~/.jobflow.yaml. Alternatively,</span>
@@ -259,7 +274,7 @@
 <span class="sd">    with jobflow settings.</span>
 
 <span class="sd">    Lastly, the variables can be modified directly though environment variables by</span>
-<span class="sd">    using the "JOBFLOW" prefix. E..g., ``JOBFLOW_JOB_STORE=path/to/jobstore.file``.</span>
+<span class="sd">    using the &quot;JOBFLOW&quot; prefix. E..g., ``JOBFLOW_JOB_STORE=path/to/jobstore.file``.</span>
 
 <span class="sd">    **Allowed JOB_STORE formats**</span>
 
@@ -323,54 +338,57 @@
 
 <span class="sd">    Lastly, the store can be specified as a file name that points to a file containing</span>
 <span class="sd">    the credentials in any format supported by :obj:`.JobStore.from_file`.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">CONFIG_FILE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">DEFAULT_CONFIG_FILE_PATH</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"File to load alternative defaults from."</span>
+        <span class="n">DEFAULT_CONFIG_FILE_PATH</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;File to load alternative defaults from.&quot;</span>
     <span class="p">)</span>
 
     <span class="c1"># general settings</span>
     <span class="n">JOB_STORE</span><span class="p">:</span> <span class="n">JobStore</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">JobStore</span><span class="p">(</span><span class="n">MemoryStore</span><span class="p">()),</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">"Default JobStore to use when running locally or using FireWorks. "</span>
-        <span class="s2">"See the :obj:`JobflowSettings` docstring for more details on the "</span>
-        <span class="s2">"accepted formats."</span><span class="p">,</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">JobStore</span><span class="p">(</span>
+            <span class="n">MemoryStore</span><span class="p">(),</span>
+            <span class="n">additional_stores</span><span class="o">=</span><span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_default_additional_store</span><span class="p">()),</span>
+        <span class="p">),</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Default JobStore to use when running locally or using FireWorks. &quot;</span>
+        <span class="s2">&quot;See the :obj:`JobflowSettings` docstring for more details on the &quot;</span>
+        <span class="s2">&quot;accepted formats.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">DIRECTORY_FORMAT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">-%H-%M-%S-</span><span class="si">%f</span><span class="s2">"</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">"Date stamp format used to create directories"</span><span class="p">,</span>
+        <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">-%H-%M-%S-</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Date stamp format used to create directories&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-        <span class="sd">"""Pydantic config settings."""</span>
+        <span class="sd">&quot;&quot;&quot;Pydantic config settings.&quot;&quot;&quot;</span>
 
-        <span class="n">env_prefix</span> <span class="o">=</span> <span class="s2">"jobflow_"</span>
+        <span class="n">env_prefix</span> <span class="o">=</span> <span class="s2">&quot;jobflow_&quot;</span>
 
     <span class="nd">@root_validator</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">load_default_settings</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-        <span class="sd">"""</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load settings from file or environment variables.</span>
 
 <span class="sd">        Loads settings from a root file if available and uses that as defaults in</span>
 <span class="sd">        place of built in defaults.</span>
 
 <span class="sd">        This allows setting of the config file path through environment variables.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">monty.serialization</span> <span class="kn">import</span> <span class="n">loadfn</span>
 
-        <span class="n">config_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"CONFIG_FILE"</span><span class="p">,</span> <span class="n">DEFAULT_CONFIG_FILE_PATH</span><span class="p">)</span>
+        <span class="n">config_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CONFIG_FILE&quot;</span><span class="p">,</span> <span class="n">DEFAULT_CONFIG_FILE_PATH</span><span class="p">)</span>
 
         <span class="n">new_values</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">config_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="n">new_values</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">loadfn</span><span class="p">(</span><span class="n">config_file_path</span><span class="p">))</span>
 
-        <span class="n">store</span> <span class="o">=</span> <span class="n">new_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"JOB_STORE"</span><span class="p">)</span>
+        <span class="n">store</span> <span class="o">=</span> <span class="n">new_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;JOB_STORE&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">new_values</span><span class="p">[</span><span class="s2">"JOB_STORE"</span><span class="p">]</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@class"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"JobStore"</span><span class="p">:</span>
-            <span class="n">new_values</span><span class="p">[</span><span class="s2">"JOB_STORE"</span><span class="p">]</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+            <span class="n">new_values</span><span class="p">[</span><span class="s2">&quot;JOB_STORE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;@class&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;JobStore&quot;</span><span class="p">:</span>
+            <span class="n">new_values</span><span class="p">[</span><span class="s2">&quot;JOB_STORE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">new_values</span><span class="p">[</span><span class="s2">"JOB_STORE"</span><span class="p">]</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_dict_spec</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+            <span class="n">new_values</span><span class="p">[</span><span class="s2">&quot;JOB_STORE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">JobStore</span><span class="o">.</span><span class="n">from_dict_spec</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
 
         <span class="n">new_values</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_values</span></div>
@@ -410,7 +428,9 @@
 </div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
