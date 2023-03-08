@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Index" href="genindex.html" /><link rel="prev" title="jobflow.settings" href="jobflow.settings.html" />
 
-    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>jobflow.utils - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -172,7 +172,7 @@
   <span class="sidebar-brand-text">jobflow</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -185,6 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorials/1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/3-defining-jobs.html">Defining jobs in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-generalized-makers.html">Writing generalized Makers</a></li>
 </ul>
 </li>
 </ul>
@@ -225,7 +226,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -241,8 +243,8 @@
         <article role="main">
           <section id="jobflow-utils">
 <h1>jobflow.utils<a class="headerlink" href="#jobflow-utils" title="Permalink to this heading">#</a></h1>
-<section id="jobflow-utils-dict-mods">
-<h2>jobflow.utils.dict_mods<a class="headerlink" href="#jobflow-utils-dict-mods" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.utils.dict_mods">
+<span id="jobflow-utils-dict-mods"></span><h2>jobflow.utils.dict_mods<a class="headerlink" href="#module-jobflow.utils.dict_mods" title="Permalink to this heading">#</a></h2>
 <p>Implementation of the DictMod language for manipulating dictionaries.</p>
 <p>This module enables the modification of a dict using another dict. The main method of
 interest is <a class="reference internal" href="#jobflow.utils.dict_mods.apply_mod" title="jobflow.utils.dict_mods.apply_mod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_mod</span></code></a>.</p>
@@ -252,7 +254,7 @@ interest is <a class="reference internal" href="#jobflow.utils.dict_mods.apply_m
 limited use cases required by jobflow.</p>
 <p>The original version of this file was written by Shyue Ping Ong and Anubhav Jain.</p>
 </div>
-<span class="target" id="module-jobflow.utils.dict_mods"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.utils.dict_mods.</span></span><span class="sig-name descname"><span class="pre">DictMods</span></span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -357,10 +359,10 @@ supported DictMod.</p></li>
 </dd></dl>
 
 </section>
-<section id="jobflow-utils-enum">
-<h2>jobflow.utils.enum<a class="headerlink" href="#jobflow-utils-enum" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.utils.enum">
+<span id="jobflow-utils-enum"></span><h2>jobflow.utils.enum<a class="headerlink" href="#module-jobflow.utils.enum" title="Permalink to this heading">#</a></h2>
 <p>Utilities for enumerations.</p>
-<span class="target" id="module-jobflow.utils.enum"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="jobflow.utils.enum.ValueEnum">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.utils.enum.</span></span><span class="sig-name descname"><span class="pre">ValueEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/enum.html#ValueEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.enum.ValueEnum" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
@@ -374,10 +376,10 @@ supported DictMod.</p></li>
 </dd></dl>
 
 </section>
-<section id="jobflow-utils-find">
-<h2>jobflow.utils.find<a class="headerlink" href="#jobflow-utils-find" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.utils.find">
+<span id="jobflow-utils-find"></span><h2>jobflow.utils.find<a class="headerlink" href="#module-jobflow.utils.find" title="Permalink to this heading">#</a></h2>
 <p>Tools for finding and replacing in dictionaries and other objects.</p>
-<span class="target" id="module-jobflow.utils.find"></span><dl class="py function">
+<dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.find.find_key">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.find.</span></span><span class="sig-name descname"><span class="pre">find_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/find.html#find_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.find.find_key" title="Permalink to this definition">#</a></dt>
 <dd><p>Find the route to key: value pairs in a dictionary.</p>
@@ -488,10 +490,10 @@ MSONable class.</p></li>
 </dd></dl>
 
 </section>
-<section id="jobflow-utils-graph">
-<h2>jobflow.utils.graph<a class="headerlink" href="#jobflow-utils-graph" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.utils.graph">
+<span id="jobflow-utils-graph"></span><h2>jobflow.utils.graph<a class="headerlink" href="#module-jobflow.utils.graph" title="Permalink to this heading">#</a></h2>
 <p>Tools for constructing Job and Flow graphs.</p>
-<span class="target" id="module-jobflow.utils.graph"></span><dl class="py function">
+<dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.graph.itergraph">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.graph.</span></span><span class="sig-name descname"><span class="pre">itergraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/graph.html#itergraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.graph.itergraph" title="Permalink to this definition">#</a></dt>
 <dd><p>Iterate through a graph using a topological sort order.</p>
@@ -499,7 +501,7 @@ MSONable class.</p></li>
 node u comes before v in the ordering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.8.7)"><em>DiGraph</em></a>) – A networkx graph.</p>
+<dd class="field-odd"><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v3.0)"><em>DiGraph</em></a>) – A networkx graph.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
@@ -517,7 +519,7 @@ node u comes before v in the ordering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v2.8.7)"><em>DiGraph</em></a>) – A graph object.</p></li>
+<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v3.0)"><em>DiGraph</em></a>) – A graph object.</p></li>
 <li><p><strong>layout_function</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/typing.html#typing.Callable" title="(in Python v3.8)"><em>Callable</em></a>) – A networkx layout function to use as the graph layout. For example,
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
 <li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
@@ -573,10 +575,10 @@ containers.</p>
 </dd></dl>
 
 </section>
-<section id="jobflow-utils-log">
-<h2>jobflow.utils.log<a class="headerlink" href="#jobflow-utils-log" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.utils.log">
+<span id="jobflow-utils-log"></span><h2>jobflow.utils.log<a class="headerlink" href="#module-jobflow.utils.log" title="Permalink to this heading">#</a></h2>
 <p>Tools for logging.</p>
-<span class="target" id="module-jobflow.utils.log"></span><dl class="py function">
+<dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.log.initialize_logger">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.log.</span></span><span class="sig-name descname"><span class="pre">initialize_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/log.html#initialize_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.log.initialize_logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize the default logger.</p>
@@ -594,10 +596,10 @@ containers.</p>
 </dd></dl>
 
 </section>
-<section id="jobflow-utils-uuid">
-<h2>jobflow.utils.uuid<a class="headerlink" href="#jobflow-utils-uuid" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.utils.uuid">
+<span id="jobflow-utils-uuid"></span><h2>jobflow.utils.uuid<a class="headerlink" href="#module-jobflow.utils.uuid" title="Permalink to this heading">#</a></h2>
 <p>Tools for generating UUIDs.</p>
-<span class="target" id="module-jobflow.utils.uuid"></span><dl class="py function">
+<dl class="py function">
 <dt class="sig sig-object py" id="jobflow.utils.uuid.suuid">
 <span class="sig-prename descclassname"><span class="pre">jobflow.utils.uuid.</span></span><span class="sig-name descname"><span class="pre">suuid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/uuid.html#suuid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.uuid.suuid" title="Permalink to this definition">#</a></dt>
 <dd><p>Generate a string UUID (universally unique identifier).</p>
@@ -651,9 +653,7 @@ containers.</p>
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -672,7 +672,7 @@ containers.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">jobflow.utils</a><ul>
-<li><a class="reference internal" href="#jobflow-utils-dict-mods">jobflow.utils.dict_mods</a><ul>
+<li><a class="reference internal" href="#module-jobflow.utils.dict_mods">jobflow.utils.dict_mods</a><ul>
 <li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods"><code class="docutils literal notranslate"><span class="pre">DictMods</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.set"><code class="docutils literal notranslate"><span class="pre">DictMods.set()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.dict_mods.DictMods.unset"><code class="docutils literal notranslate"><span class="pre">DictMods.unset()</span></code></a></li>
@@ -689,31 +689,31 @@ containers.</p>
 <li><a class="reference internal" href="#jobflow.utils.dict_mods.apply_mod"><code class="docutils literal notranslate"><span class="pre">apply_mod()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-utils-enum">jobflow.utils.enum</a><ul>
+<li><a class="reference internal" href="#module-jobflow.utils.enum">jobflow.utils.enum</a><ul>
 <li><a class="reference internal" href="#jobflow.utils.enum.ValueEnum"><code class="docutils literal notranslate"><span class="pre">ValueEnum</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.utils.enum.ValueEnum.as_dict"><code class="docutils literal notranslate"><span class="pre">ValueEnum.as_dict()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-utils-find">jobflow.utils.find</a><ul>
+<li><a class="reference internal" href="#module-jobflow.utils.find">jobflow.utils.find</a><ul>
 <li><a class="reference internal" href="#jobflow.utils.find.find_key"><code class="docutils literal notranslate"><span class="pre">find_key()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.find.find_key_value"><code class="docutils literal notranslate"><span class="pre">find_key_value()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.find.update_in_dictionary"><code class="docutils literal notranslate"><span class="pre">update_in_dictionary()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.find.contains_flow_or_job"><code class="docutils literal notranslate"><span class="pre">contains_flow_or_job()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-utils-graph">jobflow.utils.graph</a><ul>
+<li><a class="reference internal" href="#module-jobflow.utils.graph">jobflow.utils.graph</a><ul>
 <li><a class="reference internal" href="#jobflow.utils.graph.itergraph"><code class="docutils literal notranslate"><span class="pre">itergraph()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.graph.draw_graph"><code class="docutils literal notranslate"><span class="pre">draw_graph()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.graph.to_pydot"><code class="docutils literal notranslate"><span class="pre">to_pydot()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-utils-log">jobflow.utils.log</a><ul>
+<li><a class="reference internal" href="#module-jobflow.utils.log">jobflow.utils.log</a><ul>
 <li><a class="reference internal" href="#jobflow.utils.log.initialize_logger"><code class="docutils literal notranslate"><span class="pre">initialize_logger()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-utils-uuid">jobflow.utils.uuid</a><ul>
+<li><a class="reference internal" href="#module-jobflow.utils.uuid">jobflow.utils.uuid</a><ul>
 <li><a class="reference internal" href="#jobflow.utils.uuid.suuid"><code class="docutils literal notranslate"><span class="pre">suuid()</span></code></a></li>
 </ul>
 </li>
@@ -729,9 +729,6 @@ containers.</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

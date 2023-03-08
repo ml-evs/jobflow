@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.managers" href="jobflow.managers.html" /><link rel="prev" title="jobflow" href="jobflow.html" />
 
-    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>jobflow.core - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -172,7 +172,7 @@
   <span class="sidebar-brand-text">jobflow</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -185,6 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorials/1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/3-defining-jobs.html">Defining jobs in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-generalized-makers.html">Writing generalized Makers</a></li>
 </ul>
 </li>
 </ul>
@@ -225,7 +226,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -241,10 +243,10 @@
         <article role="main">
           <section id="jobflow-core">
 <h1>jobflow.core<a class="headerlink" href="#jobflow-core" title="Permalink to this heading">#</a></h1>
-<section id="jobflow-core-flow">
-<h2>jobflow.core.flow<a class="headerlink" href="#jobflow-core-flow" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.core.flow">
+<span id="jobflow-core-flow"></span><h2>jobflow.core.flow<a class="headerlink" href="#module-jobflow.core.flow" title="Permalink to this heading">#</a></h2>
 <p>Define base Flow object.</p>
-<span class="target" id="module-jobflow.core.flow"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.flow.JobOrder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">JobOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#JobOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.JobOrder" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="jobflow.utils.html#jobflow.utils.enum.ValueEnum" title="jobflow.utils.enum.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueEnum</span></code></a></p>
@@ -269,7 +271,7 @@ references.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">Flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Flow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">JobOrder.AUTO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.Flow" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2022.9.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
 <p>A Flow contains a collection of Jobs or other Flows to execute.</p>
 <p>The <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object is the main tool for constructing workflows. Flows
 can either contain Jobs or other Flows. Like <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, Flow objects
@@ -505,8 +507,9 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be updated.
-Includes partial matches, e.g. “ad” will match a Maker with the name “adder”.</p></li>
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be
+updated. Includes partial matches, e.g. “ad” will match a Maker with the
+name “adder”.</p></li>
 <li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>jobflow.Maker</em><em>] </em><em>| </em><em>None</em>) – A filter for the maker class. Only Makers with a matching class will be
 updated. Note the class filter will match any subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
@@ -606,7 +609,8 @@ Includes partial matches, e.g. “ad” will match a job with the name “adder�
 updated.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
-<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at runtime.</p></li>
+<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at
+runtime.</p></li>
 </ul>
 </dd>
 </dl>
@@ -642,7 +646,8 @@ Includes partial matches, e.g. “ad” will match a job with the name “adder�
 updated.</p></li>
 <li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Which attributes of the job config to set. Can be specified as one or more
 attributes specified by their name.</p></li>
-<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at runtime.</p></li>
+<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at
+runtime.</p></li>
 </ul>
 </dd>
 </dl>
@@ -744,10 +749,10 @@ automatically to the incoming Jobs/Flows based on the hosts of the current Flow.
 </dd></dl>
 
 </section>
-<section id="jobflow-core-job">
-<h2>jobflow.core.job<a class="headerlink" href="#jobflow-core-job" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.core.job">
+<span id="jobflow-core-job"></span><h2>jobflow.core.job<a class="headerlink" href="#module-jobflow.core.job" title="Permalink to this heading">#</a></h2>
 <p>Functions and classes for representing Job objects.</p>
-<span class="target" id="module-jobflow.core.job"></span><dl class="py function">
+<dl class="py function">
 <dt class="sig sig-object py" id="jobflow.core.job.job">
 <span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">job_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.job" title="Permalink to this definition">#</a></dt>
 <dd><p>Wrap a function to produce a <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a>.</p>
@@ -798,9 +803,9 @@ attribute of the job.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Because the task has not yet been run, the output value is <code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code>
-object. References are automatically converted to their computed values
-(resolved) when the task runs.</p>
+<p>Because the task has not yet been run, the output value is an
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code> object. References are automatically converted to their
+computed values (resolved) when the task runs.</p>
 </div>
 <p>If a dictionary of values is returned, the values can be indexed in the usual
 way.</p>
@@ -853,7 +858,7 @@ details.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.Job">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_updates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_updates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2022.9.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
 <p>A <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
 the <a class="reference internal" href="#jobflow.core.job.job" title="jobflow.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a> decorator on a function. Any calls to a decorated function will
@@ -874,9 +879,10 @@ class) can be used, provided the class is <code class="xref py py-obj docutils l
 <li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the job output.</p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><em>JobConfig</em></a>) – The config setting for the job.</p></li>
 <li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – The list of UUIDs of the hosts containing the job. The object identified by one
-UUID of the list should be contained in objects identified by its subsequent elements.</p></li>
-<li><p><strong>metadata_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>] </em><em>| </em><em>None</em>) – A list of updates for the metadata that will be applied to any Flow/Job generated
-by the job.</p></li>
+UUID of the list should be contained in objects identified by its subsequent
+elements.</p></li>
+<li><p><strong>metadata_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>] </em><em>| </em><em>None</em>) – A list of updates for the metadata that will be applied to any Flow/Job
+generated by the job.</p></li>
 <li><p><strong>config_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>] </em><em>| </em><em>None</em>) – A list of updates for the config that will be applied to any Flow/Job generated
 by the job.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments that can be used to specify which outputs to save
@@ -1105,8 +1111,9 @@ details.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be updated.
-Includes partial matches, e.g. “ad” will match a Maker with the name “adder”.</p></li>
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be
+updated. Includes partial matches, e.g. “ad” will match a Maker with the
+name “adder”.</p></li>
 <li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>jobflow.Maker</em><em>] </em><em>| </em><em>None</em>) – A filter for the maker class. Only Makers with a matching class will be
 updated. Note the class filter will match any subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
@@ -1197,13 +1204,14 @@ Includes partial matches, e.g. “ad” will match a job with the name “adder�
 updated.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
-<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at runtime.</p></li>
+<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at
+runtime.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>Consider a simple job that makes use of a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code> to generate additional jobs
-at runtime (see <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> options for more details):</p>
+<p>Consider a simple job that makes use of a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code> to generate additional
+jobs at runtime (see <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> options for more details):</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@job</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">use_maker</span><span class="p">(</span><span class="n">maker</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">replace</span><span class="o">=</span><span class="n">maker</span><span class="o">.</span><span class="n">make</span><span class="p">())</span>
@@ -1238,7 +1246,8 @@ Includes partial matches, e.g. “ad” will match a job with the name “adder�
 updated.</p></li>
 <li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Which attributes of the job config to set. Can be specified as one or more
 attributes specified by their name.</p></li>
-<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at runtime.</p></li>
+<li><p><strong>dynamic</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – The updates will be propagated to Jobs/Flows dynamically generated at
+runtime.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1258,9 +1267,9 @@ attributes specified by their name.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span><span class="o">.</span><span class="n">update_config</span><span class="p">(</span><span class="n">new_config</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>To only update specific attributes, the <code class="docutils literal notranslate"><span class="pre">attributes</span></code> argument can be specified.
-For example, the following will only update the “manager_config” attribute of the
-job config.</p>
+<p>To only update specific attributes, the <code class="docutils literal notranslate"><span class="pre">attributes</span></code> argument can be
+specified. For example, the following will only update the “manager_config”
+attribute of the job config.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_job</span><span class="o">.</span><span class="n">update_config</span><span class="p">(</span><span class="n">new_config</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="s2">&quot;manager_config&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1323,12 +1332,12 @@ identified by its subsequent elements.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.Response">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stored_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_children</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_jobflow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Response" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/typing.html#typing.Generic" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>The <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> contains the output, detours, and stop commands of a job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output</strong> (<em>Any</em><em> | </em><em>None</em>) – The job output.</p></li>
+<li><p><strong>output</strong> (<em>T</em><em> | </em><em>None</em>) – The job output.</p></li>
 <li><p><strong>detour</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>] </em><em>| </em><em>None</em>) – A flow or job to detour to.</p></li>
 <li><p><strong>addition</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>] </em><em>| </em><em>None</em>) – A flow or job to add to the current flow.</p></li>
 <li><p><strong>replace</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>] </em><em>| </em><em>None</em>) – A flow or job to replace the current job.</p></li>
@@ -1370,7 +1379,7 @@ outputs.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.JobConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">JobConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolve_references=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_missing_references=OnMissing.ERROR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager_config=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expose_store=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pass_manager_config=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_manager_config=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2022.9.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
 <p>The configuration parameters for a job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1386,8 +1395,8 @@ error.</p></li>
 replacement jobs.</p></li>
 <li><p><strong>response_manager_config</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The custom configuration to pass to a detour, addition, or replacement job.
 Using this kwarg will automatically take precedence over the behavior of
-<code class="docutils literal notranslate"><span class="pre">pass_manager_config</span></code> such that a different configuration than <code class="docutils literal notranslate"><span class="pre">manger_config</span></code>
-can be passed to downstream jobs.</p></li>
+<code class="docutils literal notranslate"><span class="pre">pass_manager_config</span></code> such that a different configuration than
+<code class="docutils literal notranslate"><span class="pre">manger_config</span></code> can be passed to downstream jobs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1416,13 +1425,13 @@ references will be replaced with <code class="docutils literal notranslate"><spa
 </dd></dl>
 
 </section>
-<section id="jobflow-core-maker">
-<h2>jobflow.core.maker<a class="headerlink" href="#jobflow-core-maker" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.core.maker">
+<span id="jobflow-core-maker"></span><h2>jobflow.core.maker<a class="headerlink" href="#module-jobflow.core.maker" title="Permalink to this heading">#</a></h2>
 <p>Define base Maker class for creating jobs and flows.</p>
-<span class="target" id="module-jobflow.core.maker"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.maker.Maker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></span><span class="sig-name descname"><span class="pre">Maker</span></span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2022.9.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
 <p>Base maker (factory) class for constructing <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> objects.</p>
 <p>Note, this class is only an abstract implementation. To create a functioning Maker,
 one should  subclass <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a>, define the <code class="docutils literal notranslate"><span class="pre">make</span></code> method and add a name field
@@ -1553,8 +1562,9 @@ returned.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be updated.
-Includes partial matches, e.g. “ad” will match a Maker with the name “adder”.</p></li>
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be
+updated. Includes partial matches, e.g. “ad” will match a Maker with the
+name “adder”.</p></li>
 <li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><em>Maker</em></a><em>] </em><em>| </em><em>None</em>) – A filter for the maker class. Only Makers with a matching class will be
 updated. Note the class filter will match any subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
@@ -1617,10 +1627,10 @@ Maker:</p>
 </dd></dl>
 
 </section>
-<section id="jobflow-core-reference">
-<h2>jobflow.core.reference<a class="headerlink" href="#jobflow-core-reference" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.core.reference">
+<span id="jobflow-core-reference"></span><h2>jobflow.core.reference<a class="headerlink" href="#module-jobflow.core.reference" title="Permalink to this heading">#</a></h2>
 <p>Define classes for handling job outputs.</p>
-<span class="target" id="module-jobflow.core.reference"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.reference.OnMissing">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OnMissing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OnMissing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OnMissing" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="jobflow.utils.html#jobflow.utils.enum.ValueEnum" title="jobflow.utils.enum.ValueEnum"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueEnum</span></code></a></p>
@@ -1650,7 +1660,7 @@ Maker:</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.reference.OutputReference">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OutputReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2022.9.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
 <p>A reference to the output of a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code>.</p>
 <p>The output may or may not exist yet. Accordingly, <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects
 are essentially pointers to future job outputs. Output references can be used as
@@ -1834,8 +1844,8 @@ value of <code class="docutils literal notranslate"><span class="pre">on_missing
 </dd></dl>
 
 </section>
-<section id="jobflow-core-state">
-<h2>jobflow.core.state<a class="headerlink" href="#jobflow-core-state" title="Permalink to this heading">#</a></h2>
+<section id="module-jobflow.core.state">
+<span id="jobflow-core-state"></span><h2>jobflow.core.state<a class="headerlink" href="#module-jobflow.core.state" title="Permalink to this heading">#</a></h2>
 <p>Stateful interface for accessing the current job (and store).</p>
 <p>This module defines the <code class="docutils literal notranslate"><span class="pre">CURRENT_JOB</span></code> object which has two attributes:</p>
 <ul class="simple">
@@ -1843,11 +1853,11 @@ value of <code class="docutils literal notranslate"><span class="pre">on_missing
 <li><p><code class="docutils literal notranslate"><span class="pre">store</span></code>: Containing the current store. Only available if <code class="docutils literal notranslate"><span class="pre">expose_store</span></code> is set in
 the job config.</p></li>
 </ul>
-<span class="target" id="module-jobflow.core.state"></span></section>
-<section id="jobflow-core-store">
-<h2>jobflow.core.store<a class="headerlink" href="#jobflow-core-store" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-jobflow.core.store">
+<span id="jobflow-core-store"></span><h2>jobflow.core.store<a class="headerlink" href="#module-jobflow.core.store" title="Permalink to this heading">#</a></h2>
 <p>Define the primary jobflow database interface.</p>
-<span class="target" id="module-jobflow.core.store"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.store.JobStore">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.store.</span></span><span class="sig-name descname"><span class="pre">JobStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_stores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/store.html#JobStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.store.JobStore" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Store</span></code></p>
@@ -2102,19 +2112,19 @@ match a Maggma <code class="docutils literal notranslate"><span class="pre">Stor
 the store constructor. For example, the following file would  create a
 <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> with a <code class="docutils literal notranslate"><span class="pre">MongoStore</span></code> for docs and a <code class="docutils literal notranslate"><span class="pre">GridFSStore</span></code> as an
 additional store for data.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span><span class="w"></span>
-<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span><span class="w"></span>
-<span class="w">  </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs</span><span class="w"></span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span><span class="w"></span>
-<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span><span class="w"></span>
-<span class="nt">additional_stores</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GridFSStore</span><span class="w"></span>
-<span class="w">    </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span><span class="w"></span>
-<span class="w">    </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs_blobs</span><span class="w"></span>
-<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span><span class="w"></span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+<span class="w">  </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span>
+<span class="nt">additional_stores</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GridFSStore</span>
+<span class="w">    </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+<span class="w">    </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs_blobs</span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -2151,19 +2161,19 @@ match a Maggma <code class="docutils literal notranslate"><span class="pre">Stor
 the store constructor. For example, the following file would  create a
 <a class="reference internal" href="#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore</span></code></a> with a <code class="docutils literal notranslate"><span class="pre">MongoStore</span></code> for docs and a <code class="docutils literal notranslate"><span class="pre">GridFSStore</span></code> as an
 additional store for data.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span><span class="w"></span>
-<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span><span class="w"></span>
-<span class="w">  </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs</span><span class="w"></span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span><span class="w"></span>
-<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span><span class="w"></span>
-<span class="nt">additional_stores</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GridFSStore</span><span class="w"></span>
-<span class="w">    </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span><span class="w"></span>
-<span class="w">    </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs_blobs</span><span class="w"></span>
-<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span><span class="w"></span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">docs_store</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span>
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+<span class="w">  </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span>
+<span class="nt">additional_stores</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GridFSStore</span>
+<span class="w">    </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jobflow_unittest</span>
+<span class="w">    </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outputs_blobs</span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -2223,9 +2233,7 @@ additional store for data.</p>
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -2244,7 +2252,7 @@ additional store for data.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">jobflow.core</a><ul>
-<li><a class="reference internal" href="#jobflow-core-flow">jobflow.core.flow</a><ul>
+<li><a class="reference internal" href="#module-jobflow.core.flow">jobflow.core.flow</a><ul>
 <li><a class="reference internal" href="#jobflow.core.flow.JobOrder"><code class="docutils literal notranslate"><span class="pre">JobOrder</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.core.flow.JobOrder.AUTO"><code class="docutils literal notranslate"><span class="pre">JobOrder.AUTO</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.core.flow.JobOrder.LINEAR"><code class="docutils literal notranslate"><span class="pre">JobOrder.LINEAR</span></code></a></li>
@@ -2272,7 +2280,7 @@ additional store for data.</p>
 <li><a class="reference internal" href="#jobflow.core.flow.get_flow"><code class="docutils literal notranslate"><span class="pre">get_flow()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-core-job">jobflow.core.job</a><ul>
+<li><a class="reference internal" href="#module-jobflow.core.job">jobflow.core.job</a><ul>
 <li><a class="reference internal" href="#jobflow.core.job.job"><code class="docutils literal notranslate"><span class="pre">job()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.core.job.Job"><code class="docutils literal notranslate"><span class="pre">Job</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.core.job.Job.input_references"><code class="docutils literal notranslate"><span class="pre">Job.input_references</span></code></a></li>
@@ -2301,7 +2309,7 @@ additional store for data.</p>
 <li><a class="reference internal" href="#jobflow.core.job.store_inputs"><code class="docutils literal notranslate"><span class="pre">store_inputs()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-core-maker">jobflow.core.maker</a><ul>
+<li><a class="reference internal" href="#module-jobflow.core.maker">jobflow.core.maker</a><ul>
 <li><a class="reference internal" href="#jobflow.core.maker.Maker"><code class="docutils literal notranslate"><span class="pre">Maker</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.core.maker.Maker.make"><code class="docutils literal notranslate"><span class="pre">Maker.make()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.core.maker.Maker.name"><code class="docutils literal notranslate"><span class="pre">Maker.name</span></code></a></li>
@@ -2310,7 +2318,7 @@ additional store for data.</p>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-core-reference">jobflow.core.reference</a><ul>
+<li><a class="reference internal" href="#module-jobflow.core.reference">jobflow.core.reference</a><ul>
 <li><a class="reference internal" href="#jobflow.core.reference.OnMissing"><code class="docutils literal notranslate"><span class="pre">OnMissing</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.core.reference.OnMissing.ERROR"><code class="docutils literal notranslate"><span class="pre">OnMissing.ERROR</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.core.reference.OnMissing.NONE"><code class="docutils literal notranslate"><span class="pre">OnMissing.NONE</span></code></a></li>
@@ -2329,8 +2337,8 @@ additional store for data.</p>
 <li><a class="reference internal" href="#jobflow.core.reference.find_and_get_references"><code class="docutils literal notranslate"><span class="pre">find_and_get_references()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#jobflow-core-state">jobflow.core.state</a></li>
-<li><a class="reference internal" href="#jobflow-core-store">jobflow.core.store</a><ul>
+<li><a class="reference internal" href="#module-jobflow.core.state">jobflow.core.state</a></li>
+<li><a class="reference internal" href="#module-jobflow.core.store">jobflow.core.store</a><ul>
 <li><a class="reference internal" href="#jobflow.core.store.JobStore"><code class="docutils literal notranslate"><span class="pre">JobStore</span></code></a><ul>
 <li><a class="reference internal" href="#jobflow.core.store.JobStore.name"><code class="docutils literal notranslate"><span class="pre">JobStore.name</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.core.store.JobStore.connect"><code class="docutils literal notranslate"><span class="pre">JobStore.connect()</span></code></a></li>
@@ -2361,9 +2369,6 @@ additional store for data.</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

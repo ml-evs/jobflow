@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Defining jobs in jobflow" href="3-defining-jobs.html" /><link rel="prev" title="Five-minute quickstart" href="1-quickstart.html" />
 
-    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>Introduction to jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -172,7 +172,7 @@
   <span class="sidebar-brand-text">jobflow</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -185,6 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3-defining-jobs.html">Defining jobs in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4-generalized-makers.html">Writing generalized Makers</a></li>
 </ul>
 </li>
 </ul>
@@ -225,7 +226,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -349,10 +351,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
@@ -496,7 +499,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/tutorials/2-introduction.ipynb">tutorials/2-introduction.ipynb</a>.</p>
+<p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/docs/tutorials/2-introduction.ipynb">tutorials/2-introduction.ipynb</a>.</p>
 </div>
 <section id="Introduction-to-jobflow">
 <h1>Introduction to jobflow<a class="headerlink" href="#Introduction-to-jobflow" title="Permalink to this heading">#</a></h1>
@@ -719,7 +722,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </section>
 <section id="Examine-Flow-outputs">
 <h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function returns the output of all jobs. The the format of the output is:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function returns the output of all jobs. The format of the output is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="n">job_uuid</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">job_index</span><span class="p">:</span> <span class="p">{</span>
@@ -769,7 +772,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </pre></div></div>
 </div>
 <p>In general, it is easier to examine the outputs a job using the <code class="docutils literal notranslate"><span class="pre">JobStore.get_output</span></code> function. This will query the database (in this case the <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code>) and return the output of the job. If using multiple stores, the relevant outputs will be automatically queried from the appropriate stores.</p>
-<p>Let’s query the database the for the output of the <code class="docutils literal notranslate"><span class="pre">time_github</span></code> job.</p>
+<p>Let’s query the database for the output of the <code class="docutils literal notranslate"><span class="pre">time_github</span></code> job.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -830,9 +833,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -869,9 +870,6 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
     </aside>
   </div>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>

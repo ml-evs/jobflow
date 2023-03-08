@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-5.2.1, furo 2022.09.15"/>
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>jobflow.core.job - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -171,7 +171,7 @@
   <span class="sidebar-brand-text">jobflow</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -184,6 +184,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/3-defining-jobs.html">Defining jobs in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/4-generalized-makers.html">Writing generalized Makers</a></li>
 </ul>
 </li>
 </ul>
@@ -268,7 +269,7 @@
 
 <div class="viewcode-block" id="JobConfig"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.JobConfig">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JobConfig</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The configuration parameters for a job.</span>
 
 <span class="sd">    Parameters</span>
@@ -290,8 +291,8 @@
 <span class="sd">    response_manager_config</span>
 <span class="sd">        The custom configuration to pass to a detour, addition, or replacement job.</span>
 <span class="sd">        Using this kwarg will automatically take precedence over the behavior of</span>
-<span class="sd">        ``pass_manager_config`` such that a different configuration than ``manger_config``</span>
-<span class="sd">        can be passed to downstream jobs.</span>
+<span class="sd">        ``pass_manager_config`` such that a different configuration than</span>
+<span class="sd">        ``manger_config`` can be passed to downstream jobs.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -308,7 +309,7 @@
 
 
 <div class="viewcode-block" id="job"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.job">[docs]</a><span class="k">def</span> <span class="nf">job</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">job_kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrap a function to produce a :obj:`Job`.</span>
 
 <span class="sd">    :obj:`Job` objects are delayed function calls that can be used in an</span>
@@ -357,9 +358,9 @@
 <span class="sd">    OutputReference(&#39;abeb6f48-9b34-4698-ab69-e4dc2127ebe9&#39;)</span>
 
 <span class="sd">    .. Note::</span>
-<span class="sd">        Because the task has not yet been run, the output value is :obj:`OutputReference`</span>
-<span class="sd">        object. References are automatically converted to their computed values</span>
-<span class="sd">        (resolved) when the task runs.</span>
+<span class="sd">        Because the task has not yet been run, the output value is an</span>
+<span class="sd">        :obj:`OutputReference` object. References are automatically converted to their</span>
+<span class="sd">        computed values (resolved) when the task runs.</span>
 
 <span class="sd">    If a dictionary of values is returned, the values can be indexed in the usual</span>
 <span class="sd">    way.</span>
@@ -460,7 +461,7 @@
 
 
 <div class="viewcode-block" id="Job"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job">[docs]</a><span class="k">class</span> <span class="nc">Job</span><span class="p">(</span><span class="n">MSONable</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A :obj:`Job` is a delayed function call that can be used in an :obj:`.Flow`.</span>
 
 <span class="sd">    In general, one should not create :obj:`Job` objects directly but instead use</span>
@@ -492,10 +493,11 @@
 <span class="sd">        The config setting for the job.</span>
 <span class="sd">    hosts</span>
 <span class="sd">        The list of UUIDs of the hosts containing the job. The object identified by one</span>
-<span class="sd">        UUID of the list should be contained in objects identified by its subsequent elements.</span>
+<span class="sd">        UUID of the list should be contained in objects identified by its subsequent</span>
+<span class="sd">        elements.</span>
 <span class="sd">    metadata_updates</span>
-<span class="sd">        A list of updates for the metadata that will be applied to any Flow/Job generated</span>
-<span class="sd">        by the job.</span>
+<span class="sd">        A list of updates for the metadata that will be applied to any Flow/Job</span>
+<span class="sd">        generated by the job.</span>
 <span class="sd">    config_updates</span>
 <span class="sd">        A list of updates for the config that will be applied to any Flow/Job generated</span>
 <span class="sd">        by the job.</span>
@@ -609,7 +611,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">input_references</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">OutputReference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find :obj:`.OutputReference` objects in the job inputs.</span>
 
 <span class="sd">        Returns</span>
@@ -627,7 +629,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">input_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Uuids of any :obj:`.OutputReference` objects in the job inputs.</span>
 
 <span class="sd">        Returns</span>
@@ -639,7 +641,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">input_references_grouped</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">OutputReference</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Group any :obj:`.OutputReference` objects in the job inputs by their UUIDs.</span>
 
 <span class="sd">        Returns</span>
@@ -657,7 +659,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">maker</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the host :obj:`.Maker` object if a job is to run a maker function.</span>
 
 <span class="sd">        Returns</span>
@@ -674,7 +676,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiGraph</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a graph of the job indicating the inputs to the job.</span>
 
 <span class="sd">        Returns</span>
@@ -705,7 +707,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">host</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        UUID of the first Flow that contains the Job.</span>
 
 <span class="sd">        Returns</span>
@@ -716,7 +718,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="k">else</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Job.set_uuid"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the UUID of the job.</span>
 
 <span class="sd">        Parameters</span>
@@ -728,7 +730,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">set_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Job.run"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run the job.</span>
 
 <span class="sd">        If the job has inputs that are :obj:`.OutputReference` objects, then they will</span>
@@ -853,7 +855,7 @@
         <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span><span class="p">,</span>
         <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Job</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resolve any :obj:`.OutputReference` objects in the input arguments.</span>
 
 <span class="sd">        See the docstring for :obj:`.OutputReference.resolve()` for more details.</span>
@@ -906,7 +908,7 @@
         <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the kwargs of the jobs.</span>
 
 <span class="sd">        Parameters</span>
@@ -963,7 +965,7 @@
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the keyword arguments of any :obj:`.Maker` objects in the job source.</span>
 
 <span class="sd">        Parameters</span>
@@ -971,8 +973,9 @@
 <span class="sd">        update</span>
 <span class="sd">            The updates to apply.</span>
 <span class="sd">        name_filter</span>
-<span class="sd">            A filter for the Maker name. Only Makers with a matching name will be updated.</span>
-<span class="sd">            Includes partial matches, e.g. &quot;ad&quot; will match a Maker with the name &quot;adder&quot;.</span>
+<span class="sd">            A filter for the Maker name. Only Makers with a matching name will be</span>
+<span class="sd">            updated. Includes partial matches, e.g. &quot;ad&quot; will match a Maker with the</span>
+<span class="sd">            name &quot;adder&quot;.</span>
 <span class="sd">        class_filter</span>
 <span class="sd">            A filter for the maker class. Only Makers with a matching class will be</span>
 <span class="sd">            updated. Note the class filter will match any subclasses.</span>
@@ -1043,7 +1046,7 @@
                 <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">,</span>
                 <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">maker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">maker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">nested</span><span class="p">:</span>
             <span class="c1"># also look for makers in job args and kwargs</span>
             <span class="n">new_args</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1072,7 +1075,7 @@
                     <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Job.append_name"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.append_name">[docs]</a>    <span class="k">def</span> <span class="nf">append_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">append_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prepend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Append a string to the name of the job.</span>
 
 <span class="sd">        Parameters</span>
@@ -1095,7 +1098,7 @@
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">dynamic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the metadata of the job.</span>
 
 <span class="sd">        Can optionally apply the same updates at runtime to any Job or Flow generated</span>
@@ -1115,12 +1118,13 @@
 <span class="sd">            Use the dict mod language to apply updates. See :obj:`.DictMods` for more</span>
 <span class="sd">            details.</span>
 <span class="sd">        dynamic</span>
-<span class="sd">            The updates will be propagated to Jobs/Flows dynamically generated at runtime.</span>
+<span class="sd">            The updates will be propagated to Jobs/Flows dynamically generated at</span>
+<span class="sd">            runtime.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        Consider a simple job that makes use of a :obj:`Maker` to generate additional jobs</span>
-<span class="sd">        at runtime (see :obj:`Response` options for more details):</span>
+<span class="sd">        Consider a simple job that makes use of a :obj:`Maker` to generate additional</span>
+<span class="sd">        jobs at runtime (see :obj:`Response` options for more details):</span>
 
 <span class="sd">        &gt;&gt;&gt; @job</span>
 <span class="sd">        ... def use_maker(maker):</span>
@@ -1178,7 +1182,7 @@
         <span class="n">attributes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dynamic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the job config.</span>
 
 <span class="sd">        Can optionally apply the same updates at runtime to any Job or Flow generated</span>
@@ -1198,7 +1202,8 @@
 <span class="sd">            Which attributes of the job config to set. Can be specified as one or more</span>
 <span class="sd">            attributes specified by their name.</span>
 <span class="sd">        dynamic</span>
-<span class="sd">            The updates will be propagated to Jobs/Flows dynamically generated at runtime.</span>
+<span class="sd">            The updates will be propagated to Jobs/Flows dynamically generated at</span>
+<span class="sd">            runtime.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -1217,9 +1222,9 @@
 <span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt; add_job.update_config(new_config)</span>
 
-<span class="sd">        To only update specific attributes, the ``attributes`` argument can be specified.</span>
-<span class="sd">        For example, the following will only update the &quot;manager_config&quot; attribute of the</span>
-<span class="sd">        job config.</span>
+<span class="sd">        To only update specific attributes, the ``attributes`` argument can be</span>
+<span class="sd">        specified. For example, the following will only update the &quot;manager_config&quot;</span>
+<span class="sd">        attribute of the job config.</span>
 
 <span class="sd">        &gt;&gt;&gt; add_job.update_config(new_config, attributes=&quot;manager_config&quot;)</span>
 
@@ -1274,15 +1279,15 @@
 
         <span class="c1"># if we get to here then we pass all the filters</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="c1"># convert dict specification to a JobConfig but set the attributes accordingly</span>
+            <span class="c1"># convert dict specification to a JobConfig but set the attributes</span>
             <span class="k">if</span> <span class="n">attributes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">attributes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
             <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="n">attributes</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">attributes</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Specified attributes include a key that is not present in the config&quot;</span>
-                    <span class="s2">&quot; dictionary.&quot;</span>
+                    <span class="s2">&quot;Specified attributes include a key that is not present in the &quot;</span>
+                    <span class="s2">&quot;config dictionary.&quot;</span>
                 <span class="p">)</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">JobConfig</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
 
@@ -1298,7 +1303,7 @@
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Job.as_dict"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.as_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Serialize the job as a dictionary.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serialize the job as a dictionary.&quot;&quot;&quot;</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
 
         <span class="c1"># fireworks can&#39;t serialize functions and classes, so explicitly serialize to</span>
@@ -1306,7 +1311,7 @@
         <span class="k">return</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Handle setting attributes. Implements a special case for job name.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle setting attributes. Implements a special case for job name.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">maker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># have to be careful and also update the name of the bound maker</span>
             <span class="c1"># the ``value is not None`` in the if statement is needed otherwise the name</span>
@@ -1317,7 +1322,7 @@
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Job.add_hosts_uuids"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.add_hosts_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">add_hosts_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts_uuids</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">prepend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a list of UUIDs to the internal list of hosts.</span>
 
 <span class="sd">        The elements of the list are supposed to be ordered in such a way that</span>
@@ -1339,9 +1344,16 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">)</span></div></div>
 
 
+<span class="c1"># For type checking, the Response output type can be specified</span>
+<span class="c1"># in a type hint via this type variable.</span>
+<span class="c1"># For example, a signature `-&gt; Response[int]` would require</span>
+<span class="c1"># that the Response.output is an int.</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Response">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Response</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">Response</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The :obj:`Response` contains the output, detours, and stop commands of a job.</span>
 
 <span class="sd">    Parameters</span>
@@ -1362,7 +1374,7 @@
 <span class="sd">        Stop executing all remaining jobs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">output</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">detour</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">addition</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">replace</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1376,7 +1388,7 @@
         <span class="n">job_returns</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">output_schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a :obj:`Response` from the outputs of a :obj:`Job`.</span>
 
 <span class="sd">        Parameters</span>
@@ -1419,7 +1431,7 @@
 
 
 <span class="k">def</span> <span class="nf">apply_schema</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply schema to job outputs.</span>
 
 <span class="sd">    Parameters</span>
@@ -1458,7 +1470,7 @@
 
 <div class="viewcode-block" id="store_inputs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.store_inputs">[docs]</a><span class="nd">@job</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">JobConfig</span><span class="p">(</span><span class="n">resolve_references</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_missing_references</span><span class="o">=</span><span class="n">OnMissing</span><span class="o">.</span><span class="n">NONE</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">store_inputs</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Job to store inputs.</span>
 
 <span class="sd">    Note that any :obj:`Reference` objects will not be resolved, however, missing</span>
@@ -1476,7 +1488,7 @@
     <span class="n">replace</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">],</span>
     <span class="n">current_job</span><span class="p">:</span> <span class="n">Job</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prepare a replacement :obj:`Flow` or :obj:`Job`.</span>
 
 <span class="sd">    If the replacement is a ``Flow``, then an additional ``Job`` will be inserted</span>
@@ -1534,7 +1546,7 @@
     <span class="n">jobs</span><span class="p">:</span> <span class="n">Job</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span> <span class="o">|</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">],</span>
     <span class="n">manager_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Pass the manager config on to any jobs in the jobs array.</span>
 
 <span class="sd">    Parameters</span>
@@ -1588,9 +1600,7 @@
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -1603,9 +1613,6 @@
     </aside>
   </div>
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/furo.js"></script>
