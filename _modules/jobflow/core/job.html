@@ -566,7 +566,7 @@
 
         <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">contains_flow_or_job</span>
 
-        <span class="n">function_args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span> <span class="k">if</span> <span class="n">function_args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">function_args</span>
+        <span class="n">function_args</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="n">function_args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">function_args</span>
         <span class="n">function_kwargs</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">function_kwargs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">function_kwargs</span>
         <span class="n">uuid</span> <span class="o">=</span> <span class="n">suuid</span><span class="p">()</span> <span class="k">if</span> <span class="n">uuid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">uuid</span>
         <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">metadata</span>
@@ -827,12 +827,14 @@
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span> <span class="n">passed_config</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">jsanitize</span><span class="p">(</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_bson</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                 <span class="s2">&quot;Job output contained an object that is not MSONable and therefore &quot;</span>
                 <span class="s2">&quot;could not be serialized.&quot;</span>
-            <span class="p">)</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
 
         <span class="n">save</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="s2">&quot;output&quot;</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
@@ -1147,12 +1149,12 @@
         <span class="kn">from</span> <span class="nn">jobflow.utils.dict_mods</span> <span class="kn">import</span> <span class="n">apply_mod</span>
 
         <span class="k">if</span> <span class="n">dynamic</span><span class="p">:</span>
-            <span class="n">dict_input</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-                <span class="n">update</span><span class="o">=</span><span class="n">update</span><span class="p">,</span>
-                <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
-                <span class="n">function_filter</span><span class="o">=</span><span class="n">function_filter</span><span class="p">,</span>
-                <span class="n">dict_mod</span><span class="o">=</span><span class="n">dict_mod</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="n">dict_input</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;update&quot;</span><span class="p">:</span> <span class="n">update</span><span class="p">,</span>
+                <span class="s2">&quot;name_filter&quot;</span><span class="p">:</span> <span class="n">name_filter</span><span class="p">,</span>
+                <span class="s2">&quot;function_filter&quot;</span><span class="p">:</span> <span class="n">function_filter</span><span class="p">,</span>
+                <span class="s2">&quot;dict_mod&quot;</span><span class="p">:</span> <span class="n">dict_mod</span><span class="p">,</span>
+            <span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">metadata_updates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dict_input</span><span class="p">)</span>
 
         <span class="c1"># unwrap the functions in case the job is a decorated one</span>
@@ -1256,12 +1258,12 @@
 <span class="sd">        only be set for the `test_job` and not for the generated Jobs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">dynamic</span><span class="p">:</span>
-            <span class="n">dict_input</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-                <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
-                <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
-                <span class="n">function_filter</span><span class="o">=</span><span class="n">function_filter</span><span class="p">,</span>
-                <span class="n">attributes</span><span class="o">=</span><span class="n">attributes</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="n">dict_input</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+                <span class="s2">&quot;name_filter&quot;</span><span class="p">:</span> <span class="n">name_filter</span><span class="p">,</span>
+                <span class="s2">&quot;function_filter&quot;</span><span class="p">:</span> <span class="n">function_filter</span><span class="p">,</span>
+                <span class="s2">&quot;attributes&quot;</span><span class="p">:</span> <span class="n">attributes</span><span class="p">,</span>
+            <span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config_updates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dict_input</span><span class="p">)</span>
 
         <span class="c1"># unwrap the functions in case the job is a decorated one</span>
