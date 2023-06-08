@@ -316,7 +316,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-OutputReference(a317a1e6-0c0e-4a52-9289-dcc9b21752de)
+OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
 </pre></div></div>
 </div>
 <p>The output of a job can be used as an input to another job. To demonstrate this, let’s create a new job function that will sum all its inputs.</p>
@@ -449,16 +449,16 @@ OutputReference(a317a1e6-0c0e-4a52-9289-dcc9b21752de)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-06-07 23:15:00,609 INFO Started executing jobs locally
-2023-06-07 23:15:00,619 INFO Starting job - time_website (a317a1e6-0c0e-4a52-9289-dcc9b21752de)
-2023-06-07 23:15:01,419 INFO Finished job - time_website (a317a1e6-0c0e-4a52-9289-dcc9b21752de)
-2023-06-07 23:15:01,421 INFO Starting job - time_website (5588b25b-009f-4ec8-a7f5-e1a241e18e4c)
-2023-06-07 23:15:01,672 INFO Finished job - time_website (5588b25b-009f-4ec8-a7f5-e1a241e18e4c)
-2023-06-07 23:15:01,674 INFO Starting job - time_website (6d4e4b9d-7df3-4810-93e7-285b9f3d16b1)
-2023-06-07 23:15:02,062 INFO Finished job - time_website (6d4e4b9d-7df3-4810-93e7-285b9f3d16b1)
-2023-06-07 23:15:02,065 INFO Starting job - sum_numbers (c4584c1b-cd3d-4f34-be67-5ebe1a48c5e5)
-2023-06-07 23:15:02,073 INFO Finished job - sum_numbers (c4584c1b-cd3d-4f34-be67-5ebe1a48c5e5)
-2023-06-07 23:15:02,074 INFO Finished executing jobs locally
+2023-06-08 10:05:39,732 INFO Started executing jobs locally
+2023-06-08 10:05:39,737 INFO Starting job - time_website (76f9fef1-e2c7-4ad7-b090-b9153866c582)
+2023-06-08 10:05:40,126 INFO Finished job - time_website (76f9fef1-e2c7-4ad7-b090-b9153866c582)
+2023-06-08 10:05:40,128 INFO Starting job - time_website (f658ee45-b6e8-4078-98fd-9ab33a0c5747)
+2023-06-08 10:05:40,306 INFO Finished job - time_website (f658ee45-b6e8-4078-98fd-9ab33a0c5747)
+2023-06-08 10:05:40,307 INFO Starting job - time_website (3cd950be-b7f6-4991-84a2-420593dbe75c)
+2023-06-08 10:05:40,792 INFO Finished job - time_website (3cd950be-b7f6-4991-84a2-420593dbe75c)
+2023-06-08 10:05:40,793 INFO Starting job - sum_numbers (11b7679d-9d07-45b0-8c7b-f0bf42527ef0)
+2023-06-08 10:05:40,798 INFO Finished job - sum_numbers (11b7679d-9d07-45b0-8c7b-f0bf42527ef0)
+2023-06-08 10:05:40,799 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <p>Below is an annotated example of the log message:</p>
@@ -496,10 +496,10 @@ OutputReference(a317a1e6-0c0e-4a52-9289-dcc9b21752de)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;a317a1e6-0c0e-4a52-9289-dcc9b21752de&#39;: {1: Response(output=0.23619829999999986, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;5588b25b-009f-4ec8-a7f5-e1a241e18e4c&#39;: {1: Response(output=0.034831500000000126, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;6d4e4b9d-7df3-4810-93e7-285b9f3d16b1&#39;: {1: Response(output=0.14804260000000014, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;c4584c1b-cd3d-4f34-be67-5ebe1a48c5e5&#39;: {1: Response(output=0.4190724000000001, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;76f9fef1-e2c7-4ad7-b090-b9153866c582&#39;: {1: Response(output=0.07634975000000033, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;f658ee45-b6e8-4078-98fd-9ab33a0c5747&#39;: {1: Response(output=0.0056510840000001394, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;3cd950be-b7f6-4991-84a2-420593dbe75c&#39;: {1: Response(output=0.15688537499999988, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;11b7679d-9d07-45b0-8c7b-f0bf42527ef0&#39;: {1: Response(output=0.23888620900000035, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>We can check the output of specific jobs using:</p>
@@ -517,7 +517,7 @@ OutputReference(a317a1e6-0c0e-4a52-9289-dcc9b21752de)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.23619829999999986
+0.07634975000000033
 </pre></div></div>
 </div>
 <p>In general, it is easier to examine the outputs a job using the <code class="docutils literal notranslate"><span class="pre">JobStore.get_output</span></code> function. This will query the database (in this case the <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code>) and return the output of the job. If using multiple stores, the relevant outputs will be automatically queried from the appropriate stores.</p>
@@ -536,7 +536,7 @@ OutputReference(a317a1e6-0c0e-4a52-9289-dcc9b21752de)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.23619829999999986
+0.07634975000000033
 </pre></div></div>
 </div>
 </section>

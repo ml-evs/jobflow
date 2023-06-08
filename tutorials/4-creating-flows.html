@@ -261,19 +261,9 @@
 <section id="Creating-job-objects">
 <h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Permalink to this heading">#</a></h2>
 <p>The building block of jobflows are <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. Jobs are delayed calls to python functions whose outputs are stored in a database. The easiest way to create a job is using the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator. The job decorator can be applied to any function, even those with optional parameters.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;Using `tqdm.autonotebook.tqdm`&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <p>We will start by defining two simple jobs that we will stitch together into a flow.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span>
@@ -290,7 +280,7 @@
 </div>
 <p>To combine these two <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects into a single workflow, we can take advantage of the <code class="docutils literal notranslate"><span class="pre">Flow</span></code> constructor in Jobflow.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span>
@@ -308,7 +298,7 @@
 <h2>Setting Metadata<a class="headerlink" href="#Setting-Metadata" title="Permalink to this heading">#</a></h2>
 <p>It can often be useful to attach metadata to jobs and flows before they are run, particularly for querying purposes later on. This can be done with the <code class="docutils literal notranslate"><span class="pre">update_metadata</span></code> function. The <code class="docutils literal notranslate"><span class="pre">name</span></code> can also be updated on-the-fly.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -323,7 +313,7 @@
 <h2>Running Flows<a class="headerlink" href="#Running-Flows" title="Permalink to this heading">#</a></h2>
 <p>We can run the flow locally by calling the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
@@ -337,17 +327,17 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-06-07 23:15:11,193 INFO Started executing jobs locally
-2023-06-07 23:15:11,213 INFO Starting job - add (8ed01a13-ef87-4892-9522-dde3359c7ea8)
-2023-06-07 23:15:11,226 INFO Finished job - add (8ed01a13-ef87-4892-9522-dde3359c7ea8)
-2023-06-07 23:15:11,227 INFO Starting job - mult (227f623f-4059-4b35-84e0-50fcbb67d08e)
-2023-06-07 23:15:11,236 INFO Finished job - mult (227f623f-4059-4b35-84e0-50fcbb67d08e)
-2023-06-07 23:15:11,237 INFO Finished executing jobs locally
+2023-06-08 09:58:12,065 INFO Started executing jobs locally
+2023-06-08 09:58:12,168 INFO Starting job - add (4e9bc8e2-0828-4376-bdc9-dda91ba26d38)
+2023-06-08 09:58:12,168 INFO Finished job - add (4e9bc8e2-0828-4376-bdc9-dda91ba26d38)
+2023-06-08 09:58:12,169 INFO Starting job - mult (d464616a-7253-41bb-862e-c999393ccc81)
+2023-06-08 09:58:12,169 INFO Finished job - mult (d464616a-7253-41bb-862e-c999393ccc81)
+2023-06-08 09:58:12,169 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <p>The output contains a UUID for each <code class="docutils literal notranslate"><span class="pre">job</span></code> in the flow along with the outputs for each job.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -360,13 +350,13 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-8ed01a13-ef87-4892-9522-dde3359c7ea8 -&gt; {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-227f623f-4059-4b35-84e0-50fcbb67d08e -&gt; {1: Response(output=15, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+4e9bc8e2-0828-4376-bdc9-dda91ba26d38 -&gt; {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+d464616a-7253-41bb-862e-c999393ccc81 -&gt; {1: Response(output=15, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
 </pre></div></div>
 </div>
 <p>The UUID can also be obtained from the <code class="docutils literal notranslate"><span class="pre">job</span></code> object directly, which is useful for indexing the output.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">responses</span><span class="p">[</span><span class="n">job2</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>

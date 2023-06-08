@@ -263,17 +263,7 @@
 <li><p>Each code-specific operation should be implemented in the child <code class="docutils literal notranslate"><span class="pre">Maker</span></code> which will be concrete implementations of the base <code class="docutils literal notranslate"><span class="pre">Maker</span></code>.</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;Using `tqdm.autonotebook.tqdm`&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">Flow</span>
@@ -282,7 +272,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BaseMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
@@ -301,7 +291,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Code1Maker</span><span class="p">(</span><span class="n">BaseMaker</span><span class="p">):</span>
@@ -319,16 +309,16 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-02-09 15:45:25,123 INFO Started executing jobs locally
-2023-02-09 15:45:25,124 INFO Starting job - job1 (8ca82264-99f8-4862-bf1e-5ae7d8a4b350)
+2023-06-08 09:57:53,829 INFO Started executing jobs locally
+2023-06-08 09:57:53,896 INFO Starting job - job1 (b6557183-838d-4c04-b1ab-356b8923016d)
 DO CODE INDEPENDENT STUFF
 DO STUFF specific to CODE 1
-2023-02-09 15:45:25,139 INFO Finished job - job1 (8ca82264-99f8-4862-bf1e-5ae7d8a4b350)
-2023-02-09 15:45:25,140 INFO Finished executing jobs locally
+2023-06-08 09:57:53,896 INFO Finished job - job1 (b6557183-838d-4c04-b1ab-356b8923016d)
+2023-06-08 09:57:53,896 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Code2Maker</span><span class="p">(</span><span class="n">BaseMaker</span><span class="p">):</span>
@@ -346,12 +336,12 @@ DO STUFF specific to CODE 1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-02-09 15:45:37,552 INFO Started executing jobs locally
-2023-02-09 15:45:37,553 INFO Starting job - job1 (366f6780-be82-4e13-b88c-3aeaac44cd86)
+2023-06-08 09:57:53,900 INFO Started executing jobs locally
+2023-06-08 09:57:53,900 INFO Starting job - job1 (7d744b4f-e0ab-46f0-adb2-72371e0c5070)
 DO CODE INDEPENDENT STUFF
 DO STUFF specific to CODE 2
-2023-02-09 15:45:37,564 INFO Finished job - job1 (366f6780-be82-4e13-b88c-3aeaac44cd86)
-2023-02-09 15:45:37,564 INFO Finished executing jobs locally
+2023-06-08 09:57:53,901 INFO Finished job - job1 (7d744b4f-e0ab-46f0-adb2-72371e0c5070)
+2023-06-08 09:57:53,901 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 </section>

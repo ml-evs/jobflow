@@ -301,7 +301,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-OutputReference(d33c87c7-9eae-4afc-858d-d207a820d55d)
+OutputReference(74e277df-95aa-4abc-aae1-e4dd64fe4cab)
 </pre></div></div>
 </div>
 <p>The output of a job can be used as the input to another job.</p>
@@ -360,13 +360,8 @@ OutputReference(d33c87c7-9eae-4afc-858d-d207a820d55d)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">ImportError</span>                               Traceback (most recent call last)
-Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> from jobflow.utils.graph import to_mermaid
-<span class="ansi-green-fg">      3</span> print(to_mermaid(flow))
-
-<span class="ansi-red-intense-fg ansi-bold">ImportError</span>: cannot import name &#39;to_mermaid&#39; from &#39;jobflow.utils.graph&#39; (c:\Users\asros\miniconda3\envs\cms\lib\site-packages\jobflow\utils\graph.py)
+flowchart TD
+    74e277df-95aa-4abc-aae1-e4dd64fe4cab(add) --&gt;|output| 2e5278a5-5215-407c-a928-74e2cfe20680(add)
 </pre></div></div>
 </div>
 <p>The graph can be visualised by pasting the output into <a class="reference external" href="https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/">GitHub</a> or at <a class="reference external" href="https://mermaid.live">mermaid.live</a>.</p>
@@ -380,7 +375,7 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
 <p><p>Running Flows on remote clusters can be achieved using the FireWorks package and is covered in the <a class="reference external" href="https://materialsproject.github.io/jobflow/tutorials/8-fireworks">Running Jobflow with FireWorks tutorial</a>.</p>
 </p></div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
@@ -394,12 +389,12 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-05-06 17:57:51,031 INFO Started executing jobs locally
-2023-05-06 17:57:51,033 INFO Starting job - add (c923a1eb-af97-4a3e-9b19-c2ba36784177)
-2023-05-06 17:57:51,034 INFO Finished job - add (c923a1eb-af97-4a3e-9b19-c2ba36784177)
-2023-05-06 17:57:51,035 INFO Starting job - add (950de35f-2762-4dd1-bb76-57cbe09f82a3)
-2023-05-06 17:57:51,036 INFO Finished job - add (950de35f-2762-4dd1-bb76-57cbe09f82a3)
-2023-05-06 17:57:51,037 INFO Finished executing jobs locally
+2023-06-08 10:04:45,612 INFO Started executing jobs locally
+2023-06-08 10:04:45,615 INFO Starting job - add (74e277df-95aa-4abc-aae1-e4dd64fe4cab)
+2023-06-08 10:04:45,617 INFO Finished job - add (74e277df-95aa-4abc-aae1-e4dd64fe4cab)
+2023-06-08 10:04:45,619 INFO Starting job - add (2e5278a5-5215-407c-a928-74e2cfe20680)
+2023-06-08 10:04:45,621 INFO Finished job - add (2e5278a5-5215-407c-a928-74e2cfe20680)
+2023-06-08 10:04:45,622 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <p>The numbers in brackets after the job function name give the job unique identifier (UUID).</p>
@@ -418,7 +413,7 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">job_index</span></code> and <code class="docutils literal notranslate"><span class="pre">Response()</span></code> objects are introduced in later tutorials. The main thing to know is that the Response contains the output of the Job and any other commands for controlling the Flow execution.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">responses</span>
@@ -426,17 +421,18 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;c923a1eb-af97-4a3e-9b19-c2ba36784177&#39;: {1: Response(output=6, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;950de35f-2762-4dd1-bb76-57cbe09f82a3&#39;: {1: Response(output=9, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;74e277df-95aa-4abc-aae1-e4dd64fe4cab&#39;: {1: Response(output=6, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;2e5278a5-5215-407c-a928-74e2cfe20680&#39;: {1: Response(output=9, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>We can check the output of specific jobs using:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">responses</span><span class="p">[</span><span class="n">add_first</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
@@ -444,7 +440,8 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
