@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Introduction to jobflow" href="2-introduction.html" /><link rel="prev" title="Tutorials" href="../tutorials.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
         <title>Five-minute quickstart - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -182,11 +182,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install jobflow</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install_fireworks.html">Install FireWorks (Optional)</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3-defining-jobs.html">Defining jobs in jobflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4-creating-flows.html">Creating flows in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5-dynamic-flows.html">Creating dynamic flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6-makers.html">Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8-fireworks.html">Running Jobflow with FireWorks</a></li>
 </ul>
 </li>
 </ul>
@@ -200,7 +205,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.settings.html">jobflow.settings</a></li>
@@ -296,7 +301,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
+OutputReference(d33c87c7-9eae-4afc-858d-d207a820d55d)
 </pre></div></div>
 </div>
 <p>The output of a job can be used as the input to another job.</p>
@@ -323,7 +328,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 </div>
 <p>The order of the jobs in the input array does not matter. Their execution order will be determined by their connectivity. Because <code class="docutils literal notranslate"><span class="pre">add_second</span></code> takes the output of <code class="docutils literal notranslate"><span class="pre">add_first</span></code> as an input, the <code class="docutils literal notranslate"><span class="pre">add_first</span></code> will always run before <code class="docutils literal notranslate"><span class="pre">add_second</span></code>.</p>
-<p>The connectivity of the jobs in a flow can be visualized using:</p>
+<p>The connectivity of the jobs in a flow can be visualized using <code class="docutils literal notranslate"><span class="pre">draw_graph</span></code>. Note, you should install jobflow with the visualisation dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">jobflow[vis]</span></code>) to enable this feature. See the installation page for more details.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -339,16 +344,43 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 <img alt="../_images/tutorials_1-quickstart_12_0.png" src="../_images/tutorials_1-quickstart_12_0.png" />
 </div>
 </div>
+<p>Flows can also be visualised using <a class="reference external" href="https://mermaid.js.org">mermaid</a>. To generate the mermaid plotting syntax use the <code class="docutils literal notranslate"><span class="pre">to_mermaid</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow.utils.graph</span> <span class="kn">import</span> <span class="n">to_mermaid</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">to_mermaid</span><span class="p">(</span><span class="n">flow</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ImportError</span>                               Traceback (most recent call last)
+Cell <span class="ansi-green-intense-fg ansi-bold">In[8], line 1</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> from jobflow.utils.graph import to_mermaid
+<span class="ansi-green-fg">      3</span> print(to_mermaid(flow))
+
+<span class="ansi-red-intense-fg ansi-bold">ImportError</span>: cannot import name &#39;to_mermaid&#39; from &#39;jobflow.utils.graph&#39; (c:\Users\asros\miniconda3\envs\cms\lib\site-packages\jobflow\utils\graph.py)
+</pre></div></div>
+</div>
+<p>The graph can be visualised by pasting the output into <a class="reference external" href="https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/">GitHub</a> or at <a class="reference external" href="https://mermaid.live">mermaid.live</a>.</p>
+<p><a class="reference external" href="https://mermaid.live/edit#pako:eNpVTbluwzAU-xXjTS1gBbqvIVP-oJ0KL4qOJoBtGa6ENnX871WylRNJ8NjA5xDBQhrzt7-4tXTvp2HuGihmhGrmEWcpIu5lQGemAqJCSq8N91joFxfCa4fQ8Z5rWWq5d1j5sw-CIEZSaNUokSNBIaOMFlFw4ZJ8tqCHKa6Tu4b2vj0uByiXOMUBbKMhJlfHMsAw7y3qaslvt9mDLWuNPdQluBJPV_e5uglscuNXcxc3f-T8T4Pd4AcsJfTAmVSCY0KJVoL2cGs21QfOKVdcUUmwNHTv4fc5gQ_CKEEYlcw8EprtfzPzVns"><img alt="add flow" src="https://mermaid.ink/img/pako:eNpVTbluwzAU-xXjTS1gBbqvIVP-oJ0KL4qOJoBtGa6ENnX871WylRNJ8NjA5xDBQhrzt7-4tXTvp2HuGihmhGrmEWcpIu5lQGemAqJCSq8N91joFxfCa4fQ8Z5rWWq5d1j5sw-CIEZSaNUokSNBIaOMFlFw4ZJ8tqCHKa6Tu4b2vj0uByiXOMUBbKMhJlfHMsAw7y3qaslvt9mDLWuNPdQluBJPV_e5uglscuNXcxc3f-T8T4Pd4AcsJfTAmVSCY0KJVoL2cGs21QfOKVdcUUmwNHTv4fc5gQ_CKEEYlcw8EprtfzPzVns?type=png" /></a></p>
 </section>
 <section id="Run-the-Flow">
 <h2>Run the Flow<a class="headerlink" href="#Run-the-Flow" title="Permalink to this heading">#</a></h2>
 <p>Jobflow supports running Flows locally or on remote clusters. Below we run the Flow locally using the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
-<p><p>Running Flows on remote clusters can be achieved using the FireWorks package and is covered in the <a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/6-fireworks.html">Running Flows with FireWorks tutorial</a>.</p>
+<p><p>Running Flows on remote clusters can be achieved using the FireWorks package and is covered in the <a class="reference external" href="https://materialsproject.github.io/jobflow/tutorials/8-fireworks">Running Jobflow with FireWorks tutorial</a>.</p>
 </p></div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
@@ -362,12 +394,12 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2021-06-04 17:56:25,875 INFO Started executing jobs locally
-2021-06-04 17:56:25,877 INFO Starting job - add (3bc98d5e-b593-4ad1-a409-cef9136bb835)
-2021-06-04 17:56:25,878 INFO Finished job - add (3bc98d5e-b593-4ad1-a409-cef9136bb835)
-2021-06-04 17:56:25,879 INFO Starting job - add (846add3f-1d37-47a1-a7f5-94a0fdf57b1b)
-2021-06-04 17:56:25,880 INFO Finished job - add (846add3f-1d37-47a1-a7f5-94a0fdf57b1b)
-2021-06-04 17:56:25,881 INFO Finished executing jobs locally
+2023-05-06 17:57:51,031 INFO Started executing jobs locally
+2023-05-06 17:57:51,033 INFO Starting job - add (c923a1eb-af97-4a3e-9b19-c2ba36784177)
+2023-05-06 17:57:51,034 INFO Finished job - add (c923a1eb-af97-4a3e-9b19-c2ba36784177)
+2023-05-06 17:57:51,035 INFO Starting job - add (950de35f-2762-4dd1-bb76-57cbe09f82a3)
+2023-05-06 17:57:51,036 INFO Finished job - add (950de35f-2762-4dd1-bb76-57cbe09f82a3)
+2023-05-06 17:57:51,037 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <p>The numbers in brackets after the job function name give the job unique identifier (UUID).</p>
@@ -386,7 +418,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">job_index</span></code> and <code class="docutils literal notranslate"><span class="pre">Response()</span></code> objects are introduced in later tutorials. The main thing to know is that the Response contains the output of the Job and any other commands for controlling the Flow execution.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">responses</span>
@@ -394,18 +426,17 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;3bc98d5e-b593-4ad1-a409-cef9136bb835&#39;: {1: Response(output=6, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;846add3f-1d37-47a1-a7f5-94a0fdf57b1b&#39;: {1: Response(output=9, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;c923a1eb-af97-4a3e-9b19-c2ba36784177&#39;: {1: Response(output=6, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;950de35f-2762-4dd1-bb76-57cbe09f82a3&#39;: {1: Response(output=9, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>We can check the output of specific jobs using:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">responses</span><span class="p">[</span><span class="n">add_first</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
@@ -413,8 +444,7 @@ OutputReference(3bc98d5e-b593-4ad1-a409-cef9136bb835)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>

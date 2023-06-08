@@ -3,12 +3,12 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Five-minute quickstart" href="tutorials/1-quickstart.html" /><link rel="prev" title="Install jobflow" href="install.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Five-minute quickstart" href="tutorials/1-quickstart.html" /><link rel="prev" title="FireWorks Setup" href="install_fireworks.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
         <title>Tutorials - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -181,11 +181,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install jobflow</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="install_fireworks.html">Install FireWorks (Optional)</a></li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/3-defining-jobs.html">Defining jobs in jobflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/4-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-creating-flows.html">Creating flows in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/5-dynamic-flows.html">Creating dynamic flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/6-makers.html">Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/7-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html">Running Jobflow with FireWorks</a></li>
 </ul>
 </li>
 </ul>
@@ -199,7 +204,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="jobflow.settings.html">jobflow.settings</a></li>
@@ -269,9 +274,40 @@ features of jobflow will be added soon.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/3-defining-jobs.html">Defining jobs in jobflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/3-defining-jobs.html#Creating-job-objects">Creating job objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/3-defining-jobs.html#Running-Jobs">Running Jobs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/4-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/4-creating-flows.html">Creating flows in jobflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-creating-flows.html#Creating-job-objects">Creating job objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-creating-flows.html#Setting-Metadata">Setting Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/4-creating-flows.html#Running-Flows">Running Flows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/5-dynamic-flows.html">Creating dynamic flows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/5-dynamic-flows.html#The-Response(replace)-option">The <code class="docutils literal notranslate"><span class="pre">Response(replace)</span></code> option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/5-dynamic-flows.html#The-Response(addition)-option">The <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/5-dynamic-flows.html#The-Response(detour)-option">The <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> option</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/6-makers.html">Makers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/6-makers.html#What-is-a-Maker?">What is a <code class="docutils literal notranslate"><span class="pre">Maker</span></code>?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/7-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/8-fireworks.html">Running Jobflow with FireWorks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html#converting-a-job-to-a-firework">Converting a Job to a Firework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html#converting-a-flow-to-a-workflow">Converting a Flow to a Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html#dispatching-calculations">Dispatching Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html#setting-where-jobs-are-dispatched">Setting where Jobs are Dispatched</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/8-fireworks.html#setting-up-the-fireworks-configurations">Setting up the FireWorks Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/8-fireworks.html#setting-the-manager-configs">Setting the Manager Configs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/8-fireworks.html#launching-the-jobs">Launching the Jobs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/8-fireworks.html#learn-more">Learn More</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -290,14 +326,14 @@ features of jobflow will be added soon.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="install.html">
+          <a class="prev-page" href="install_fireworks.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Install jobflow</div>
+                <div class="title">FireWorks Setup</div>
                 
               </div>
             </a>

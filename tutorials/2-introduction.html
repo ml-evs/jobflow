@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Defining jobs in jobflow" href="3-defining-jobs.html" /><link rel="prev" title="Five-minute quickstart" href="1-quickstart.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
         <title>Introduction to jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -182,11 +182,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install jobflow</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install_fireworks.html">Install FireWorks (Optional)</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3-defining-jobs.html">Defining jobs in jobflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4-creating-flows.html">Creating flows in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5-dynamic-flows.html">Creating dynamic flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6-makers.html">Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8-fireworks.html">Running Jobflow with FireWorks</a></li>
 </ul>
 </li>
 </ul>
@@ -200,7 +205,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.settings.html">jobflow.settings</a></li>
@@ -311,7 +316,7 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
+OutputReference(a317a1e6-0c0e-4a52-9289-dcc9b21752de)
 </pre></div></div>
 </div>
 <p>The output of a job can be used as an input to another job. To demonstrate this, let’s create a new job function that will sum all its inputs.</p>
@@ -427,7 +432,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 <p>Jobflow supports running Flows locally or on remote clusters. Below we run the Flow locally using the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function using our custom store.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
-<p><p>Running Flows on remote clusters can be achieved using the FireWorks package and is covered in the <a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/6-fireworks.html">Running Flows with FireWorks tutorial</a>.</p>
+<p><p>Running Flows on remote clusters can be achieved using the FireWorks package and is covered in the <a class="reference external" href="https://materialsproject.github.io/jobflow/tutorials/8-fireworks">Running Jobflow with FireWorks tutorial</a>.</p>
 </p></div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -444,16 +449,16 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2021-06-04 17:56:43,971 INFO Started executing jobs locally
-2021-06-04 17:56:43,973 INFO Starting job - time_website (caa50ec0-59b2-441d-87d3-7dfabef8ac93)
-2021-06-04 17:56:45,124 INFO Finished job - time_website (caa50ec0-59b2-441d-87d3-7dfabef8ac93)
-2021-06-04 17:56:45,125 INFO Starting job - time_website (2d35baf4-c72f-4d83-9472-45d134d6566d)
-2021-06-04 17:56:45,325 INFO Finished job - time_website (2d35baf4-c72f-4d83-9472-45d134d6566d)
-2021-06-04 17:56:45,327 INFO Starting job - time_website (a38209dd-441a-4074-917e-4bb86b98fe54)
-2021-06-04 17:56:45,958 INFO Finished job - time_website (a38209dd-441a-4074-917e-4bb86b98fe54)
-2021-06-04 17:56:45,959 INFO Starting job - sum_numbers (2e8f39b2-75f3-4099-a5a7-966787a9ccfd)
-2021-06-04 17:56:45,961 INFO Finished job - sum_numbers (2e8f39b2-75f3-4099-a5a7-966787a9ccfd)
-2021-06-04 17:56:45,962 INFO Finished executing jobs locally
+2023-06-07 23:15:00,609 INFO Started executing jobs locally
+2023-06-07 23:15:00,619 INFO Starting job - time_website (a317a1e6-0c0e-4a52-9289-dcc9b21752de)
+2023-06-07 23:15:01,419 INFO Finished job - time_website (a317a1e6-0c0e-4a52-9289-dcc9b21752de)
+2023-06-07 23:15:01,421 INFO Starting job - time_website (5588b25b-009f-4ec8-a7f5-e1a241e18e4c)
+2023-06-07 23:15:01,672 INFO Finished job - time_website (5588b25b-009f-4ec8-a7f5-e1a241e18e4c)
+2023-06-07 23:15:01,674 INFO Starting job - time_website (6d4e4b9d-7df3-4810-93e7-285b9f3d16b1)
+2023-06-07 23:15:02,062 INFO Finished job - time_website (6d4e4b9d-7df3-4810-93e7-285b9f3d16b1)
+2023-06-07 23:15:02,065 INFO Starting job - sum_numbers (c4584c1b-cd3d-4f34-be67-5ebe1a48c5e5)
+2023-06-07 23:15:02,073 INFO Finished job - sum_numbers (c4584c1b-cd3d-4f34-be67-5ebe1a48c5e5)
+2023-06-07 23:15:02,074 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <p>Below is an annotated example of the log message:</p>
@@ -491,10 +496,10 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;caa50ec0-59b2-441d-87d3-7dfabef8ac93&#39;: {1: Response(output=0.9628085599999991, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;2d35baf4-c72f-4d83-9472-45d134d6566d&#39;: {1: Response(output=0.007624547999999898, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;a38209dd-441a-4074-917e-4bb86b98fe54&#39;: {1: Response(output=0.3369926760000004, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;2e8f39b2-75f3-4099-a5a7-966787a9ccfd&#39;: {1: Response(output=1.3074257839999994, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;a317a1e6-0c0e-4a52-9289-dcc9b21752de&#39;: {1: Response(output=0.23619829999999986, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;5588b25b-009f-4ec8-a7f5-e1a241e18e4c&#39;: {1: Response(output=0.034831500000000126, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;6d4e4b9d-7df3-4810-93e7-285b9f3d16b1&#39;: {1: Response(output=0.14804260000000014, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;c4584c1b-cd3d-4f34-be67-5ebe1a48c5e5&#39;: {1: Response(output=0.4190724000000001, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>We can check the output of specific jobs using:</p>
@@ -512,7 +517,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.3369926760000004
+0.23619829999999986
 </pre></div></div>
 </div>
 <p>In general, it is easier to examine the outputs a job using the <code class="docutils literal notranslate"><span class="pre">JobStore.get_output</span></code> function. This will query the database (in this case the <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code>) and return the output of the job. If using multiple stores, the relevant outputs will be automatically queried from the appropriate stores.</p>
@@ -531,7 +536,7 @@ OutputReference(a38209dd-441a-4074-917e-4bb86b98fe54)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.3369926760000004
+0.23619829999999986
 </pre></div></div>
 </div>
 </section>

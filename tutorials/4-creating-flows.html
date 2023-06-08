@@ -3,13 +3,14 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Creating dynamic flows" href="5-dynamic-flows.html" /><link rel="prev" title="Defining jobs in jobflow" href="3-defining-jobs.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>Creating Flows - jobflow</title>
+    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
+        <title>Creating flows in jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     
@@ -157,7 +158,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -178,14 +179,19 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install jobflow</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="../install_fireworks.html">Install FireWorks (Optional)</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3-defining-jobs.html">Defining jobs in jobflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Creating flows in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5-dynamic-flows.html">Creating dynamic flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6-makers.html">Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8-fireworks.html">Running Jobflow with FireWorks</a></li>
 </ul>
 </li>
 </ul>
@@ -199,7 +205,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../jobflow.settings.html">jobflow.settings</a></li>
@@ -235,14 +241,147 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="creating-flows">
-<h1>Creating Flows<a class="headerlink" href="#creating-flows" title="Permalink to this heading">#</a></h1>
+          <div class="admonition note">
+<p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/docs/tutorials/4-creating-flows.ipynb">tutorials/4-creating-flows.ipynb</a>.</p>
+</div>
+<section id="Creating-flows-in-jobflow">
+<h1>Creating flows in jobflow<a class="headerlink" href="#Creating-flows-in-jobflow" title="Permalink to this heading">#</a></h1>
+<p>In this tutorial, you will:</p>
+<ul class="simple">
+<li><p>Learn about the <code class="docutils literal notranslate"><span class="pre">Flow</span></code> object.</p></li>
+<li><p>Set the configuration settings of a flow and its jobs.</p></li>
+</ul>
+<p>The purpose of this tutorial is to delve into the basic functionality of flows and gain a feeling for what is possible. Later tutorials will describe how to create dynamic flows.</p>
+<section id="Creating-job-objects">
+<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Permalink to this heading">#</a></h2>
+<p>The building block of jobflows are <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. Jobs are delayed calls to python functions whose outputs are stored in a database. The easiest way to create a job is using the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator. The job decorator can be applied to any function, even those with optional parameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;Using `tqdm.autonotebook.tqdm`&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>We will start by defining two simple jobs that we will stitch together into a flow.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">job</span>
+
+<span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
+
+<span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">mult</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<p>To combine these two <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects into a single workflow, we can take advantage of the <code class="docutils literal notranslate"><span class="pre">Flow</span></code> constructor in Jobflow.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span>
+
+<span class="n">job1</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">job2</span> <span class="o">=</span> <span class="n">mult</span><span class="p">(</span><span class="n">job1</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">([</span><span class="n">job1</span><span class="p">,</span> <span class="n">job2</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-flow&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Because <code class="docutils literal notranslate"><span class="pre">job2</span></code> depends on the output of <code class="docutils literal notranslate"><span class="pre">job1</span></code>, it will only run if/when <code class="docutils literal notranslate"><span class="pre">job1</span></code> completes successfully. Jobflow will automatically determine the connectivity of the jobs and run them accordingly. Here, we have also given the flow an optional name, which can be useful for tracking purposes.</p>
+</section>
+<section id="Setting-Metadata">
+<h2>Setting Metadata<a class="headerlink" href="#Setting-Metadata" title="Permalink to this heading">#</a></h2>
+<p>It can often be useful to attach metadata to jobs and flows before they are run, particularly for querying purposes later on. This can be done with the <code class="docutils literal notranslate"><span class="pre">update_metadata</span></code> function. The <code class="docutils literal notranslate"><span class="pre">name</span></code> can also be updated on-the-fly.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">job1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
+<span class="n">job1</span><span class="o">.</span><span class="n">update_metadata</span><span class="p">({</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Running-Flows">
+<h2>Running Flows<a class="headerlink" href="#Running-Flows" title="Permalink to this heading">#</a></h2>
+<p>We can run the flow locally by calling the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
+
+<span class="n">responses</span> <span class="o">=</span> <span class="n">run_locally</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2023-06-07 23:15:11,193 INFO Started executing jobs locally
+2023-06-07 23:15:11,213 INFO Starting job - add (8ed01a13-ef87-4892-9522-dde3359c7ea8)
+2023-06-07 23:15:11,226 INFO Finished job - add (8ed01a13-ef87-4892-9522-dde3359c7ea8)
+2023-06-07 23:15:11,227 INFO Starting job - mult (227f623f-4059-4b35-84e0-50fcbb67d08e)
+2023-06-07 23:15:11,236 INFO Finished job - mult (227f623f-4059-4b35-84e0-50fcbb67d08e)
+2023-06-07 23:15:11,237 INFO Finished executing jobs locally
+</pre></div></div>
+</div>
+<p>The output contains a UUID for each <code class="docutils literal notranslate"><span class="pre">job</span></code> in the flow along with the outputs for each job.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">uuid</span><span class="p">,</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+8ed01a13-ef87-4892-9522-dde3359c7ea8 -&gt; {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+227f623f-4059-4b35-84e0-50fcbb67d08e -&gt; {1: Response(output=15, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+</pre></div></div>
+</div>
+<p>The UUID can also be obtained from the <code class="docutils literal notranslate"><span class="pre">job</span></code> object directly, which is useful for indexing the output.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">responses</span><span class="p">[</span><span class="n">job2</span><span class="o">.</span><span class="n">uuid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+15
+</pre></div></div>
+</div>
+</section>
 </section>
 
         </article>
@@ -250,8 +389,26 @@
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="5-dynamic-flows.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Creating dynamic flows</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="3-defining-jobs.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Defining jobs in jobflow</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -269,8 +426,29 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Creating flows in jobflow</a><ul>
+<li><a class="reference internal" href="#Creating-job-objects">Creating job objects</a></li>
+<li><a class="reference internal" href="#Setting-Metadata">Setting Metadata</a></li>
+<li><a class="reference internal" href="#Running-Flows">Running Flows</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -280,5 +458,7 @@
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

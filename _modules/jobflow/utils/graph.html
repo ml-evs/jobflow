@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
         <title>jobflow.utils.graph - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -180,11 +180,16 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install jobflow</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install_fireworks.html">Install FireWorks (Optional)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/1-quickstart.html">Five-minute quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/2-introduction.html">Introduction to jobflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/3-defining-jobs.html">Defining jobs in jobflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/4-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/4-creating-flows.html">Creating flows in jobflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/5-dynamic-flows.html">Creating dynamic flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/6-makers.html">Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/7-generalized-makers.html">Writing generalized Makers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/8-fireworks.html">Running Jobflow with FireWorks</a></li>
 </ul>
 </li>
 </ul>
@@ -198,7 +203,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../jobflow.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.core.html">jobflow.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.managers.html">jobflow.managers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../jobflow.settings.html">jobflow.settings</a></li>
@@ -421,6 +426,76 @@
     <span class="n">add_cluster</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">pydot_graph</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pydot_graph</span></div>
+
+
+<span class="k">def</span> <span class="nf">to_mermaid</span><span class="p">(</span><span class="n">flow</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">,</span> <span class="n">show_flow_boxes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a flow to a mermaid graph.</span>
+
+<span class="sd">    Mermaid syntax allows graphs to be displayed interactively via GitHub, the</span>
+<span class="sd">    Mermaid Live Editor at mermaid.live, using the mermaid-cli.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    flow : Flow</span>
+<span class="sd">        A flow.</span>
+<span class="sd">    show_flow_boxes : bool</span>
+<span class="sd">        Whether to show the boxes around nested flows.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        Mermaid commands to render the graph.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The mermaid syntax can be generated from a flow using:</span>
+
+<span class="sd">    &gt;&gt;&gt; from jobflow import job, Flow</span>
+<span class="sd">    &gt;&gt;&gt; @job</span>
+<span class="sd">    ... def add(a, b):</span>
+<span class="sd">    ...     return a + b</span>
+<span class="sd">    &gt;&gt;&gt; add_first = add(1, 2)</span>
+<span class="sd">    &gt;&gt;&gt; add_second = add(add_first.output, 2)</span>
+<span class="sd">    &gt;&gt;&gt; my_flow = Flow(jobs=[add_first, add_second])</span>
+<span class="sd">    &gt;&gt;&gt; graph_source = to_mermaid(my_flow)</span>
+
+<span class="sd">    To render the graph, go to mermaid.live and paste the contents of ``graph_source``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;flowchart TD&quot;</span><span class="p">]</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># add edges</span>
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">flow</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">props</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">props</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">]</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">nodes</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) --&gt;|</span><span class="si">{</span><span class="n">props</span><span class="si">}</span><span class="s2">| </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">nodes</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="c1"># add subgraphs</span>
+    <span class="k">def</span> <span class="nf">add_subgraph</span><span class="p">(</span><span class="n">nested_flow</span><span class="p">,</span> <span class="n">indent_level</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;    &quot;</span> <span class="o">*</span> <span class="n">indent_level</span>
+
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">nested_flow</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">show_flow_boxes</span><span class="p">:</span>
+                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">subgraph </span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+
+                <span class="n">add_subgraph</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">indent_level</span><span class="o">=</span><span class="n">indent_level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">show_flow_boxes</span><span class="p">:</span>
+                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">end&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">indent_level</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">job</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="n">add_subgraph</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
 </pre></div>
         </article>
       </div>
