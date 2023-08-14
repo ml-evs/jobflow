@@ -2,16 +2,17 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributors" href="contributors.html" /><link rel="prev" title="Running Jobflow with FireWorks" href="tutorials/8-fireworks.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
         <title>Change log - jobflow</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=859cf19d" />
     
     
 
@@ -248,6 +249,38 @@
         <article role="main">
           <section id="change-log">
 <h1>Change log<a class="headerlink" href="#change-log" title="Permalink to this heading">#</a></h1>
+<section id="v0-1-12">
+<h2>v0.1.12<a class="headerlink" href="#v0-1-12" title="Permalink to this heading">#</a></h2>
+<p>New features:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">to_mermaid</span></code> function to convert flow to mermaid syntax by &#64;utf in https://github.com/materialsproject/jobflow/pull/311</p></li>
+<li><p>Allow external references by &#64;gpetretto in https://github.com/materialsproject/jobflow/pull/392</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">to_mermaid</span></code> for all in graph utils by &#64;JaGeo in https://github.com/materialsproject/jobflow/pull/351</p></li>
+<li><p>Propagate tags from <code class="docutils literal notranslate"><span class="pre">fw_spec</span></code> to metadata by &#64;sivonxay in https://github.com/materialsproject/jobflow/pull/345</p></li>
+<li><p>Allow bson objects as job inputs, e.g. datetime.datetimes by &#64;mcgalcode in https://github.com/materialsproject/jobflow/pull/375</p></li>
+<li><p>Also <code class="docutils literal notranslate"><span class="pre">allow_bson</span></code> in job serialization by &#64;mcgalcode in https://github.com/materialsproject/jobflow/pull/376</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Flow</span></code> + <code class="docutils literal notranslate"><span class="pre">Job</span></code> magic methods by &#64;janosh in https://github.com/materialsproject/jobflow/pull/369</p></li>
+</ul>
+<p>Bug fixes:</p>
+<ul class="simple">
+<li><p>Fix ValueError: mutable default for field <code class="docutils literal notranslate"><span class="pre">add_maker</span></code> is not allowed: use <code class="docutils literal notranslate"><span class="pre">default_factory</span></code> by &#64;janosh in https://github.com/materialsproject/jobflow/pull/387</p></li>
+<li><p>Fixed nested data storage bug by &#64;jmmshn in https://github.com/materialsproject/jobflow/pull/293</p></li>
+<li><p>Test imports need to be in function by &#64;jmmshn in https://github.com/materialsproject/jobflow/pull/310</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> when passing name to <code class="docutils literal notranslate"><span class="pre">flow_to_workflow(</span></code> by &#64;janosh in https://github.com/materialsproject/jobflow/pull/396</p></li>
+<li><p>Fix mermaid with one job (in a flow) by &#64;JaGeo in https://github.com/materialsproject/jobflow/pull/350</p></li>
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">JobStore.from_dict_spec</span></code> so that the original <code class="docutils literal notranslate"><span class="pre">dict_spec</span></code> is not modified by &#64;davidwaroquiers in https://github.com/materialsproject/jobflow/pull/331</p></li>
+</ul>
+<p>Enhancements:</p>
+<ul class="simple">
+<li><p>Fix typo in data store docs by &#64;xperrylinn in https://github.com/materialsproject/jobflow/pull/316</p></li>
+<li><p>Fix typo in fireworks docs by &#64;arosen93 in https://github.com/materialsproject/jobflow/pull/343</p></li>
+<li><p>Fix typo in docs by &#64;arosen93 in https://github.com/materialsproject/jobflow/pull/359</p></li>
+<li><p>Fix broken link to FireWorks tutorial by &#64;janosh in https://github.com/materialsproject/jobflow/pull/319</p></li>
+<li><p>Add documentation: Flows, FireWorks, Dynamic Flows, Makers by &#64;arosen93 in https://github.com/materialsproject/jobflow/pull/338</p></li>
+<li><p>Update forum link by &#64;mkhorton in https://github.com/materialsproject/jobflow/pull/373</p></li>
+<li><p>Add copy button to code blocks in docs by &#64;arosen93 in https://github.com/materialsproject/jobflow/pull/344</p></li>
+</ul>
+</section>
 <section id="v0-1-11">
 <h2>v0.1.11<a class="headerlink" href="#v0-1-11" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -460,6 +493,7 @@ in the kwargs or args of the job.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Change log</a><ul>
+<li><a class="reference internal" href="#v0-1-12">v0.1.12</a></li>
 <li><a class="reference internal" href="#v0-1-11">v0.1.11</a></li>
 <li><a class="reference internal" href="#v0-1-10">v0.1.10</a></li>
 <li><a class="reference internal" href="#v0-1-9">v0.1.9</a></li>
@@ -485,10 +519,12 @@ in the kwargs or args of the job.</p></li>
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/furo.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=515f6337"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>

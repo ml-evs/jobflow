@@ -2,16 +2,17 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.settings" href="jobflow.settings.html" /><link rel="prev" title="jobflow.core" href="jobflow.core.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
         <title>jobflow.managers - jobflow</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=859cf19d" />
     
     
 
@@ -253,18 +254,20 @@
 <p>Tools for running jobflow locally.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.managers.local.run_locally">
-<span class="sig-prename descclassname"><span class="pre">jobflow.managers.local.</span></span><span class="sig-name descname"><span class="pre">run_locally</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_folders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/local.html#run_locally"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.local.run_locally" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">jobflow.managers.local.</span></span><span class="sig-name descname"><span class="pre">run_locally</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_folders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_external_references</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/local.html#run_locally"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.local.run_locally" title="Permalink to this definition">#</a></dt>
 <dd><p>Run a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> locally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A job or flow.</p></li>
 <li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to print log messages.</p></li>
-<li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store. If a job store is not specified then
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store. If a job store is not specified then
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code> will be used. By default this is a maggma
 <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> but can be customised by setting the jobflow configuration file.</p></li>
 <li><p><strong>create_folders</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to run each job in a new folder.</p></li>
 <li><p><strong>ensure_success</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Raise an error if the flow was not executed successfully.</p></li>
+<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
+of the Flow.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -282,7 +285,7 @@
 <p>Tools for running <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> objects using the FireWorks package.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.managers.fireworks.flow_to_workflow">
-<span class="sig-prename descclassname"><span class="pre">jobflow.managers.fireworks.</span></span><span class="sig-name descname"><span class="pre">flow_to_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/fireworks.html#flow_to_workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.fireworks.flow_to_workflow" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">jobflow.managers.fireworks.</span></span><span class="sig-name descname"><span class="pre">flow_to_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_external_references</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/fireworks.html#flow_to_workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.fireworks.flow_to_workflow" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> or a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> to a FireWorks <code class="xref py py-obj docutils literal notranslate"><span class="pre">Workflow</span></code> object.</p>
 <p>Each firework spec is updated with the contents of the
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job.config.manager_config</span></code> dictionary. Accordingly, a <a class="reference internal" href="jobflow.core.html#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobConfig</span></code></a> object
@@ -291,10 +294,12 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A flow or job.</p></li>
-<li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
 will be used. Note, this could be different on the computer that submits the
 workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
 the computer that runs the workflow will be used.</p></li>
+<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
+of the Flow.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to Workflow init method.</p></li>
 </ul>
 </dd>
@@ -318,12 +323,12 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>job</strong> (<em>jobflow.Job</em>) – A job.</p></li>
-<li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
+<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
 will be used. Note, this could be different on the computer that submits the
 workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
 the computer that runs the workflow will be used.</p></li>
-<li><p><strong>parents</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – The parent uuids of the job.</p></li>
-<li><p><strong>parent_mapping</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Firework</em><em>] </em><em>| </em><em>None</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
+<li><p><strong>parents</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The parent uuids of the job.</p></li>
+<li><p><strong>parent_mapping</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Firework</em><em>]</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to the Firework constructor.</p></li>
 </ul>
 </dd>
@@ -442,10 +447,12 @@ the computer that runs the workflow will be used.</p></li>
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/furo.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=515f6337"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>

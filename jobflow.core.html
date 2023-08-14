@@ -2,16 +2,17 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.managers" href="jobflow.managers.html" /><link rel="prev" title="jobflow" href="jobflow.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
         <title>jobflow.core - jobflow</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=859cf19d" />
     
     
 
@@ -276,7 +277,7 @@ references.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">Flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Flow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">JobOrder.AUTO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.Flow" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2023.5.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
 <p>A Flow contains a collection of Jobs or other Flows to execute.</p>
 <p>The <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object is the main tool for constructing workflows. Flows
 can either contain Jobs or other Flows. Like <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects, Flow objects
@@ -287,13 +288,13 @@ contained within the Flow.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>jobs</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><em>jobflow.Job</em><em>] </em><em>| </em><em>jobflow.Job</em><em> | </em><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a>) – The jobs to be run as a list of <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> or <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> objects.</p></li>
-<li><p><strong>output</strong> (<em>Any</em><em> | </em><em>None</em>) – The output of the flow. These should come from the output of one or more
+<li><p><strong>output</strong> (<em>Any</em>) – The output of the flow. These should come from the output of one or more
 of the jobs.</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The flow name.</p></li>
 <li><p><strong>order</strong> (<a class="reference internal" href="#jobflow.core.flow.JobOrder" title="jobflow.core.flow.JobOrder"><em>JobOrder</em></a>) – The order in which the jobs should be executed. The default is to determine
 the order automatically based on the connections between jobs.</p></li>
 <li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The identifier of the flow. This is generated automatically.</p></li>
-<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – The list of UUIDs of the hosts containing the job. This is updated
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The list of UUIDs of the hosts containing the job. This is updated
 automatically when a flow is included in the jobs array of another flow.
 The object identified by one UUID of the list should be contained in objects
 identified by its subsequent elements.</p></li>
@@ -348,7 +349,7 @@ locally or on compute clusters (using the FireWorks manager).</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="jobflow.core.flow.Flow.jobs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jobs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><span class="pre">Flow</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">jobflow.Job</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.flow.Flow.jobs" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jobs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><span class="pre">Flow</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><span class="pre">Job</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#jobflow.core.flow.Flow.jobs" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the Jobs in the Flow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -471,9 +472,9 @@ flow).</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the job name. Only jobs with a matching name will be updated.
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the job name. Only jobs with a matching name will be updated.
 Includes partial matches, e.g. “ad” will match a job with the name “adder”.</p></li>
-<li><p><strong>function_filter</strong> (<em>Callable</em><em> | </em><em>None</em>) – A filter for the job function. Only jobs with a matching function will be
+<li><p><strong>function_filter</strong> (<em>Callable</em>) – A filter for the job function. Only jobs with a matching function will be
 updated.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
@@ -512,10 +513,10 @@ jobs. To only apply the update to the correct jobs, filters can be used.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the Maker name. Only Makers with a matching name will be
 updated. Includes partial matches, e.g. “ad” will match a Maker with the
 name “adder”.</p></li>
-<li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>jobflow.Maker</em><em>] </em><em>| </em><em>None</em>) – A filter for the maker class. Only Makers with a matching class will be
+<li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>jobflow.Maker</em><em>]</em>) – A filter for the maker class. Only Makers with a matching class will be
 updated. Note the class filter will match any subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
 of Maker, job, or flow objects. See examples for more details.</p></li>
@@ -608,9 +609,9 @@ Maker:</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the job name. Only jobs with a matching name will be updated.
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the job name. Only jobs with a matching name will be updated.
 Includes partial matches, e.g. “ad” will match a job with the name “adder”.</p></li>
-<li><p><strong>function_filter</strong> (<em>Callable</em><em> | </em><em>None</em>) – A filter for the job function. Only jobs with a matching function will be
+<li><p><strong>function_filter</strong> (<em>Callable</em>) – A filter for the job function. Only jobs with a matching function will be
 updated.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
@@ -717,7 +718,10 @@ added to the inner Flows and Jobs.</p></li>
 automatically to the incoming Jobs/Flows based on the hosts of the current Flow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>jobs</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><em>jobflow.Job</em><em>] </em><em>| </em><em>jobflow.Job</em><em> | </em><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a>) – A list of Jobs and Flows.</p>
+<dd class="field-odd"><p><strong>jobs</strong> (<a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>]</em>) – A list of Jobs and Flows.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -738,11 +742,15 @@ automatically to the incoming Jobs/Flows based on the hosts of the current Flow.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.core.flow.get_flow">
-<span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">get_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#get_flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.get_flow" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">jobflow.core.flow.</span></span><span class="sig-name descname"><span class="pre">get_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_external_references</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/flow.html#get_flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.flow.get_flow" title="Permalink to this definition">#</a></dt>
 <dd><p>Check dependencies and return flow object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>flow</strong> (<a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A job, list of jobs, or flow.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flow</strong> (<a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A job, list of jobs, or flow.</p></li>
+<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
+of the Flow.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a> object where connections have been checked.</p>
@@ -768,7 +776,7 @@ job objects directly from a function definition. See the examples for more detai
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>method</strong> (<em>Callable</em><em> | </em><em>None</em>) – A function to wrap. This should not be specified directly and is implied
+<li><p><strong>method</strong> (<em>Callable</em>) – A function to wrap. This should not be specified directly and is implied
 by the decorator.</p></li>
 <li><p><strong>**job_kwargs</strong> – Other keyword arguments that will get passed to the <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> init method.</p></li>
 </ul>
@@ -863,7 +871,7 @@ details.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.Job">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">Job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_updates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_updates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#Job"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.Job" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2023.5.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
 <p>A <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> is a delayed function call that can be used in an <a class="reference internal" href="#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code></a>.</p>
 <p>In general, one should not create <a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code></a> objects directly but instead use
 the <a class="reference internal" href="#jobflow.core.job.job" title="jobflow.core.job.job"><code class="xref py py-obj docutils literal notranslate"><span class="pre">job</span></code></a> decorator on a function. Any calls to a decorated function will
@@ -877,18 +885,18 @@ the class is importable. Lastly, methods (functions bound to an instance of
 class) can be used, provided the class is <code class="xref py py-obj docutils literal notranslate"><span class="pre">MSONable</span></code>.</p></li>
 <li><p><strong>function_args</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><em>...</em><em>]</em>) – The positional arguments to the function call.</p></li>
 <li><p><strong>function_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The keyword arguments to the function call.</p></li>
-<li><p><strong>output_schema</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>BaseModel</em><em>] </em><em>| </em><em>None</em>) – A pydantic model that defines the schema of the output.</p></li>
+<li><p><strong>output_schema</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>BaseModel</em><em>]</em>) – A pydantic model that defines the schema of the output.</p></li>
 <li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A unique identifier for the job. Generated automatically.</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The index of the job (number of times the job has been replaced).</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – The name of the job. If not set it will be determined from <code class="docutils literal notranslate"><span class="pre">function</span></code>.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The name of the job. If not set it will be determined from <code class="docutils literal notranslate"><span class="pre">function</span></code>.</p></li>
 <li><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary of information that will get stored alongside the job output.</p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#jobflow.core.job.JobConfig" title="jobflow.core.job.JobConfig"><em>JobConfig</em></a>) – The config setting for the job.</p></li>
-<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – The list of UUIDs of the hosts containing the job. The object identified by one
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The list of UUIDs of the hosts containing the job. The object identified by one
 UUID of the list should be contained in objects identified by its subsequent
 elements.</p></li>
-<li><p><strong>metadata_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>] </em><em>| </em><em>None</em>) – A list of updates for the metadata that will be applied to any Flow/Job
+<li><p><strong>metadata_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A list of updates for the metadata that will be applied to any Flow/Job
 generated by the job.</p></li>
-<li><p><strong>config_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>] </em><em>| </em><em>None</em>) – A list of updates for the config that will be applied to any Flow/Job generated
+<li><p><strong>config_updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – A list of updates for the config that will be applied to any Flow/Job generated
 by the job.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments that can be used to specify which outputs to save
 in additional stores. The argument name gives the additional store name and the
@@ -1024,6 +1032,9 @@ in the <code class="docutils literal notranslate"><span class="pre">my_package</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A UUID.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1084,9 +1095,9 @@ determine the flow execution.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the job name. Only jobs with a matching name will be updated.
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the job name. Only jobs with a matching name will be updated.
 Includes partial matches, e.g. “ad” will match a job with the name “adder”.</p></li>
-<li><p><strong>function_filter</strong> (<em>Callable</em><em> | </em><em>None</em>) – A filter for the job function. Only jobs with a matching function will be
+<li><p><strong>function_filter</strong> (<em>Callable</em>) – A filter for the job function. Only jobs with a matching function will be
 updated.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
@@ -1116,10 +1127,10 @@ details.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the Maker name. Only Makers with a matching name will be
 updated. Includes partial matches, e.g. “ad” will match a Maker with the
 name “adder”.</p></li>
-<li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>jobflow.Maker</em><em>] </em><em>| </em><em>None</em>) – A filter for the maker class. Only Makers with a matching class will be
+<li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>jobflow.Maker</em><em>]</em>) – A filter for the maker class. Only Makers with a matching class will be
 updated. Note the class filter will match any subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
 of Maker, job, or flow objects. See examples for more details.</p></li>
@@ -1203,9 +1214,9 @@ by this job.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the job name. Only jobs with a matching name will be updated.
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the job name. Only jobs with a matching name will be updated.
 Includes partial matches, e.g. “ad” will match a job with the name “adder”.</p></li>
-<li><p><strong>function_filter</strong> (<em>Callable</em><em> | </em><em>None</em>) – A filter for the job function. Only jobs with a matching function will be
+<li><p><strong>function_filter</strong> (<em>Callable</em>) – A filter for the job function. Only jobs with a matching function will be
 updated.</p></li>
 <li><p><strong>dict_mod</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Use the dict mod language to apply updates. See <a class="reference internal" href="jobflow.utils.html#jobflow.utils.dict_mods.DictMods" title="jobflow.utils.dict_mods.DictMods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DictMods</span></code></a> for more
 details.</p></li>
@@ -1325,7 +1336,7 @@ identified by its subsequent elements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>hosts_uuids</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A list of UUIDs to add.</p></li>
+<li><p><strong>hosts_uuids</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – A list of UUIDs to add.</p></li>
 <li><p><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Insert the UUIDs at the beginning of the list rather than extending it.</p></li>
 </ul>
 </dd>
@@ -1342,11 +1353,11 @@ identified by its subsequent elements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output</strong> (<em>T</em><em> | </em><em>None</em>) – The job output.</p></li>
-<li><p><strong>detour</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>] </em><em>| </em><em>None</em>) – A flow or job to detour to.</p></li>
-<li><p><strong>addition</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>] </em><em>| </em><em>None</em>) – A flow or job to add to the current flow.</p></li>
-<li><p><strong>replace</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>] </em><em>| </em><em>None</em>) – A flow or job to replace the current job.</p></li>
-<li><p><strong>stored_data</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – Data to be stored by the flow manager.</p></li>
+<li><p><strong>output</strong> (<em>T</em>) – The job output.</p></li>
+<li><p><strong>detour</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>]</em>) – A flow or job to detour to.</p></li>
+<li><p><strong>addition</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>]</em>) – A flow or job to add to the current flow.</p></li>
+<li><p><strong>replace</strong> (<em>jobflow.Flow</em><em> | </em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Flow</em><em>]</em>) – A flow or job to replace the current job.</p></li>
+<li><p><strong>stored_data</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – Data to be stored by the flow manager.</p></li>
 <li><p><strong>stop_children</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Stop any children of the current flow.</p></li>
 <li><p><strong>stop_jobflow</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Stop executing all remaining jobs.</p></li>
 </ul>
@@ -1363,7 +1374,7 @@ identified by its subsequent elements.</p>
 will be applied to the response outputs and the response returned.
 Otherwise, the <code class="docutils literal notranslate"><span class="pre">job_returns</span></code> will be put into the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> of a new
 <a class="reference internal" href="#jobflow.core.job.Response" title="jobflow.core.job.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a> object.</p></li>
-<li><p><strong>output_schema</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>BaseModel</em><em>] </em><em>| </em><em>None</em>) – A pydantic model associated with the job. Used to enforce a schema for the
+<li><p><strong>output_schema</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>BaseModel</em><em>]</em>) – A pydantic model associated with the job. Used to enforce a schema for the
 outputs.</p></li>
 </ul>
 </dd>
@@ -1384,7 +1395,7 @@ outputs.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.job.JobConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.job.</span></span><span class="sig-name descname"><span class="pre">JobConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolve_references=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_missing_references=OnMissing.ERROR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager_config=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expose_store=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pass_manager_config=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_manager_config=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/job.html#JobConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.job.JobConfig" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2023.5.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
 <p>The configuration parameters for a job.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1436,7 +1447,7 @@ references will be replaced with <code class="docutils literal notranslate"><spa
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.maker.Maker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.maker.</span></span><span class="sig-name descname"><span class="pre">Maker</span></span><a class="reference internal" href="_modules/jobflow/core/maker.html#Maker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.maker.Maker" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2023.5.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
 <p>Base maker (factory) class for constructing <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> objects.</p>
 <p>Note, this class is only an abstract implementation. To create a functioning Maker,
 one should  subclass <a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Maker</span></code></a>, define the <code class="docutils literal notranslate"><span class="pre">make</span></code> method and add a name field
@@ -1567,10 +1578,10 @@ returned.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>update</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to apply.</p></li>
-<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – A filter for the Maker name. Only Makers with a matching name will be
+<li><p><strong>name_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A filter for the Maker name. Only Makers with a matching name will be
 updated. Includes partial matches, e.g. “ad” will match a Maker with the
 name “adder”.</p></li>
-<li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><em>Maker</em></a><em>] </em><em>| </em><em>None</em>) – A filter for the maker class. Only Makers with a matching class will be
+<li><p><strong>class_filter</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><a class="reference internal" href="#jobflow.core.maker.Maker" title="jobflow.core.maker.Maker"><em>Maker</em></a><em>]</em>) – A filter for the maker class. Only Makers with a matching class will be
 updated. Note the class filter will match any subclasses.</p></li>
 <li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to apply the updates to Maker objects that are themselves kwargs
 of a Maker object. See examples for more details.</p></li>
@@ -1665,7 +1676,7 @@ Maker:</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.core.reference.OutputReference">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.core.reference.</span></span><span class="sig-name descname"><span class="pre">OutputReference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/core/reference.html#OutputReference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.core.reference.OutputReference" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsvirtuallab.github.io/monty/monty.json.html#monty.json.MSONable" title="(in monty v2023.5.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MSONable</span></code></p>
 <p>A reference to the output of a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code>.</p>
 <p>The output may or may not exist yet. Accordingly, <a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputReference</span></code></a> objects
 are essentially pointers to future job outputs. Output references can be used as
@@ -1686,7 +1697,7 @@ the job. See the examples for more details.</p>
 <li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>...</em><em>]</em>) – A tuple of attributes or indexes that have been performed on the
 output. Attributes are specified by a tuple of <code class="docutils literal notranslate"><span class="pre">(&quot;a&quot;,</span> <span class="pre">attr)</span></code>, whereas
 indexes are specified as a tuple of <code class="docutils literal notranslate"><span class="pre">(&quot;i&quot;,</span> <span class="pre">index)</span></code>.</p></li>
-<li><p><strong>output_schema</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>BaseModel</em><em>] </em><em>| </em><em>None</em>) – A pydantic model that defines the schema of the output and that will be used to
+<li><p><strong>output_schema</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>BaseModel</em><em>]</em>) – A pydantic model that defines the schema of the output and that will be used to
 validate any attribute accesses or indexes. Note, schemas can only be used to
 validate the first attribute/index access.</p></li>
 </ul>
@@ -1724,7 +1735,7 @@ requests.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>store</strong> (<em>jobflow.JobStore</em><em> | </em><em>None</em>) – A job store.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – A dictionary cache to use for local caching of reference values.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
 </ul>
@@ -1788,7 +1799,7 @@ object.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>references</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="#jobflow.core.reference.OutputReference" title="jobflow.core.reference.OutputReference"><em>OutputReference</em></a><em>]</em>) – A list or tuple of output references.</p></li>
 <li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – A dictionary cache to use for local caching of reference values.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
 </ul>
@@ -1813,7 +1824,7 @@ See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>arg</strong> (<em>Any</em>) – The input argument containing output references.</p></li>
 <li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – A dictionary cache to use for local caching of reference values.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary cache to use for local caching of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output reference is missing in the database and cache.
 See <a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnMissing</span></code></a> for the available options.</p></li>
 </ul>
@@ -1871,7 +1882,7 @@ the job config.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>docs_store</strong> (<em>Store</em>) – Store for basic documents.</p></li>
-<li><p><strong>additional_stores</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Store</em><em>] </em><em>| </em><em>None</em>) – Additional stores to use for storing large data/specific objects. Given as a
+<li><p><strong>additional_stores</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Store</em><em>]</em>) – Additional stores to use for storing large data/specific objects. Given as a
 mapping of <code class="docutils literal notranslate"><span class="pre">{store</span> <span class="pre">name:</span> <span class="pre">store}</span></code> where store is a maggma <code class="xref py py-obj docutils literal notranslate"><span class="pre">Store</span></code> object.</p></li>
 <li><p><strong>save</strong> (<em>save_type</em>) – Which items to save in additional stores when uploading documents. Given as a
 mapping of <code class="docutils literal notranslate"><span class="pre">{store</span> <span class="pre">name:</span> <span class="pre">store_type}</span></code> where <code class="docutils literal notranslate"><span class="pre">store_type</span></code> can be a dictionary
@@ -1944,9 +1955,9 @@ Can be “datetime” or “isoformat”</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><em>None</em>) – PyMongo filter for documents to search in.</p></li>
-<li><p><strong>properties</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> | </em><em>None</em>) – Properties to return in grouped documents.</p></li>
-<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Sort</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
+<li><p><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – PyMongo filter for documents to search in.</p></li>
+<li><p><strong>properties</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Properties to return in grouped documents.</p></li>
+<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Sort</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
 for ascending or -1 for descending.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of documents to skip.</p></li>
 <li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit on the total number of documents returned.</p></li>
@@ -1970,9 +1981,9 @@ more details.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><em>None</em>) – PyMongo filter for documents to search.</p></li>
-<li><p><strong>properties</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> | </em><em>None</em>) – Properties to return in the document.</p></li>
-<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Sort</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
+<li><p><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – PyMongo filter for documents to search.</p></li>
+<li><p><strong>properties</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Properties to return in the document.</p></li>
+<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Sort</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
 for ascending or -1 for descending.</p></li>
 <li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores. See <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
 more details.</p></li>
@@ -1995,7 +2006,7 @@ more details.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>docs</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The document or list of documents to update.</p></li>
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> | </em><em>None</em>) – Field name(s) to determine uniqueness for a document, can be a list of
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Field name(s) to determine uniqueness for a document, can be a list of
 multiple fields, a single field, or None if the Store’s key field is to
 be used.</p></li>
 <li><p><strong>save</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> | </em><em>save_type</em>) – Which items to save in additional stores. See <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
@@ -2033,9 +2044,9 @@ more details.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Fields to group documents.</p></li>
-<li><p><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><em>None</em>) – PyMongo filter for documents to search in.</p></li>
-<li><p><strong>properties</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> | </em><em>None</em>) – Properties to return in grouped documents</p></li>
-<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Sort</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
+<li><p><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – PyMongo filter for documents to search in.</p></li>
+<li><p><strong>properties</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Properties to return in grouped documents</p></li>
+<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Sort</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>]</em>) – Dictionary of sort order for fields. Keys are field names and values are 1
 for ascending or -1 for descending.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of documents to skip.</p></li>
 <li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit on the total number of documents returned.</p></li>
@@ -2085,7 +2096,7 @@ index will be queried.</p></li>
 <li><p><strong>load</strong> (<em>load_type</em>) – Which items to load from additional stores. Setting to <code class="docutils literal notranslate"><span class="pre">True</span></code> will load
 all items stored in additional stores. See the <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> constructor for
 more details.</p></li>
-<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – A dictionary cache to use for resolving of reference values.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dictionary cache to use for resolving of reference values.</p></li>
 <li><p><strong>on_missing</strong> (<a class="reference internal" href="#jobflow.core.reference.OnMissing" title="jobflow.core.reference.OnMissing"><em>OnMissing</em></a>) – What to do if the output contains a reference and the reference cannot
 be resolved.</p></li>
 </ul>
@@ -2373,10 +2384,12 @@ additional store for data.</p>
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/furo.js"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=515f6337"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>

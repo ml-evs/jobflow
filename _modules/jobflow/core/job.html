@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
         <title>jobflow.core.job - jobflow</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=859cf19d" />
     
     
 
@@ -260,7 +261,7 @@
 <span class="kn">from</span> <span class="nn">jobflow.utils.uuid</span> <span class="kn">import</span> <span class="n">suuid</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Hashable</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Sequence</span>
 
     <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">DiGraph</span>
     <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
@@ -313,7 +314,7 @@
     <span class="n">response_manager_config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="job"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.job">[docs]</a><span class="k">def</span> <span class="nf">job</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">job_kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="job"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.job">[docs]</a><span class="k">def</span> <span class="nf">job</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">job_kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrap a function to produce a :obj:`Job`.</span>
 
@@ -426,7 +427,6 @@
 
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">get_job</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Job</span><span class="p">:</span>
-
             <span class="n">f</span> <span class="o">=</span> <span class="n">func</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># see if the first argument has a function with the same name as</span>
@@ -442,10 +442,7 @@
                         <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 
             <span class="k">return</span> <span class="n">Job</span><span class="p">(</span>
-                <span class="n">function</span><span class="o">=</span><span class="n">f</span><span class="p">,</span>
-                <span class="n">function_args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
-                <span class="n">function_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
-                <span class="o">**</span><span class="n">job_kwargs</span><span class="p">,</span>
+                <span class="n">function</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">function_args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">function_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">job_kwargs</span>
             <span class="p">)</span>
 
         <span class="n">get_job</span><span class="o">.</span><span class="n">original</span> <span class="o">=</span> <span class="n">func</span>
@@ -556,15 +553,15 @@
         <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
         <span class="n">function_args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">function_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">JobConfig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">hosts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">metadata_updates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">config_updates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">hosts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata_updates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config_updates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
@@ -613,6 +610,49 @@
                 <span class="sa">f</span><span class="s2">&quot;job.output). If this message is unexpected then double check the &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;inputs to your Job.&quot;</span>
             <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a string representation of the job.&quot;&quot;&quot;</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">uuid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Job(</span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">uuid</span><span class="si">=}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Hashable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the job contains a reference to a given UUID.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        item</span>
+<span class="sd">            A UUID.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Whether the job contains a reference to the UUID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_uuids</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if two jobs are equal.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other</span>
+<span class="sd">            Another job.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Whether the jobs are equal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Job</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">NotImplemented</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the hash of the job.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">input_references</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">OutputReference</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
@@ -722,7 +762,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="k">else</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="Job.set_uuid"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Job.set_uuid"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.set_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">set_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the UUID of the job.</span>
 
@@ -821,7 +861,6 @@
             <span class="n">passed_config</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">passed_config</span><span class="p">:</span>
-
             <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">addition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">pass_manager_config</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">addition</span><span class="p">,</span> <span class="n">passed_config</span><span class="p">)</span>
 
@@ -911,8 +950,8 @@
 <div class="viewcode-block" id="Job.update_kwargs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.update_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -967,8 +1006,8 @@
 <div class="viewcode-block" id="Job.update_maker_kwargs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.update_maker_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">update_maker_kwargs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">class_filter</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Maker</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">class_filter</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Maker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">nested</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1100,8 +1139,8 @@
 <div class="viewcode-block" id="Job.update_metadata"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.update_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">update_metadata</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">update</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">function_filter</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dict_mod</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">dynamic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1315,7 +1354,7 @@
 
         <span class="c1"># fireworks can&#39;t serialize functions and classes, so explicitly serialize to</span>
         <span class="c1"># the job recursively using monty to avoid issues</span>
-        <span class="k">return</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">jsanitize</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enum_values</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_bson</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle setting attributes. Implements a special case for job name.&quot;&quot;&quot;</span>
@@ -1328,7 +1367,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Job.add_hosts_uuids"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.add_hosts_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">add_hosts_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts_uuids</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">prepend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Job.add_hosts_uuids"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.job.Job.add_hosts_uuids">[docs]</a>    <span class="k">def</span> <span class="nf">add_hosts_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hosts_uuids</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">prepend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a list of UUIDs to the internal list of hosts.</span>
 
@@ -1344,7 +1383,7 @@
 <span class="sd">            Insert the UUIDs at the beginning of the list rather than extending it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-            <span class="n">hosts_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="n">hosts_uuids</span><span class="p">]</span>
+            <span class="n">hosts_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="n">hosts_uuids</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
         <span class="k">if</span> <span class="n">prepend</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosts_uuids</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1381,11 +1420,11 @@
 <span class="sd">        Stop executing all remaining jobs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">output</span><span class="p">:</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">detour</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">addition</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">replace</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">stored_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">detour</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">addition</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">replace</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">jobflow</span><span class="o">.</span><span class="n">Flow</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">stored_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">stop_children</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">stop_jobflow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -1393,7 +1432,7 @@
     <span class="k">def</span> <span class="nf">from_job_returns</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">job_returns</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_schema</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a :obj:`Response` from the outputs of a :obj:`Job`.</span>
@@ -1570,7 +1609,6 @@
     <span class="n">all_jobs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Job</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">get_jobs</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Job</span><span class="p">):</span>
             <span class="n">all_jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
@@ -1619,10 +1657,12 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/furo.js"></script>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=515f6337"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>

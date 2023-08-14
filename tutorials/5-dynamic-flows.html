@@ -2,17 +2,18 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Makers" href="6-makers.html" /><link rel="prev" title="Creating flows in jobflow" href="4-creating-flows.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.05.20 -->
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
         <title>Creating dynamic flows - jobflow</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=859cf19d" />
     
     
 
@@ -351,7 +352,7 @@ ca3636e3-50f7-4ec8-a5e7-66bc4e14b901 -&gt; {1: Response(output=3, detour=None, a
 1bffefd1-4edc-43d5-b99f-b0833fca2b8d -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
 </pre></div></div>
 </div>
-<p>As sene above, there are several jobs that were run — certainly more than the two we started with. The first job generates a list of 2’s with a random length. The second job in the flow is what launches a job on each entry in the list. It is replaced by one job for each entry, hence it has no direct output. Then each newly generated job is run.</p>
+<p>As seen above, there are several jobs that were run — certainly more than the two we started with. The first job generates a list of 2’s with a random length. The second job in the flow is what launches a job on each entry in the list. It is replaced by one job for each entry, hence it has no direct output. Then each newly generated job is run.</p>
 </section>
 <section id="The-Response(addition)-option">
 <h2>The <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> option<a class="headerlink" href="#The-Response(addition)-option" title="Permalink to this heading">#</a></h2>
@@ -602,10 +603,12 @@ e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/scripts/furo.js"></script>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=515f6337"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
