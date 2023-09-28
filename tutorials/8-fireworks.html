@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Change log" href="../changelog.html" /><link rel="prev" title="Writing generalized Makers" href="7-generalized-makers.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Running Jobflow with FireWorks - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
@@ -248,13 +248,13 @@
         </div>
         <article role="main">
           <section id="running-jobflow-with-fireworks">
-<h1>Running Jobflow with FireWorks<a class="headerlink" href="#running-jobflow-with-fireworks" title="Permalink to this heading">#</a></h1>
+<h1>Running Jobflow with FireWorks<a class="headerlink" href="#running-jobflow-with-fireworks" title="Link to this heading">#</a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> is a powerful software package to manage and execute complex workflows. Jobflow comes with native support to convert a <code class="docutils literal notranslate"><span class="pre">Job</span></code> or <code class="docutils literal notranslate"><span class="pre">Flow</span></code> into a FireWorks <code class="docutils literal notranslate"><span class="pre">firework</span></code> or <code class="docutils literal notranslate"><span class="pre">workflow</span></code>, respectively.</p>
 </section>
 <section id="converting-a-job-to-a-firework">
-<h2>Converting a Job to a Firework<a class="headerlink" href="#converting-a-job-to-a-firework" title="Permalink to this heading">#</a></h2>
+<h2>Converting a Job to a Firework<a class="headerlink" href="#converting-a-job-to-a-firework" title="Link to this heading">#</a></h2>
 <p>To convert a <code class="docutils literal notranslate"><span class="pre">Job</span></code> to a <code class="docutils literal notranslate"><span class="pre">firework</span></code> and add it to your launch pad:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fireworks</span> <span class="kn">import</span> <span class="n">LaunchPad</span>
 <span class="kn">from</span> <span class="nn">jobflow.managers.fireworks</span> <span class="kn">import</span> <span class="n">job_to_firework</span>
@@ -266,7 +266,7 @@
 </div>
 </section>
 <section id="converting-a-flow-to-a-workflow">
-<h2>Converting a Flow to a Workflow<a class="headerlink" href="#converting-a-flow-to-a-workflow" title="Permalink to this heading">#</a></h2>
+<h2>Converting a Flow to a Workflow<a class="headerlink" href="#converting-a-flow-to-a-workflow" title="Link to this heading">#</a></h2>
 <p>To convert a <code class="docutils literal notranslate"><span class="pre">Flow</span></code> to a <code class="docutils literal notranslate"><span class="pre">workflow</span></code> and add it to your launch pad:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fireworks</span> <span class="kn">import</span> <span class="n">LaunchPad</span>
 <span class="kn">from</span> <span class="nn">jobflow.managers.fireworks</span> <span class="kn">import</span> <span class="n">flow_to_workflow</span>
@@ -278,16 +278,16 @@
 </div>
 </section>
 <section id="dispatching-calculations">
-<h2>Dispatching Calculations<a class="headerlink" href="#dispatching-calculations" title="Permalink to this heading">#</a></h2>
+<h2>Dispatching Calculations<a class="headerlink" href="#dispatching-calculations" title="Link to this heading">#</a></h2>
 <p>With a workflow added to your launch pad, on the desired machine of choice, you can run <code class="docutils literal notranslate"><span class="pre">qlaunch</span> <span class="pre">rapidfire</span> <span class="pre">--nlaunches</span> <span class="pre">&lt;N&gt;</span></code> (where <code class="docutils literal notranslate"><span class="pre">&lt;N&gt;</span></code> is the number of jobs to submit) in the command line to submit your workflows to the job scheduler.</p>
 </section>
 <section id="setting-where-jobs-are-dispatched">
-<h2>Setting where Jobs are Dispatched<a class="headerlink" href="#setting-where-jobs-are-dispatched" title="Permalink to this heading">#</a></h2>
+<h2>Setting where Jobs are Dispatched<a class="headerlink" href="#setting-where-jobs-are-dispatched" title="Link to this heading">#</a></h2>
 <p>In many cases, you may wish to submit individual jobs in a flow to different machines or with different job submission options (e.g. different compute resources).</p>
 <p>The easiest way to achieve this goal is by defining a unique <code class="docutils literal notranslate"><span class="pre">fworker</span></code> for each job in your flow and setting the <code class="docutils literal notranslate"><span class="pre">job.config.manager_config[&quot;_fworker&quot;]</span></code> to be the name of the <code class="docutils literal notranslate"><span class="pre">fworker</span></code> you wish to use for that job.</p>
 <p>Let’s consider an example. Imagine you have a <code class="docutils literal notranslate"><span class="pre">flow</span></code> with two jobs, <code class="docutils literal notranslate"><span class="pre">job1</span></code> and <code class="docutils literal notranslate"><span class="pre">job2</span></code>, and you wish to submit <code class="docutils literal notranslate"><span class="pre">job1</span></code> and <code class="docutils literal notranslate"><span class="pre">job2</span></code> with different walltimes.</p>
 <section id="setting-up-the-fireworks-configurations">
-<h3>Setting up the FireWorks Configurations<a class="headerlink" href="#setting-up-the-fireworks-configurations" title="Permalink to this heading">#</a></h3>
+<h3>Setting up the FireWorks Configurations<a class="headerlink" href="#setting-up-the-fireworks-configurations" title="Link to this heading">#</a></h3>
 <p>First, you would define two separate FireWorks configuration directories:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/path/to/fw_config1
 ├── FW_config1.yaml
@@ -312,7 +312,7 @@
 </div>
 </section>
 <section id="setting-the-manager-configs">
-<h3>Setting the Manager Configs<a class="headerlink" href="#setting-the-manager-configs" title="Permalink to this heading">#</a></h3>
+<h3>Setting the Manager Configs<a class="headerlink" href="#setting-the-manager-configs" title="Link to this heading">#</a></h3>
 <p>With the unique job submission information prepared for your two job types, you now need to constrain each job in your flow to a specific <code class="docutils literal notranslate"><span class="pre">fworker</span></code>.</p>
 <p>To achieve this, set the name of each <code class="docutils literal notranslate"><span class="pre">fworker</span></code> (i.e. the <code class="docutils literal notranslate"><span class="pre">name</span></code> variable in <code class="docutils literal notranslate"><span class="pre">my_fworker1.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">my_fworker2.yaml</span></code>) as the <code class="docutils literal notranslate"><span class="pre">_fworker</span></code> attribute in the <code class="docutils literal notranslate"><span class="pre">manager_config</span></code> of each job in your flow.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">job</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">flow</span><span class="o">.</span><span class="n">iterflow</span><span class="p">():</span>
@@ -336,14 +336,14 @@
 <p>to simply iterate through the <code class="docutils literal notranslate"><span class="pre">Flow.jobs</span></code> array. Note that <code class="docutils literal notranslate"><span class="pre">jobs</span></code> can also contain other flows.</p>
 </section>
 <section id="launching-the-jobs">
-<h3>Launching the Jobs<a class="headerlink" href="#launching-the-jobs" title="Permalink to this heading">#</a></h3>
+<h3>Launching the Jobs<a class="headerlink" href="#launching-the-jobs" title="Link to this heading">#</a></h3>
 <p>As described above, convert the flow to a workflow via <code class="xref py py-obj docutils literal notranslate"><span class="pre">flow_to_workflow</span></code> and add it to your launch pad.</p>
 <p>Finally, use the <code class="docutils literal notranslate"><span class="pre">-c</span></code> (“config”) command-line option when launching your fireworks to specify the FireWorks configuration directory you wish to use.</p>
 <p>To launch all fireworks tied to <code class="docutils literal notranslate"><span class="pre">fw_config1</span></code>, run <code class="docutils literal notranslate"><span class="pre">qlaunch</span> <span class="pre">rapidfire</span> <span class="pre">-c</span> <span class="pre">$FW_CONFIG1</span> <span class="pre">--nlaunches</span> <span class="pre">&lt;N&gt;</span></code>. To launch all fireworks tied to <code class="docutils literal notranslate"><span class="pre">fw_config2</span></code>, run <code class="docutils literal notranslate"><span class="pre">qlaunch</span> <span class="pre">rapidfire</span> <span class="pre">-c</span> <span class="pre">$FW_CONFIG2</span> <span class="pre">--nlaunches</span> <span class="pre">&lt;N&gt;</span></code>. As always, the jobs won’t actually run until any prior jobs they depend on are completed.</p>
 </section>
 </section>
 <section id="learn-more">
-<h2>Learn More<a class="headerlink" href="#learn-more" title="Permalink to this heading">#</a></h2>
+<h2>Learn More<a class="headerlink" href="#learn-more" title="Link to this heading">#</a></h2>
 <p>For additional FireWorks-related options in Jobflow, see the <a class="reference internal" href="../jobflow.managers.html#module-jobflow.managers.fireworks" title="jobflow.managers.fireworks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jobflow.managers.fireworks</span></code></a> section of the <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.managers.html#module-jobflow.managers.fireworks">Jobflow API</a>.</p>
 <p>For documentation on how to submit jobs to the queue that are in your launchpad, refer to the “Queue Tutorial” in the <a class="reference external" href="https://materialsproject.github.io/fireworks/queue_tutorial.html#submit-a-job">FireWorks Documentation</a>.</p>
 </section>
@@ -426,9 +426,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="../_static/documentation_options.js?v=468bc497"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>

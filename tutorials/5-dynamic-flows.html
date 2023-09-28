@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Makers" href="6-makers.html" /><link rel="prev" title="Creating flows in jobflow" href="4-creating-flows.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Creating dynamic flows - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
@@ -252,7 +252,7 @@
 <p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/docs/tutorials/5-dynamic-flows.ipynb">tutorials/5-dynamic-flows.ipynb</a>.</p>
 </div>
 <section id="Creating-dynamic-flows">
-<h1>Creating dynamic flows<a class="headerlink" href="#Creating-dynamic-flows" title="Permalink to this heading">#</a></h1>
+<h1>Creating dynamic flows<a class="headerlink" href="#Creating-dynamic-flows" title="Link to this heading">#</a></h1>
 <p>In this tutorial, you will:</p>
 <ul class="simple">
 <li><p>Learn how to create dynamic workflows.</p></li>
@@ -260,7 +260,7 @@
 </ul>
 <p>The ability create dynamic workflows (i.e. jobs or workflows that launch other jobs or workflows) is a particularly powerful usage pattern in Jobflow.</p>
 <section id="The-Response(replace)-option">
-<h2>The <code class="docutils literal notranslate"><span class="pre">Response(replace)</span></code> option<a class="headerlink" href="#The-Response(replace)-option" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">Response(replace)</span></code> option<a class="headerlink" href="#The-Response(replace)-option" title="Link to this heading">#</a></h2>
 <p>The main mechanism for creating dynamic jobs in Jobflow is through the <code class="docutils literal notranslate"><span class="pre">Response</span></code> object. We will demonstrate this below for a toy example where we:</p>
 <ol class="arabic simple">
 <li><p>Generate a list of numbers whose length is only determined at runtime.</p></li>
@@ -355,7 +355,7 @@ ca3636e3-50f7-4ec8-a5e7-66bc4e14b901 -&gt; {1: Response(output=3, detour=None, a
 <p>As seen above, there are several jobs that were run — certainly more than the two we started with. The first job generates a list of 2’s with a random length. The second job in the flow is what launches a job on each entry in the list. It is replaced by one job for each entry, hence it has no direct output. Then each newly generated job is run.</p>
 </section>
 <section id="The-Response(addition)-option">
-<h2>The <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> option<a class="headerlink" href="#The-Response(addition)-option" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> option<a class="headerlink" href="#The-Response(addition)-option" title="Link to this heading">#</a></h2>
 <p>Beyond replacing a job with downstream jobs, there is also the option to add jobs to the current flow on-the-fly.</p>
 <p>Here we will create a simple flow that:</p>
 <ol class="arabic simple">
@@ -473,7 +473,7 @@ e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None
 <p>Now, we see that the <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> does not launch a new job.</p>
 </section>
 <section id="The-Response(detour)-option">
-<h2>The <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> option<a class="headerlink" href="#The-Response(detour)-option" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> option<a class="headerlink" href="#The-Response(detour)-option" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> option behaves similarly to <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code>. The difference is that <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> will add a job (or flow) to the current flow, while <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> will no longer run the current flow and will switch to a parallel job or flow.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -603,9 +603,9 @@ e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="../_static/documentation_options.js?v=468bc497"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>

@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>jobflow.core.store - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
@@ -274,7 +274,9 @@
 <span class="n">T</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;JobStore&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="JobStore"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore">[docs]</a><span class="k">class</span> <span class="nc">JobStore</span><span class="p">(</span><span class="n">Store</span><span class="p">):</span>
+<div class="viewcode-block" id="JobStore">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore">[docs]</a>
+<span class="k">class</span> <span class="nc">JobStore</span><span class="p">(</span><span class="n">Store</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Store intended to allow pushing and pulling documents into multiple stores.</span>
 
 <span class="sd">    Parameters</span>
@@ -346,7 +348,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;JobStore-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="JobStore.connect"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_reset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="JobStore.connect">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.connect">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_reset</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Connect to the source data.</span>
 
@@ -359,13 +363,19 @@
         <span class="k">for</span> <span class="n">additional_store</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_stores</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">additional_store</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">force_reset</span><span class="o">=</span><span class="n">force_reset</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.close"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="JobStore.close">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.close">[docs]</a>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Close any connections.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">additional_store</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_stores</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">additional_store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="JobStore.count"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.count">[docs]</a>    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+
+<div class="viewcode-block" id="JobStore.count">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.count">[docs]</a>
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Count the number of documents matching the query criteria.</span>
 
@@ -381,7 +391,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.query"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span>
+
+<div class="viewcode-block" id="JobStore.query">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.query">[docs]</a>
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">properties</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -466,7 +479,10 @@
 
             <span class="k">yield</span> <span class="n">doc</span></div>
 
-<div class="viewcode-block" id="JobStore.query_one"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.query_one">[docs]</a>    <span class="k">def</span> <span class="nf">query_one</span><span class="p">(</span>
+
+<div class="viewcode-block" id="JobStore.query_one">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.query_one">[docs]</a>
+    <span class="k">def</span> <span class="nf">query_one</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">properties</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -500,7 +516,10 @@
         <span class="n">d</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-<div class="viewcode-block" id="JobStore.update"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
+
+<div class="viewcode-block" id="JobStore.update">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.update">[docs]</a>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">docs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">key</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -591,7 +610,10 @@
 
             <span class="n">store</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blobs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;blob_uuid&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.ensure_index"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.ensure_index">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unique</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+<div class="viewcode-block" id="JobStore.ensure_index">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.ensure_index">[docs]</a>
+    <span class="k">def</span> <span class="nf">ensure_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unique</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Try to create an index on document store and return True success.</span>
 
@@ -609,7 +631,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">ensure_index</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="n">unique</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.groupby"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.groupby">[docs]</a>    <span class="k">def</span> <span class="nf">groupby</span><span class="p">(</span>
+
+<div class="viewcode-block" id="JobStore.groupby">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.groupby">[docs]</a>
+    <span class="k">def</span> <span class="nf">groupby</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">keys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -677,7 +702,10 @@
                 <span class="n">set_</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">yield</span> <span class="n">doc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.remove_docs"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.remove_docs">[docs]</a>    <span class="k">def</span> <span class="nf">remove_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+
+<div class="viewcode-block" id="JobStore.remove_docs">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.remove_docs">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove docs matching the criteria.</span>
 
@@ -692,7 +720,10 @@
                 <span class="n">store</span><span class="o">.</span><span class="n">remove_docs</span><span class="p">({</span><span class="s2">&quot;job_uuid&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">],</span> <span class="s2">&quot;job_index&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">docs_store</span><span class="o">.</span><span class="n">remove_docs</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.get_output"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.get_output">[docs]</a>    <span class="k">def</span> <span class="nf">get_output</span><span class="p">(</span>
+
+<div class="viewcode-block" id="JobStore.get_output">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.get_output">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_output</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">uuid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">which</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="s2">&quot;last&quot;</span><span class="p">,</span>
@@ -792,7 +823,10 @@
                 <span class="n">results</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.from_file"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_file">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="JobStore.from_file">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_file">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">db_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an JobStore from a database file.</span>
@@ -852,7 +886,10 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict_spec</span><span class="p">(</span><span class="n">store_info</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="JobStore.from_dict_spec"><a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_dict_spec">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="JobStore.from_dict_spec">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.from_dict_spec">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_dict_spec</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">spec</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create an JobStore from a dict specification.</span>
@@ -916,7 +953,9 @@
         <span class="k">if</span> <span class="s2">&quot;additional_stores&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">store_name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;additional_stores&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">additional_stores</span><span class="p">[</span><span class="n">store_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_construct_store</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">all_stores</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">docs_store</span><span class="p">,</span> <span class="n">additional_stores</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">docs_store</span><span class="p">,</span> <span class="n">additional_stores</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
 
 
 <span class="k">def</span> <span class="nf">_construct_store</span><span class="p">(</span><span class="n">spec_dict</span><span class="p">,</span> <span class="n">valid_stores</span><span class="p">):</span>
@@ -1075,9 +1114,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>

@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="jobflow.utils" href="jobflow.utils.html" /><link rel="prev" title="jobflow.managers" href="jobflow.managers.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>jobflow.settings - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -248,11 +248,11 @@
         </div>
         <article role="main">
           <section id="module-jobflow.settings">
-<span id="jobflow-settings"></span><h1>jobflow.settings<a class="headerlink" href="#module-jobflow.settings" title="Permalink to this heading">#</a></h1>
+<span id="jobflow-settings"></span><h1>jobflow.settings<a class="headerlink" href="#module-jobflow.settings" title="Link to this heading">#</a></h1>
 <p>Settings for jobflow.</p>
 <dl class="py class pydantic_settings">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings">
-<em class="property"><span class="pre">pydantic</span> <span class="pre">settings</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.settings.</span></span><span class="sig-name descname"><span class="pre">JobflowSettings</span></span><a class="reference internal" href="_modules/jobflow/settings.html#JobflowSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.settings.JobflowSettings" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">pydantic</span> <span class="pre">settings</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.settings.</span></span><span class="sig-name descname"><span class="pre">JobflowSettings</span></span><a class="reference internal" href="_modules/jobflow/settings.html#JobflowSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.settings.JobflowSettings" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSettings</span></code></p>
 <p>Settings for jobflow.</p>
 <p>The default way to modify these is to modify ~/.jobflow.yaml. Alternatively,
@@ -315,22 +315,32 @@ for data.</p>
 <p>Lastly, the store can be specified as a file name that points to a file containing
 the credentials in any format supported by <a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore.from_file" title="jobflow.core.store.JobStore.from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobStore.from_file</span></code></a>.</p>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises ValidationError if the input data cannot be parsed to form a valid model.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>__init__</cite> uses <cite>__pydantic_self__</cite> instead of the more common <cite>self</cite> for the first arg to
+allow <cite>self</cite> as a field name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Validators<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_default_settings</span></code> » <code class="xref py py-obj docutils literal notranslate"><span class="pre">all</span> <span class="pre">fields</span></code></p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.CONFIG_FILE">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CONFIG_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/.jobflow.yaml'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.CONFIG_FILE" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CONFIG_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/runner/.jobflow.yaml'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.CONFIG_FILE" title="Link to this definition">#</a></dt>
 <dd><p>File to load alternative defaults from.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.JOB_STORE">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JOB_STORE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><span class="pre">JobStore</span></a></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.JOB_STORE" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JOB_STORE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><span class="pre">JobStore</span></a></em><em class="property"> <span class="pre">[Optional]</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.JOB_STORE" title="Link to this definition">#</a></dt>
 <dd><p>Default JobStore to use when running locally or using FireWorks. See the <a class="reference internal" href="#jobflow.settings.JobflowSettings" title="jobflow.settings.JobflowSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings</span></code></a> docstring for more details on the accepted formats.</p>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="jobflow.settings.JobflowSettings.DIRECTORY_FORMAT">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DIRECTORY_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%Y-%m-%d-%H-%M-%S-%f'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.DIRECTORY_FORMAT" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DIRECTORY_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%Y-%m-%d-%H-%M-%S-%f'</span></em><a class="headerlink" href="#jobflow.settings.JobflowSettings.DIRECTORY_FORMAT" title="Link to this definition">#</a></dt>
 <dd><p>Date stamp format used to create directories</p>
 </dd></dl>
 
@@ -410,9 +420,9 @@ the credentials in any format supported by <a class="reference internal" href="j
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="_static/documentation_options.js?v=468bc497"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>

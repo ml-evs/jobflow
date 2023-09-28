@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Defining jobs in jobflow" href="3-defining-jobs.html" /><link rel="prev" title="Five-minute quickstart" href="1-quickstart.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Introduction to jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
@@ -252,7 +252,7 @@
 <p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/docs/tutorials/2-introduction.ipynb">tutorials/2-introduction.ipynb</a>.</p>
 </div>
 <section id="Introduction-to-jobflow">
-<h1>Introduction to jobflow<a class="headerlink" href="#Introduction-to-jobflow" title="Permalink to this heading">#</a></h1>
+<h1>Introduction to jobflow<a class="headerlink" href="#Introduction-to-jobflow" title="Link to this heading">#</a></h1>
 <p>In this tutorial, you will:</p>
 <ul class="simple">
 <li><p>Create several jobs.</p></li>
@@ -263,7 +263,7 @@
 </ul>
 <p>The purpose of this tutorial is to introduce the main concepts of jobflow. It isn’t intended to demonstrate all the features of jobflow or explain things in great detail.</p>
 <section id="Creating-job-objects">
-<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Permalink to this heading">#</a></h2>
+<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Link to this heading">#</a></h2>
 <p>The building block of jobflows are <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. Jobs are delayed calls to python functions whose outputs are stored in a database. The easiest way to create a job is using the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator which be applied to any function, even those with optional parameters.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
@@ -337,7 +337,7 @@ OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
 <p>Note, none of the jobs we have created have been executed. The idea of jobflow is to built up a series of (interconnected) jobs and run them at a later date.</p>
 </section>
 <section id="Creating-Flows">
-<h2>Creating Flows<a class="headerlink" href="#Creating-Flows" title="Permalink to this heading">#</a></h2>
+<h2>Creating Flows<a class="headerlink" href="#Creating-Flows" title="Link to this heading">#</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Flow</span></code> is a collection of <code class="docutils literal notranslate"><span class="pre">Job</span></code>s or other <code class="docutils literal notranslate"><span class="pre">Flow</span></code> objects. Flows are the primary tool for defining workflows in jobflow. Let’s create a Flow from the jobs we just made:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -394,7 +394,7 @@ OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
 </div>
 </section>
 <section id="Setting-up-the-JobStore">
-<h2>Setting up the JobStore<a class="headerlink" href="#Setting-up-the-JobStore" title="Permalink to this heading">#</a></h2>
+<h2>Setting up the JobStore<a class="headerlink" href="#Setting-up-the-JobStore" title="Link to this heading">#</a></h2>
 <p>Anything returned by a <code class="docutils literal notranslate"><span class="pre">Job</span></code> will be stored in the <code class="docutils literal notranslate"><span class="pre">JobStore</span></code>, the primary database interface for jobflows.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">JobStore</span></code> is an implementation of the <a class="reference external" href="https://materialsproject.github.io/maggma/reference/stores/">Store</a> interface provided by the <a class="reference external" href="https://materialsproject.github.io/maggma/reference/stores/">Maggma package</a>. Maggma provides implementations for a number of common databases including:</p>
 <ul class="simple">
@@ -429,7 +429,7 @@ OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
 <p>This type of JobStore (using a MemoryStore for all outputs) is the default store used by jobflow if a custom store is not set.</p>
 </section>
 <section id="Running-the-Flow">
-<h2>Running the Flow<a class="headerlink" href="#Running-the-Flow" title="Permalink to this heading">#</a></h2>
+<h2>Running the Flow<a class="headerlink" href="#Running-the-Flow" title="Link to this heading">#</a></h2>
 <p>Jobflow supports running Flows locally or on remote clusters. Below we run the Flow locally using the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function using our custom store.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
@@ -471,7 +471,7 @@ OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
 <p>The job uuid is a unique identifier that is assigned to the job when it is created. It is also used to track the job outputs.</p>
 </section>
 <section id="Examine-Flow-outputs">
-<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this heading">#</a></h2>
+<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function returns the output of all jobs. The format of the output is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="n">job_uuid</span><span class="p">:</span> <span class="p">{</span>
@@ -542,8 +542,8 @@ OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
 </div>
 </section>
 <section id="Next-steps">
-<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this heading">#</a></h2>
-<p>Now that you are more familiar jobflows, we encourage you to learn about all the different options jobflow provides for designing and running workflows. A good next step is the <a class="reference external" href="https://hackingmaterials.lbl.gov/jobflow/tutorials/3-defining-jobs.html">Defining Jobs using jobflow tutorial</a>, which will cover the <code class="docutils literal notranslate"><span class="pre">Job</span></code> object and <code class="docutils literal notranslate"><span class="pre">job</span></code> decorator in more detail.</p>
+<h2>Next steps<a class="headerlink" href="#Next-steps" title="Link to this heading">#</a></h2>
+<p>Now that you are more familiar jobflows, we encourage you to learn about all the different options jobflow provides for designing and running workflows. A good next step is the <a class="reference external" href="https://materialsproject.github.io/jobflow/tutorials/3-defining-jobs.html">Defining Jobs using jobflow tutorial</a>, which will cover the <code class="docutils literal notranslate"><span class="pre">Job</span></code> object and <code class="docutils literal notranslate"><span class="pre">job</span></code> decorator in more detail.</p>
 </section>
 </section>
 
@@ -619,9 +619,9 @@ OutputReference(76f9fef1-e2c7-4ad7-b090-b9153866c582)
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="../_static/documentation_options.js?v=468bc497"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>

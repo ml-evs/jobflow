@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorials" href="tutorials.html" /><link rel="prev" title="Install jobflow" href="install.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>FireWorks Setup - jobflow</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -248,17 +248,17 @@
         </div>
         <article role="main">
           <section id="fireworks-setup">
-<h1>FireWorks Setup<a class="headerlink" href="#fireworks-setup" title="Permalink to this heading">#</a></h1>
+<h1>FireWorks Setup<a class="headerlink" href="#fireworks-setup" title="Link to this heading">#</a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://github.com/materialsproject/fireworks">FireWorks</a> can be used to dispatch and monitor workflows, particularly those made using Jobflow. Follow the instructions below for how to use FireWorks with Jobflow. For additional details, refer to the full <a class="reference external" href="https://github.com/materialsproject/fireworks">Fireworks documentation</a>.</p>
 </section>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>To install FireWorks, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">fireworks</span></code>.</p>
 </section>
 <section id="fireworks-db-setup">
-<h2>FireWorks DB Setup<a class="headerlink" href="#fireworks-db-setup" title="Permalink to this heading">#</a></h2>
+<h2>FireWorks DB Setup<a class="headerlink" href="#fireworks-db-setup" title="Link to this heading">#</a></h2>
 <p>If you plan to use FireWorks to dispatch your Jobflow workflows, you will also need to make a few configuration files: <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code>. To begin, make a directory called <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> where you will store the four files described in greater detail below. The directory structure will look like the following:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>fw_config
 ├── FW_config.yaml
@@ -268,7 +268,7 @@
 </pre></div>
 </div>
 <section id="fw-config-file">
-<h3>FW Config File<a class="headerlink" href="#fw-config-file" title="Permalink to this heading">#</a></h3>
+<h3>FW Config File<a class="headerlink" href="#fw-config-file" title="Link to this heading">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code>, you can use the following template. Make sure to update the path to the <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> folder where the file resides.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">CONFIG_FILE_DIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;/path/to/fw_config&gt;</span>
 <span class="nt">QUEUE_UPDATE_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
@@ -276,7 +276,7 @@
 </div>
 </section>
 <section id="fworker">
-<h3>FWorker<a class="headerlink" href="#fworker" title="Permalink to this heading">#</a></h3>
+<h3>FWorker<a class="headerlink" href="#fworker" title="Link to this heading">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, you can use the following template. You do not need to make any modifications.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_fworker</span>
 <span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
@@ -285,7 +285,7 @@
 </div>
 </section>
 <section id="launchpad">
-<h3>Launchpad<a class="headerlink" href="#launchpad" title="Permalink to this heading">#</a></h3>
+<h3>Launchpad<a class="headerlink" href="#launchpad" title="Link to this heading">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code>, you can use the following template. Replace the entries in <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code> with the appropriate values for your Mongo database.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;host name&gt;</span>
 <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span>
@@ -311,7 +311,7 @@
 </div>
 </section>
 <section id="qadapter">
-<h3>QAdapter<a class="headerlink" href="#qadapter" title="Permalink to this heading">#</a></h3>
+<h3>QAdapter<a class="headerlink" href="#qadapter" title="Link to this heading">#</a></h3>
 <p>Assuming you plan to use a queuing system for your compute jobs, you will need to make a <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code> file. For this, you will need to follow the instructions in the <a class="reference external" href="https://materialsproject.github.io/fireworks/qadapter_programming.html">FireWorks documentation</a> for your specific job scheduling system. An example <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code> file is shown below for SLURM.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">_fw_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommonAdapter</span>
 <span class="nt">_fw_q_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLURM</span>
@@ -331,7 +331,7 @@
 <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">FW_CONFIG_FILE=&quot;/path/to/config/fw_config/FW_config.yaml&quot;</span></code>.</p>
 </section>
 <section id="database-initialization">
-<h3>Database Initialization<a class="headerlink" href="#database-initialization" title="Permalink to this heading">#</a></h3>
+<h3>Database Initialization<a class="headerlink" href="#database-initialization" title="Link to this heading">#</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Running <code class="docutils literal notranslate"><span class="pre">lpad</span> <span class="pre">reset</span></code> will clear your FireWorks launchpad, so only use this command if you are a new user.</p>
@@ -417,9 +417,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="_static/documentation_options.js?v=468bc497"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>

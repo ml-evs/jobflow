@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Creating flows in jobflow" href="4-creating-flows.html" /><link rel="prev" title="Introduction to jobflow" href="2-introduction.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Defining jobs in jobflow - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
@@ -252,7 +252,7 @@
 <p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/docs/tutorials/3-defining-jobs.ipynb">tutorials/3-defining-jobs.ipynb</a>.</p>
 </div>
 <section id="Defining-jobs-in-jobflow">
-<h1>Defining jobs in jobflow<a class="headerlink" href="#Defining-jobs-in-jobflow" title="Permalink to this heading">#</a></h1>
+<h1>Defining jobs in jobflow<a class="headerlink" href="#Defining-jobs-in-jobflow" title="Link to this heading">#</a></h1>
 <p>In this tutorial, you will:</p>
 <ul class="simple">
 <li><p>Learn about the <code class="docutils literal notranslate"><span class="pre">job</span></code> decorator.</p></li>
@@ -263,7 +263,7 @@
 </ul>
 <p>The purpose of this tutorial is to delve into the basic functionality of jobs and gain a feeling for what is possible. Later tutorials will describe how to employ jobs in complex workflows.</p>
 <section id="Creating-job-objects">
-<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Permalink to this heading">#</a></h2>
+<h2>Creating job objects<a class="headerlink" href="#Creating-job-objects" title="Link to this heading">#</a></h2>
 <p>The building block of jobflows are <code class="docutils literal notranslate"><span class="pre">Job</span></code> objects. Jobs are delayed calls to python functions whose outputs are stored in a database. The easiest way to create a job is using the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator. The job decorator can be applied to any function, even those with optional parameters.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -366,7 +366,7 @@ OutputReference(01eb0d89-3817-4bac-9897-9fb0ebeea2c7)
 </div>
 </section>
 <section id="Running-Jobs">
-<h2>Running Jobs<a class="headerlink" href="#Running-Jobs" title="Permalink to this heading">#</a></h2>
+<h2>Running Jobs<a class="headerlink" href="#Running-Jobs" title="Link to this heading">#</a></h2>
 <p>Here, we will demonstrate how to run a simple job locally, which can be useful for testing purposes.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -477,9 +477,9 @@ OutputReference(01eb0d89-3817-4bac-9897-9fb0ebeea2c7)
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="../_static/documentation_options.js?v=468bc497"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>

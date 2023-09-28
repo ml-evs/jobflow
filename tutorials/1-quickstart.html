@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Introduction to jobflow" href="2-introduction.html" /><link rel="prev" title="Tutorials" href="../tutorials.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2023.07.26 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Five-minute quickstart - jobflow</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
@@ -252,7 +252,7 @@
 <p>This page is available as a Jupyter notebook: <a class="reference external" href="https://github.com/materialsproject/jobflow/tree/main/docs/tutorials/1-quickstart.ipynb">tutorials/1-quickstart.ipynb</a>.</p>
 </div>
 <section id="Five-minute-quickstart">
-<h1>Five-minute quickstart<a class="headerlink" href="#Five-minute-quickstart" title="Permalink to this heading">#</a></h1>
+<h1>Five-minute quickstart<a class="headerlink" href="#Five-minute-quickstart" title="Link to this heading">#</a></h1>
 <p>In this quickstart, you will:</p>
 <ul class="simple">
 <li><p>Create some jobs.</p></li>
@@ -263,7 +263,7 @@
 </ul>
 <p>This tutorial will emphasize “hands-on” usage of jobflow and not explain things in detail.</p>
 <section id="Define-jobs">
-<h2>Define jobs<a class="headerlink" href="#Define-jobs" title="Permalink to this heading">#</a></h2>
+<h2>Define jobs<a class="headerlink" href="#Define-jobs" title="Link to this heading">#</a></h2>
 <p>The atomic building block of jobflows are jobs. Creating a job is as easy as writing a python function. All you need to do is use the <code class="docutils literal notranslate"><span class="pre">&#64;job</span></code> decorator.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -316,7 +316,7 @@ OutputReference(74e277df-95aa-4abc-aae1-e4dd64fe4cab)
 </div>
 </section>
 <section id="Create-a-Flow">
-<h2>Create a Flow<a class="headerlink" href="#Create-a-Flow" title="Permalink to this heading">#</a></h2>
+<h2>Create a Flow<a class="headerlink" href="#Create-a-Flow" title="Link to this heading">#</a></h2>
 <p>A Flow is a collection of Jobs or other Flow objects. Let’s create a Flow from the <code class="docutils literal notranslate"><span class="pre">add_first</span></code> and <code class="docutils literal notranslate"><span class="pre">add_second</span></code> jobs we just made:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -369,7 +369,7 @@ flowchart TD
 <p><a class="reference external" href="https://mermaid.live/edit#pako:eNpVTbluwzAU-xXjTS1gBbqvIVP-oJ0KL4qOJoBtGa6ENnX871WylRNJ8NjA5xDBQhrzt7-4tXTvp2HuGihmhGrmEWcpIu5lQGemAqJCSq8N91joFxfCa4fQ8Z5rWWq5d1j5sw-CIEZSaNUokSNBIaOMFlFw4ZJ8tqCHKa6Tu4b2vj0uByiXOMUBbKMhJlfHMsAw7y3qaslvt9mDLWuNPdQluBJPV_e5uglscuNXcxc3f-T8T4Pd4AcsJfTAmVSCY0KJVoL2cGs21QfOKVdcUUmwNHTv4fc5gQ_CKEEYlcw8EprtfzPzVns"><img alt="add flow" src="https://mermaid.ink/img/pako:eNpVTbluwzAU-xXjTS1gBbqvIVP-oJ0KL4qOJoBtGa6ENnX871WylRNJ8NjA5xDBQhrzt7-4tXTvp2HuGihmhGrmEWcpIu5lQGemAqJCSq8N91joFxfCa4fQ8Z5rWWq5d1j5sw-CIEZSaNUokSNBIaOMFlFw4ZJ8tqCHKa6Tu4b2vj0uByiXOMUBbKMhJlfHMsAw7y3qaslvt9mDLWuNPdQluBJPV_e5uglscuNXcxc3f-T8T4Pd4AcsJfTAmVSCY0KJVoL2cGs21QfOKVdcUUmwNHTv4fc5gQ_CKEEYlcw8EprtfzPzVns?type=png" /></a></p>
 </section>
 <section id="Run-the-Flow">
-<h2>Run the Flow<a class="headerlink" href="#Run-the-Flow" title="Permalink to this heading">#</a></h2>
+<h2>Run the Flow<a class="headerlink" href="#Run-the-Flow" title="Link to this heading">#</a></h2>
 <p>Jobflow supports running Flows locally or on remote clusters. Below we run the Flow locally using the <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function.</p>
 <div class="admonition note">
 <p class="admonition-title"><strong>Note</strong></p>
@@ -401,7 +401,7 @@ flowchart TD
 <p>The numbers in brackets after the job function name give the job unique identifier (UUID).</p>
 </section>
 <section id="Examine-Flow-outputs">
-<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Permalink to this heading">#</a></h2>
+<h2>Examine Flow outputs<a class="headerlink" href="#Examine-Flow-outputs" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">run_locally</span></code> function returns the output of all jobs. The format of the output is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="n">job_uuid</span><span class="p">:</span> <span class="p">{</span>
@@ -451,7 +451,7 @@ flowchart TD
 </div>
 </section>
 <section id="Next-steps">
-<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this heading">#</a></h2>
+<h2>Next steps<a class="headerlink" href="#Next-steps" title="Link to this heading">#</a></h2>
 <p>Now that you’ve successfully run your first Flow, we encourage you to learn about all the different options jobflow provides for designing and running workflows. A good next step is the <a class="reference external" href="https://materialsproject.github.io/jobflow/tutorials/2-introduction.html">Introductory tutorial</a>, which covers things more slowly than this quickstart.</p>
 </section>
 </section>
@@ -527,9 +527,9 @@ flowchart TD
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f527e72e"></script>
+</div><script src="../_static/documentation_options.js?v=468bc497"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
