@@ -253,7 +253,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
 
@@ -262,13 +262,13 @@
 <span class="kn">from</span> <span class="nn">jobflow.utils</span> <span class="kn">import</span> <span class="n">ValueEnum</span><span class="p">,</span> <span class="n">contains_flow_or_job</span><span class="p">,</span> <span class="n">suuid</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterator</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sequence</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
 
     <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">DiGraph</span>
 
     <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Job</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;JobOrder&quot;</span><span class="p">,</span> <span class="s2">&quot;Flow&quot;</span><span class="p">,</span> <span class="s2">&quot;get_flow&quot;</span><span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -419,7 +419,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Flow can only contain Job or Flow objects, not </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
-        <span class="n">jobs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span>
+        <span class="n">jobs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">jobs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  <span class="c1"># type: ignore[index, assignment]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span>
 
@@ -441,10 +441,10 @@
 
     <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Flow</span> <span class="o">|</span> <span class="n">Job</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Flow</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove a job or subflow from the flow.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">other</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">other</span><span class="si">!r}</span><span class="s2"> not found in flow&quot;</span><span class="p">)</span>
         <span class="n">new_flow</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">new_flow</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">job</span> <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">new_flow</span><span class="o">.</span><span class="n">jobs</span> <span class="k">if</span> <span class="n">job</span> <span class="o">!=</span> <span class="n">other</span><span class="p">])</span>
+        <span class="n">new_flow</span><span class="o">.</span><span class="n">jobs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">job</span> <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">new_flow</span> <span class="k">if</span> <span class="n">job</span> <span class="o">!=</span> <span class="n">other</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">new_flow</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -454,8 +454,8 @@
         <span class="n">_prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">.&quot;</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
         <span class="n">job_reprs</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}{</span><span class="n">_prefix</span><span class="si">}{</span><span class="n">i</span><span class="si">}</span><span class="s2">. &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">j</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">_prefix</span><span class="si">}{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">Flow</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">jb</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">_prefix</span><span class="si">}{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">jb</span><span class="p">,</span><span class="w"> </span><span class="n">Flow</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">jb</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">jb</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Flow(</span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">uuid</span><span class="si">=}</span><span class="s2">)</span><span class="se">\n</span><span class="si">{</span><span class="n">job_reprs</span><span class="si">}</span><span class="s2">&quot;</span>
 
@@ -551,7 +551,7 @@
 <span class="sd">            The uuids of all Jobs in the Flow (including nested Flows).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
                 <span class="n">uuids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">job_uuids</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -569,7 +569,7 @@
 <span class="sd">            The uuids of all Jobs and Flows in the Flow (including nested Flows).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">uuids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
                 <span class="n">uuids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">all_uuids</span><span class="p">)</span>
             <span class="n">uuids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
@@ -589,7 +589,7 @@
 
         <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 
-        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">compose_all</span><span class="p">([</span><span class="n">job</span><span class="o">.</span><span class="n">graph</span> <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">])</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">compose_all</span><span class="p">([</span><span class="n">job</span><span class="o">.</span><span class="n">graph</span> <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
             <span class="n">node_props</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -599,7 +599,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">==</span> <span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">:</span>
             <span class="c1"># add fake edges between jobs to force linear order</span>
             <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">job_a</span><span class="p">,</span> <span class="n">job_b</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">job_a</span><span class="p">,</span> <span class="n">job_b</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job_a</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
                     <span class="n">leaves</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">job_a</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -735,7 +735,7 @@
 <span class="sd">        &gt;&gt;&gt; flow.update_kwargs({&quot;number&quot;: 10}, name_filter=&quot;add&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; flow.update_kwargs({&quot;number&quot;: 10}, function_filter=add)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">job</span><span class="o">.</span><span class="n">update_kwargs</span><span class="p">(</span>
                 <span class="n">update</span><span class="p">,</span>
                 <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
@@ -837,7 +837,7 @@
 <span class="sd">        ...     {&quot;number&quot;: 10}, class_filter=AddMaker, nested=False</span>
 <span class="sd">        ... )</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">job</span><span class="o">.</span><span class="n">update_maker_kwargs</span><span class="p">(</span>
                 <span class="n">update</span><span class="p">,</span>
                 <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
@@ -865,7 +865,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+=</span> <span class="n">append_str</span>
 
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">job</span><span class="o">.</span><span class="n">append_name</span><span class="p">(</span><span class="n">append_str</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">)</span></div>
 
 
@@ -917,7 +917,7 @@
 
 <span class="sd">        &gt;&gt;&gt; flow.update_metadata({&quot;tag&quot;: &quot;addition_job&quot;})</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">job</span><span class="o">.</span><span class="n">update_metadata</span><span class="p">(</span>
                 <span class="n">update</span><span class="p">,</span>
                 <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
@@ -990,7 +990,7 @@
 
 <span class="sd">        &gt;&gt;&gt; flow.update_config({&quot;manager_config&quot;: {&quot;_fworker&quot;: &quot;myfworker&quot;}})</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">job</span><span class="o">.</span><span class="n">update_config</span><span class="p">(</span>
                 <span class="n">config</span><span class="p">,</span>
                 <span class="n">name_filter</span><span class="o">=</span><span class="n">name_filter</span><span class="p">,</span>
@@ -1032,8 +1032,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">hosts_uuids</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">:</span>
-            <span class="n">j</span><span class="o">.</span><span class="n">add_hosts_uuids</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">)</span></div>
+        <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">add_hosts_uuids</span><span class="p">(</span><span class="n">hosts_uuids</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Flow.add_jobs">
@@ -1073,7 +1073,8 @@
                     <span class="sa">f</span><span class="s2">&quot;current Flow (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">)&quot;</span>
                 <span class="p">)</span>
             <span class="n">job_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">job</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
-            <span class="n">job</span><span class="o">.</span><span class="n">add_hosts_uuids</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">host</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="p">:</span>
+                <span class="n">job</span><span class="o">.</span><span class="n">add_hosts_uuids</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_jobs</span> <span class="o">+=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span></div>
 
 
@@ -1092,12 +1093,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">indices</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Only indices between 0 and the number of the jobs are accepted&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">new_jobs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jobs</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
+        <span class="n">new_jobs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">job</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">job</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
         <span class="n">uuids</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">new_jobs</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">Flow</span><span class="p">):</span>
@@ -1190,7 +1191,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../../../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

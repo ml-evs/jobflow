@@ -253,16 +253,10 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Hashable</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Hashable</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
     <span class="kn">from</span> <span class="nn">monty.json</span> <span class="kn">import</span> <span class="n">MSONable</span>
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;find_key&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;find_key_value&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;update_in_dictionary&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;contains_flow_or_job&quot;</span><span class="p">,</span>
-<span class="p">]</span>
 
 
 <div class="viewcode-block" id="find_key">
@@ -328,10 +322,8 @@
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">MSONable</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="s2">&quot;@module&quot;</span> <span class="ow">in</span> <span class="n">obj</span>
-                <span class="ow">and</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;@module&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__module__</span>
-                <span class="ow">and</span> <span class="s2">&quot;@class&quot;</span> <span class="ow">in</span> <span class="n">obj</span>
-                <span class="ow">and</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;@class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;@module&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__module__</span>
+                <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;@class&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="o">.</span><span class="vm">__name__</span>
             <span class="p">):</span>
                 <span class="n">found_items</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
                 <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
@@ -468,7 +460,7 @@
         <span class="c1"># if the argument is an flow or job then stop there</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
         <span class="c1"># argument is a primitive, we won&#39;t find an flow or job here</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -482,6 +474,8 @@
 
 
 
+<div class="viewcode-block" id="get_root_locations">
+<a class="viewcode-back" href="../../../jobflow.utils.html#jobflow.utils.find.get_root_locations">[docs]</a>
 <span class="k">def</span> <span class="nf">get_root_locations</span><span class="p">(</span><span class="n">locations</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Filter for the the lowest level locations.</span>
 
@@ -507,7 +501,8 @@
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">loc</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="n">rloc</span><span class="p">)]</span> <span class="o">==</span> <span class="n">rloc</span> <span class="k">for</span> <span class="n">rloc</span> <span class="ow">in</span> <span class="n">root_locations</span><span class="p">):</span>
             <span class="k">continue</span>
         <span class="n">root_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">root_locations</span>
+    <span class="k">return</span> <span class="n">root_locations</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -539,7 +534,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../../../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

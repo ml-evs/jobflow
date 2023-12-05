@@ -249,25 +249,78 @@
         <article role="main">
           <section id="change-log">
 <h1>Change log<a class="headerlink" href="#change-log" title="Link to this heading">#</a></h1>
-<section id="v0-1-14">
-<h2>v0.1.14<a class="headerlink" href="#v0-1-14" title="Link to this heading">#</a></h2>
+<section id="v0-1-15">
+<h2>v0.1.15<a class="headerlink" href="#v0-1-15" title="Link to this heading">#</a></h2>
 <section id="bug-fixes">
 <h3>Bug Fixes 🐛<a class="headerlink" href="#bug-fixes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fix JobStoreDocument validator by &#64;utf in https://github.com/materialsproject/jobflow/pull/478</p></li>
+<li><p>fix Flow deserialization for hosts by &#64;gpetretto in https://github.com/materialsproject/jobflow/pull/499</p></li>
+</ul>
+</section>
+<section id="enhancements">
+<h3>Enhancements 🛠<a class="headerlink" href="#enhancements" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Formalizing the JobStore document format as a pydantic model by &#64;hrushikesh-s in https://github.com/materialsproject/jobflow/pull/424</p></li>
+<li><p>Simplify code by using <code class="docutils literal notranslate"><span class="pre">Flow</span></code> methods <code class="docutils literal notranslate"><span class="pre">__len__</span></code> and <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> by &#64;janosh in https://github.com/materialsproject/jobflow/pull/467</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_locally()</span></code> add <code class="docutils literal notranslate"><span class="pre">root_dir:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">Path</span> <span class="pre">|</span> <span class="pre">None</span></code> keyword by &#64;janosh in https://github.com/materialsproject/jobflow/pull/486</p></li>
+<li><p>Allow SSHTunnel in job stores  by &#64;mjwen in https://github.com/materialsproject/jobflow/pull/477</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h3>Documentation 📖<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>JOSS paper by &#64;utf in https://github.com/materialsproject/jobflow/pull/446</p></li>
+<li><p>JOSS Paper: Add missing DOIs by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/452</p></li>
+<li><p>JOSS Paper: Reduce line-spacing in code blocks by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/454</p></li>
+<li><p>JOSS Paper update: Add missing year to <code class="docutils literal notranslate"><span class="pre">refs.bib</span></code> by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/458</p></li>
+<li><p>JOSS Paper: Remove stray tick mark in “[&#64;montydb]`” by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/459</p></li>
+<li><p>JOSS Paper: Add another missing year to <code class="docutils literal notranslate"><span class="pre">refs.bib</span></code> by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/461</p></li>
+<li><p>Update refs.bib by &#64;xuanxu in https://github.com/materialsproject/jobflow/pull/462</p></li>
+<li><p>JOSS: Add missing <code class="docutils literal notranslate"><span class="pre">,</span></code> to paper by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/479</p></li>
+<li><p>JOSS: Add more complete Zenodo reference info by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/481</p></li>
+<li><p>JOSS: Fix references to include all coauthors and remove “others” by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/480</p></li>
+<li><p>Add fibonacci example to tutorial by &#64;JaGeo in https://github.com/materialsproject/jobflow/pull/494</p></li>
+</ul>
+</section>
+<section id="house-keeping">
+<h3>House-Keeping 🧹<a class="headerlink" href="#house-keeping" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">__all__</span></code> from all modules by &#64;janosh in https://github.com/materialsproject/jobflow/pull/442</p></li>
+<li><p>Bump minimum Python version to 3.9 by &#64;janosh in https://github.com/materialsproject/jobflow/pull/455</p></li>
+<li><p>Replace deprecated <code class="docutils literal notranslate"><span class="pre">pkg_resources</span></code> with <code class="docutils literal notranslate"><span class="pre">importlib.metadata.version</span></code> by &#64;janosh in https://github.com/materialsproject/jobflow/pull/460</p></li>
+<li><p>Match <code class="docutils literal notranslate"><span class="pre">atomate2</span></code> <code class="docutils literal notranslate"><span class="pre">ruff</span></code> config by &#64;janosh in https://github.com/materialsproject/jobflow/pull/464</p></li>
+<li><p>Test error messages by &#64;janosh in https://github.com/materialsproject/jobflow/pull/465</p></li>
+</ul>
+</section>
+</section>
+<section id="new-contributors">
+<h2>New Contributors<a class="headerlink" href="#new-contributors" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>&#64;hrushikesh-s made their first contribution in https://github.com/materialsproject/jobflow/pull/424</p></li>
+<li><p>&#64;xuanxu made their first contribution in https://github.com/materialsproject/jobflow/pull/462</p></li>
+</ul>
+<p><strong>Full Changelog</strong>: https://github.com/materialsproject/jobflow/compare/v0.1.14…v0.1.15</p>
+</section>
+<section id="v0-1-14">
+<h2>v0.1.14<a class="headerlink" href="#v0-1-14" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Bug Fixes 🐛<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add warning when jobflow.yaml is blank or badly formatted by &#64;mcgalcode in https://github.com/materialsproject/jobflow/pull/415</p></li>
 <li><p>Fix issue with data store by &#64;JaGeo in https://github.com/materialsproject/jobflow/pull/409</p></li>
 <li><p>Make ensure_success apply to replace/detour/addition jobs by &#64;mcgalcode in https://github.com/materialsproject/jobflow/pull/426</p></li>
 </ul>
 </section>
-<section id="enhancements">
-<h3>Enhancements 🛠<a class="headerlink" href="#enhancements" title="Link to this heading">#</a></h3>
+<section id="id2">
+<h3>Enhancements 🛠<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add tests for Python 3.11 by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/413</p></li>
 <li><p>Add support for Pydantic 2 by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/440</p></li>
 </ul>
 </section>
-<section id="documentation">
-<h3>Documentation 📖<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h3>Documentation 📖<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Link to &#64;jageo’s tutorials and fix a broken link by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/412</p></li>
 <li><p>Update &#64;arosen93 to &#64;Andrew-S-Rosen by &#64;Andrew-S-Rosen in https://github.com/materialsproject/jobflow/pull/427</p></li>
@@ -527,10 +580,18 @@ in the kwargs or args of the job.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Change log</a><ul>
-<li><a class="reference internal" href="#v0-1-14">v0.1.14</a><ul>
+<li><a class="reference internal" href="#v0-1-15">v0.1.15</a><ul>
 <li><a class="reference internal" href="#bug-fixes">Bug Fixes 🐛</a></li>
 <li><a class="reference internal" href="#enhancements">Enhancements 🛠</a></li>
 <li><a class="reference internal" href="#documentation">Documentation 📖</a></li>
+<li><a class="reference internal" href="#house-keeping">House-Keeping 🧹</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-contributors">New Contributors</a></li>
+<li><a class="reference internal" href="#v0-1-14">v0.1.14</a><ul>
+<li><a class="reference internal" href="#id1">Bug Fixes 🐛</a></li>
+<li><a class="reference internal" href="#id2">Enhancements 🛠</a></li>
+<li><a class="reference internal" href="#id3">Documentation 📖</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#v0-1-13">v0.1.13</a></li>
@@ -560,7 +621,7 @@ in the kwargs or args of the job.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=468bc497"></script>
+</div><script src="_static/documentation_options.js?v=e2f3408e"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

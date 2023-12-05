@@ -305,20 +305,20 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-06-08 09:55:05,762 INFO Started executing jobs locally
-2023-06-08 09:55:05,873 INFO Starting job - make_list (68b72ca9-00ae-430f-a61c-fbea22bbf0aa)
-2023-06-08 09:55:05,874 INFO Finished job - make_list (68b72ca9-00ae-430f-a61c-fbea22bbf0aa)
-2023-06-08 09:55:05,874 INFO Starting job - add_distributed (01821a62-3ee2-47f0-a6ca-fd373ea0ea09)
-2023-06-08 09:55:05,875 INFO Finished job - add_distributed (01821a62-3ee2-47f0-a6ca-fd373ea0ea09)
-2023-06-08 09:55:05,876 INFO Starting job - add (fbc49130-2bbe-49b0-a190-48815c03a0b0)
-2023-06-08 09:55:05,876 INFO Finished job - add (fbc49130-2bbe-49b0-a190-48815c03a0b0)
-2023-06-08 09:55:05,877 INFO Starting job - add (ca3636e3-50f7-4ec8-a5e7-66bc4e14b901)
-2023-06-08 09:55:05,877 INFO Finished job - add (ca3636e3-50f7-4ec8-a5e7-66bc4e14b901)
-2023-06-08 09:55:05,877 INFO Starting job - add (28dbe7c4-b29b-46c4-9d0c-2aee7334b999)
-2023-06-08 09:55:05,878 INFO Finished job - add (28dbe7c4-b29b-46c4-9d0c-2aee7334b999)
-2023-06-08 09:55:05,878 INFO Starting job - add (1bffefd1-4edc-43d5-b99f-b0833fca2b8d)
-2023-06-08 09:55:05,879 INFO Finished job - add (1bffefd1-4edc-43d5-b99f-b0833fca2b8d)
-2023-06-08 09:55:05,879 INFO Finished executing jobs locally
+2023-11-23 23:55:02,807 INFO Started executing jobs locally
+2023-11-23 23:55:02,937 INFO Starting job - make_list (d509897c-c318-4b2e-889e-a77331480a58)
+2023-11-23 23:55:02,955 INFO Finished job - make_list (d509897c-c318-4b2e-889e-a77331480a58)
+2023-11-23 23:55:02,956 INFO Starting job - add_distributed (7e07bfa4-a0cc-4535-b6c8-e3ec78fe96fb)
+2023-11-23 23:55:02,963 INFO Finished job - add_distributed (7e07bfa4-a0cc-4535-b6c8-e3ec78fe96fb)
+2023-11-23 23:55:03,005 INFO Starting job - add (62d7192e-d2af-4f28-a790-ac4987bd9f41)
+2023-11-23 23:55:03,008 INFO Finished job - add (62d7192e-d2af-4f28-a790-ac4987bd9f41)
+2023-11-23 23:55:03,009 INFO Starting job - add (d8a7d4aa-8255-417f-9cc8-bc9e16896d33)
+2023-11-23 23:55:03,012 INFO Finished job - add (d8a7d4aa-8255-417f-9cc8-bc9e16896d33)
+2023-11-23 23:55:03,012 INFO Starting job - add (15ce2067-8138-4692-baf8-8ceada256139)
+2023-11-23 23:55:03,014 INFO Finished job - add (15ce2067-8138-4692-baf8-8ceada256139)
+2023-11-23 23:55:03,015 INFO Starting job - add (43477f07-28fd-4944-9ae7-02f41282c8d3)
+2023-11-23 23:55:03,017 INFO Finished job - add (43477f07-28fd-4944-9ae7-02f41282c8d3)
+2023-11-23 23:55:03,018 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -326,7 +326,7 @@
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/Users/alexmganose/dev/src/jobflow/src/jobflow/utils/graph.py:53: UserWarning: Some jobs are not connected, their ordering may be random
+/home/jgeorge/miniconda3/envs/AddJobflowTutorial/lib/python3.10/site-packages/jobflow/utils/graph.py:49: UserWarning: Some jobs are not connected, their ordering may be random
   warnings.warn(&#34;Some jobs are not connected, their ordering may be random&#34;)
 </pre></div></div>
 </div>
@@ -344,12 +344,16 @@
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-68b72ca9-00ae-430f-a61c-fbea22bbf0aa -&gt; {1: Response(output=[2, 2, 2, 2], detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-01821a62-3ee2-47f0-a6ca-fd373ea0ea09 -&gt; {1: Response(output=None, detour=None, addition=None, replace=&lt;jobflow.core.flow.Flow object at 0x122284cd0&gt;, stored_data=None, stop_children=False, stop_jobflow=False)}
-fbc49130-2bbe-49b0-a190-48815c03a0b0 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-ca3636e3-50f7-4ec8-a5e7-66bc4e14b901 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-28dbe7c4-b29b-46c4-9d0c-2aee7334b999 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-1bffefd1-4edc-43d5-b99f-b0833fca2b8d -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+d509897c-c318-4b2e-889e-a77331480a58 -&gt; {1: Response(output=[2, 2, 2, 2], detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+7e07bfa4-a0cc-4535-b6c8-e3ec78fe96fb -&gt; {1: Response(output=None, detour=None, addition=None, replace=Flow(name=&#39;Flow&#39;, uuid=&#39;ab9475e6-781b-4560-a0cc-4c260f80762a&#39;)
+1. Job(name=&#39;add&#39;, uuid=&#39;62d7192e-d2af-4f28-a790-ac4987bd9f41&#39;)
+2. Job(name=&#39;add&#39;, uuid=&#39;d8a7d4aa-8255-417f-9cc8-bc9e16896d33&#39;)
+3. Job(name=&#39;add&#39;, uuid=&#39;15ce2067-8138-4692-baf8-8ceada256139&#39;)
+4. Job(name=&#39;add&#39;, uuid=&#39;43477f07-28fd-4944-9ae7-02f41282c8d3&#39;), stored_data=None, stop_children=False, stop_jobflow=False)}
+62d7192e-d2af-4f28-a790-ac4987bd9f41 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+d8a7d4aa-8255-417f-9cc8-bc9e16896d33 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+15ce2067-8138-4692-baf8-8ceada256139 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+43477f07-28fd-4944-9ae7-02f41282c8d3 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
 </pre></div></div>
 </div>
 <p>As seen above, there are several jobs that were run — certainly more than the two we started with. The first job generates a list of 2’s with a random length. The second job in the flow is what launches a job on each entry in the list. It is replaced by one job for each entry, hence it has no direct output. Then each newly generated job is run.</p>
@@ -388,14 +392,14 @@ ca3636e3-50f7-4ec8-a5e7-66bc4e14b901 -&gt; {1: Response(output=3, detour=None, a
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-06-08 09:55:07,374 INFO Started executing jobs locally
-2023-06-08 09:55:07,377 INFO Starting job - add (8270f7cc-e12a-457b-adca-a196ee62ae85)
-2023-06-08 09:55:07,379 INFO Finished job - add (8270f7cc-e12a-457b-adca-a196ee62ae85)
-2023-06-08 09:55:07,380 INFO Starting job - add_with_logic (fd549146-aabb-4e4b-b79a-ca6b6fd2c172)
-2023-06-08 09:55:07,382 INFO Finished job - add_with_logic (fd549146-aabb-4e4b-b79a-ca6b6fd2c172)
-2023-06-08 09:55:07,384 INFO Starting job - add (9db2454f-4f1d-4d08-8497-1239cad74d0c)
-2023-06-08 09:55:07,384 INFO Finished job - add (9db2454f-4f1d-4d08-8497-1239cad74d0c)
-2023-06-08 09:55:07,385 INFO Finished executing jobs locally
+2023-11-23 23:55:06,796 INFO Started executing jobs locally
+2023-11-23 23:55:06,797 INFO Starting job - add (5630b6ba-1e9a-42ff-be51-ece43fe76643)
+2023-11-23 23:55:06,800 INFO Finished job - add (5630b6ba-1e9a-42ff-be51-ece43fe76643)
+2023-11-23 23:55:06,801 INFO Starting job - add_with_logic (008b1973-6421-418f-b47d-8f32054fedc8)
+2023-11-23 23:55:06,807 INFO Finished job - add_with_logic (008b1973-6421-418f-b47d-8f32054fedc8)
+2023-11-23 23:55:06,808 INFO Starting job - add (4e43d6b6-523a-4760-b1cf-3f68916e80fd)
+2023-11-23 23:55:06,812 INFO Finished job - add (4e43d6b6-523a-4760-b1cf-3f68916e80fd)
+2023-11-23 23:55:06,813 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -412,9 +416,10 @@ ca3636e3-50f7-4ec8-a5e7-66bc4e14b901 -&gt; {1: Response(output=3, detour=None, a
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-8270f7cc-e12a-457b-adca-a196ee62ae85 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-fd549146-aabb-4e4b-b79a-ca6b6fd2c172 -&gt; {1: Response(output=None, detour=None, addition=&lt;jobflow.core.flow.Flow object at 0x12229b0d0&gt;, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-9db2454f-4f1d-4d08-8497-1239cad74d0c -&gt; {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+5630b6ba-1e9a-42ff-be51-ece43fe76643 -&gt; {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+008b1973-6421-418f-b47d-8f32054fedc8 -&gt; {1: Response(output=None, detour=None, addition=Flow(name=&#39;Flow&#39;, uuid=&#39;1994a56f-6dd8-4e35-a187-76d27d808d09&#39;)
+1. Job(name=&#39;add&#39;, uuid=&#39;4e43d6b6-523a-4760-b1cf-3f68916e80fd&#39;), replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+4e43d6b6-523a-4760-b1cf-3f68916e80fd -&gt; {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
 </pre></div></div>
 </div>
 <p>As you can see above, the addition job is correctly run twice. Now let’s confirm that the addition job is only run once if the output of the first job is greater than 10.</p>
@@ -444,12 +449,12 @@ fd549146-aabb-4e4b-b79a-ca6b6fd2c172 -&gt; {1: Response(output=None, detour=None
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-06-08 09:55:08,838 INFO Started executing jobs locally
-2023-06-08 09:55:08,841 INFO Starting job - add (ec551667-1500-45cc-b61a-2361a18b99fd)
-2023-06-08 09:55:08,843 INFO Finished job - add (ec551667-1500-45cc-b61a-2361a18b99fd)
-2023-06-08 09:55:08,843 INFO Starting job - add_with_logic (e7d3fb53-fa56-45bd-9951-45b70028ada7)
-2023-06-08 09:55:08,846 INFO Finished job - add_with_logic (e7d3fb53-fa56-45bd-9951-45b70028ada7)
-2023-06-08 09:55:08,847 INFO Finished executing jobs locally
+2023-11-23 23:55:09,755 INFO Started executing jobs locally
+2023-11-23 23:55:09,756 INFO Starting job - add (92e3f817-1350-4492-aeee-ec3501bce66f)
+2023-11-23 23:55:09,759 INFO Finished job - add (92e3f817-1350-4492-aeee-ec3501bce66f)
+2023-11-23 23:55:09,759 INFO Starting job - add_with_logic (e20fe185-4e34-4422-914f-e0acb4cbd529)
+2023-11-23 23:55:09,764 INFO Finished job - add_with_logic (e20fe185-4e34-4422-914f-e0acb4cbd529)
+2023-11-23 23:55:09,765 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -466,17 +471,88 @@ fd549146-aabb-4e4b-b79a-ca6b6fd2c172 -&gt; {1: Response(output=None, detour=None
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ec551667-1500-45cc-b61a-2361a18b99fd -&gt; {1: Response(output=21, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
-e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+92e3f817-1350-4492-aeee-ec3501bce66f -&gt; {1: Response(output=21, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
+e20fe185-4e34-4422-914f-e0acb4cbd529 -&gt; {1: Response(output=None, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}
 </pre></div></div>
 </div>
 <p>Now, we see that the <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> does not launch a new job.</p>
+<p>In this way, one can also compute the Fibonacci numbers:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;A dynamic workflow that calculates the Fibonacci sequence.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Response</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">run_locally</span>
+
+
+<span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">smaller</span><span class="p">,</span> <span class="n">larger</span><span class="p">,</span> <span class="n">stop_point</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the next number in the Fibonacci sequence.</span>
+
+<span class="sd">    If the number is larger than stop_point, the job will stop the workflow</span>
+<span class="sd">    execution, otherwise, a new job will be submitted to calculate the next number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">smaller</span> <span class="o">+</span> <span class="n">larger</span>
+
+    <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="n">stop_point</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">total</span>
+
+    <span class="n">new_job</span> <span class="o">=</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">larger</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">stop_point</span><span class="o">=</span><span class="n">stop_point</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="n">total</span><span class="p">,</span> <span class="n">addition</span><span class="o">=</span><span class="n">new_job</span><span class="p">)</span>
+
+
+<span class="n">fibonacci_job</span> <span class="o">=</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># run the job; responses will contain the output from all jobs</span>
+<span class="n">responses</span> <span class="o">=</span> <span class="n">run_locally</span><span class="p">(</span><span class="n">fibonacci_job</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2023-11-23 23:55:13,324 INFO Started executing jobs locally
+2023-11-23 23:55:13,325 INFO Starting job - fibonacci (6f7a1e92-577f-4289-85e5-e07a82e542db)
+2023-11-23 23:55:13,329 INFO Finished job - fibonacci (6f7a1e92-577f-4289-85e5-e07a82e542db)
+2023-11-23 23:55:13,329 INFO Starting job - fibonacci (862ce31a-a963-419a-9862-f419c47c3c9e)
+2023-11-23 23:55:13,332 INFO Finished job - fibonacci (862ce31a-a963-419a-9862-f419c47c3c9e)
+2023-11-23 23:55:13,333 INFO Starting job - fibonacci (81c28a0a-f1ad-487c-b484-46729f6ca9a6)
+2023-11-23 23:55:13,335 INFO Finished job - fibonacci (81c28a0a-f1ad-487c-b484-46729f6ca9a6)
+2023-11-23 23:55:13,336 INFO Starting job - fibonacci (084e2022-5a00-4ca8-9edf-46977ca08388)
+2023-11-23 23:55:13,338 INFO Finished job - fibonacci (084e2022-5a00-4ca8-9edf-46977ca08388)
+2023-11-23 23:55:13,339 INFO Starting job - fibonacci (382f371c-9e92-4185-8dbb-829801ec1afd)
+2023-11-23 23:55:13,342 INFO Finished job - fibonacci (382f371c-9e92-4185-8dbb-829801ec1afd)
+2023-11-23 23:55:13,342 INFO Starting job - fibonacci (f4521225-993a-4b42-9818-8aaff0da9181)
+2023-11-23 23:55:13,345 INFO Finished job - fibonacci (f4521225-993a-4b42-9818-8aaff0da9181)
+2023-11-23 23:55:13,346 INFO Starting job - fibonacci (3d475e3e-3774-4015-b056-a23f5cf1da6a)
+2023-11-23 23:55:13,349 INFO Finished job - fibonacci (3d475e3e-3774-4015-b056-a23f5cf1da6a)
+2023-11-23 23:55:13,351 INFO Starting job - fibonacci (ddc61891-1ce1-4d96-b66e-cb60d52e642a)
+2023-11-23 23:55:13,353 INFO Finished job - fibonacci (ddc61891-1ce1-4d96-b66e-cb60d52e642a)
+2023-11-23 23:55:13,354 INFO Starting job - fibonacci (499ab638-d8cc-4272-b2b4-f64d246f3676)
+2023-11-23 23:55:13,357 INFO Finished job - fibonacci (499ab638-d8cc-4272-b2b4-f64d246f3676)
+2023-11-23 23:55:13,357 INFO Starting job - fibonacci (71b7d00f-0109-4a23-8a54-fb29ef143cd2)
+2023-11-23 23:55:13,360 INFO Finished job - fibonacci (71b7d00f-0109-4a23-8a54-fb29ef143cd2)
+2023-11-23 23:55:13,361 INFO Starting job - fibonacci (d60f3f5d-821a-434a-a8c1-50468b381d5f)
+2023-11-23 23:55:13,363 INFO Finished job - fibonacci (d60f3f5d-821a-434a-a8c1-50468b381d5f)
+2023-11-23 23:55:13,364 INFO Starting job - fibonacci (7828008e-2f89-4226-aaac-66f25d4ccf0a)
+2023-11-23 23:55:13,367 INFO Finished job - fibonacci (7828008e-2f89-4226-aaac-66f25d4ccf0a)
+2023-11-23 23:55:13,367 INFO Starting job - fibonacci (062b0cad-2b62-4f42-bd39-ac1b3c90d141)
+2023-11-23 23:55:13,370 INFO Finished job - fibonacci (062b0cad-2b62-4f42-bd39-ac1b3c90d141)
+2023-11-23 23:55:13,371 INFO Starting job - fibonacci (6c1bf8e4-1808-42b4-a99e-49dd031894bd)
+2023-11-23 23:55:13,373 INFO Finished job - fibonacci (6c1bf8e4-1808-42b4-a99e-49dd031894bd)
+2023-11-23 23:55:13,374 INFO Starting job - fibonacci (d82e352d-1ca3-40d2-85d1-3f08989d3551)
+2023-11-23 23:55:13,376 INFO Finished job - fibonacci (d82e352d-1ca3-40d2-85d1-3f08989d3551)
+2023-11-23 23:55:13,377 INFO Finished executing jobs locally
+</pre></div></div>
+</div>
 </section>
 <section id="The-Response(detour)-option">
 <h2>The <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> option<a class="headerlink" href="#The-Response(detour)-option" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> option behaves similarly to <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code>. The difference is that <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> will add a job (or flow) to the current flow, while <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> will no longer run the current flow and will switch to a parallel job or flow.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@job</span>
@@ -501,18 +577,18 @@ e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-2023-06-08 09:55:10,850 INFO Started executing jobs locally
-2023-06-08 09:55:10,853 INFO Starting job - add (d5020d71-4bbc-4307-8fa5-c65d0d9b9b9a)
-2023-06-08 09:55:10,855 INFO Finished job - add (d5020d71-4bbc-4307-8fa5-c65d0d9b9b9a)
-2023-06-08 09:55:10,856 INFO Starting job - add_with_logic (8786b3c4-5697-4ed8-9f46-fd0c89e4c374)
-2023-06-08 09:55:10,858 INFO Finished job - add_with_logic (8786b3c4-5697-4ed8-9f46-fd0c89e4c374)
-2023-06-08 09:55:10,859 INFO Starting job - add (c33d72c2-f396-4f2c-898e-c667c0913dcb)
-2023-06-08 09:55:10,859 INFO Finished job - add (c33d72c2-f396-4f2c-898e-c667c0913dcb)
-2023-06-08 09:55:10,860 INFO Finished executing jobs locally
+2023-11-23 23:55:16,275 INFO Started executing jobs locally
+2023-11-23 23:55:16,278 INFO Starting job - add (301d75f0-7042-494a-9f24-cab0428c2fd1)
+2023-11-23 23:55:16,281 INFO Finished job - add (301d75f0-7042-494a-9f24-cab0428c2fd1)
+2023-11-23 23:55:16,282 INFO Starting job - add_with_logic (97be61a8-eec4-4e64-bf53-ba37621575e7)
+2023-11-23 23:55:16,292 INFO Finished job - add_with_logic (97be61a8-eec4-4e64-bf53-ba37621575e7)
+2023-11-23 23:55:16,293 INFO Starting job - add (d4c31f68-09ad-418a-ac52-89b303fc2a00)
+2023-11-23 23:55:16,296 INFO Finished job - add (d4c31f68-09ad-418a-ac52-89b303fc2a00)
+2023-11-23 23:55:16,296 INFO Finished executing jobs locally
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">responses</span>
@@ -520,14 +596,15 @@ e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;d5020d71-4bbc-4307-8fa5-c65d0d9b9b9a&#39;: {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;8786b3c4-5697-4ed8-9f46-fd0c89e4c374&#39;: {1: Response(output=None, detour=&lt;jobflow.core.flow.Flow object at 0x12229bc70&gt;, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
- &#39;c33d72c2-f396-4f2c-898e-c667c0913dcb&#39;: {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
+{&#39;301d75f0-7042-494a-9f24-cab0428c2fd1&#39;: {1: Response(output=3, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;97be61a8-eec4-4e64-bf53-ba37621575e7&#39;: {1: Response(output=None, detour=Flow(name=&#39;Flow&#39;, uuid=&#39;0de995a5-1110-4200-b010-276cb2017474&#39;)
+  1. Job(name=&#39;add&#39;, uuid=&#39;d4c31f68-09ad-418a-ac52-89b303fc2a00&#39;), addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)},
+ &#39;d4c31f68-09ad-418a-ac52-89b303fc2a00&#39;: {1: Response(output=5, detour=None, addition=None, replace=None, stored_data=None, stop_children=False, stop_jobflow=False)}}
 </pre></div></div>
 </div>
 <p>For this toy example, both <code class="docutils literal notranslate"><span class="pre">Response(addition)</span></code> and <code class="docutils literal notranslate"><span class="pre">Response(detour)</span></code> behave identically.</p>
@@ -603,7 +680,7 @@ e7d3fb53-fa56-45bd-9951-45b70028ada7 -&gt; {1: Response(output=None, detour=None
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

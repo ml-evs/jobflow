@@ -259,17 +259,19 @@
 <span class="kn">from</span> <span class="nn">jobflow.utils.find</span> <span class="kn">import</span> <span class="n">get_root_locations</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
     <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
     <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
+    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
     <span class="kn">from</span> <span class="nn">maggma.core</span> <span class="kn">import</span> <span class="n">Sort</span>
 
-    <span class="n">obj_type</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]]</span>
-    <span class="n">save_type</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">]]</span>
-    <span class="n">load_type</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">]]]</span>
+    <span class="kn">from</span> <span class="nn">jobflow.core.schemas</span> <span class="kn">import</span> <span class="n">JobStoreDocument</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;JobStore&quot;</span><span class="p">]</span>
+    <span class="n">obj_type</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Enum</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">MSONable</span><span class="p">]]]]</span>
+    <span class="n">save_type</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">]]</span>
+    <span class="n">load_type</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">]]]</span>
+
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;JobStore&quot;</span><span class="p">)</span>
 
@@ -513,15 +515,14 @@
         <span class="n">docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
             <span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span>
         <span class="p">)</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">d</span></div>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="JobStore.update">
 <a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.store.JobStore.update">[docs]</a>
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">docs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">docs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">JobStoreDocument</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">JobStoreDocument</span><span class="p">],</span>
         <span class="n">key</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">save_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -531,7 +532,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        docs</span>
-<span class="sd">            The document or list of documents to update.</span>
+<span class="sd">            The Pydantic document or list of Pydantic documents to update.</span>
 <span class="sd">        key</span>
 <span class="sd">            Field name(s) to determine uniqueness for a document, can be a list of</span>
 <span class="sd">            multiple fields, a single field, or None if the Store&#39;s key field is to</span>
@@ -774,7 +775,7 @@
         <span class="c1">#       this could be fixed but will require more complicated logic just to</span>
         <span class="c1">#       catch a very unlikely event.</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">which</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;last&quot;</span><span class="p">,</span> <span class="s2">&quot;first&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">which</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;last&quot;</span><span class="p">,</span> <span class="s2">&quot;first&quot;</span><span class="p">}:</span>
             <span class="n">sort</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;last&quot;</span> <span class="k">else</span> <span class="mi">1</span>
 
             <span class="n">criteria</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="p">}</span>
@@ -800,28 +801,27 @@
             <span class="k">return</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
                 <span class="n">result</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
             <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-                    <span class="n">criteria</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span>
-                    <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
-                    <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-                    <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
-                <span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+                <span class="n">criteria</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="n">uuid</span><span class="p">},</span>
+                <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
+                <span class="n">sort</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+                <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
             <span class="p">)</span>
+        <span class="p">)</span>
 
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;UUID: </span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> has no outputs.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;UUID: </span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2"> has no outputs.&quot;</span><span class="p">)</span>
 
-            <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
 
-            <span class="n">refs</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="o">==</span> <span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Reference cycle detected - aborting.&quot;</span><span class="p">)</span>
+        <span class="n">refs</span> <span class="o">=</span> <span class="n">find_and_get_references</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">uuid</span> <span class="o">==</span> <span class="n">uuid</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Reference cycle detected - aborting.&quot;</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
-                <span class="n">results</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
-            <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">find_and_resolve_references</span><span class="p">(</span>
+            <span class="n">results</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">on_missing</span><span class="o">=</span><span class="n">on_missing</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="JobStore.from_file">
@@ -946,6 +946,10 @@
 
         <span class="n">all_stores</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">all_subclasses</span><span class="p">(</span><span class="n">maggma</span><span class="o">.</span><span class="n">stores</span><span class="o">.</span><span class="n">Store</span><span class="p">)}</span>
 
+        <span class="c1"># add ssh tunnel support</span>
+        <span class="n">tunnel</span> <span class="o">=</span> <span class="n">maggma</span><span class="o">.</span><span class="n">stores</span><span class="o">.</span><span class="n">ssh_tunnel</span><span class="o">.</span><span class="n">SSHTunnel</span>
+        <span class="n">all_stores</span><span class="p">[</span><span class="n">tunnel</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">tunnel</span>
+
         <span class="n">docs_store_info</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;docs_store&quot;</span><span class="p">]</span>
         <span class="n">docs_store</span> <span class="o">=</span> <span class="n">_construct_store</span><span class="p">(</span><span class="n">docs_store_info</span><span class="p">,</span> <span class="n">all_stores</span><span class="p">)</span>
 
@@ -1047,7 +1051,7 @@
 
     <span class="n">new_blobs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">new_locations</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">_store_name</span><span class="p">,</span> <span class="n">store_load</span> <span class="ow">in</span> <span class="n">load</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">store_load</span> <span class="ow">in</span> <span class="n">load</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">blob</span><span class="p">,</span> <span class="n">location</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">blob_infos</span><span class="p">,</span> <span class="n">locations</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">store_load</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">new_blobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span>
@@ -1114,7 +1118,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../../../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

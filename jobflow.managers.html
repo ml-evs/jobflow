@@ -254,19 +254,25 @@
 <p>Tools for running jobflow locally.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="jobflow.managers.local.run_locally">
-<span class="sig-prename descclassname"><span class="pre">jobflow.managers.local.</span></span><span class="sig-name descname"><span class="pre">run_locally</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_folders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_external_references</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/local.html#run_locally"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.local.run_locally" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">jobflow.managers.local.</span></span><span class="sig-name descname"><span class="pre">run_locally</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_folders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_external_references</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/managers/local.html#run_locally"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.managers.local.run_locally" title="Link to this definition">#</a></dt>
 <dd><p>Run a <code class="xref py py-obj docutils literal notranslate"><span class="pre">Job</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">Flow</span></code> locally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A job or flow.</p></li>
-<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to print log messages.</p></li>
-<li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store. If a job store is not specified then
+<li><p><strong>flow</strong> (<a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> | </em><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="jobflow.core.html#jobflow.core.job.Job" title="jobflow.core.job.Job"><em>Job</em></a><em>]</em>) – A job or flow.</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to print log messages.</p></li>
+<li><p><strong>store</strong> (<a class="reference internal" href="jobflow.core.html#jobflow.core.store.JobStore" title="jobflow.core.store.JobStore"><em>JobStore</em></a>) – A job store. If a job store is not specified then
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code> will be used. By default this is a maggma
 <code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code> but can be customised by setting the jobflow configuration file.</p></li>
-<li><p><strong>create_folders</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to run each job in a new folder.</p></li>
-<li><p><strong>ensure_success</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Raise an error if the flow was not executed successfully.</p></li>
-<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
+<li><p><strong>create_folders</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to run each job in a new folder.</p></li>
+<li><p><strong>root_dir</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> | </em><em>Path</em><em> | </em><em>None</em>) – <dl class="simple">
+<dt>The root directory to run the jobs in or where to create new subfolders if</dt><dd><p><code class="docutils literal notranslate"><span class="pre">create_folders</span></code> is True. If None then the current working
+directory will be used.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>ensure_success</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Raise an error if the flow was not executed successfully.</p></li>
+<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
 of the Flow.</p></li>
 </ul>
 </dd>
@@ -274,7 +280,7 @@ of the Flow.</p></li>
 <dd class="field-even"><p>The responses of the jobs, as a dict of <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">{index:</span> <span class="pre">response}}</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a>, Dict[<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)">int</a>, <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Response" title="jobflow.core.job.Response">Response</a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)">int</a>, <a class="reference internal" href="jobflow.core.html#jobflow.core.job.Response" title="jobflow.core.job.Response">Response</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -293,12 +299,12 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A flow or job.</p></li>
+<li><p><strong>flow</strong> (<em>jobflow.Flow</em><em> | </em><em>jobflow.Job</em><em> | </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><em>jobflow.Job</em><em>]</em>) – A flow or job.</p></li>
 <li><p><strong>store</strong> (<em>jobflow.JobStore</em>) – A job store. Alternatively, if set to None, <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobflowSettings.JOB_STORE</span></code>
 will be used. Note, this could be different on the computer that submits the
 workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
 the computer that runs the workflow will be used.</p></li>
-<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
+<li><p><strong>allow_external_references</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If False all the references to other outputs should be from other Jobs
 of the Flow.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to Workflow init method.</p></li>
 </ul>
@@ -327,8 +333,8 @@ can be used to configure FireWork options such as metadata and the fireworker.</
 will be used. Note, this could be different on the computer that submits the
 workflow and the computer which runs the workflow. The value of <code class="docutils literal notranslate"><span class="pre">JOB_STORE</span></code> on
 the computer that runs the workflow will be used.</p></li>
-<li><p><strong>parents</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – The parent uuids of the job.</p></li>
-<li><p><strong>parent_mapping</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Firework</em><em>]</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
+<li><p><strong>parents</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – The parent uuids of the job.</p></li>
+<li><p><strong>parent_mapping</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Firework</em><em>]</em>) – A dictionary mapping job uuids to Firework objects, as <code class="docutils literal notranslate"><span class="pre">{uuid:</span> <span class="pre">Firework}</span></code>.</p></li>
 <li><p><strong>**kwargs</strong> – Keyword arguments passed to the Firework constructor.</p></li>
 </ul>
 </dd>
@@ -447,7 +453,7 @@ the computer that runs the workflow will be used.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=468bc497"></script>
+</div><script src="_static/documentation_options.js?v=e2f3408e"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

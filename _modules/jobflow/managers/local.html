@@ -254,11 +254,9 @@
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="k">pass</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;run_locally&quot;</span><span class="p">]</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -270,6 +268,7 @@
     <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">store</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">JobStore</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">create_folders</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ensure_success</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">allow_external_references</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Response</span><span class="p">]]:</span>
@@ -278,25 +277,29 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    flow</span>
+<span class="sd">    flow : Flow | Job | list[Job]</span>
 <span class="sd">        A job or flow.</span>
-<span class="sd">    log</span>
+<span class="sd">    log : bool</span>
 <span class="sd">        Whether to print log messages.</span>
-<span class="sd">    store</span>
+<span class="sd">    store : JobStore</span>
 <span class="sd">        A job store. If a job store is not specified then</span>
 <span class="sd">        :obj:`JobflowSettings.JOB_STORE` will be used. By default this is a maggma</span>
 <span class="sd">        ``MemoryStore`` but can be customised by setting the jobflow configuration file.</span>
-<span class="sd">    create_folders</span>
+<span class="sd">    create_folders : bool</span>
 <span class="sd">        Whether to run each job in a new folder.</span>
-<span class="sd">    ensure_success</span>
+<span class="sd">    root_dir : str | Path | None</span>
+<span class="sd">        The root directory to run the jobs in or where to create new subfolders if</span>
+<span class="sd">            ``create_folders`` is True. If None then the current working</span>
+<span class="sd">            directory will be used.</span>
+<span class="sd">    ensure_success : bool</span>
 <span class="sd">        Raise an error if the flow was not executed successfully.</span>
-<span class="sd">    allow_external_references</span>
+<span class="sd">    allow_external_references : bool</span>
 <span class="sd">        If False all the references to other outputs should be from other Jobs</span>
 <span class="sd">        of the Flow.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Dict[str, Dict[int, Response]]</span>
+<span class="sd">    dict[str, dict[int, Response]]</span>
 <span class="sd">        The responses of the jobs, as a dict of ``{uuid: {index: response}}``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
@@ -313,6 +316,9 @@
     <span class="k">if</span> <span class="n">store</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">store</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">JOB_STORE</span>
 
+    <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="k">if</span> <span class="n">root_dir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">root_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="n">store</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
@@ -324,8 +330,6 @@
     <span class="n">errored</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">responses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Response</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">stop_jobflow</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="n">root_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_run_job</span><span class="p">(</span><span class="n">job</span><span class="p">:</span> <span class="n">jobflow</span><span class="o">.</span><span class="n">Job</span><span class="p">,</span> <span class="n">parents</span><span class="p">):</span>
         <span class="k">nonlocal</span> <span class="n">stop_jobflow</span>
@@ -384,8 +388,7 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">diversion_responses</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_get_job_dir</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">create_folders</span><span class="p">:</span>
@@ -393,8 +396,7 @@
             <span class="n">job_dir</span> <span class="o">=</span> <span class="n">root_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;job_</span><span class="si">{</span><span class="n">time_now</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">randint</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="mi">99999</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">job_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">job_dir</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">root_dir</span>
+        <span class="k">return</span> <span class="n">root_dir</span>
 
     <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="n">root_flow</span><span class="p">):</span>
         <span class="n">encountered_bad_response</span> <span class="o">=</span> <span class="kc">False</span>
@@ -449,7 +451,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../../../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

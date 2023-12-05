@@ -263,7 +263,7 @@ limited use cases required by jobflow.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.utils.dict_mods.DictMods">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.utils.dict_mods.</span></span><span class="sig-name descname"><span class="pre">DictMods</span></span><a class="reference internal" href="_modules/jobflow/utils/dict_mods.html#DictMods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.dict_mods.DictMods" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class to define mongo-like modifications on a dict.</p>
 <p>Supported keywords include the following Mongo-based keywords, with the usual
 meanings (refer to Mongo documentation for information):</p>
@@ -356,9 +356,9 @@ keyword, e.g. <code class="docutils literal notranslate"><span class="pre">{&quo
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>modification</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Modification must be <code class="docutils literal notranslate"><span class="pre">{action_keyword</span> <span class="pre">:</span> <span class="pre">settings}</span></code>, where action_keyword is a
+<li><p><strong>modification</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Modification must be <code class="docutils literal notranslate"><span class="pre">{action_keyword</span> <span class="pre">:</span> <span class="pre">settings}</span></code>, where action_keyword is a
 supported DictMod.</p></li>
-<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict to be modified.</p></li>
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dict to be modified.</p></li>
 </ul>
 </dd>
 </dl>
@@ -371,7 +371,7 @@ supported DictMod.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="jobflow.utils.enum.ValueEnum">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">jobflow.utils.enum.</span></span><span class="sig-name descname"><span class="pre">ValueEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/enum.html#ValueEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.enum.ValueEnum" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.8/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>Enum that serializes to string as the value and can be compared against a str.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="jobflow.utils.enum.ValueEnum.as_dict">
@@ -393,11 +393,11 @@ supported DictMod.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
-<li><p><strong>key</strong> (<em>Hashable</em><em> | </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a><em>[</em><em>MSONable</em><em>]</em>) – A dictionary key or MSONable class to locate.</p></li>
-<li><p><strong>include_end</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to include the key in the route. This has no effect if the key is an
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
+<li><p><strong>key</strong> (<em>Hashable</em><em> | </em><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#type" title="(in Python v3.9)"><em>type</em></a><em>[</em><em>MSONable</em><em>]</em>) – A dictionary key or MSONable class to locate.</p></li>
+<li><p><strong>include_end</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to include the key in the route. This has no effect if the key is an
 MSONable class.</p></li>
-<li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to return nested keys or stop at the first match.</p></li>
+<li><p><strong>nested</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to return nested keys or stop at the first match.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -433,7 +433,7 @@ MSONable class.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><em>Any</em><em>]</em>) – A dict or list of dicts.</p></li>
 <li><p><strong>key</strong> (<em>Hashable</em>) – A dictionary key.</p></li>
 <li><p><strong>value</strong> (<em>Hashable</em>) – A value.</p></li>
 </ul>
@@ -461,8 +461,8 @@ MSONable class.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – A dictionary to update.</p></li>
-<li><p><strong>updates</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to perform, as a dictionary of <code class="docutils literal notranslate"><span class="pre">{location:</span> <span class="pre">update}</span></code>.</p></li>
+<li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><em>Hashable</em><em>, </em><em>Any</em><em>]</em>) – A dictionary to update.</p></li>
+<li><p><strong>updates</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em>, </em><em>Any</em><em>]</em>) – The updates to perform, as a dictionary of <code class="docutils literal notranslate"><span class="pre">{location:</span> <span class="pre">update}</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -490,7 +490,27 @@ MSONable class.</p></li>
 <dd class="field-even"><p>Whether the object contains any Flows or jobs.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="jobflow.utils.find.get_root_locations">
+<span class="sig-prename descclassname"><span class="pre">jobflow.utils.find.</span></span><span class="sig-name descname"><span class="pre">get_root_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jobflow/utils/find.html#get_root_locations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jobflow.utils.find.get_root_locations" title="Link to this definition">#</a></dt>
+<dd><p>Filter for the the lowest level locations.</p>
+<p>If a parent location is in the list, the child location is removed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>locations</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>]</em>) – A list of locations.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>list[list]</em> – A list of locations with only the lowest level locations.</p></li>
+<li><p><em>Example usage</em> – &gt;&gt;&gt; _get_root_locations([[“a”, “b”], [“a”], [“c”, “d”]])
+[[“a”], [“c”, “d”]]</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -507,10 +527,10 @@ MSONable class.</p></li>
 node u comes before v in the ordering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v3.1)"><em>DiGraph</em></a>) – A networkx graph.</p>
+<dd class="field-odd"><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v3.2.1)"><em>DiGraph</em></a>) – A networkx graph.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – If the graph contains cycles.</p>
 </dd>
 <dt class="field-odd">Yields<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>str</em> – The node uuid.</p>
@@ -525,10 +545,10 @@ node u comes before v in the ordering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v3.1)"><em>DiGraph</em></a>) – A graph object.</p></li>
-<li><p><strong>layout_function</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/typing.html#typing.Callable" title="(in Python v3.8)"><em>Callable</em></a>) – A networkx layout function to use as the graph layout. For example,
+<li><p><strong>graph</strong> (<a class="reference external" href="https://networkx.org/documentation/stable/reference/classes/digraph.html#networkx.DiGraph" title="(in NetworkX v3.2.1)"><em>DiGraph</em></a>) – A graph object.</p></li>
+<li><p><strong>layout_function</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><em>Callable</em></a>) – A networkx layout function to use as the graph layout. For example,
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">planar_layout</span></code>.</p></li>
-<li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.8/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
+<li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>]</em>) – The figure size as a tuple of <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -590,14 +610,14 @@ Mermaid Live Editor at mermaid.live, using the mermaid-cli.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>flow</strong> (<a class="reference internal" href="jobflow.core.html#jobflow.core.flow.Flow" title="jobflow.core.flow.Flow"><em>Flow</em></a><em> or </em><em>a Job</em>) – A flow or a job.</p></li>
-<li><p><strong>show_flow_boxes</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to show the boxes around nested flows.</p></li>
+<li><p><strong>show_flow_boxes</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to show the boxes around nested flows.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Mermaid commands to render the graph.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -625,7 +645,7 @@ Mermaid Live Editor at mermaid.live, using the mermaid-cli.</p>
 <dd><p>Initialize the default logger.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The log level.</p>
+<dd class="field-odd"><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The log level.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A logging instance with customized formatter and handlers.</p>
@@ -650,7 +670,7 @@ Mermaid Live Editor at mermaid.live, using the mermaid-cli.</p>
 <dd class="field-odd"><p>A UUID.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.8/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -742,6 +762,7 @@ Mermaid Live Editor at mermaid.live, using the mermaid-cli.</p>
 <li><a class="reference internal" href="#jobflow.utils.find.find_key_value"><code class="docutils literal notranslate"><span class="pre">find_key_value()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.find.update_in_dictionary"><code class="docutils literal notranslate"><span class="pre">update_in_dictionary()</span></code></a></li>
 <li><a class="reference internal" href="#jobflow.utils.find.contains_flow_or_job"><code class="docutils literal notranslate"><span class="pre">contains_flow_or_job()</span></code></a></li>
+<li><a class="reference internal" href="#jobflow.utils.find.get_root_locations"><code class="docutils literal notranslate"><span class="pre">get_root_locations()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-jobflow.utils.graph">jobflow.utils.graph</a><ul>
@@ -770,7 +791,7 @@ Mermaid Live Editor at mermaid.live, using the mermaid-cli.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=468bc497"></script>
+</div><script src="_static/documentation_options.js?v=e2f3408e"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

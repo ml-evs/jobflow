@@ -260,8 +260,6 @@
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Maker&quot;</span><span class="p">]</span>
-
 
 <div class="viewcode-block" id="Maker">
 <a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.Maker">[docs]</a>
@@ -488,6 +486,8 @@
 
 
 
+<div class="viewcode-block" id="recursive_call">
+<a class="viewcode-back" href="../../../jobflow.core.html#jobflow.core.maker.recursive_call">[docs]</a>
 <span class="k">def</span> <span class="nf">recursive_call</span><span class="p">(</span>
     <span class="n">obj</span><span class="p">:</span> <span class="n">Maker</span><span class="p">,</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Maker</span><span class="p">],</span> <span class="n">Maker</span><span class="p">],</span>
@@ -567,7 +567,8 @@
     <span class="n">new_obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_filter</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
         <span class="n">new_obj</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">new_obj</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">new_obj</span>
+    <span class="k">return</span> <span class="n">new_obj</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -599,7 +600,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../../../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>

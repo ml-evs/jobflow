@@ -255,11 +255,10 @@
 <span class="kn">from</span> <span class="nn">fireworks</span> <span class="kn">import</span> <span class="n">FiretaskBase</span><span class="p">,</span> <span class="n">Firework</span><span class="p">,</span> <span class="n">FWAction</span><span class="p">,</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">explicit_serialize</span>
 
 <span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 
     <span class="kn">import</span> <span class="nn">jobflow</span>
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;flow_to_workflow&quot;</span><span class="p">,</span> <span class="s2">&quot;job_to_firework&quot;</span><span class="p">,</span> <span class="s2">&quot;JobFiretask&quot;</span><span class="p">]</span>
+    <span class="kn">from</span> <span class="nn">jobflow.core.job</span> <span class="kn">import</span> <span class="n">Job</span>
 
 
 <div class="viewcode-block" id="flow_to_workflow">
@@ -406,7 +405,6 @@
     <span class="k">def</span> <span class="nf">run_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fw_spec</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the job and handle any dynamic firework submissions.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">SETTINGS</span><span class="p">,</span> <span class="n">initialize_logger</span>
-        <span class="kn">from</span> <span class="nn">jobflow.core.job</span> <span class="kn">import</span> <span class="n">Job</span>
 
         <span class="n">job</span><span class="p">:</span> <span class="n">Job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;job&quot;</span><span class="p">)</span>
         <span class="n">store</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;store&quot;</span><span class="p">)</span>
@@ -450,14 +448,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">detours</span> <span class="o">=</span> <span class="p">[</span><span class="n">detour_wf</span><span class="p">]</span>
 
-        <span class="n">fwa</span> <span class="o">=</span> <span class="n">FWAction</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">FWAction</span><span class="p">(</span>
             <span class="n">stored_data</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">stored_data</span><span class="p">,</span>
             <span class="n">detours</span><span class="o">=</span><span class="n">detours</span><span class="p">,</span>
             <span class="n">additions</span><span class="o">=</span><span class="n">additions</span><span class="p">,</span>
             <span class="n">defuse_workflow</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">stop_jobflow</span><span class="p">,</span>
             <span class="n">defuse_children</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">stop_children</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fwa</span></div>
+        <span class="p">)</span></div>
 </div>
 
 </pre></div>
@@ -491,7 +488,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=468bc497"></script>
+</div><script src="../../../_static/documentation_options.js?v=e2f3408e"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
