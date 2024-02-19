@@ -299,6 +299,20 @@ class Job(MSONable):
     job, Response, .Flow
     """
 
+    function: Callable
+    function_args: tuple[Any, ...]
+    function_kwargs: dict[str, Any]
+    output_schema: type[BaseModel]
+    uuid: str
+    index: int
+    name: str
+    metadata: dict[str, Any]
+    config: JobConfig
+    hosts: list[str]
+    metadata_updates: list[dict[str, Any]]
+    config_updates: list[dict[str, Any]]
+    output: OutputReference
+
     def __init__(
         self,
         function: Callable,
